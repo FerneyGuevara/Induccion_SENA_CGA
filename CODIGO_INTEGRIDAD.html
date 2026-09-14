@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Código de Integridad SENA - Simulador Interactivo</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #898AAD;
+            color: #f1f5f9;
+        }
+
+        .tab-btn {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+            color: #94a3b8;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background-color: #1e293b;
+            border-color: #334155;
+            color: #f8fafc;
+        }
+
+        .tab-btn.active {
+            background-color: #4f46e5 !important;
+            color: #ffffff !important;
+            border-color: #6366f1 !important;
+            box-shadow: 0 4px 14px -2px rgba(79, 70, 229, 0.45) !important;
+        }
+
+        .option-card {
+            transition: all 0.2s ease;
+            border: 1px solid #1e293b;
+        }
+
+        .option-card:hover {
+            border-color: #6366f1 !important;
+            background-color: rgba(99, 102, 241, 0.12) !important;
+        }
+
+        select,
+        input[type="text"] {
+            color-scheme: dark;
+        }
+
+        /* Flip cards */
+        .flip-card {
+            perspective: 1200px;
+            height: 190px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.55s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .flip-card-front {
+            background: linear-gradient(160deg, #1e1b4b, #0f172a);
+            border: 1px solid #4338ca;
+        }
+
+        .flip-card-back {
+            background: #0f172a;
+            border: 1px solid #6366f1;
+            transform: rotateY(180deg);
+            font-size: 11px;
+            line-height: 1.4;
+            color: #cbd5e1;
+        }
+
+        /* Drag & drop */
+        .drag-item {
+            cursor: grab;
+            transition: all 0.15s ease;
+        }
+
+        .drag-item:active {
+            cursor: grabbing;
+        }
+
+        .drag-item.dragging {
+            opacity: 0.35;
+        }
+
+        .drop-zone {
+            transition: all 0.15s ease;
+            min-height: 64px;
+        }
+
+        .drop-zone.drag-over {
+            border-color: #6366f1 !important;
+            background-color: rgba(99, 102, 241, 0.12) !important;
+        }
+
+        @media print {
+            @page {
+                margin: 10mm 15mm;
+                size: letter portrait;
+            }
+
+            *,
+            *::before,
+            *::after {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+            }
+
+            html,
+            body {
+                display: block !important;
+                background: #ffffff !important;
+                color: #0f172a !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+                min-height: auto !important;
+            }
+
+            header,
+            nav,
+            footer,
+            #custom-modal,
+            .no-print,
+            #pane-registro,
+            #pane-valores,
+            #pane-relaciona,
+            #pane-casos,
+            #pane-dashboard {
+                display: none !important;
+            }
+
+            main {
+                display: block !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            #pane-evaluacion {
+                display: block !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+            }
+
+            #pane-evaluacion>div.no-print {
+                display: none !important;
+            }
+
+            #print-area {
+                display: block !important;
+                visibility: visible !important;
+                position: static !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            #print-area>div {
+                background: #ffffff !important;
+                border: 2px solid #cbd5e1 !important;
+                border-radius: 12px !important;
+                padding: 16px !important;
+                color: #0f172a !important;
+                margin: 0 !important;
+            }
+
+            #print-area h1,
+            #print-area h2 {
+                color: #4338ca !important;
+            }
+
+            #print-area p,
+            #print-area span,
+            #print-area div {
+                color: #1e293b !important;
+            }
+
+            #print-area .text-indigo-400 {
+                color: #4338ca !important;
+            }
+
+            #print-area .text-slate-100,
+            #print-area .text-slate-200,
+            #print-area .text-slate-300 {
+                color: #0f172a !important;
+            }
+
+            #print-area .text-slate-400,
+            #print-area .text-slate-500 {
+                color: #475569 !important;
+            }
+
+            #print-area .bg-slate-950,
+            #print-area .bg-slate-900\/90,
+            #print-area .bg-slate-900 {
+                background-color: #f8fafc !important;
+                border: 1px solid #e2e8f0 !important;
+                color: #0f172a !important;
+            }
+
+            #print-area table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                border: 1px solid #cbd5e1 !important;
+            }
+
+            #print-area table thead tr {
+                background-color: #e2e8f0 !important;
+                border-bottom: 2px solid #94a3b8 !important;
+            }
+
+            #print-area table thead th {
+                color: #1e293b !important;
+                font-weight: 700 !important;
+                padding: 8px 10px !important;
+                border: 1px solid #cbd5e1 !important;
+            }
+
+            #print-area table tbody tr {
+                background-color: #ffffff !important;
+                border-bottom: 1px solid #e2e8f0 !important;
+            }
+
+            #print-area table tbody tr:nth-child(even) {
+                background-color: #f8fafc !important;
+            }
+
+            #print-area table tbody td {
+                padding: 8px 10px !important;
+                color: #1e293b !important;
+                border: 1px solid #e2e8f0 !important;
+            }
+
+            #print-area table tr.bg-slate-950 {
+                background-color: #f1f5f9 !important;
+                border-top: 2px solid #94a3b8 !important;
+            }
+
+            #print-area .bg-emerald-950\/70,
+            #print-area .text-emerald-400 {
+                background-color: #dcfce7 !important;
+                color: #166534 !important;
+                border: 1px solid #86efac !important;
+                font-weight: 700 !important;
+            }
+
+            #print-area .bg-rose-950\/70,
+            #print-area .text-rose-400 {
+                background-color: #ffe4e6 !important;
+                color: #9f1239 !important;
+                border: 1px solid #fca5a5 !important;
+                font-weight: 700 !important;
+            }
+
+            #print-area .bg-amber-950\/70,
+            #print-area .text-amber-400 {
+                background-color: #fef3c7 !important;
+                color: #92400e !important;
+                border: 1px solid #fcd34d !important;
+                font-weight: 700 !important;
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-[#898AAD] text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-indigo-500/30 selection:text-indigo-200">
+
+    <!-- ========================================== -->
+    <!-- HEADER PRINCIPAL                           -->
+    <!-- ========================================== -->
+    <header class="border-b border-slate-800 bg-slate-950 sticky top-0 z-50 no-print shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+
+            <div class="flex items-center gap-3">
+                <img src="sena.png" alt="Logo SENA" class="w-9 h-9 object-contain shrink-0"
+                    onerror="this.style.display='none'" />
+                <div>
+                    <h1 class="text-sm sm:text-base font-bold text-indigo-400 leading-none">Código de Integridad SENA
+                    </h1>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Simulador Interactivo &bull; 7 Valores del Servidor
+                        Público</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 flex-wrap">
+                <div class="flex items-center gap-1.5 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs">
+                    <i class="fas fa-clock text-indigo-400 text-[11px]"></i>
+                    <span id="timer-display" class="font-mono font-bold text-slate-100">60:00</span>
+                </div>
+                <div class="flex items-center gap-1.5 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs">
+                    <i class="fas fa-rotate text-indigo-400 text-[11px]"></i>
+                    <span>Intentos:</span>
+                    <span id="attempts-left" class="font-bold text-slate-100">4</span>
+                </div>
+
+                <button onclick="confirmReset()"
+                    class="bg-rose-900/50 hover:bg-rose-900 text-rose-200 px-3.5 py-1.5 rounded-lg text-xs font-semibold border border-rose-800 transition flex items-center gap-1.5">
+                    <i class="fas fa-rotate-left text-[11px]"></i>
+                    <span>Reiniciar Intento</span>
+                </button>
+
+                <button onclick="printEvidence()"
+                    class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold border border-emerald-500 transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fas fa-print text-[11px]"></i>
+                    <span>Imprimir Resultados</span>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- CONTENEDOR PRINCIPAL                      -->
+    <!-- ========================================== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-grow">
+
+        <!-- Panel Resumen Superior -->
+        <div
+            class="bg-slate-900/90 backdrop-blur-sm rounded-2xl p-5 mb-6 border border-slate-700/80 flex flex-wrap items-center justify-between gap-4 no-print shadow-xl">
+            <div>
+                <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Ruta Pedagógica Integral
+                </span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">Guía Interactiva: Valores
+                    de Integridad</h2>
+                <p class="text-xs text-slate-400 mt-0.5">Duración estimada: 60 minutos | Calificación mínima
+                    aprobatoria: 90%
+                </p>
+            </div>
+
+            <div class="flex items-center gap-4 bg-slate-950 p-3 px-4 rounded-xl border border-slate-800 shadow-inner">
+                <div class="text-right">
+                    <div class="text-[10px] uppercase font-bold tracking-wider text-slate-400">Puntaje Global</div>
+                    <div class="text-xl sm:text-2xl font-black text-slate-100 leading-none mt-0.5">
+                        <span id="global-score">0</span> <span class="text-xs font-normal text-slate-400">/ 100
+                            pts</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navegación de pestañas -->
+        <nav class="flex flex-wrap gap-2 mb-6 no-print">
+            <button onclick="window.location.href='index.html'" id="tab-inicio"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-house text-xs"></i> Inicio
+            </button>
+            <button onclick="switchTab('registro')" id="tab-registro"
+                class="tab-btn active px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-id-card text-xs"></i> 1. Registro
+            </button>
+            <button onclick="switchTab('valores')" id="tab-valores"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-heart text-xs"></i> Valores de Integridad
+            </button>
+            <button onclick="switchTab('relaciona')" id="tab-relaciona"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-link text-xs"></i> Relaciona el Valor
+            </button>
+            <button onclick="switchTab('casos')" id="tab-casos"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-comments text-xs"></i> Casos Vivenciales
+            </button>
+            <button onclick="switchTab('evaluacion')" id="tab-evaluacion"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-clipboard-check text-xs"></i> Evaluación
+            </button>
+            <button onclick="switchTab('dashboard')" id="tab-dashboard"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-chart-pie text-xs"></i> Dashboard
+            </button>
+        </nav>
+
+        <!-- ========================================== -->
+        <!-- 1. PESTAÑA: REGISTRO                       -->
+        <!-- ========================================== -->
+        <section id="pane-registro" class="tab-pane block">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 max-w-3xl mx-auto shadow-2xl">
+                <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-800">
+                    <div
+                        class="w-10 h-10 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-center text-indigo-400">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-100">Registro del Aprendiz</h2>
+                        <p class="text-xs text-slate-400">Diligencia tus datos para iniciar el recorrido formativo.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Nombre
+                            Completo *</label>
+                        <input type="text" id="reg-nombre" required placeholder="Ej: Carlos Alberto Torres Gómez"
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm font-semibold text-slate-100 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition" />
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Documento
+                            de Identidad *</label>
+                        <input type="text" id="reg-doc" required placeholder="Ej: 1020304050"
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm font-semibold text-slate-100 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition" />
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Número
+                            de Ficha *</label>
+                        <input type="text" id="reg-ficha" required placeholder="Ej: 2874912"
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm font-semibold text-slate-100 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition" />
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Programa
+                            de Formación *</label>
+                        <select id="reg-programa" required
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm font-semibold text-slate-100 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition">
+                            <option value="" disabled selected>Seleccione un programa...</option>
+                            <option value="Tecnico en Talento Humano">Técnico en Talento Humano</option>
+                            <option value="Tecnico en Asistencia a la Funcion Publica">Técnico en Asistencia a la
+                                Función Pública
+                            </option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Centro
+                            de Formación</label>
+                        <input type="text" id="reg-centro" value="Gestión Administrativa" readonly
+                            class="w-full px-3.5 py-2.5 bg-slate-950/60 border border-slate-800 rounded-xl text-sm font-semibold text-slate-400 outline-none" />
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Regional</label>
+                        <input type="text" id="reg-regional" value="Distrito Capital" readonly
+                            class="w-full px-3.5 py-2.5 bg-slate-950/60 border border-slate-800 rounded-xl text-sm font-semibold text-slate-400 outline-none" />
+                    </div>
+                </div>
+
+                <div
+                    class="bg-slate-950 mt-6 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed">
+                    <p class="font-bold text-slate-200 mb-1.5 flex items-center gap-1.5">
+                        <i class="fas fa-circle-info text-indigo-400"></i> ¿Qué es el Código de Integridad SENA?
+                    </p>
+                    <p>
+                        Es la política de integridad adoptada por el Consejo Directivo Nacional mediante el Acuerdo
+                        No. 005 de 2018, que armoniza los valores definidos por la comunidad SENA con los cinco
+                        valores propuestos por el DAFP (Honestidad, Respeto, Compromiso, Diligencia y Justicia), y
+                        adopta dos valores distintivos de la Entidad: Solidaridad y Lealtad, para un total de siete
+                        valores.
+                    </p>
+                </div>
+
+                <button onclick="proceedToValores()"
+                    class="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold py-3 rounded-xl transition flex items-center justify-center gap-2 shadow-lg">
+                    Confirmar e Iniciar Fase 1 <i class="fas fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 2. PESTAÑA: VALORES (FLIP CARDS)           -->
+        <!-- ========================================== -->
+        <section id="pane-valores" class="tab-pane hidden">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+                <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-indigo-400">Explora los 7 Valores de Integridad</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Haz clic en cada tarjeta para conocer su definición
+                            oficial. Cuando termines, avanza a la siguiente fase.</p>
+                    </div>
+                    <span
+                        class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Fase
+                        Exploratoria</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="flip-grid">
+                    <!-- Las tarjetas se generan dinámicamente vía JS -->
+                </div>
+
+                <div class="flex justify-end mt-7">
+                    <button onclick="proceedToRelaciona()"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-6 py-3 rounded-xl transition flex items-center gap-2 shadow-lg">
+                        Avanzar a Relaciona el Valor <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 3. PESTAÑA: RELACIONA EL VALOR (DRAG&DROP) -->
+        <!-- ========================================== -->
+        <section id="pane-relaciona" class="tab-pane hidden">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+                <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-indigo-400">Relaciona el Valor</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Arrastra cada acción ("Lo que hago") hasta el valor
+                            de integridad al que corresponde.</p>
+                    </div>
+                    <span
+                        class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Ponderación:
+                        40 Puntos</span>
+                </div>
+
+                <p class="text-xs font-bold text-slate-300 mb-3 uppercase tracking-tight">Acciones por clasificar</p>
+                <div id="relaciona-bank" class="flex flex-wrap gap-2.5 mb-7 p-4 bg-slate-950 rounded-xl border border-slate-800 min-h-[70px]">
+                    <!-- drag items generados vía JS -->
+                </div>
+
+                <p class="text-xs font-bold text-slate-300 mb-3 uppercase tracking-tight">Valores de Integridad</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="relaciona-zones">
+                    <!-- drop zones generados vía JS -->
+                </div>
+
+                <div class="flex justify-between items-center mt-7">
+                    <button onclick="checkRelaciona()"
+                        class="bg-slate-800 hover:bg-slate-700 text-slate-100 text-xs font-bold px-4 py-2.5 rounded-xl transition flex items-center gap-2 border border-slate-700">
+                        <i class="fas fa-check text-[11px]"></i> Verificar Clasificación
+                    </button>
+                    <button onclick="proceedToCasos()"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-6 py-3 rounded-xl transition flex items-center gap-2 shadow-lg">
+                        Avanzar a Casos Vivenciales <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 4. PESTAÑA: CASOS VIVENCIALES              -->
+        <!-- ========================================== -->
+        <section id="pane-casos" class="tab-pane hidden">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+                <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-indigo-400">Casos Vivenciales</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Analiza cada situación cotidiana e identifica el
+                            valor de integridad que mejor la representa.</p>
+                    </div>
+                    <span
+                        class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Ponderación:
+                        30 Puntos</span>
+                </div>
+
+                <div class="space-y-5">
+
+                    <!-- Caso 1 -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <div class="flex items-start gap-3 mb-3">
+                            <span
+                                class="w-7 h-7 rounded-lg bg-slate-900 border border-slate-800 text-indigo-400 text-xs font-bold flex items-center justify-center shrink-0">1</span>
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-200">Caso 1: El dinero olvidado</h3>
+                                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                                    Un aprendiz encuentra dinero olvidado por un compañero en el aula y decide
+                                    devolverlo de inmediato, sin esperar nada a cambio, entendiendo que hace parte de
+                                    una comunidad.
+                                </p>
+                                <p class="text-xs font-bold text-indigo-400 mt-2">¿QUÉ VALOR REPRESENTA MEJOR ESTA
+                                    CONDUCTA?</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:pl-10">
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="caso-q1" value="A" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">A) Solidaridad</span>
+                            </label>
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="caso-q1" value="B" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">B) Diligencia</span>
+                            </label>
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="caso-q1" value="C" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">C) Lealtad</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Caso 2 -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <div class="flex items-start gap-3 mb-3">
+                            <span
+                                class="w-7 h-7 rounded-lg bg-slate-900 border border-slate-800 text-indigo-400 text-xs font-bold flex items-center justify-center shrink-0">2</span>
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-200">Caso 2: La queja ciudadana</h3>
+                                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                                    Un funcionario resuelve una queja ciudadana aplicando la ley por encima de sus
+                                    preferencias personales, sin permitir que simpatías o presiones externas influyan
+                                    en su decisión.
+                                </p>
+                                <p class="text-xs font-bold text-indigo-400 mt-2">¿QUÉ VALOR REPRESENTA MEJOR ESTA
+                                    CONDUCTA?</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:pl-10">
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="caso-q2" value="A" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">A) Compromiso</span>
+                            </label>
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="caso-q2" value="B" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">B) Justicia</span>
+                            </label>
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="caso-q2" value="C" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">C) Respeto</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Caso 3 -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <div class="flex items-start gap-3 mb-3">
+                            <span
+                                class="w-7 h-7 rounded-lg bg-slate-900 border border-slate-800 text-indigo-400 text-xs font-bold flex items-center justify-center shrink-0">3</span>
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-200">Caso 3: Diferencias con el jefe</h3>
+                                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                                    A pesar de tener diferencias con su jefe, un servidor público continúa cumpliendo
+                                    sus funciones dentro del marco normativo de la Entidad y se refiere a ella en
+                                    forma positiva.
+                                </p>
+                                <p class="text-xs font-bold text-indigo-400 mt-2">¿QUÉ VALOR REPRESENTA MEJOR ESTA
+                                    CONDUCTA?</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:pl-10">
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="caso-q3" value="A" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">A) Lealtad</span>
+                            </label>
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="caso-q3" value="B" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">B) Honestidad</span>
+                            </label>
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="caso-q3" value="C" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">C) Diligencia</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="flex justify-end mt-7">
+                    <button onclick="proceedToEvaluacion()"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-6 py-3 rounded-xl transition flex items-center gap-2 shadow-lg">
+                        Avanzar a Evaluación <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 5. PESTAÑA: EVALUACIÓN                     -->
+        <!-- ========================================== -->
+        <section id="pane-evaluacion" class="tab-pane hidden">
+
+            <div class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl no-print">
+                <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-indigo-400">Evaluación de Síntesis</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Responde las siguientes preguntas para consolidar tu
+                            proceso formativo.</p>
+                    </div>
+                    <span
+                        class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Ponderación:
+                        30 Puntos</span>
+                </div>
+
+                <div class="space-y-5">
+
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">1. ¿Cuántos valores conforman el Código de
+                            Integridad SENA y cómo se compone ese total?</p>
+                        <div class="grid grid-cols-1 gap-2.5">
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="eva-q1" value="A" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">A) Cinco valores, todos definidos por
+                                    el DAFP.</span>
+                            </label>
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="eva-q1" value="B" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">B) Siete valores: los cinco propuestos
+                                    por el DAFP (Honestidad, Respeto, Compromiso, Diligencia y Justicia) más dos
+                                    valores distintivos del SENA (Solidaridad y Lealtad).</span>
+                            </label>
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="eva-q1" value="C" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">C) Tres valores exclusivos del sector
+                                    educativo.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">2. ¿Mediante qué acuerdo adopta el Consejo
+                            Directivo Nacional el Código de Integridad SENA?</p>
+                        <div class="grid grid-cols-1 gap-2.5">
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="eva-q2" value="A" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">A) Acuerdo No. 002 del 23 de febrero
+                                    de 2017.</span>
+                            </label>
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="eva-q2" value="B" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">B) Acuerdo No. 005 de 2018, adoptado
+                                    en sesión del 17 de octubre de 2018, el cual deroga el Código de Ética anterior.</span>
+                            </label>
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="eva-q2" value="C" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">C) Ley 119 de 1994.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">3. ¿Cuál de las siguientes NO es una acción
+                            asociada al valor de la Honestidad?</p>
+                        <div class="grid grid-cols-1 gap-2.5">
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="eva-q3" value="A" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">A) Facilitar el acceso a la información
+                                    pública completa, veraz y oportuna.</span>
+                            </label>
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="eva-q3" value="B" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">B) Aceptar incentivos o favores de
+                                    quienes están interesados en un proceso de toma de decisiones.</span>
+                            </label>
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="eva-q3" value="C" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">C) Denunciar las faltas, delitos o
+                                    violaciones de derechos de las que se tenga conocimiento.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="flex justify-end mt-7">
+                    <button onclick="consolidateEvaluation()"
+                        class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold px-6 py-3 rounded-xl transition flex items-center gap-2 shadow-lg">
+                        <i class="fas fa-file-signature text-xs"></i> Generar y Revisar Acta de Evidencia
+                    </button>
+                </div>
+            </div>
+
+            <!-- ============== ACTA IMPRIMIBLE ============== -->
+            <div id="print-area">
+
+                <div
+                    class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+
+                    <div class="flex flex-wrap items-center justify-between pb-4 mb-5 border-b border-slate-800 gap-4">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-center text-indigo-400 font-bold text-lg shrink-0">
+                                <i class="fas fa-file-signature"></i>
+                            </div>
+                            <div>
+                                <h1 class="text-lg font-bold text-indigo-400">Acta de Resultados - Código de Integridad
+                                </h1>
+                                <p class="text-xs text-slate-400">SENA - Política de Integridad | Fecha: <span
+                                        id="print-fecha">--</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="text-sm font-bold text-indigo-400 mb-3">1. Información de Registro del Aprendiz</h2>
+                    <table class="w-full text-xs mb-6">
+                        <thead>
+                            <tr class="text-slate-400 uppercase text-[10px] border-b border-slate-800">
+                                <th class="text-left py-1.5">Nombre</th>
+                                <th class="text-left py-1.5">Documento</th>
+                                <th class="text-left py-1.5">Ficha</th>
+                                <th class="text-left py-1.5">Programa</th>
+                                <th class="text-left py-1.5">Centro</th>
+                                <th class="text-left py-1.5">Regional</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-slate-200 font-semibold">
+                                <td class="py-1.5" id="print-nombre">--</td>
+                                <td class="py-1.5" id="print-doc">--</td>
+                                <td class="py-1.5" id="print-ficha">--</td>
+                                <td class="py-1.5" id="print-programa">--</td>
+                                <td class="py-1.5" id="print-centro">--</td>
+                                <td class="py-1.5" id="print-regional">--</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 class="text-sm font-bold text-indigo-400 mb-3">2. Resultado de la Evaluación</h2>
+                    <p class="text-xs text-slate-400 mb-3">Resumen de calificación por componente</p>
+                    <table class="w-full text-xs mb-2">
+                        <thead>
+                            <tr class="bg-slate-950 text-slate-400 uppercase text-[10px]">
+                                <th class="text-left py-2 px-2">Componente</th>
+                                <th class="text-center py-2 px-2">Puntaje</th>
+                                <th class="text-center py-2 px-2">% Cumplimiento</th>
+                                <th class="text-center py-2 px-2">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-slate-800">
+                                <td class="py-2 px-2 text-slate-200">Relaciona el Valor</td>
+                                <td class="py-2 px-2 text-center" id="tb-rel-pts">--</td>
+                                <td class="py-2 px-2 text-center" id="tb-rel-pct">0%</td>
+                                <td class="py-2 px-2 text-center"><span id="tb-rel-badge"
+                                        class="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-slate-900 text-slate-400 border border-slate-800">Pendiente</span>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="py-2 px-2 text-slate-200">Casos Vivenciales</td>
+                                <td class="py-2 px-2 text-center" id="tb-cas-pts">--</td>
+                                <td class="py-2 px-2 text-center" id="tb-cas-pct">0%</td>
+                                <td class="py-2 px-2 text-center"><span id="tb-cas-badge"
+                                        class="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-slate-900 text-slate-400 border border-slate-800">Pendiente</span>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="py-2 px-2 text-slate-200">Evaluación de Síntesis</td>
+                                <td class="py-2 px-2 text-center" id="tb-eva-pts">--</td>
+                                <td class="py-2 px-2 text-center" id="tb-eva-pct">0%</td>
+                                <td class="py-2 px-2 text-center"><span id="tb-eva-badge"
+                                        class="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-slate-900 text-slate-400 border border-slate-800">Pendiente</span>
+                                </td>
+                            </tr>
+                            <tr class="bg-slate-950 font-bold">
+                                <td class="py-2.5 px-2 text-slate-100">TOTAL</td>
+                                <td class="py-2.5 px-2 text-center text-slate-100" id="tb-tot-pts">0 pts</td>
+                                <td class="py-2.5 px-2 text-center text-slate-100" id="tb-tot-pct">0%</td>
+                                <td class="py-2.5 px-2 text-center"><span id="tb-tot-badge"
+                                        class="px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-900 text-slate-400 border border-slate-800">Pendiente</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="flex items-center justify-between mt-4 no-print">
+                        <span id="matrix-status-pill"
+                            class="text-xs font-bold px-3 py-1 rounded-lg bg-slate-950 text-slate-400 flex items-center gap-1.5 border border-slate-800">
+                            <span class="w-2 h-2 rounded-full bg-slate-500"></span> Pendiente de Consolidación
+                        </span>
+                        <button onclick="consolidateEvaluation()"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                            <i class="fas fa-calculator text-[11px]"></i> Consolidar Evaluación
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 6. PESTAÑA: DASHBOARD                      -->
+        <!-- ========================================== -->
+        <section id="pane-dashboard" class="tab-pane hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+
+                <div class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 shadow-2xl">
+                    <h3 class="text-sm font-bold text-indigo-400 mb-4">Rendimiento por Componente</h3>
+                    <canvas id="barChart" height="220"></canvas>
+                </div>
+
+                <div class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 shadow-2xl">
+                    <h3 class="text-sm font-bold text-indigo-400 mb-4">Efectividad Global</h3>
+                    <canvas id="doughnutChart" height="220"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 shadow-2xl">
+                <h3 class="text-sm font-bold text-indigo-400 mb-3 flex items-center gap-2">
+                    <i class="fas fa-stethoscope text-xs"></i> Dictamen Pedagógico
+                </h3>
+                <p id="dashboard-dictamen" class="text-sm text-slate-300 leading-relaxed">
+                    Aún no se ha consolidado la evaluación. Completa la fase de Evaluación para ver tu dictamen.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- MODAL PERSONALIZADO                        -->
+    <!-- ========================================== -->
+    <div id="custom-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4 no-print">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-sm w-full shadow-2xl">
+            <h3 id="modal-title" class="text-base font-bold text-indigo-400 mb-2"></h3>
+            <p id="modal-message" class="text-sm text-slate-300 leading-relaxed mb-5"></p>
+            <div id="modal-actions" class="flex justify-end gap-2">
+                <button onclick="closeModal()"
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-4 no-print">
+        <p class="text-center text-[11px] text-slate-500">Código de Integridad SENA &middot; Política de Integridad
+            2024 &middot; Simulador formativo</p>
+    </footer>
+
+    <script>
+        /* ============== DATOS DE LOS 7 VALORES ============== */
+        const valores = [
+            {
+                slug: 'respeto', nombre: 'Respeto', icon: 'fa-hands-holding',
+                definicion: 'Reconozco, valoro y trato de manera digna a todas las personas, con sus virtudes y defectos, sin importar su labor, procedencia, estudios o cualquier otra condición.'
+            },
+            {
+                slug: 'honestidad', nombre: 'Honestidad', icon: 'fa-scroll',
+                definicion: 'Actúo siempre con fundamento en la verdad, cumpliendo mis deberes con transparencia, rectitud y siempre favoreciendo el interés general.'
+            },
+            {
+                slug: 'compromiso', nombre: 'Compromiso', icon: 'fa-handshake',
+                definicion: 'Soy consciente de la importancia de mi rol como servidor público y estoy en disposición permanente para comprender y resolver las necesidades de las personas con las que me relaciono.'
+            },
+            {
+                slug: 'diligencia', nombre: 'Diligencia', icon: 'fa-bolt',
+                definicion: 'Cumplo con los deberes, funciones y responsabilidades asignadas a mi cargo con atención, prontitud, destreza y eficiencia, optimizando el uso de los recursos del Estado.'
+            },
+            {
+                slug: 'justicia', nombre: 'Justicia', icon: 'fa-scale-balanced',
+                definicion: 'Actúo con imparcialidad garantizando los derechos de las personas, con equidad, igualdad y sin discriminación.'
+            },
+            {
+                slug: 'solidaridad', nombre: 'Solidaridad', icon: 'fa-people-arrows',
+                definicion: 'Brindo mi ayuda a las personas cuando lo necesitan sin esperar algo a cambio, entendiendo que hago parte de una comunidad.'
+            },
+            {
+                slug: 'lealtad', nombre: 'Lealtad', icon: 'fa-shield-heart',
+                definicion: 'Obro de acuerdo a los principios éticos, morales, culturales, ecológicos y a las normas colombianas e institucionales.'
+            }
+        ];
+
+        /* ============== DATOS PARA RELACIONA EL VALOR ============== */
+        const relacionaItems = [
+            { id: 'r1', texto: 'Atiendo con amabilidad, igualdad y equidad a todas las personas.', valor: 'respeto' },
+            { id: 'r2', texto: 'Siempre digo la verdad, incluso cuando cometo errores.', valor: 'honestidad' },
+            { id: 'r3', texto: 'Asumo mi papel como servidor público con responsabilidad frente a la ciudadanía.', valor: 'compromiso' },
+            { id: 'r4', texto: 'Uso responsablemente los recursos públicos para cumplir mis obligaciones.', valor: 'diligencia' },
+            { id: 'r5', texto: 'Tomo decisiones informadas y objetivas basadas en evidencias y datos confiables.', valor: 'justicia' },
+            { id: 'r6', texto: 'Estoy dispuesto a colaborar ante las dificultades personales o laborales de mis compañeros.', valor: 'solidaridad' },
+            { id: 'r7', texto: 'Contribuyo al cumplimiento de la misión, objetivos y funciones de la Entidad.', valor: 'lealtad' },
+            { id: 'r8', texto: 'Cumplo con los tiempos estipulados para el logro de cada obligación laboral.', valor: 'diligencia' }
+        ];
+
+        let registeredLearner = null;
+        let attemptsLeft = 4;
+        let timerInterval = null;
+        let timeLeft = 60 * 60;
+        let barChartInstance = null;
+        let doughnutChartInstance = null;
+
+        const scores = {
+            relaciona: 0, relacionaMax: 40,
+            casos: 0, casosMax: 30,
+            evaluacion: 0, evaluacionMax: 30,
+            total: 0
+        };
+
+        /* ============== MODAL ============== */
+        function showModal(title, message) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-message').innerText = message;
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        /* ============== NAVEGACIÓN DE PESTAÑAS ============== */
+        function switchTab(tabId) {
+            if (!registeredLearner && tabId !== 'registro') {
+                showModal('Registro Requerido', 'Por favor diligencia primero tus datos en la pestaña de Registro.');
+                return;
+            }
+
+            document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(`pane-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            if (tabId === 'dashboard') {
+                updateCharts();
+            }
+        }
+
+        function proceedToValores() {
+            const nombre = document.getElementById('reg-nombre').value.trim();
+            const doc = document.getElementById('reg-doc').value.trim();
+            const ficha = document.getElementById('reg-ficha').value.trim();
+            const prog = document.getElementById('reg-programa')?.value || '';
+
+            if (!nombre || !doc || !ficha || !prog) {
+                showModal('Campos Incompletos', 'Por favor diligencia tu Nombre, Documento, Ficha y Programa de Formación.');
+                return;
+            }
+
+            registeredLearner = { nombre, doc, ficha, prog };
+
+            document.getElementById('print-nombre').innerText = nombre;
+            document.getElementById('print-doc').innerText = doc;
+            document.getElementById('print-ficha').innerText = ficha;
+            document.getElementById('print-programa').innerText = prog;
+            document.getElementById('print-centro').innerText = document.getElementById('reg-centro').value;
+            document.getElementById('print-regional').innerText = document.getElementById('reg-regional').value;
+
+            if (!timerInterval) startTimer();
+
+            switchTab('valores');
+        }
+
+        function proceedToRelaciona() {
+            switchTab('relaciona');
+        }
+
+        function proceedToCasos() {
+            switchTab('casos');
+        }
+
+        function proceedToEvaluacion() {
+            switchTab('evaluacion');
+        }
+
+        /* ============== TARJETAS VOLTEABLES (VALORES) ============== */
+        function initFlipCards() {
+            const grid = document.getElementById('flip-grid');
+            grid.innerHTML = '';
+            valores.forEach(v => {
+                const card = document.createElement('div');
+                card.className = 'flip-card';
+                card.innerHTML = `
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fas ${v.icon} text-indigo-400 text-2xl mb-2"></i>
+                            <h4 class="text-sm font-bold text-white">${v.nombre}</h4>
+                            <p class="text-[10px] text-slate-400 mt-1">Clic para descubrir</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>${v.definicion}</p>
+                        </div>
+                    </div>
+                `;
+                card.addEventListener('click', () => card.classList.toggle('flipped'));
+                grid.appendChild(card);
+            });
+        }
+
+        /* ============== RELACIONA EL VALOR (DRAG & DROP) ============== */
+        function shuffleArray(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        function initRelaciona() {
+            const bank = document.getElementById('relaciona-bank');
+            const zonesWrap = document.getElementById('relaciona-zones');
+            bank.innerHTML = '';
+            zonesWrap.innerHTML = '';
+
+            shuffleArray(relacionaItems).forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'drag-item bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200';
+                el.draggable = true;
+                el.dataset.valor = item.valor;
+                el.dataset.itemId = item.id;
+                el.innerText = item.texto;
+
+                el.addEventListener('dragstart', () => {
+                    el.classList.add('dragging');
+                });
+                el.addEventListener('dragend', () => {
+                    el.classList.remove('dragging');
+                });
+
+                bank.appendChild(el);
+            });
+
+            valores.forEach(v => {
+                const zone = document.createElement('div');
+                zone.className = 'drop-zone bg-slate-950 border-2 border-dashed border-slate-700 rounded-xl p-3';
+                zone.dataset.valor = v.slug;
+                zone.innerHTML = `<p class="text-xs font-bold text-indigo-300 mb-2 flex items-center gap-1.5"><i class="fas ${v.icon} text-[11px]"></i> ${v.nombre}</p>`;
+
+                zone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    zone.classList.add('drag-over');
+                });
+                zone.addEventListener('dragleave', () => {
+                    zone.classList.remove('drag-over');
+                });
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('drag-over');
+                    const dragging = document.querySelector('.drag-item.dragging');
+                    if (dragging) zone.appendChild(dragging);
+                });
+
+                zonesWrap.appendChild(zone);
+            });
+
+            bank.addEventListener('dragover', (e) => e.preventDefault());
+            bank.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const dragging = document.querySelector('.drag-item.dragging');
+                if (dragging) bank.appendChild(dragging);
+            });
+        }
+
+        function checkRelaciona() {
+            const zones = document.querySelectorAll('#relaciona-zones .drop-zone');
+            let correct = 0;
+            let placed = 0;
+
+            zones.forEach(zone => {
+                zone.querySelectorAll('.drag-item').forEach(item => {
+                    placed++;
+                    const isCorrect = item.dataset.valor === zone.dataset.valor;
+                    item.classList.remove('border-emerald-500', 'border-rose-500');
+                    item.style.borderColor = '';
+                    if (isCorrect) {
+                        correct++;
+                        item.style.borderColor = '#10b981';
+                    } else {
+                        item.style.borderColor = '#f43f5e';
+                    }
+                });
+            });
+
+            if (placed < relacionaItems.length) {
+                showModal('Clasificación Incompleta', `Has clasificado ${placed} de ${relacionaItems.length} acciones. Ubica todas antes de verificar.`);
+                return;
+            }
+
+            const pts = Math.round((correct / relacionaItems.length) * scores.relacionaMax);
+            scores.relaciona = pts;
+            showModal('Resultado de la Clasificación', `Clasificaste correctamente ${correct} de ${relacionaItems.length} acciones (${pts} / ${scores.relacionaMax} pts).`);
+        }
+
+        /* ============== CASOS VIVENCIALES ============== */
+        const casosRespuestas = { 'caso-q1': 'A', 'caso-q2': 'B', 'caso-q3': 'A' };
+
+        function scoreCasos() {
+            let correct = 0;
+            Object.keys(casosRespuestas).forEach(name => {
+                const selected = document.querySelector(`input[name="${name}"]:checked`);
+                if (selected && selected.value === casosRespuestas[name]) correct++;
+            });
+            scores.casos = Math.round((correct / Object.keys(casosRespuestas).length) * scores.casosMax);
+            return correct;
+        }
+
+        /* ============== EVALUACIÓN DE SÍNTESIS ============== */
+        const evaRespuestas = { 'eva-q1': 'B', 'eva-q2': 'B', 'eva-q3': 'B' };
+
+        function scoreEvaluacion() {
+            let correct = 0;
+            Object.keys(evaRespuestas).forEach(name => {
+                const selected = document.querySelector(`input[name="${name}"]:checked`);
+                if (selected && selected.value === evaRespuestas[name]) correct++;
+            });
+            scores.evaluacion = Math.round((correct / Object.keys(evaRespuestas).length) * scores.evaluacionMax);
+            return correct;
+        }
+
+        /* ============== CONSOLIDACIÓN ============== */
+        function consolidateEvaluation() {
+            if (!registeredLearner) {
+                showModal('Registro Incompleto', 'Por favor diligencia tus datos institucionales en la pestaña de Registro.');
+                switchTab('registro');
+                return;
+            }
+
+            const casosCorrect = scoreCasos();
+            const evaCorrect = scoreEvaluacion();
+
+            scores.total = scores.relaciona + scores.casos + scores.evaluacion;
+
+            document.getElementById('global-score').innerText = scores.total;
+
+            const setRow = (prefix, pts, max) => {
+                const pct = Math.round((pts / max) * 100);
+                document.getElementById(`tb-${prefix}-pts`).innerText = `${pts} / ${max}`;
+                document.getElementById(`tb-${prefix}-pct`).innerText = `${pct}%`;
+                const badge = document.getElementById(`tb-${prefix}-badge`);
+                if (pct >= 90) {
+                    badge.className = 'px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-emerald-950/70 text-emerald-400 border border-emerald-800';
+                    badge.innerText = 'Aprobado';
+                } else if (pct > 0) {
+                    badge.className = 'px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-amber-950/70 text-amber-400 border border-amber-800';
+                    badge.innerText = 'Por Mejorar';
+                } else {
+                    badge.className = 'px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-rose-950/70 text-rose-400 border border-rose-800';
+                    badge.innerText = 'No Aprobado';
+                }
+                return pct;
+            };
+
+            setRow('rel', scores.relaciona, scores.relacionaMax);
+            setRow('cas', scores.casos, scores.casosMax);
+            setRow('eva', scores.evaluacion, scores.evaluacionMax);
+
+            document.getElementById('tb-tot-pts').innerText = `${scores.total} pts`;
+            document.getElementById('tb-tot-pct').innerText = `${scores.total}%`;
+
+            const totBadge = document.getElementById('tb-tot-badge');
+            if (scores.total >= 90) {
+                totBadge.className = 'px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-emerald-950/70 text-emerald-400 border border-emerald-800';
+                totBadge.innerText = 'Aprobado';
+            } else {
+                totBadge.className = 'px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-rose-950/70 text-rose-400 border border-rose-800';
+                totBadge.innerText = 'No Aprobado';
+            }
+
+            const pill = document.getElementById('matrix-status-pill');
+            if (scores.total >= 90) {
+                pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-emerald-950/70 text-emerald-400 flex items-center gap-1.5 border border-emerald-800';
+                pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400"></span> Evaluación Consolidada - Aprobado';
+            } else {
+                pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-amber-950/70 text-amber-400 flex items-center gap-1.5 border border-amber-800';
+                pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400"></span> Evaluación Consolidada - Requiere Refuerzo';
+            }
+
+            showModal('Evaluación Consolidada', `Tu puntaje total es de ${scores.total} / 100 puntos. Consulta el detalle en el Acta de Resultados y en el Dashboard.`);
+        }
+
+        /* ============== IMPRESIÓN ============== */
+        function printEvidence() {
+            if (!registeredLearner) {
+                const nombre = document.getElementById('reg-nombre').value.trim();
+                const doc = document.getElementById('reg-doc').value.trim();
+                const ficha = document.getElementById('reg-ficha').value.trim();
+                const prog = document.getElementById('reg-programa')?.value || '';
+
+                if (nombre && doc && ficha && prog) {
+                    registeredLearner = { nombre, doc, ficha, prog };
+                    document.getElementById('print-nombre').innerText = nombre;
+                    document.getElementById('print-doc').innerText = doc;
+                    document.getElementById('print-ficha').innerText = ficha;
+                    document.getElementById('print-programa').innerText = prog;
+                    document.getElementById('print-centro').innerText = document.getElementById('reg-centro').value;
+                    document.getElementById('print-regional').innerText = document.getElementById('reg-regional').value;
+                } else {
+                    showModal('Registro Incompleto', 'Por favor diligencia tus datos institucionales (Nombre, Documento, Ficha y Programa) en la pestaña de Registro antes de imprimir.');
+                    switchTab('registro');
+                    return;
+                }
+            }
+
+            const fechaElem = document.getElementById('print-fecha');
+            if (fechaElem) {
+                const now = new Date();
+                const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+                fechaElem.innerText = `${now.getDate()} de ${meses[now.getMonth()]} de ${now.getFullYear()}`;
+            }
+
+            consolidateEvaluation();
+
+            switchTab('evaluacion');
+            setTimeout(() => {
+                window.print();
+            }, 300);
+        }
+
+        /* ============== TEMPORIZADOR ============== */
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    timeLeft = 0;
+                    clearInterval(timerInterval);
+                    showModal('Tiempo Agotado', 'Se agotó el tiempo disponible. Se consolidará automáticamente tu evaluación.');
+                    consolidateEvaluation();
+                    lockActivity();
+                }
+                const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+                const s = (timeLeft % 60).toString().padStart(2, '0');
+                document.getElementById('timer-display').innerText = `${m}:${s}`;
+            }, 1000);
+        }
+
+        function lockActivity() {
+            document.querySelectorAll('input, select, button').forEach(el => {
+                if (!['printEvidence', 'confirmReset'].some(fn => (el.getAttribute('onclick') || '').includes(fn))) {
+                    el.disabled = true;
+                }
+            });
+        }
+
+        /* ============== REINICIO DE INTENTO ============== */
+        function confirmReset() {
+            if (attemptsLeft <= 0) {
+                showModal('Intentos Agotados', 'Has alcanzado el límite máximo de cuatro (4) intentos permitidos para esta actividad.');
+                return;
+            }
+            showModal('Confirmar Reinicio de Intento', `Esto limpiará tus respuestas actuales. Te quedarán ${attemptsLeft - 1} intento(s) después de continuar.`);
+            const actions = document.getElementById('modal-actions');
+            actions.innerHTML = `
+                <button onclick="closeModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-4 py-2 rounded-lg transition border border-slate-700">Cancelar</button>
+                <button onclick="performReset()" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition">Sí, Reiniciar</button>
+            `;
+        }
+
+        function performReset() {
+            attemptsLeft--;
+            document.getElementById('attempts-left').innerText = attemptsLeft;
+
+            document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+            initRelaciona();
+
+            scores.relaciona = 0;
+            scores.casos = 0;
+            scores.evaluacion = 0;
+            scores.total = 0;
+            document.getElementById('global-score').innerText = 0;
+
+            const actions = document.getElementById('modal-actions');
+            actions.innerHTML = `<button onclick="closeModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition">Entendido</button>`;
+
+            if (attemptsLeft <= 0) {
+                showModal('Intentos Agotados', 'Has utilizado tu último intento disponible. El botón de reinicio se ha bloqueado.');
+            } else {
+                showModal('Intento Reiniciado', `Tus respuestas han sido reiniciadas. Te quedan ${attemptsLeft} intento(s).`);
+            }
+            switchTab('registro');
+        }
+
+        /* ============== GRÁFICOS (DASHBOARD) ============== */
+        function initCharts() {
+            const ctxBar = document.getElementById('barChart').getContext('2d');
+            barChartInstance = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ['Relaciona el Valor', 'Casos Vivenciales', 'Evaluación'],
+                    datasets: [{
+                        label: '% Cumplimiento',
+                        data: [0, 0, 0],
+                        backgroundColor: '#4f46e5',
+                        borderColor: '#6366f1',
+                        borderWidth: 1,
+                        borderRadius: 8,
+                        barThickness: 32
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, max: 100, ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } },
+                        x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+                    }
+                }
+            });
+
+            const ctxDough = document.getElementById('doughnutChart').getContext('2d');
+            doughnutChartInstance = new Chart(ctxDough, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Logrado', 'Restante'],
+                    datasets: [{
+                        data: [0, 100],
+                        backgroundColor: ['#4f46e5', '#1e293b'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'bottom', labels: { color: '#cbd5e1' } } }
+                }
+            });
+        }
+
+        function updateCharts() {
+            if (!barChartInstance || !doughnutChartInstance) return;
+
+            const relPct = Math.round((scores.relaciona / scores.relacionaMax) * 100) || 0;
+            const casPct = Math.round((scores.casos / scores.casosMax) * 100) || 0;
+            const evaPct = Math.round((scores.evaluacion / scores.evaluacionMax) * 100) || 0;
+
+            barChartInstance.data.datasets[0].data = [relPct, casPct, evaPct];
+            barChartInstance.update();
+
+            doughnutChartInstance.data.datasets[0].data = [scores.total, Math.max(0, 100 - scores.total)];
+            doughnutChartInstance.update();
+
+            const dictamen = document.getElementById('dashboard-dictamen');
+            if (scores.total === 0) {
+                dictamen.innerText = 'Aún no se ha consolidado la evaluación. Completa la fase de Evaluación para ver tu dictamen.';
+            } else if (scores.total >= 90) {
+                dictamen.innerText = `Con ${scores.total}/100 puntos, el aprendiz demuestra una apropiación sólida de los siete valores del Código de Integridad SENA, alcanzando el umbral de aprobación del 90%. Se recomienda mantener la práctica constante de estos valores en su etapa formativa y productiva.`;
+            } else {
+                dictamen.innerText = `Con ${scores.total}/100 puntos, el aprendiz no alcanza el umbral de aprobación del 90%. Se recomienda repasar la definición de los valores y las conductas asociadas ("Lo que hago" / "Lo que no hago") antes de un nuevo intento.`;
+            }
+        }
+
+        /* ============== INICIALIZACIÓN ============== */
+        window.addEventListener('DOMContentLoaded', () => {
+            initFlipCards();
+            initRelaciona();
+            initCharts();
+        });
+    </script>
+
+</body>
+
+</html>

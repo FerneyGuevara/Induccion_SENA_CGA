@@ -1,0 +1,1990 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reglamento SENA - Régimen de Faltas y Sanciones</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #898AAD;
+            color: #f1f5f9;
+        }
+
+        .tab-btn {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+            color: #94a3b8;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background-color: #1e293b;
+            border-color: #334155;
+            color: #f8fafc;
+        }
+
+        .tab-btn.active {
+            background-color: #4f46e5 !important;
+            color: #ffffff !important;
+            border-color: #6366f1 !important;
+            box-shadow: 0 4px 14px -2px rgba(79, 70, 229, 0.45) !important;
+        }
+
+        .option-card {
+            transition: all 0.2s ease;
+            border: 1px solid #1e293b;
+        }
+
+        .option-card:hover {
+            border-color: #6366f1 !important;
+            background-color: rgba(99, 102, 241, 0.12) !important;
+        }
+
+        select,
+        input[type="text"] {
+            color-scheme: dark;
+        }
+
+        /* Drag & drop */
+        .drag-item {
+            cursor: grab;
+            transition: all 0.15s ease;
+        }
+
+        .drag-item:active {
+            cursor: grabbing;
+        }
+
+        .drag-item.dragging {
+            opacity: 0.35;
+        }
+
+        .drop-zone {
+            transition: all 0.15s ease;
+            min-height: 90px;
+        }
+
+        .drop-zone.drag-over {
+            border-color: #6366f1 !important;
+            background-color: rgba(99, 102, 241, 0.12) !important;
+        }
+
+        .order-item {
+            cursor: grab;
+        }
+
+        .order-item.dragging {
+            opacity: 0.35;
+        }
+
+        @media print {
+            @page {
+                margin: 10mm 15mm;
+                size: letter portrait;
+            }
+
+            *,
+            *::before,
+            *::after {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+            }
+
+            html,
+            body {
+                display: block !important;
+                background: #ffffff !important;
+                color: #0f172a !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+                min-height: auto !important;
+            }
+
+            header,
+            nav,
+            footer,
+            #custom-modal,
+            .no-print,
+            #pane-registro,
+            #pane-principios,
+            #pane-medidas,
+            #pane-sanciones,
+            #pane-dashboard {
+                display: none !important;
+            }
+
+            main {
+                display: block !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            #pane-evaluacion {
+                display: block !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+            }
+
+            #pane-evaluacion>div.no-print {
+                display: none !important;
+            }
+
+            #print-area {
+                display: block !important;
+                visibility: visible !important;
+                position: static !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            #print-area>div {
+                background: #ffffff !important;
+                border: 2px solid #cbd5e1 !important;
+                border-radius: 12px !important;
+                padding: 16px !important;
+                color: #0f172a !important;
+                margin: 0 !important;
+            }
+
+            #print-area h1 {
+                color: #312e81 !important;
+            }
+
+            #print-area h2 {
+                color: #4338ca !important;
+            }
+
+            #print-area p,
+            #print-area span,
+            #print-area div {
+                color: #1e293b !important;
+            }
+
+            #print-area .text-indigo-400 {
+                color: #4338ca !important;
+            }
+
+            #print-area .text-slate-100,
+            #print-area .text-slate-200,
+            #print-area .text-slate-300 {
+                color: #0f172a !important;
+            }
+
+            #print-area .text-slate-400,
+            #print-area .text-slate-500 {
+                color: #475569 !important;
+            }
+
+            #print-area .bg-slate-950,
+            #print-area .bg-slate-900\/90,
+            #print-area .bg-slate-900 {
+                background-color: #f8fafc !important;
+                border: 1px solid #e2e8f0 !important;
+                color: #0f172a !important;
+            }
+
+            #print-area table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                border: 1px solid #cbd5e1 !important;
+            }
+
+            #print-area table thead tr {
+                background-color: #e2e8f0 !important;
+                border-bottom: 2px solid #94a3b8 !important;
+            }
+
+            #print-area table thead th {
+                color: #1e293b !important;
+                font-weight: 700 !important;
+                padding: 8px 10px !important;
+                border: 1px solid #cbd5e1 !important;
+            }
+
+            #print-area table tbody tr {
+                background-color: #ffffff !important;
+                border-bottom: 1px solid #e2e8f0 !important;
+            }
+
+            #print-area table tbody tr:nth-child(even) {
+                background-color: #f8fafc !important;
+            }
+
+            #print-area table tbody td {
+                padding: 8px 10px !important;
+                color: #1e293b !important;
+                border: 1px solid #e2e8f0 !important;
+            }
+
+            #print-area table tr.bg-slate-950 {
+                background-color: #f1f5f9 !important;
+                border-top: 2px solid #94a3b8 !important;
+            }
+
+            #print-area .bg-emerald-950\/70,
+            #print-area .text-emerald-400 {
+                background-color: #dcfce7 !important;
+                color: #166534 !important;
+                border: 1px solid #86efac !important;
+                font-weight: 700 !important;
+            }
+
+            #print-area .bg-rose-950\/70,
+            #print-area .text-rose-400 {
+                background-color: #ffe4e6 !important;
+                color: #9f1239 !important;
+                border: 1px solid #fca5a5 !important;
+                font-weight: 700 !important;
+            }
+
+            #print-area .bg-amber-950\/70,
+            #print-area .text-amber-400 {
+                background-color: #fef3c7 !important;
+                color: #92400e !important;
+                border: 1px solid #fcd34d !important;
+                font-weight: 700 !important;
+            }
+
+            #print-area .bg-slate-900 {
+                background-color: #f1f5f9 !important;
+                color: #475569 !important;
+                border: 1px solid #cbd5e1 !important;
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-[#898AAD] text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-indigo-500/30 selection:text-indigo-200">
+
+    <!-- ========================================== -->
+    <!-- HEADER PRINCIPAL                           -->
+    <!-- ========================================== -->
+    <header class="border-b border-slate-800 bg-slate-950 sticky top-0 z-50 no-print shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+
+            <div class="flex items-center gap-3">
+                <img src="sena.png" alt="Logo SENA" class="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0" />
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-base sm:text-lg font-bold text-indigo-400 leading-none">Matriz - Reglamento del
+                            Aprendiz
+                        </h1>
+                        <span
+                            class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-md font-semibold">"Régimen
+                            de Faltas"</span>
+                    </div>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Auditoría de Normatividad: Artículos 39 al 53</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2.5 sm:gap-4 flex-wrap">
+                <div
+                    class="flex items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800 text-xs text-slate-300">
+                    <i class="far fa-clock text-amber-400"></i>
+                    <span>Tiempo:</span>
+                    <span id="timer-display" class="font-mono font-bold text-slate-100">60:00</span>
+                </div>
+
+                <div
+                    class="flex items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800 text-xs text-slate-300">
+                    <span>Intentos:</span>
+                    <span id="attempts-badge"
+                        class="bg-indigo-600 text-white font-mono text-[11px] px-2 py-0.5 rounded font-bold">1 /
+                        4</span>
+                </div>
+
+                <button onclick="confirmReset()"
+                    class="bg-rose-900/50 hover:bg-rose-900 text-rose-200 px-3.5 py-1.5 rounded-lg text-xs font-semibold border border-rose-800 transition flex items-center gap-1.5">
+                    <i class="fas fa-rotate-left text-[11px]"></i>
+                    <span>Reiniciar Intento</span>
+                </button>
+
+                <button onclick="printEvidence()"
+                    class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold border border-emerald-500 transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fas fa-print text-[11px]"></i>
+                    <span>Imprimir Resultados</span>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- CONTENEDOR PRINCIPAL                      -->
+    <!-- ========================================== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-grow">
+
+        <!-- Panel Resumen Superior -->
+        <div
+            class="bg-slate-900/90 backdrop-blur-sm rounded-2xl p-5 mb-6 border border-slate-700/80 flex flex-wrap items-center justify-between gap-4 no-print shadow-xl">
+            <div>
+                <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Ruta Pedagógica Integral
+                </span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">Guía Interactiva: Faltas,
+                    Medidas y Sanciones</h2>
+                <p class="text-xs text-slate-400 mt-0.5">Duración estimada: 60 minutos | Calificación mínima
+                    aprobatoria: 90%
+                </p>
+            </div>
+
+            <div class="flex items-center gap-4 bg-slate-950 p-3 px-4 rounded-xl border border-slate-800 shadow-inner">
+                <div class="text-right">
+                    <div class="text-[10px] uppercase font-bold tracking-wider text-slate-400">Puntaje Global</div>
+                    <div class="text-xl sm:text-2xl font-black text-slate-100 leading-none mt-0.5">
+                        <span id="global-score">0</span> <span class="text-xs font-normal text-slate-400">/ 100
+                            pts</span>
+                    </div>
+                </div>
+                <div id="score-circle"
+                    class="w-12 h-12 rounded-xl border-2 border-indigo-500 bg-slate-900 flex items-center justify-center font-bold text-xs text-indigo-300 shadow-inner">
+                    0%
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú de Pestañas -->
+        <nav class="flex gap-2 border-b border-slate-800/80 pb-3 mb-6 overflow-x-auto no-print">
+            <button onclick="window.location.href='index.html'" id="tab-inicio"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-house text-xs"></i> Inicio
+            </button>
+            <button onclick="switchTab('registro')" id="tab-registro"
+                class="tab-btn active px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-id-card text-xs"></i> 1. Registro
+            </button>
+            <button onclick="switchTab('principios')" id="tab-principios"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-scale-balanced text-xs"></i> Principios y Faltas
+            </button>
+            <button onclick="switchTab('medidas')" id="tab-medidas"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-hand-holding-heart text-xs"></i> Medidas Formativas
+            </button>
+            <button onclick="switchTab('sanciones')" id="tab-sanciones"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-gavel text-xs"></i> Sanciones y Procedimiento
+            </button>
+            <button onclick="switchTab('evaluacion')" id="tab-evaluacion"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-clipboard-check text-xs"></i> Evaluación
+            </button>
+            <button onclick="switchTab('dashboard')" id="tab-dashboard"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-chart-pie text-xs"></i> Dashboard
+            </button>
+        </nav>
+
+        <!-- ========================================== -->
+        <!-- 1. PESTAÑA: REGISTRO                       -->
+        <!-- ========================================== -->
+        <section id="pane-registro" class="tab-pane block">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 max-w-3xl mx-auto shadow-2xl">
+                <div class="flex items-center gap-3 pb-4 mb-6 border-b border-slate-800">
+                    <img src="sena.png" alt="Logo SENA" class="w-10 h-10 sm:w-11 sm:h-11 object-contain shrink-0" />
+                    <div>
+                        <h2 class="text-base sm:text-lg font-bold text-indigo-400">Identificación y Caracterización del
+                            Aprendiz
+                        </h2>
+                        <p class="text-xs text-slate-400">Ingresa tus datos institucionales para registrar los
+                            resultados de la auditoría normativa.</p>
+                    </div>
+                </div>
+
+                <form id="form-registro" onsubmit="event.preventDefault(); proceedToPrincipios();"
+                    class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Nombre
+                            Completo
+                            *</label>
+                        <input type="text" id="reg-nombre" required placeholder="Ej: Carlos Alberto Torres Gómez"
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition" />
+                    </div>
+
+                    <div>
+                        <label
+                            class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Documento
+                            de
+                            Identidad (CC / TI / CE) *</label>
+                        <input type="text" id="reg-doc" required placeholder="Ej: 1020304050"
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition" />
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Número
+                            de Ficha de
+                            Caracterización *</label>
+                        <input type="text" id="reg-ficha" required placeholder="Ej: 2874912"
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition" />
+                    </div>
+
+                    <div>
+                        <label
+                            class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Programa
+                            de
+                            Formación *</label>
+                        <select id="reg-programa" required
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm font-semibold text-slate-100 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition">
+                            <option value="" disabled selected>Seleccione un programa...</option>
+                            <option value="Tecnico en Talento Humano">Técnico en Talento Humano</option>
+                            <option value="Tecnico en Asistencia a la Funcion Publica">Técnico en Asistencia a la
+                                Función Pública
+                            </option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Centro
+                            de
+                            Formación *</label>
+                        <input type="text" id="reg-centro" value="Gestión Administrativa" readonly
+                            class="w-full px-3.5 py-2.5 bg-slate-950/60 border border-slate-800/80 rounded-xl text-sm font-semibold text-slate-400 outline-none cursor-not-allowed" />
+                    </div>
+
+                    <div>
+                        <label
+                            class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Regional
+                            *</label>
+                        <input type="text" id="reg-regional" value="Distrito Capital" readonly
+                            class="w-full px-3.5 py-2.5 bg-slate-950/60 border border-slate-800/80 rounded-xl text-sm font-semibold text-slate-400 outline-none cursor-not-allowed" />
+                    </div>
+
+                    <div class="md:col-span-2 pt-4 border-t border-slate-800 flex justify-end">
+                        <button type="submit"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                            <span>Confirmar e Iniciar Fase 1</span>
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <div
+                    class="mt-6 bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-400 leading-relaxed">
+                    <p class="font-bold text-slate-200 mb-1 flex items-center gap-1.5">
+                        <i class="fas fa-circle-info text-indigo-400"></i> Marco del Régimen de Faltas
+                    </p>
+                    El Régimen de Faltas, Medidas Formativas, Disciplinarias y Sancionatorias del Reglamento del
+                    Aprendiz SENA garantiza el debido proceso, la presunción de inocencia y la proporcionalidad en
+                    la aplicación de correctivos a los aprendices.
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 2. PESTAÑA: PRINCIPIOS Y FALTAS            -->
+        <!-- ========================================== -->
+        <section id="pane-principios" class="tab-pane hidden">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+                <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-indigo-400">Principios y Calificación de las Faltas</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Analiza cada caso vivencial y clasifícalo conforme a
+                            los Artículos 39 y 42.</p>
+                    </div>
+                    <span
+                        class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Ponderación:
+                        25 Puntos</span>
+                </div>
+
+                <div
+                    class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed mb-6">
+                    <p class="font-bold text-slate-200 mb-1.5 flex items-center gap-1.5">
+                        <i class="fas fa-circle-info text-indigo-400"></i> Artículo 39 - Principios Orientadores
+                    </p>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li><span class="text-indigo-300 font-semibold">Confidencialidad:</span> reserva de la
+                            información y protección de datos personales.</li>
+                        <li><span class="text-indigo-300 font-semibold">Debido proceso:</span> aplicación conforme a
+                            normas preexistentes e instancia competente.</li>
+                        <li><span class="text-indigo-300 font-semibold">Culpabilidad:</span> sanción a título de dolo o
+                            culpa, según se pruebe.</li>
+                        <li><span class="text-indigo-300 font-semibold">Inexistencia de doble sanción:</span> ningún
+                            aprendiz puede ser sancionado dos veces por el mismo hecho.</li>
+                    </ul>
+                </div>
+
+                <div class="space-y-5" id="principios-cases-container">
+
+                    <!-- Caso 1 -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <div class="flex items-start gap-3 mb-3">
+                            <span
+                                class="w-7 h-7 rounded-lg bg-slate-900 border border-slate-800 text-indigo-400 text-xs font-bold flex items-center justify-center shrink-0">1</span>
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-200">Caso 1: Impuntualidad ocasional</h3>
+                                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                                    Un aprendiz llega 10 minutos tarde a la sustentación de una evidencia, sin causa
+                                    justificada. El hecho no pone en riesgo el orden institucional ni los derechos de
+                                    terceros, pero sí amerita el redireccionamiento de su conducta.
+                                </p>
+                                <p class="text-xs font-bold text-indigo-400 mt-2">CONFORME AL ARTÍCULO 42, ¿CÓMO SE
+                                    CALIFICA ESTA FALTA?</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 gap-2.5 sm:pl-10">
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="prin-q1" value="A" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">A) Leve, pues no pone en riesgo
+                                    significativo el orden ni los derechos de la institución o de terceros.</span>
+                            </label>
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="prin-q1" value="B" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">B) Grave, porque toda impuntualidad
+                                    compromete de forma automática las normas básicas de convivencia.</span>
+                            </label>
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="prin-q1" value="C" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">C) Gravísima, ya que toda inasistencia
+                                    parcial se asimila a un atentado contra los derechos humanos.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Caso 2 -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <div class="flex items-start gap-3 mb-3">
+                            <span
+                                class="w-7 h-7 rounded-lg bg-slate-900 border border-slate-800 text-indigo-400 text-xs font-bold flex items-center justify-center shrink-0">2</span>
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-200">Caso 2: Consumo de sustancias en el
+                                    ambiente de formación</h3>
+                                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                                    Un aprendiz consume sustancias psicoactivas dentro del Centro de Formación,
+                                    afectando su propia salud, sin que se compruebe intención de causar daño a
+                                    terceros.
+                                </p>
+                                <p class="text-xs font-bold text-indigo-400 mt-2">CONFORME AL ARTÍCULO 42, ¿CÓMO SE
+                                    CALIFICA ESTA FALTA?</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 gap-2.5 sm:pl-10">
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="prin-q2" value="A" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">A) Grave, pues causa daño a la salud
+                                    propia, aspecto expresamente contemplado en la calificación de faltas graves.</span>
+                            </label>
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="prin-q2" value="B" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">B) Leve, porque al no afectar a
+                                    terceros la conducta es irrelevante para el reglamento.</span>
+                            </label>
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="prin-q2" value="C" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">C) No constituye falta, dado que solo
+                                    se sanciona el consumo cuando ocurre fuera de las instalaciones del SENA.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Caso 3 -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <div class="flex items-start gap-3 mb-3">
+                            <span
+                                class="w-7 h-7 rounded-lg bg-slate-900 border border-slate-800 text-indigo-400 text-xs font-bold flex items-center justify-center shrink-0">3</span>
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-200">Caso 3: Agresión Intencionada contra un
+                                    compañero</h3>
+                                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                                    Un aprendiz, por decisión y voluntad propia, agrede físicamente a un compañero,
+                                    causándole lesiones que ponen en riesgo su integridad física.
+                                </p>
+                                <p class="text-xs font-bold text-indigo-400 mt-2">CONFORME AL ARTÍCULO 42, ¿CÓMO SE
+                                    CALIFICA ESTA FALTA?</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 gap-2.5 sm:pl-10">
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="prin-q3" value="A" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">A) Grave, porque toda agresión física
+                                    entre aprendices se limita automáticamente a esta categoría.</span>
+                            </label>
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="prin-q3" value="B" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">B) Gravísima, pues con la intension se
+                                    atenta
+                                    directamente contra la integridad física de otra persona.</span>
+                            </label>
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="prin-q3" value="C" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">C) Leve, ya que solo constituye falta
+                                    grave cuando hay reincidencia comprobada.</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end mt-6">
+                    <button onclick="proceedToMedidas()"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                        <span>Continuar a Medidas Formativas</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 3. PESTAÑA: MEDIDAS FORMATIVAS              -->
+        <!-- ========================================== -->
+        <section id="pane-medidas" class="tab-pane hidden">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+                <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-indigo-400">Medidas Formativas Académicas y Disciplinarias
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Responde los casos y realiza el emparejamiento según
+                            los Artículos 45 y 46.</p>
+                    </div>
+                    <span
+                        class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Ponderación:
+                        20 Puntos</span>
+                </div>
+
+                <div class="space-y-5 mb-8">
+                    <!-- Q1 -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-indigo-400 uppercase tracking-tight">1. Llamados de
+                                atención académicos</span>
+                            <span class="text-[11px] text-slate-400 font-semibold">Valor: 5 pts</span>
+                        </div>
+                        <p class="text-xs text-slate-300 mb-3.5 leading-relaxed">
+                            Un aprendiz ya recibió su primer llamado de atención académico por no alcanzar un
+                            resultado de aprendizaje. ¿Cuántos llamados de atención académicos puede recibir como
+                            máximo por fase del proyecto formativo antes de establecerse un plan de mejoramiento?
+                        </p>
+                        <div class="space-y-2.5">
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="med-q1" value="A" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">A) Uno (1).</span>
+                            </label>
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="med-q1" value="B" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">B) Dos (2), y el segundo debe ir
+                                    acompañado de orientaciones académicas escritas.</span>
+                            </label>
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="med-q1" value="C" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">C) Tres (3), sin límite por fase del
+                                    proyecto formativo.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-indigo-400 uppercase tracking-tight">2. Plazo del plan
+                                de mejoramiento académico</span>
+                            <span class="text-[11px] text-slate-400 font-semibold">Valor: 5 pts</span>
+                        </div>
+                        <p class="text-xs text-slate-300 mb-3.5 leading-relaxed">
+                            ¿Cuál es el plazo máximo, en días calendario, para ejecutar un plan de mejoramiento
+                            académico, contado desde la fecha de suscripción?
+                        </p>
+                        <div class="space-y-2.5">
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="med-q2" value="A" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">A) Diez (10) días calendario.</span>
+                            </label>
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="med-q2" value="B" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">B) Quince (15) días calendario.</span>
+                            </label>
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="med-q2" value="C" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">C) Veinte (20) días calendario, sin
+                                    superar la fecha final de la fase del proyecto.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-indigo-400 uppercase tracking-tight">3. Incumplimiento
+                                del plan de mejoramiento</span>
+                            <span class="text-[11px] text-slate-400 font-semibold">Valor: 5 pts</span>
+                        </div>
+                        <p class="text-xs text-slate-300 mb-3.5 leading-relaxed">
+                            ¿Qué ocurre cuando el aprendiz no cumple con lo establecido en su plan de mejoramiento
+                            académico o disciplinario?
+                        </p>
+                        <div class="space-y-2.5">
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="med-q3" value="A" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">A) El plan se repite automáticamente
+                                    sin ninguna otra consecuencia.</span>
+                            </label>
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="med-q3" value="B" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">B) Se lleva al comité de evaluación y
+                                    seguimiento, quien definirá las medidas sancionatorias a aplicar.</span>
+                            </label>
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="med-q3" value="C" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">C) Se cancela la matrícula de forma
+                                    inmediata, sin necesidad de agotar ningún procedimiento.</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emparejamiento -->
+                <div class="pt-2 border-t border-slate-800">
+                    <div class="flex items-center justify-between mb-4 mt-5">
+                        <h3 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+                            <i class="fas fa-link text-indigo-400"></i> Emparejamiento: Tipos de Medidas Formativas
+                        </h3>
+                        <span class="text-[11px] text-slate-400 font-semibold">Valor: 5 pts</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-4">Selecciona en cada lista desplegable la descripción que
+                        corresponde a cada medida formativa (Art. 46).</p>
+
+                    <div class="space-y-3">
+                        <div
+                            class="bg-slate-950 p-4 rounded-xl border border-slate-800 grid grid-cols-1 sm:grid-cols-3 items-center gap-3">
+                            <span class="text-xs font-bold text-slate-200 sm:col-span-1">Llamado de atención
+                                académico</span>
+                            <select id="match-1"
+                                class="sm:col-span-2 w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:border-indigo-500 outline-none transition">
+                                <option value="" disabled selected>Selecciona la descripción...</option>
+                                <option value="d1">Debe constar por escrito; máximo dos (2) por fase del proyecto
+                                    formativo, el segundo acompañado de orientaciones académicas.</option>
+                                <option value="d2">Documento firmado por el aprendiz y el coordinador académico, a
+                                    ejecutar en máximo 20 días calendario.</option>
+                                <option value="d3">Máximo dos (2) durante la duración del programa; el segundo con
+                                    recomendaciones de mejoramiento.</option>
+                                <option value="d4">Se concerta mediante acta firmada por el aprendiz y el coordinador
+                                    de formación o de convenio.</option>
+                            </select>
+                        </div>
+                        <div
+                            class="bg-slate-950 p-4 rounded-xl border border-slate-800 grid grid-cols-1 sm:grid-cols-3 items-center gap-3">
+                            <span class="text-xs font-bold text-slate-200 sm:col-span-1">Plan de mejoramiento
+                                académico</span>
+                            <select id="match-2"
+                                class="sm:col-span-2 w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:border-indigo-500 outline-none transition">
+                                <option value="" disabled selected>Selecciona la descripción...</option>
+                                <option value="d1">Debe constar por escrito; máximo dos (2) por fase del proyecto
+                                    formativo, el segundo acompañado de orientaciones académicas.</option>
+                                <option value="d2">Documento firmado por el aprendiz y el coordinador académico, a
+                                    ejecutar en máximo 20 días calendario.</option>
+                                <option value="d3">Máximo dos (2) durante la duración del programa; el segundo con
+                                    recomendaciones de mejoramiento.</option>
+                                <option value="d4">Se concerta mediante acta firmada por el aprendiz y el coordinador
+                                    de formación o de convenio.</option>
+                            </select>
+                        </div>
+                        <div
+                            class="bg-slate-950 p-4 rounded-xl border border-slate-800 grid grid-cols-1 sm:grid-cols-3 items-center gap-3">
+                            <span class="text-xs font-bold text-slate-200 sm:col-span-1">Llamado de atención
+                                disciplinario</span>
+                            <select id="match-3"
+                                class="sm:col-span-2 w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:border-indigo-500 outline-none transition">
+                                <option value="" disabled selected>Selecciona la descripción...</option>
+                                <option value="d1">Debe constar por escrito; máximo dos (2) por fase del proyecto
+                                    formativo, el segundo acompañado de orientaciones académicas.</option>
+                                <option value="d2">Documento firmado por el aprendiz y el coordinador académico, a
+                                    ejecutar en máximo 20 días calendario.</option>
+                                <option value="d3">Máximo dos (2) durante la duración del programa; el segundo con
+                                    recomendaciones de mejoramiento.</option>
+                                <option value="d4">Se concerta mediante acta firmada por el aprendiz y el coordinador
+                                    de formación o de convenio.</option>
+                            </select>
+                        </div>
+                        <div
+                            class="bg-slate-950 p-4 rounded-xl border border-slate-800 grid grid-cols-1 sm:grid-cols-3 items-center gap-3">
+                            <span class="text-xs font-bold text-slate-200 sm:col-span-1">Plan de mejoramiento
+                                disciplinario</span>
+                            <select id="match-4"
+                                class="sm:col-span-2 w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:border-indigo-500 outline-none transition">
+                                <option value="" disabled selected>Selecciona la descripción...</option>
+                                <option value="d1">Debe constar por escrito; máximo dos (2) por fase del proyecto
+                                    formativo, el segundo acompañado de orientaciones académicas.</option>
+                                <option value="d2">Documento firmado por el aprendiz y el coordinador académico, a
+                                    ejecutar en máximo 20 días calendario.</option>
+                                <option value="d3">Máximo dos (2) durante la duración del programa; el segundo con
+                                    recomendaciones de mejoramiento.</option>
+                                <option value="d4">Se concerta mediante acta firmada por el aprendiz y el coordinador
+                                    de formación o de convenio.</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end mt-6">
+                    <button onclick="proceedToSanciones()"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                        <span>Continuar a Sanciones y Procedimiento</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 4. PESTAÑA: SANCIONES Y PROCEDIMIENTO       -->
+        <!-- ========================================== -->
+        <section id="pane-sanciones" class="tab-pane hidden">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+                <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-indigo-400">Medidas Sancionatorias y Debido Proceso</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Artículos 47 al 51: condicionamiento, cancelación de
+                            matrícula, instancias y procedimiento.</p>
+                    </div>
+                    <span
+                        class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Ponderación:
+                        25 Puntos</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div
+                        class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed">
+                        <p class="font-bold text-amber-400 mb-1.5"><i class="fas fa-triangle-exclamation mr-1"></i>
+                            Condicionamiento de matrícula</p>
+                        Se impone previo agotamiento de las medidas formativas o disciplinarias. El aprendiz pierde
+                        temporalmente estímulos e incentivos. Un aprendiz puede tener hasta dos (2) condicionamientos
+                        superados; superar ese número da lugar a cancelación de matrícula.
+                    </div>
+                    <div
+                        class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed">
+                        <p class="font-bold text-rose-400 mb-1.5"><i class="fas fa-ban mr-1"></i> Cancelación de
+                            matrícula</p>
+                        Procede cuando persisten las causales que originaron el condicionamiento, o por faltas graves
+                        o gravísimas. Implica el retiro del programa y una espera de seis (6) meses para presentarse
+                        a un nuevo programa laboral o tecnológico.
+                    </div>
+                </div>
+
+                <div
+                    class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed mb-8">
+                    <p class="font-bold text-slate-200 mb-1.5 flex items-center gap-1.5">
+                        <i class="fas fa-circle-info text-indigo-400"></i> Artículo 50 - Criterios para la aplicación
+                        de sanciones
+                    </p>
+                    <p>Publicidad, Contradicción, Presunción de inocencia, Valoración integral de pruebas y
+                        descargos, Motivación de la decisión, Proporcionalidad, Impugnación y Oportunidad. La duda
+                        respecto a la responsabilidad del aprendiz se resuelve siempre a su favor.</p>
+                </div>
+
+                <!-- Ordenamiento drag & drop -->
+                <div class="pt-2 border-t border-slate-800">
+                    <div class="flex items-center justify-between mb-2 mt-5">
+                        <h3 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+                            <i class="fas fa-arrow-down-up-across-line text-indigo-400"></i> Ordenamiento: Fases del
+                            Procedimiento (Art. 51)
+                        </h3>
+                        <span class="text-[11px] text-slate-400 font-semibold">Valor: 25 pts</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-4">Arrastra las tarjetas para ubicarlas en el orden correcto,
+                        de la primera a la última fase del procedimiento sancionatorio.</p>
+
+                    <ul id="order-list" class="space-y-2.5">
+                        <li class="order-item bg-slate-950 border border-slate-800 rounded-xl p-3.5 flex items-center gap-3"
+                            draggable="true" data-step="recurso">
+                            <i class="fas fa-grip-lines text-slate-500"></i>
+                            <span
+                                class="w-6 h-6 rounded-lg bg-slate-900 border border-slate-800 text-indigo-400 text-[11px] font-bold flex items-center justify-center shrink-0 order-num">?</span>
+                            <span class="text-xs text-slate-200 font-semibold">Recurso: reposición ante la
+                                Subdirección y, en subsidio, apelación ante la Dirección Regional.</span>
+                        </li>
+                        <li class="order-item bg-slate-950 border border-slate-800 rounded-xl p-3.5 flex items-center gap-3"
+                            draggable="true" data-step="citacion">
+                            <i class="fas fa-grip-lines text-slate-500"></i>
+                            <span
+                                class="w-6 h-6 rounded-lg bg-slate-900 border border-slate-800 text-indigo-400 text-[11px] font-bold flex items-center justify-center shrink-0 order-num">?</span>
+                            <span class="text-xs text-slate-200 font-semibold">Citación al aprendiz al Comité de
+                                evaluación y seguimiento.</span>
+                        </li>
+                        <li class="order-item bg-slate-950 border border-slate-800 rounded-xl p-3.5 flex items-center gap-3"
+                            draggable="true" data-step="firmeza">
+                            <i class="fas fa-grip-lines text-slate-500"></i>
+                            <span
+                                class="w-6 h-6 rounded-lg bg-slate-900 border border-slate-800 text-indigo-400 text-[11px] font-bold flex items-center justify-center shrink-0 order-num">?</span>
+                            <span class="text-xs text-slate-200 font-semibold">Firmeza del acto administrativo y
+                                registro en el Sistema de Gestión Académica.</span>
+                        </li>
+                        <li class="order-item bg-slate-950 border border-slate-800 rounded-xl p-3.5 flex items-center gap-3"
+                            draggable="true" data-step="recepcion">
+                            <i class="fas fa-grip-lines text-slate-500"></i>
+                            <span
+                                class="w-6 h-6 rounded-lg bg-slate-900 border border-slate-800 text-indigo-400 text-[11px] font-bold flex items-center justify-center shrink-0 order-num">?</span>
+                            <span class="text-xs text-slate-200 font-semibold">Recepción y trámite del informe o
+                                queja; apertura del expediente.</span>
+                        </li>
+                        <li class="order-item bg-slate-950 border border-slate-800 rounded-xl p-3.5 flex items-center gap-3"
+                            draggable="true" data-step="notificacion">
+                            <i class="fas fa-grip-lines text-slate-500"></i>
+                            <span
+                                class="w-6 h-6 rounded-lg bg-slate-900 border border-slate-800 text-indigo-400 text-[11px] font-bold flex items-center justify-center shrink-0 order-num">?</span>
+                            <span class="text-xs text-slate-200 font-semibold">Notificación del acto administrativo al
+                                aprendiz.</span>
+                        </li>
+                        <li class="order-item bg-slate-950 border border-slate-800 rounded-xl p-3.5 flex items-center gap-3"
+                            draggable="true" data-step="acto">
+                            <i class="fas fa-grip-lines text-slate-500"></i>
+                            <span
+                                class="w-6 h-6 rounded-lg bg-slate-900 border border-slate-800 text-indigo-400 text-[11px] font-bold flex items-center justify-center shrink-0 order-num">?</span>
+                            <span class="text-xs text-slate-200 font-semibold">Expedición del acto administrativo
+                                sancionatorio motivado.</span>
+                        </li>
+                        <li class="order-item bg-slate-950 border border-slate-800 rounded-xl p-3.5 flex items-center gap-3"
+                            draggable="true" data-step="sesion">
+                            <i class="fas fa-grip-lines text-slate-500"></i>
+                            <span
+                                class="w-6 h-6 rounded-lg bg-slate-900 border border-slate-800 text-indigo-400 text-[11px] font-bold flex items-center justify-center shrink-0 order-num">?</span>
+                            <span class="text-xs text-slate-200 font-semibold">Sesión del Comité de evaluación y
+                                seguimiento: descargos y pruebas.</span>
+                        </li>
+                    </ul>
+                    <div class="flex justify-end mt-3">
+                        <button onclick="checkOrder()"
+                            class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold px-4 py-2 rounded-xl transition flex items-center gap-2">
+                            <i class="fas fa-list-ol text-[11px]"></i> Verificar orden
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex justify-end mt-6">
+                    <button onclick="proceedToEvaluacion()"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                        <span>Continuar a Evaluación Integradora</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 5. PESTAÑA: EVALUACIÓN                     -->
+        <!-- ========================================== -->
+        <section id="pane-evaluacion" class="tab-pane hidden">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl no-print">
+                <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-indigo-400">Evaluación Integradora</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Preguntas de síntesis y clasificación de faltas
+                            (Artículos 42, 50 y 51).</p>
+                    </div>
+                    <span
+                        class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Ponderación:
+                        30 Puntos</span>
+                </div>
+
+                <div class="space-y-5 mb-8">
+                    <!-- Pregunta 1 -->
+                    <div class="p-5 bg-slate-950 rounded-xl border border-slate-800">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-indigo-400 uppercase tracking-tight">1. Artículo 50 -
+                                Presunción de inocencia</span>
+                            <span class="text-[11px] text-slate-400 font-semibold">Valor: 5 pts</span>
+                        </div>
+                        <p class="text-xs text-slate-300 mb-3.5 leading-relaxed">
+                            Si tras valorar las pruebas persiste una duda razonable sobre la responsabilidad del
+                            aprendiz, ¿a favor de quién se resuelve dicha duda?
+                        </p>
+                        <div class="space-y-2.5">
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="eva-q1" value="A" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">A) Del aprendiz, en virtud de la
+                                    presunción de inocencia.</span>
+                            </label>
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="eva-q1" value="B" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">B) De la institución, pues prevalece
+                                    el interés general sobre el particular.</span>
+                            </label>
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="eva-q1" value="C" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">C) Del Comité de evaluación y
+                                    seguimiento, quien decide discrecionalmente sin sujeción a la duda.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 2 -->
+                    <div class="p-5 bg-slate-950 rounded-xl border border-slate-800">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-indigo-400 uppercase tracking-tight">2. Artículo 51 -
+                                Recursos</span>
+                            <span class="text-[11px] text-slate-400 font-semibold">Valor: 5 pts</span>
+                        </div>
+                        <p class="text-xs text-slate-300 mb-3.5 leading-relaxed">
+                            ¿Ante qué instancia procede el recurso de apelación, en subsidio del de reposición, contra
+                            el acto administrativo sancionatorio expedido por la Subdirección de Centro?
+                        </p>
+                        <div class="space-y-2.5">
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="eva-q2" value="A" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">A) Ante el mismo Subdirector que
+                                    expidió el acto.</span>
+                            </label>
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="eva-q2" value="B" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">B) Ante el Director Regional
+                                    correspondiente.</span>
+                            </label>
+                            <label
+                                class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                                <input type="radio" name="eva-q2" value="C" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300 font-normal">C) Ante el Comité de evaluación y
+                                    seguimiento del Centro.</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Clasificación arrastrar y soltar -->
+                <div class="pt-2 border-t border-slate-800">
+                    <div class="flex items-center justify-between mb-2 mt-5">
+                        <h3 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+                            <i class="fas fa-hand-pointer text-indigo-400"></i> Clasificación: Arrastra cada conducta a
+                            su categoría
+                        </h3>
+                        <span class="text-[11px] text-slate-400 font-semibold">Valor: 20 pts</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-4">Arrastra cada tarjeta de la bolsa hacia la columna
+                        (Leve, Grave o Gravísima) que corresponda según el Artículo 42.</p>
+
+                    <div id="drag-bank"
+                        class="flex flex-wrap gap-2.5 mb-5 p-4 bg-slate-950 rounded-xl border border-dashed border-slate-700 min-h-[70px]">
+                        <div class="drag-item bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200"
+                            draggable="true" data-cat="leve">Usar el celular sin autorización durante una evaluación,
+                            sin afectar a terceros.</div>
+                        <div class="drag-item bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200"
+                            draggable="true" data-cat="leve">No entregar a tiempo un formato administrativo, sin
+                            perjuicio a terceros.</div>
+                        <div class="drag-item bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200"
+                            draggable="true" data-cat="grave">Actuar contra el medio ambiente, dañando la flora o
+                            fauna del Centro.</div>
+                        <div class="drag-item bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200"
+                            draggable="true" data-cat="grave">Consumir sustancias psicoactivas dentro del Centro,
+                            afectando la propia salud.</div>
+                        <div class="drag-item bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200"
+                            draggable="true" data-cat="gravisima">Cometer una agresión mal intensionada que atenta
+                            contra la
+                            integridad física de un compañero.</div>
+                        <div class="drag-item bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200"
+                            draggable="true" data-cat="gravisima">Realizar actos de acoso que vulneran los derechos
+                            humanos de otro aprendiz.</div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="drop-zone bg-slate-950 rounded-xl border-2 border-dashed border-slate-700 p-3"
+                            id="bin-leve">
+                            <p class="text-xs font-bold text-emerald-400 mb-2 text-center uppercase tracking-wide">Leve
+                            </p>
+                        </div>
+                        <div class="drop-zone bg-slate-950 rounded-xl border-2 border-dashed border-slate-700 p-3"
+                            id="bin-grave">
+                            <p class="text-xs font-bold text-amber-400 mb-2 text-center uppercase tracking-wide">Grave
+                            </p>
+                        </div>
+                        <div class="drop-zone bg-slate-950 rounded-xl border-2 border-dashed border-slate-700 p-3"
+                            id="bin-gravisima">
+                            <p class="text-xs font-bold text-rose-400 mb-2 text-center uppercase tracking-wide">
+                                Gravísima</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-end mt-3">
+                        <button onclick="resetClassify()"
+                            class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold px-4 py-2 rounded-xl transition flex items-center gap-2">
+                            <i class="fas fa-rotate text-[11px]"></i> Reiniciar clasificación
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ========================================================================= -->
+            <!-- ÁREA DE IMPRESIÓN Y RESULTADOS                                            -->
+            <!-- ========================================================================= -->
+            <div id="print-area">
+
+                <div
+                    class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+
+                    <div class="flex flex-wrap items-center justify-between pb-4 mb-5 border-b border-slate-800 gap-4">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-center text-indigo-400 font-bold text-lg shrink-0">
+                                <i class="fas fa-file-signature"></i>
+                            </div>
+                            <div>
+                                <h1 class="text-lg font-bold text-indigo-400">Acta de Resultados - Régimen de Faltas
+                                </h1>
+                                <p class="text-xs text-slate-400">SENA - Reglamento del Aprendiz | Fecha: <span
+                                        id="print-fecha">--</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="text-sm font-bold text-indigo-400 mb-3">1. Información de Registro del Aprendiz</h2>
+                    <table class="w-full text-xs mb-6">
+                        <thead>
+                            <tr class="text-slate-400 uppercase text-[10px] border-b border-slate-800">
+                                <th class="text-left py-1.5">Nombre</th>
+                                <th class="text-left py-1.5">Documento</th>
+                                <th class="text-left py-1.5">Ficha</th>
+                                <th class="text-left py-1.5">Programa</th>
+                                <th class="text-left py-1.5">Centro</th>
+                                <th class="text-left py-1.5">Regional</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-slate-200 font-semibold">
+                                <td class="py-1.5" id="print-nombre">--</td>
+                                <td class="py-1.5" id="print-doc">--</td>
+                                <td class="py-1.5" id="print-ficha">--</td>
+                                <td class="py-1.5" id="print-programa">--</td>
+                                <td class="py-1.5" id="print-centro">--</td>
+                                <td class="py-1.5" id="print-regional">--</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 class="text-sm font-bold text-indigo-400 mb-3">2. Resultado de la Evaluación</h2>
+
+                    <p class="text-xs text-slate-400 mb-3">Resumen de calificación por componente</p>
+                    <table class="w-full text-xs mb-2">
+                        <thead>
+                            <tr class="bg-slate-950 text-slate-400 uppercase text-[10px]">
+                                <th class="text-left py-2 px-2">Componente</th>
+                                <th class="text-center py-2 px-2">Puntaje</th>
+                                <th class="text-center py-2 px-2">% Cumplimiento</th>
+                                <th class="text-center py-2 px-2">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-slate-800">
+                                <td class="py-2 px-2 text-slate-200">Principios y Faltas</td>
+                                <td class="py-2 px-2 text-center" id="tb-prin-pts">--</td>
+                                <td class="py-2 px-2 text-center" id="tb-prin-pct">0%</td>
+                                <td class="py-2 px-2 text-center"><span id="tb-prin-badge"
+                                        class="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-slate-900 text-slate-400 border border-slate-800">Pendiente</span>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="py-2 px-2 text-slate-200">Medidas Formativas</td>
+                                <td class="py-2 px-2 text-center" id="tb-med-pts">--</td>
+                                <td class="py-2 px-2 text-center" id="tb-med-pct">0%</td>
+                                <td class="py-2 px-2 text-center"><span id="tb-med-badge"
+                                        class="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-slate-900 text-slate-400 border border-slate-800">Pendiente</span>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="py-2 px-2 text-slate-200">Sanciones y Procedimiento</td>
+                                <td class="py-2 px-2 text-center" id="tb-san-pts">--</td>
+                                <td class="py-2 px-2 text-center" id="tb-san-pct">0%</td>
+                                <td class="py-2 px-2 text-center"><span id="tb-san-badge"
+                                        class="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-slate-900 text-slate-400 border border-slate-800">Pendiente</span>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="py-2 px-2 text-slate-200">Evaluación Integradora</td>
+                                <td class="py-2 px-2 text-center" id="tb-eva-pts">--</td>
+                                <td class="py-2 px-2 text-center" id="tb-eva-pct">0%</td>
+                                <td class="py-2 px-2 text-center"><span id="tb-eva-badge"
+                                        class="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-slate-900 text-slate-400 border border-slate-800">Pendiente</span>
+                                </td>
+                            </tr>
+                            <tr class="bg-slate-950 font-bold">
+                                <td class="py-2.5 px-2 text-slate-100">TOTAL</td>
+                                <td class="py-2.5 px-2 text-center text-slate-100" id="tb-tot-pts">0 pts</td>
+                                <td class="py-2.5 px-2 text-center text-slate-100" id="tb-tot-pct">0%</td>
+                                <td class="py-2.5 px-2 text-center"><span id="tb-tot-badge"
+                                        class="px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-900 text-slate-400 border border-slate-800">Pendiente</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="flex items-center justify-between mt-4 no-print">
+                        <span id="matrix-status-pill"
+                            class="text-xs font-bold px-3 py-1 rounded-lg bg-slate-950 text-slate-400 flex items-center gap-1.5 border border-slate-800">
+                            <span class="w-2 h-2 rounded-full bg-slate-500"></span> Pendiente de Consolidación
+                        </span>
+                        <button onclick="consolidateEvaluation()"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                            <i class="fas fa-calculator text-[11px]"></i> Consolidar Evaluación
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 6. PESTAÑA: DASHBOARD                      -->
+        <!-- ========================================== -->
+        <section id="pane-dashboard" class="tab-pane hidden">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+                <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-indigo-400">Dashboard</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Métricas en tiempo real sobre el dominio del Régimen
+                            de Faltas y Sanciones.
+                        </p>
+                    </div>
+                    <span
+                        class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Analítica
+                        Institucional</span>
+                </div>
+
+                <!-- Tarjetas KPI -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                    <div class="p-5 bg-slate-950 rounded-xl border border-slate-800 flex items-center gap-4 shadow-sm">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 text-indigo-400 flex items-center justify-center text-xl font-bold">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <div>
+                            <div class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Puntaje Obtenido
+                            </div>
+                            <div class="text-2xl font-black text-slate-100 tracking-tight"><span id="kpi-score">0</span>
+                                <span class="text-xs font-normal text-slate-400">/ 100</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-5 bg-slate-950 rounded-xl border border-slate-800 flex items-center gap-4 shadow-sm">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 text-amber-400 flex items-center justify-center text-xl font-bold">
+                            <i class="fas fa-stopwatch"></i>
+                        </div>
+                        <div>
+                            <div class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Tiempo
+                                Transcurrido</div>
+                            <div id="kpi-time" class="text-2xl font-black text-slate-100 font-mono tracking-tight">00:00
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-5 bg-slate-950 rounded-xl border border-slate-800 flex items-center gap-4 shadow-sm">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 text-emerald-400 flex items-center justify-center text-xl font-bold">
+                            <i class="fas fa-rotate"></i>
+                        </div>
+                        <div>
+                            <div class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Oportunidad
+                                Actual</div>
+                            <div class="text-2xl font-black text-slate-100 tracking-tight"><span
+                                    id="kpi-attempt">1</span> <span class="text-xs font-normal text-slate-400">de
+                                    4</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráficos -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="p-5 bg-slate-950 rounded-xl border border-slate-800 shadow-sm">
+                        <h3
+                            class="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <i class="fas fa-chart-column"></i> Rendimiento por Dimensión (% Cumplimiento)
+                        </h3>
+                        <div class="h-64 flex items-center justify-center">
+                            <canvas id="barChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="p-5 bg-slate-950 rounded-xl border border-slate-800 shadow-sm">
+                        <h3
+                            class="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <i class="fas fa-chart-pie"></i> Distribución de Efectividad Global
+                        </h3>
+                        <div class="h-64 flex items-center justify-center">
+                            <canvas id="donutChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conclusión Dinámica de Resultados -->
+                <div class="p-5 bg-slate-950 rounded-xl border border-slate-800 shadow-sm">
+                    <h3
+                        class="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2.5 flex items-center gap-2">
+                        <i class="fas fa-clipboard-check"></i> Conclusión y Dictamen Diagnóstico de Aprendizaje
+                    </h3>
+                    <div id="dashboard-conclusion-box"
+                        class="text-xs text-slate-300 leading-relaxed bg-slate-900/90 p-4 rounded-lg border border-slate-800">
+                        Pendiente de consolidación. Responde las secciones de la auditoría y consolida tu evaluación
+                        para generar el
+                        dictamen.
+                    </div>
+                </div>
+                <div class="flex justify-end mb-4 no-print">
+                    <button onclick="printEvidence()"
+                        class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                        <i class="fas fa-print"></i>
+                        <span>Imprimir Acta de Resultados</span>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- PIE DE PÁGINA                              -->
+    <!-- ========================================== -->
+    <footer
+        class="bg-slate-950 border-t border-slate-800 py-4 text-center text-xs text-slate-500 no-print shadow-inner">
+        <p class="font-medium text-slate-400">Servicio Nacional de Aprendizaje SENA - Centro de Gestión Administrativa
+            (CGA)
+        </p>
+        <p class="text-[11px] text-slate-500 mt-0.5">Herramienta de Formación Profesional Integral | Régimen de
+            Faltas, Medidas y Sanciones</p>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- MODAL INSTITUCIONAL                        -->
+    <!-- ========================================== -->
+    <div id="custom-modal"
+        class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div
+            class="bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-800 transform transition-all text-slate-100">
+            <div class="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 text-indigo-400 flex items-center justify-center text-xl font-bold mb-4 mx-auto shadow-inner"
+                id="modal-icon">
+                <i class="fas fa-circle-check"></i>
+            </div>
+            <h3 class="text-base font-bold text-indigo-400 text-center mb-1.5" id="modal-title">Atención</h3>
+            <p class="text-xs text-slate-300 text-center mb-6 leading-relaxed" id="modal-msg">Mensaje institucional.</p>
+            <div class="flex gap-3 justify-center" id="modal-actions">
+                <button onclick="closeModal()"
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition">
+                    Entendido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- LÓGICA JAVASCRIPT                          -->
+    <!-- ========================================== -->
+    <script>
+        let currentAttempt = 1;
+        const maxAttempts = 4;
+        let timeRemaining = 60 * 60;
+        let timeElapsed = 0;
+        let timerInterval = null;
+        let registeredLearner = null;
+
+        let scores = {
+            principios: 0,
+            medidas: 0,
+            sanciones: 0,
+            evaluacion: 0,
+            total: 0
+        };
+
+        let barChartInstance = null;
+        let donutChartInstance = null;
+
+        const ORDER_CORRECT = ['recepcion', 'citacion', 'sesion', 'acto', 'notificacion', 'recurso', 'firmeza'];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            startTimer();
+            initCharts();
+            initOrderDrag();
+            initClassifyDrag();
+            renumberOrderList();
+        });
+
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (timeRemaining > 0) {
+                    timeRemaining--;
+                    timeElapsed++;
+                    updateTimerDisplay();
+                } else {
+                    clearInterval(timerInterval);
+                    showModal('Tiempo Finalizado', 'El tiempo límite de 60 minutos ha expirado. Procederemos a consolidar los resultados obtenidos.');
+                    consolidateEvaluation();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const m = Math.floor(timeRemaining / 60);
+            const s = timeRemaining % 60;
+            document.getElementById('timer-display').innerText =
+                `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+
+            const em = Math.floor(timeElapsed / 60);
+            const es = timeElapsed % 60;
+            document.getElementById('kpi-time').innerText =
+                `${em.toString().padStart(2, '0')}:${es.toString().padStart(2, '0')}`;
+        }
+
+        function showModal(title, msg, isConfirm = false, onConfirm = null) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-msg').innerText = msg;
+            const actionsContainer = document.getElementById('modal-actions');
+
+            if (isConfirm) {
+                actionsContainer.innerHTML = `
+          <button onclick="closeModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold px-4 py-2 rounded-xl transition">Cancelar</button>
+          <button id="modal-confirm-btn" class="bg-rose-900 hover:bg-rose-800 text-rose-100 text-xs font-semibold px-4 py-2 rounded-xl transition border border-rose-700">Confirmar</button>
+        `;
+                document.getElementById('modal-confirm-btn').onclick = () => {
+                    closeModal();
+                    if (onConfirm) onConfirm();
+                };
+            } else {
+                actionsContainer.innerHTML = `
+          <button onclick="closeModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition">Entendido</button>
+        `;
+            }
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        function switchTab(tabId) {
+            if (tabId !== 'registro' && !registeredLearner) {
+                showModal('Registro Obligatorio', 'Debes completar y confirmar primero tus datos institucionales en la pestaña de Registro.');
+                return;
+            }
+
+            document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById(`pane-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            activeBtn.classList.add('active');
+
+            if (tabId === 'dashboard') {
+                updateCharts();
+            }
+        }
+
+        function proceedToPrincipios() {
+            const nombre = document.getElementById('reg-nombre').value.trim();
+            const doc = document.getElementById('reg-doc').value.trim();
+            const ficha = document.getElementById('reg-ficha').value.trim();
+            const prog = document.getElementById('reg-programa')?.value || 'Técnico en Talento Humano';
+
+            if (!nombre || !doc || !ficha) {
+                showModal('Campos Incompletos', 'Por favor diligencia tu Nombre, Documento y Ficha de caracterización.');
+                return;
+            }
+
+            registeredLearner = { nombre, doc, ficha, prog };
+
+            document.getElementById('print-nombre').innerText = nombre;
+            document.getElementById('print-doc').innerText = doc;
+            document.getElementById('print-ficha').innerText = ficha;
+            const progElem = document.getElementById('print-programa');
+            if (progElem) progElem.innerText = prog;
+            const centroElem = document.getElementById('print-centro');
+            if (centroElem) centroElem.innerText = document.getElementById('reg-centro')?.value || '--';
+            const regionalElem = document.getElementById('print-regional');
+            if (regionalElem) regionalElem.innerText = document.getElementById('reg-regional')?.value || '--';
+
+            switchTab('principios');
+        }
+
+        function proceedToMedidas() {
+            switchTab('medidas');
+        }
+
+        function proceedToSanciones() {
+            switchTab('sanciones');
+        }
+
+        function proceedToEvaluacion() {
+            switchTab('evaluacion');
+        }
+
+        /* ============== ORDENAMIENTO (drag & drop) ============== */
+        function initOrderDrag() {
+            const list = document.getElementById('order-list');
+            let draggedEl = null;
+
+            list.querySelectorAll('.order-item').forEach(item => {
+                item.addEventListener('dragstart', () => {
+                    draggedEl = item;
+                    item.classList.add('dragging');
+                });
+                item.addEventListener('dragend', () => {
+                    item.classList.remove('dragging');
+                    renumberOrderList();
+                });
+            });
+
+            list.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                const afterEl = getDragAfterElement(list, e.clientY);
+                const dragging = list.querySelector('.dragging');
+                if (!dragging) return;
+                if (afterEl == null) {
+                    list.appendChild(dragging);
+                } else {
+                    list.insertBefore(dragging, afterEl);
+                }
+            });
+        }
+
+        function getDragAfterElement(container, y) {
+            const items = [...container.querySelectorAll('.order-item:not(.dragging)')];
+            return items.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: -Infinity }).element;
+        }
+
+        function renumberOrderList() {
+            const items = document.querySelectorAll('#order-list .order-item');
+            items.forEach((item, idx) => {
+                item.querySelector('.order-num').innerText = idx + 1;
+            });
+        }
+
+        function getCurrentOrder() {
+            return [...document.querySelectorAll('#order-list .order-item')].map(el => el.dataset.step);
+        }
+
+        function checkOrder() {
+            const current = getCurrentOrder();
+            let correctCount = 0;
+            current.forEach((step, idx) => {
+                if (step === ORDER_CORRECT[idx]) correctCount++;
+            });
+            showModal('Verificación de Orden', `Tienes ${correctCount} de ${ORDER_CORRECT.length} fases en la posición correcta. Puedes seguir ajustando el orden antes de consolidar la evaluación.`);
+        }
+
+        /* ============== CLASIFICACIÓN (drag & drop) ============== */
+        function initClassifyDrag() {
+            document.querySelectorAll('.drag-item').forEach(item => {
+                item.addEventListener('dragstart', () => {
+                    item.classList.add('dragging');
+                });
+                item.addEventListener('dragend', () => {
+                    item.classList.remove('dragging');
+                });
+            });
+
+            document.querySelectorAll('.drop-zone, #drag-bank').forEach(zone => {
+                zone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    zone.classList.add('drag-over');
+                });
+                zone.addEventListener('dragleave', () => {
+                    zone.classList.remove('drag-over');
+                });
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('drag-over');
+                    const dragging = document.querySelector('.drag-item.dragging');
+                    if (dragging) zone.appendChild(dragging);
+                });
+            });
+        }
+
+        function resetClassify() {
+            const bank = document.getElementById('drag-bank');
+            document.querySelectorAll('.drag-item').forEach(item => bank.appendChild(item));
+        }
+
+        function computeClassifyScore() {
+            const bins = { leve: 'bin-leve', grave: 'bin-grave', gravisima: 'bin-gravisima' };
+            let correct = 0;
+            let total = 0;
+            document.querySelectorAll('.drag-item').forEach(item => {
+                total++;
+                const parentId = item.parentElement.id;
+                if (parentId === bins[item.dataset.cat]) correct++;
+            });
+            return Math.round((correct / total) * 20);
+        }
+
+        function confirmReset() {
+            if (currentAttempt >= maxAttempts) {
+                showModal('Intentos Agotados', 'Has alcanzado el límite máximo de cuatro (4) intentos permitidos para esta actividad.');
+                return;
+            }
+
+            showModal(
+                'Confirmar Reinicio de Intento',
+                `¿Deseas reiniciar la actividad? Se restablecerán las selecciones de las preguntas y se consumirá el intento ${currentAttempt + 1} de ${maxAttempts}.`,
+                true,
+                () => {
+                    currentAttempt++;
+                    document.getElementById('attempts-badge').innerText = `${currentAttempt} / ${maxAttempts}`;
+                    document.getElementById('kpi-attempt').innerText = currentAttempt;
+
+                    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+                    document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
+                    document.querySelectorAll('select').forEach(s => {
+                        if (s.id.startsWith('match-')) s.selectedIndex = 0;
+                    });
+
+                    resetClassify();
+
+                    const list = document.getElementById('order-list');
+                    const shuffled = [...list.children].sort(() => Math.random() - 0.5);
+                    shuffled.forEach(el => list.appendChild(el));
+                    renumberOrderList();
+
+                    ['prin', 'med', 'san', 'eva'].forEach(k => {
+                        document.getElementById(`tb-${k}-pts`).innerText = '--';
+                        document.getElementById(`tb-${k}-pct`).innerText = '0%';
+                        const badge = document.getElementById(`tb-${k}-badge`);
+                        badge.className = 'px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-slate-900 text-slate-400 border border-slate-800';
+                        badge.innerText = 'Pendiente';
+                    });
+                    document.getElementById('tb-tot-pts').innerText = '0 pts';
+                    document.getElementById('tb-tot-pct').innerText = '0%';
+                    const totBadge = document.getElementById('tb-tot-badge');
+                    totBadge.className = 'px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-900 text-slate-400 border border-slate-800';
+                    totBadge.innerText = 'Pendiente';
+
+                    const pill = document.getElementById('matrix-status-pill');
+                    pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-slate-950 text-slate-400 flex items-center gap-1.5 border border-slate-800';
+                    pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-slate-500"></span> Pendiente de Consolidación';
+
+                    scores = { principios: 0, medidas: 0, sanciones: 0, evaluacion: 0, total: 0 };
+                    document.getElementById('global-score').innerText = '0';
+                    document.getElementById('score-circle').innerText = '0%';
+                    document.getElementById('kpi-score').innerText = '0';
+                    updateCharts();
+
+                    switchTab('principios');
+                }
+            );
+        }
+
+        function computeScores() {
+            // 1. Principios y Faltas (25 pts: 8+8+9)
+            let prinScore = 0;
+            const prinKeys = { 'prin-q1': ['A', 8], 'prin-q2': ['A', 8], 'prin-q3': ['B', 9] };
+            for (const [name, [correctVal, pts]] of Object.entries(prinKeys)) {
+                const selected = document.querySelector(`input[name="${name}"]:checked`);
+                if (selected && selected.value === correctVal) prinScore += pts;
+            }
+            scores.principios = prinScore;
+
+            // 2. Medidas Formativas (20 pts: 3 radio x 5 = 15, emparejamiento = 5)
+            let medScore = 0;
+            const medKeys = { 'med-q1': 'B', 'med-q2': 'C', 'med-q3': 'B' };
+            for (const [name, correctVal] of Object.entries(medKeys)) {
+                const selected = document.querySelector(`input[name="${name}"]:checked`);
+                if (selected && selected.value === correctVal) medScore += 5;
+            }
+            const matchAnswers = { 'match-1': 'd1', 'match-2': 'd2', 'match-3': 'd3', 'match-4': 'd4' };
+            let matchCorrect = 0;
+            for (const [id, correctVal] of Object.entries(matchAnswers)) {
+                const el = document.getElementById(id);
+                if (el && el.value === correctVal) matchCorrect++;
+            }
+            medScore += Math.round((matchCorrect / 4) * 5);
+            scores.medidas = medScore;
+
+            // 3. Sanciones y Procedimiento (25 pts: ordenamiento)
+            const current = getCurrentOrder();
+            let orderCorrect = 0;
+            current.forEach((step, idx) => {
+                if (step === ORDER_CORRECT[idx]) orderCorrect++;
+            });
+            scores.sanciones = Math.round((orderCorrect / ORDER_CORRECT.length) * 25);
+
+            // 4. Evaluación Integradora (30 pts: 2 radio x 5 = 10, clasificación = 20)
+            let evaScore = 0;
+            const q1 = document.querySelector('input[name="eva-q1"]:checked');
+            const q2 = document.querySelector('input[name="eva-q2"]:checked');
+            if (q1 && q1.value === 'A') evaScore += 5;
+            if (q2 && q2.value === 'B') evaScore += 5;
+            evaScore += computeClassifyScore();
+            scores.evaluacion = evaScore;
+
+            // Total
+            scores.total = scores.principios + scores.medidas + scores.sanciones + scores.evaluacion;
+
+            document.getElementById('global-score').innerText = scores.total;
+            document.getElementById('score-circle').innerText = `${scores.total}%`;
+            document.getElementById('kpi-score').innerText = scores.total;
+
+            updateCharts();
+        }
+
+        function consolidateEvaluation() {
+            if (!registeredLearner) {
+                showModal('Atención', 'Debes registrar primero tus datos institucionales en la pestaña de Registro.');
+                switchTab('registro');
+                return;
+            }
+
+            computeScores();
+
+            const setRow = (key, pts, max) => {
+                const pct = Math.round((pts / max) * 100);
+                document.getElementById(`tb-${key}-pts`).innerText = `${pts} / ${max} pts`;
+                document.getElementById(`tb-${key}-pct`).innerText = `${pct}%`;
+                const badge = document.getElementById(`tb-${key}-badge`);
+                if (pct >= 90) {
+                    badge.className = 'px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-emerald-950/70 text-emerald-400 border border-emerald-800';
+                    badge.innerText = 'Aprobado';
+                } else if (pct > 0) {
+                    badge.className = 'px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-amber-950/70 text-amber-400 border border-amber-800';
+                    badge.innerText = 'Por Mejorar';
+                } else {
+                    badge.className = 'px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-rose-950/70 text-rose-400 border border-rose-800';
+                    badge.innerText = 'Sin Responder';
+                }
+            };
+
+            setRow('prin', scores.principios, 25);
+            setRow('med', scores.medidas, 20);
+            setRow('san', scores.sanciones, 25);
+            setRow('eva', scores.evaluacion, 30);
+
+            document.getElementById('tb-tot-pts').innerText = `${scores.total} pts`;
+            document.getElementById('tb-tot-pct').innerText = `${scores.total}%`;
+            const totBadge = document.getElementById('tb-tot-badge');
+            if (scores.total >= 90) {
+                totBadge.className = 'px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-emerald-950/70 text-emerald-400 border border-emerald-800';
+                totBadge.innerText = 'Aprobado';
+            } else {
+                totBadge.className = 'px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-rose-950/70 text-rose-400 border border-rose-800';
+                totBadge.innerText = 'No Aprobado';
+            }
+
+            const pill = document.getElementById('matrix-status-pill');
+            if (scores.total >= 90) {
+                pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-emerald-950/70 text-emerald-400 flex items-center gap-1.5 border border-emerald-800';
+                pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400"></span> Evaluación Consolidada - Aprobado';
+            } else {
+                pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-amber-950/70 text-amber-400 flex items-center gap-1.5 border border-amber-800';
+                pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400"></span> Evaluación Consolidada - Requiere Refuerzo';
+            }
+
+            showModal('Evaluación Consolidada', `Tu puntaje total es de ${scores.total} / 100 puntos. Consulta el detalle en el Acta de Resultados y en el Dashboard.`);
+        }
+
+        function printEvidence() {
+            if (!registeredLearner) {
+                const nombre = document.getElementById('reg-nombre').value.trim();
+                const doc = document.getElementById('reg-doc').value.trim();
+                const ficha = document.getElementById('reg-ficha').value.trim();
+                const prog = document.getElementById('reg-programa')?.value || 'Técnico en Talento Humano';
+
+                if (nombre && doc && ficha) {
+                    registeredLearner = { nombre, doc, ficha, prog };
+                    document.getElementById('print-nombre').innerText = nombre;
+                    document.getElementById('print-doc').innerText = doc;
+                    document.getElementById('print-ficha').innerText = ficha;
+                    const progElem = document.getElementById('print-programa');
+                    if (progElem) progElem.innerText = prog;
+                    const centroElem = document.getElementById('print-centro');
+                    if (centroElem) centroElem.innerText = document.getElementById('reg-centro')?.value || '--';
+                    const regionalElem = document.getElementById('print-regional');
+                    if (regionalElem) regionalElem.innerText = document.getElementById('reg-regional')?.value || '--';
+                } else {
+                    showModal('Registro Incompleto', 'Por favor diligencia tus datos institucionales (Nombre, Documento y Ficha) en la pestaña de Registro antes de imprimir.');
+                    switchTab('registro');
+                    return;
+                }
+            }
+
+            const fechaElem = document.getElementById('print-fecha');
+            if (fechaElem) {
+                const now = new Date();
+                const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+                fechaElem.innerText = `${now.getDate()} de ${meses[now.getMonth()]} de ${now.getFullYear()}`;
+            }
+
+            consolidateEvaluation();
+
+            switchTab('evaluacion');
+            setTimeout(() => {
+                window.print();
+            }, 300);
+        }
+
+        function initCharts() {
+            const ctxBar = document.getElementById('barChart').getContext('2d');
+            barChartInstance = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ['Principios', 'Medidas', 'Sanciones', 'Evaluación'],
+                    datasets: [{
+                        label: '% Cumplimiento',
+                        data: [0, 0, 0, 0],
+                        backgroundColor: '#4f46e5',
+                        borderColor: '#6366f1',
+                        borderWidth: 1,
+                        borderRadius: 8,
+                        barThickness: 32
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: '#1e293b' },
+                            ticks: {
+                                color: '#94a3b8',
+                                callback: val => `${val}%`
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#94a3b8' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+
+            const ctxDonut = document.getElementById('donutChart').getContext('2d');
+            donutChartInstance = new Chart(ctxDonut, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Puntos Obtenidos', 'Puntos Restantes'],
+                    datasets: [{
+                        data: [0, 100],
+                        backgroundColor: ['#4f46e5', '#1e293b'],
+                        borderColor: '#020617',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '72%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#94a3b8',
+                                boxWidth: 12,
+                                padding: 14
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateCharts() {
+            if (!barChartInstance || !donutChartInstance) return;
+
+            const pPrin = Math.round((scores.principios / 25) * 100);
+            const pMed = Math.round((scores.medidas / 20) * 100);
+            const pSan = Math.round((scores.sanciones / 25) * 100);
+            const pEva = Math.round((scores.evaluacion / 30) * 100);
+
+            barChartInstance.data.datasets[0].data = [pPrin, pMed, pSan, pEva];
+            barChartInstance.update();
+
+            const remaining = Math.max(0, 100 - scores.total);
+            donutChartInstance.data.datasets[0].data = [scores.total, remaining];
+            donutChartInstance.update();
+
+            const conclusionBox = document.getElementById('dashboard-conclusion-box');
+            if (scores.total >= 90) {
+                conclusionBox.innerHTML = `
+          <p class="text-emerald-400 font-bold mb-1">
+            <i class="fas fa-check-double mr-1"></i> Dictamen Satisfactorio (Aprobado - ${scores.total} pts / ${scores.total}%):
+          </p>
+          <p>
+            El aprendiz evidencia dominio integral del Régimen de Faltas, Medidas Formativas, Disciplinarias y
+            Sancionatorias. Se comprueba apropiación de los principios del Artículo 39, la calificación de faltas
+            del Artículo 42, los plazos de las medidas formativas y las fases del debido proceso sancionatorio.
+            Competencia lista para certificación en Talento Humano.
+          </p>
+        `;
+            } else if (scores.total > 0) {
+                conclusionBox.innerHTML = `
+          <p class="text-amber-400 font-bold mb-1">
+            <i class="fas fa-triangle-exclamation mr-1"></i> Dictamen Diagnóstico (Por Mejorar - ${scores.total} pts / ${scores.total}%):
+          </p>
+          <p>
+            El puntaje alcanzado no supera el 90% mínimo reglamentario. Se identifican brechas prioritarias que
+            requieren refuerzo pedagógico en la calificación de faltas (Art. 42), los plazos de las medidas
+            formativas (Art. 45-46) o el orden del procedimiento sancionatorio (Art. 51). Se sugiere concertar
+            retroalimentación con el instructor ejecutor y reiniciar el intento.
+          </p>
+        `;
+            } else {
+                conclusionBox.innerHTML = `
+          <p class="text-slate-400 italic">
+            Sin datos suficientes. Diligencia las fases de Principios, Medidas, Sanciones y consolida la evaluación
+            para emitir el dictamen formativo.
+          </p>
+        `;
+            }
+        }
+    </script>
+</body>
+
+</html>

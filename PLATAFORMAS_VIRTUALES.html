@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plataformas Virtuales del SENA</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #898AAD;
+            color: #f1f5f9;
+        }
+
+        .tab-btn {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+            color: #94a3b8;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background-color: #1e293b;
+            border-color: #334155;
+            color: #f8fafc;
+        }
+
+        .tab-btn.active {
+            background-color: #4f46e5 !important;
+            color: #ffffff !important;
+            border-color: #6366f1 !important;
+            box-shadow: 0 4px 14px -2px rgba(79, 70, 229, 0.45) !important;
+        }
+
+        .info-card {
+            transition: all 0.2s ease;
+            border: 1px solid #1e293b;
+        }
+
+        .upload-box {
+            transition: all 0.2s ease;
+            background-color: #0f172a;
+        }
+
+        .upload-box:hover {
+            background-color: rgba(99, 102, 241, 0.08);
+        }
+
+        .upload-box.has-file {
+            border-style: solid !important;
+            border-color: #10b981 !important;
+            background-color: rgba(16, 185, 129, 0.08);
+        }
+
+        select,
+        input[type="text"] {
+            color-scheme: dark;
+        }
+
+        .checklist-row {
+            border: 1px solid #1e293b;
+        }
+
+        #print-area {
+            display: none;
+        }
+
+        @media print {
+            body {
+                background-color: #ffffff !important;
+                color: #0f172a !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            header,
+            nav,
+            footer,
+            .no-print,
+            .tab-pane {
+                display: none !important;
+            }
+
+            #print-area {
+                display: block !important;
+                visibility: visible !important;
+                width: 100% !important;
+                padding: 10mm !important;
+                margin: 0 !important;
+                background: #ffffff !important;
+                color: #0f172a !important;
+            }
+
+            #print-area * {
+                visibility: visible !important;
+                color: #0f172a !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+            }
+
+            #print-area .print-box {
+                border: 1px solid #cbd5e1 !important;
+                background: #ffffff !important;
+            }
+
+            #print-area table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+            }
+
+            #print-area td,
+            #print-area th {
+                border: 1px solid #cbd5e1 !important;
+                padding: 6px 10px !important;
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-[#898AAD] text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-indigo-500/30 selection:text-indigo-200">
+
+    <!-- ========================================== -->
+    <!-- HEADER PRINCIPAL                           -->
+    <!-- ========================================== -->
+    <header class="border-b border-slate-800 bg-slate-950 sticky top-0 z-50 no-print shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <img src="sena.png" alt="Logo SENA" class="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0"
+                    onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-indigo-600 flex items-center justify-center text-white text-xs font-black shrink-0', innerText:'S'}))" />
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold text-indigo-400 leading-none">Plataformas Virtuales del
+                        SENA</h1>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Simulador Interactivo - Sofia Plus, Blog CGA y
+                        SoySena</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2.5 sm:gap-4 flex-wrap">
+                <button onclick="printEvidence()"
+                    class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold border border-emerald-500 transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fas fa-print text-[11px]"></i>
+                    <span>Imprimir Registro</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- CONTENEDOR PRINCIPAL                       -->
+    <!-- ========================================== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-grow">
+
+        <!-- Panel Resumen Superior -->
+        <div
+            class="bg-slate-900/90 backdrop-blur-sm rounded-2xl p-5 mb-6 border border-slate-700/80 no-print shadow-xl">
+            <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Reconociendo las Plataformas Virtuales
+            </span>
+            <h2 class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">Plataformas Virtuales
+                Institucionales - SENA</h2>
+            <p class="text-xs text-slate-400 mt-0.5">Sofia Plus &bull; Blog CGA &bull; SoySena &bull; 9 evidencias
+                requeridas &bull; Aprobaciòn minima: 90% de archivos cargados</p>
+        </div>
+
+        <!-- MenÃº de PestaÃ±as -->
+        <nav class="flex gap-2 border-b border-slate-800/80 pb-3 mb-6 overflow-x-auto no-print">
+            <button onclick="window.location.href='index.html'" id="tab-inicio"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-house text-xs"></i> Inicio
+            </button>
+            <button onclick="switchTab('registro')" id="tab-registro"
+                class="tab-btn active px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-id-card text-xs"></i> Registro
+            </button>
+            <button onclick="switchTab('introduccion')" id="tab-introduccion"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-circle-info text-xs"></i> Introducci&ograve;n
+            </button>
+            <button onclick="switchTab('instrucciones')" id="tab-instrucciones"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-list-check text-xs"></i> Instrucciones
+            </button>
+            <button onclick="switchTab('sofiaplus')" id="tab-sofiaplus"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-graduation-cap text-xs"></i> Sofia Plus
+            </button>
+            <button onclick="switchTab('blogsena')" id="tab-blogsena"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-blog text-xs"></i> Blog SENA
+            </button>
+            <button onclick="switchTab('soysena')" id="tab-soysena"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-envelope text-xs"></i> SoySena
+            </button>
+            <button onclick="switchTab('dashboard')" id="tab-dashboard"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-chart-pie text-xs"></i> Dashboard
+            </button>
+        </nav>
+
+        <!-- ========================================== -->
+        <!-- PESTAÃ‘A: REGISTRO                          -->
+        <!-- ========================================== -->
+        <section id="pane-registro" class="tab-pane block">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 max-w-3xl mx-auto shadow-2xl">
+                <div class="pb-4 mb-6 border-b border-slate-800">
+                    <h2 class="text-base sm:text-lg font-bold text-indigo-400">Registro del Aprendiz</h2>
+                    <p class="text-xs text-slate-400">Diligencia tus datos para identificar tu registro y las
+                        evidencias cargadas al momento de imprimir.</p>
+                </div>
+
+                <form id="form-registro" onsubmit="guardarRegistro(event)"
+                    class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Nombre Completo *</label>
+                        <input type="text" id="reg-nombre" required placeholder="Ej: Carlos Alberto Torres"
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition" />
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Documento de Identidad
+                            *</label>
+                        <input type="text" id="reg-doc" required placeholder="Ej: 1020304050"
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition" />
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">N&uacute;mero de Ficha
+                            *</label>
+                        <input type="text" id="reg-ficha" required placeholder="Ej: 2758431"
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition" />
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Programa de Formaci&ograve;n
+                            *</label>
+                        <select id="reg-programa" required
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-100 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition">
+                            <option value="" disabled selected>Seleccione un programa...</option>
+                            <option value="Tecnico en Talento Humano">Tecnico en Talento Humano</option>
+                            <option value="Tecnico en Asistencia a la Funci&ograve;n Publica">Tecnico en Asistencia a la
+                                Funci&ograve;n Publica</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Centro de
+                            Formaci&ograve;n</label>
+                        <input type="text" id="reg-centro" value="Centro de Gesti&ograve;n Administrativa" readonly
+                            class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-sm text-slate-400 cursor-not-allowed outline-none" />
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Regional</label>
+                        <input type="text" id="reg-regional" value="Distrito Capital" readonly
+                            class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-sm text-slate-400 cursor-not-allowed outline-none" />
+                    </div>
+
+                    <div class="md:col-span-2 pt-2">
+                        <button type="submit"
+                            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-5 py-3 rounded-xl transition flex items-center justify-center gap-2 shadow-md">
+                            <i class="fas fa-floppy-disk text-xs"></i>
+                            <span>Guardar Registro y Comenzar</span>
+                        </button>
+                        <p id="registro-guardado-msg"
+                            class="hidden text-center text-emerald-400 text-xs font-semibold mt-3">
+                            <i class="fas fa-check-circle mr-1"></i> Registro guardado. Redirigiendo a
+                            Introducci&ograve;n...
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÃ‘A: INTRODUCCIÃ“N                      -->
+        <!-- ========================================== -->
+        <section id="pane-introduccion" class="tab-pane hidden">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-8 max-w-3xl mx-auto shadow-2xl text-center">
+                <!-- Imagen primero -->
+                <div class="mb-6 overflow-hidden rounded-xl border border-slate-700/80 shadow-lg bg-slate-950/60 p-2">
+                    <img src="Plataformas virtuales SENA.png" alt="Plataformas virtuales SENA"
+                        class="w-full max-w-xl mx-auto rounded-lg object-contain transition-transform duration-300 hover:scale-[1.01]" />
+                </div>
+
+                <!-- Icono y Texto luego -->
+                <div
+                    class="w-14 h-14 mx-auto rounded-2xl bg-indigo-600/20 border border-indigo-800 flex items-center justify-center mb-4">
+                    <i class="fas fa-circle-info text-indigo-400 text-xl"></i>
+                </div>
+                <h2 class="text-xl sm:text-2xl font-bold text-white mb-3">Reconociendo algunas Plataformas Virtuales
+                    Institucionales</h2>
+                <p class="text-sm text-slate-300 leading-relaxed text-justify mb-6">
+                    El SENA pone a disposici&oacute;n de sus aprendices diferentes plataformas virtuales que
+                    acompa&ntilde;an todo
+                    el proceso de formaci&ograve;n: desde el registro y seguimiento acad&eacute;mico, hasta la
+                    comunicaci&oacute;n con la
+                    Coordinaci&oacute;n y la gesti&ograve;n del correo institucional. En esta actividad
+                    reconocer&aacute;s tres de ellas &mdash;
+                    <span class="text-white font-semibold">Sofia Plus</span>,
+                    <span class="text-white font-semibold">Blog CGA</span> y
+                    <span class="text-white font-semibold">SoySena</span> &mdash; identificando para qu&eacute; sirve
+                    cada
+                    espacio y cargando la evidencia correspondiente a tu portafolio.
+                </p>
+
+                <div class="flex justify-center">
+                    <button onclick="switchTab('instrucciones')"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                        <span>Continuar a Instrucciones</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÃ‘A: INSTRUCCIONES                     -->
+        <!-- ========================================== -->
+        <section id="pane-instrucciones" class="tab-pane hidden">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-8 max-w-3xl mx-auto shadow-2xl">
+
+                <!-- Imagen primero -->
+                <div class="mb-5 flex justify-center">
+                    <div
+                        class="overflow-hidden rounded-2xl border border-slate-700/80 shadow-lg bg-slate-950/70 p-3 max-w-xs flex justify-center items-center">
+                        <img src="insignia.png" alt="Insignia SENA"
+                            class="max-h-40 sm:max-h-44 w-auto object-contain transition-transform duration-300 hover:scale-105" />
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4 mb-5">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-indigo-600/20 border border-indigo-800 flex items-center justify-center shrink-0">
+                        <i class="fas fa-list-check text-indigo-400 text-lg"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg sm:text-xl font-bold text-white">Instrucciones de la Actividad</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Lee con atenci&oacute;n antes de comenzar</p>
+                    </div>
+                </div>
+
+                <ol class="space-y-4">
+                    <li class="info-card bg-slate-950 rounded-xl p-4 flex items-start gap-3">
+                        <span
+                            class="w-7 h-7 shrink-0 rounded-lg bg-indigo-600/20 border border-indigo-800 text-indigo-400 text-xs font-bold flex items-center justify-center">1</span>
+                        <p class="text-sm text-slate-300 leading-relaxed text-justify">Individualmente debes ingresar
+                            a <span class="text-white font-semibold">Sofia Plus</span> o al
+                            <span class="text-white font-semibold">Blog CGA</span>, y tomar el pantallazo del lugar
+                            donde se encuentra la informaci&oacute;n solicitada en cada paso.
+                        </p>
+                    </li>
+                    <li class="info-card bg-slate-950 rounded-xl p-4 flex items-start gap-3">
+                        <span
+                            class="w-7 h-7 shrink-0 rounded-lg bg-indigo-600/20 border border-indigo-800 text-indigo-400 text-xs font-bold flex items-center justify-center">2</span>
+                        <p class="text-sm text-slate-300 leading-relaxed text-justify">Estos pantallazos se recopilan
+                            carg&aacute;ndolos en el espacio de evidencia de cada paso, dentro de las pesta&ntilde;as
+                            <span class="text-white font-semibold">Sofia Plus</span>,
+                            <span class="text-white font-semibold">Blog SENA</span> y
+                            <span class="text-white font-semibold">SoySena</span>, para construir tu portafolio.
+                        </p>
+                    </li>
+                    <li class="info-card bg-slate-950 rounded-xl p-4 flex items-start gap-3">
+                        <span
+                            class="w-7 h-7 shrink-0 rounded-lg bg-indigo-600/20 border border-indigo-800 text-indigo-400 text-xs font-bold flex items-center justify-center">3</span>
+                        <p class="text-sm text-slate-300 leading-relaxed text-justify">Verifica en la pesta&ntilde;a
+                            <span class="text-white font-semibold">Dashboard</span> el avance de tus evidencias
+                            cargadas. La actividad se aprueba con un
+                            <span class="text-white font-semibold">90%</span> de los archivos cargados.
+                        </p>
+                    </li>
+                </ol>
+
+                <div class="mt-6 flex justify-end">
+                    <button onclick="switchTab('sofiaplus')"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                        <span>Ir a Sofia Plus</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÃ‘A: SOFIA PLUS                        -->
+        <!-- ========================================== -->
+        <section id="pane-sofiaplus" class="tab-pane hidden">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-6">
+                    <span
+                        class="text-[11px] font-extrabold tracking-widest text-slate-900 uppercase flex items-center justify-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-slate-900"></span> Plataforma Acad&eacute;mica
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-black text-slate-950 mt-1">Sofia Plus</h2>
+                    <p class="text-xs font-semibold text-slate-800 mt-1">Identifica cada espacio y carga tu evidencia (4
+                        pasos)</p>
+                </div>
+
+                <!-- ITEM sofia1 -->
+                <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 sm:p-6 shadow-xl mb-6">
+                    <div class="flex items-start justify-between gap-4 mb-4">
+                        <div class="flex items-start gap-4">
+                            <span
+                                class="w-9 h-9 shrink-0 rounded-lg bg-indigo-600/20 border border-indigo-800 text-indigo-400 text-sm font-bold flex items-center justify-center">1</span>
+                            <div>
+                                <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase">Sofia
+                                    Plus</span>
+                                <h3 class="text-base sm:text-lg font-bold text-white mt-0.5">Registrar una novedad</h3>
+                            </div>
+                        </div>
+                        <a href="http://senasofiaplus.edu.co" target="_blank" rel="noopener noreferrer"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm shrink-0">
+                            <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            <span>Sofia</span>
+                        </a>
+                    </div>
+
+                    <!-- Imagen sofia1 debajo del titulo -->
+                    <div
+                        class="mb-4 overflow-hidden rounded-xl border border-slate-700/80 bg-slate-950/60 p-2 text-center">
+                        <img src="sofia1.png" alt="Sofia Plus - Registrar una novedad"
+                            class="max-h-56 w-auto mx-auto rounded-lg object-contain transition-transform duration-300 hover:scale-[1.01]" />
+                    </div>
+
+                    <p class="text-sm text-slate-300 leading-relaxed text-justify mb-4">Si quieres presentar una
+                        novedad, en esta &aacute;rea debes ingresar.</p>
+                    <div class="mb-4">
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-image text-[10px]"></i> Ejemplo de referencia</span>
+                        <img src="ejemplo1.png" alt="Ejemplo Sofia Plus - novedad"
+                            class="w-full rounded-xl border border-slate-800" />
+                    </div>
+                    <div>
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-upload text-[10px]"></i> Tu evidencia</span>
+                        <label for="file-sofia1" id="drop-sofia1"
+                            class="upload-box flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-700 p-6 cursor-pointer text-center">
+                            <i class="fas fa-cloud-arrow-up text-2xl text-slate-500"></i>
+                            <span class="text-xs text-slate-400">Haz clic para subir tu pantallazo (PNG, JPG)</span>
+                        </label>
+                        <input type="file" id="file-sofia1" accept="image/*" class="hidden"
+                            onchange="handleUpload('sofia1', this)" />
+                        <div id="preview-sofia1" class="hidden mt-3 relative inline-block">
+                            <img id="preview-img-sofia1" class="max-h-52 rounded-xl border border-emerald-700" />
+                            <button onclick="removeUpload('sofia1')"
+                                class="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-rose-600 hover:bg-rose-700 text-white flex items-center justify-center text-xs shadow-lg">
+                                <i class="fas fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM sofia2 -->
+                <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 sm:p-6 shadow-xl mb-6">
+                    <div class="flex items-start justify-between gap-4 mb-4">
+                        <div class="flex items-start gap-4">
+                            <span
+                                class="w-9 h-9 shrink-0 rounded-lg bg-indigo-600/20 border border-indigo-800 text-indigo-400 text-sm font-bold flex items-center justify-center">2</span>
+                            <div>
+                                <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase">Sofia
+                                    Plus</span>
+                                <h3 class="text-base sm:text-lg font-bold text-white mt-0.5">Descargar certificado de
+                                    matr&iacute;cula</h3>
+                            </div>
+                        </div>
+                        <a href="http://senasofiaplus.edu.co" target="_blank" rel="noopener noreferrer"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm shrink-0">
+                            <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            <span>Sofia</span>
+                        </a>
+                    </div>
+
+                    <!-- Imagen sofia2 debajo del titulo -->
+                    <div
+                        class="mb-4 overflow-hidden rounded-xl border border-slate-700/80 bg-slate-950/60 p-2 text-center">
+                        <img src="sofia2.png" alt="Sofia Plus - Descargar certificado de matrÃ­cula"
+                            class="max-h-56 w-auto mx-auto rounded-lg object-contain transition-transform duration-300 hover:scale-[1.01]" />
+                    </div>
+
+                    <p class="text-sm text-slate-300 leading-relaxed text-justify mb-4">Si necesitas un certificado de
+                        matr&iacute;cula, por aqu&iacute; puedes descargarlo.</p>
+                    <div class="mb-4">
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-image text-[10px]"></i> Ejemplo de referencia</span>
+                        <img src="ejemplo2.png" alt="Ejemplo Sofia Plus - certificado"
+                            class="w-full rounded-xl border border-slate-800" />
+                    </div>
+                    <div>
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-upload text-[10px]"></i> Tu evidencia</span>
+                        <label for="file-sofia2" id="drop-sofia2"
+                            class="upload-box flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-700 p-6 cursor-pointer text-center">
+                            <i class="fas fa-cloud-arrow-up text-2xl text-slate-500"></i>
+                            <span class="text-xs text-slate-400">Haz clic para subir tu pantallazo (PNG, JPG)</span>
+                        </label>
+                        <input type="file" id="file-sofia2" accept="image/*" class="hidden"
+                            onchange="handleUpload('sofia2', this)" />
+                        <div id="preview-sofia2" class="hidden mt-3 relative inline-block">
+                            <img id="preview-img-sofia2" class="max-h-52 rounded-xl border border-emerald-700" />
+                            <button onclick="removeUpload('sofia2')"
+                                class="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-rose-600 hover:bg-rose-700 text-white flex items-center justify-center text-xs shadow-lg">
+                                <i class="fas fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM sofia3 -->
+                <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 sm:p-6 shadow-xl mb-6">
+                    <div class="flex items-start justify-between gap-4 mb-4">
+                        <div class="flex items-start gap-4">
+                            <span
+                                class="w-9 h-9 shrink-0 rounded-lg bg-indigo-600/20 border border-indigo-800 text-indigo-400 text-sm font-bold flex items-center justify-center">3</span>
+                            <div>
+                                <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase">Sofia
+                                    Plus</span>
+                                <h3 class="text-base sm:text-lg font-bold text-white mt-0.5">Consultar ruta de
+                                    aprendizaje</h3>
+                            </div>
+                        </div>
+                        <a href="http://senasofiaplus.edu.co" target="_blank" rel="noopener noreferrer"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm shrink-0">
+                            <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            <span>Sofia</span>
+                        </a>
+                    </div>
+
+                    <!-- Imagen sofia3 debajo del titulo -->
+                    <div
+                        class="mb-4 overflow-hidden rounded-xl border border-slate-700/80 bg-slate-950/60 p-2 text-center">
+                        <img src="sofia3.png" alt="Sofia Plus - Consultar ruta de aprendizaje"
+                            class="max-h-56 w-auto mx-auto rounded-lg object-contain transition-transform duration-300 hover:scale-[1.01]" />
+                    </div>
+
+                    <p class="text-sm text-slate-300 leading-relaxed text-justify mb-4">Si no est&aacute;s seguro
+                        cu&aacute;les competencias has cursado, debes ingresar por este lado.</p>
+                    <div class="mb-4">
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-image text-[10px]"></i> Ejemplo de referencia</span>
+                        <img src="ejemplo3.png" alt="Ejemplo Sofia Plus - ruta de aprendizaje"
+                            class="w-full rounded-xl border border-slate-800" />
+                    </div>
+                    <div>
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-upload text-[10px]"></i> Tu evidencia</span>
+                        <label for="file-sofia3" id="drop-sofia3"
+                            class="upload-box flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-700 p-6 cursor-pointer text-center">
+                            <i class="fas fa-cloud-arrow-up text-2xl text-slate-500"></i>
+                            <span class="text-xs text-slate-400">Haz clic para subir tu pantallazo (PNG, JPG)</span>
+                        </label>
+                        <input type="file" id="file-sofia3" accept="image/*" class="hidden"
+                            onchange="handleUpload('sofia3', this)" />
+                        <div id="preview-sofia3" class="hidden mt-3 relative inline-block">
+                            <img id="preview-img-sofia3" class="max-h-52 rounded-xl border border-emerald-700" />
+                            <button onclick="removeUpload('sofia3')"
+                                class="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-rose-600 hover:bg-rose-700 text-white flex items-center justify-center text-xs shadow-lg">
+                                <i class="fas fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM sofia4 -->
+                <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 sm:p-6 shadow-xl mb-6">
+                    <div class="flex items-start justify-between gap-4 mb-4">
+                        <div class="flex items-start gap-4">
+                            <span
+                                class="w-9 h-9 shrink-0 rounded-lg bg-indigo-600/20 border border-indigo-800 text-indigo-400 text-sm font-bold flex items-center justify-center">4</span>
+                            <div>
+                                <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase">Sofia
+                                    Plus</span>
+                                <h3 class="text-base sm:text-lg font-bold text-white mt-0.5">Modificar
+                                    informaci&oacute;n
+                                    personal</h3>
+                            </div>
+                        </div>
+                        <a href="http://senasofiaplus.edu.co" target="_blank" rel="noopener noreferrer"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm shrink-0">
+                            <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            <span>Sofia</span>
+                        </a>
+                    </div>
+
+                    <!-- Imagen sofia4 debajo del titulo -->
+                    <div
+                        class="mb-4 overflow-hidden rounded-xl border border-slate-700/80 bg-slate-950/60 p-2 text-center">
+                        <img src="sofia4.png" alt="Sofia Plus - Modificar informaciÃ³n personal"
+                            class="max-h-56 w-auto mx-auto rounded-lg object-contain transition-transform duration-300 hover:scale-[1.01]" />
+                    </div>
+
+                    <p class="text-sm text-slate-300 leading-relaxed text-justify mb-4">Si quieres modificar tu
+                        informaci&oacute;n personal, a este lugar debes ingresar.</p>
+                    <div class="mb-4">
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-image text-[10px]"></i> Ejemplo de referencia</span>
+                        <img src="ejemplo4.png" alt="Ejemplo Sofia Plus - informaciÃ³n personal"
+                            class="w-full rounded-xl border border-slate-800" />
+                    </div>
+                    <div>
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-upload text-[10px]"></i> Tu evidencia</span>
+                        <label for="file-sofia4" id="drop-sofia4"
+                            class="upload-box flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-700 p-6 cursor-pointer text-center">
+                            <i class="fas fa-cloud-arrow-up text-2xl text-slate-500"></i>
+                            <span class="text-xs text-slate-400">Haz clic para subir tu pantallazo (PNG, JPG)</span>
+                        </label>
+                        <input type="file" id="file-sofia4" accept="image/*" class="hidden"
+                            onchange="handleUpload('sofia4', this)" />
+                        <div id="preview-sofia4" class="hidden mt-3 relative inline-block">
+                            <img id="preview-img-sofia4" class="max-h-52 rounded-xl border border-emerald-700" />
+                            <button onclick="removeUpload('sofia4')"
+                                class="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-rose-600 hover:bg-rose-700 text-white flex items-center justify-center text-xs shadow-lg">
+                                <i class="fas fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Boton Navegacion al final de Sofia Plus -->
+                <div class="mt-8 flex justify-end">
+                    <button onclick="switchTab('blogsena')"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm px-6 py-3 rounded-xl transition flex items-center gap-2 shadow-md">
+                        <span>Ir a Blog</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÃ‘A: BLOG SENA                         -->
+        <!-- ========================================== -->
+        <section id="pane-blogsena" class="tab-pane hidden">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-6">
+                    <span
+                        class="text-[11px] font-extrabold tracking-widest text-slate-900 uppercase flex items-center justify-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-slate-900"></span> Comunicaci&oacute;n de la
+                        Coordinaci&oacute;n
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-black text-slate-950 mt-1">Blog CGA</h2>
+                    <p class="text-xs font-semibold text-slate-800 mt-1">Identifica cada espacio y carga tu evidencia (4
+                        pasos)</p>
+                </div>
+
+                <!-- ITEM blog1 -->
+                <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 sm:p-6 shadow-xl mb-6">
+                    <div class="flex items-start justify-between gap-4 mb-4">
+                        <div class="flex items-start gap-4">
+                            <span
+                                class="w-9 h-9 shrink-0 rounded-lg bg-indigo-600/20 border border-indigo-800 text-indigo-400 text-sm font-bold flex items-center justify-center">5</span>
+                            <div>
+                                <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase">Blog
+                                    CGA</span>
+                                <h3 class="text-base sm:text-lg font-bold text-white mt-0.5">Informaci&oacute;n general
+                                    de la
+                                    Coordinaci&oacute;n</h3>
+                            </div>
+                        </div>
+                        <a href="https://elblogcga.blogspot.com/" target="_blank" rel="noopener noreferrer"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm shrink-0">
+                            <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            <span>Blog</span>
+                        </a>
+                    </div>
+
+                    <!-- Imagen blog1 debajo del titulo -->
+                    <div
+                        class="mb-4 overflow-hidden rounded-xl border border-slate-700/80 bg-slate-950/60 p-2 text-center">
+                        <img src="blog1.png" alt="Blog CGA - InformaciÃ³n general de la CoordinaciÃ³n"
+                            class="max-h-56 w-auto mx-auto rounded-lg object-contain transition-transform duration-300 hover:scale-[1.01]" />
+                    </div>
+
+                    <p class="text-sm text-slate-300 leading-relaxed text-justify mb-4">Si necesitas estar enterado de
+                        lo que pasa en la Coordinaci&oacute;n, en este espacio debes ingresar.</p>
+                    <div class="mb-4">
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-image text-[10px]"></i> Ejemplo de referencia</span>
+                        <img src="ejemplo5.png" alt="Ejemplo Blog CGA - informaciÃ³n general"
+                            class="w-full rounded-xl border border-slate-800" />
+                    </div>
+                    <div>
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-upload text-[10px]"></i> Tu evidencia</span>
+                        <label for="file-blog1" id="drop-blog1"
+                            class="upload-box flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-700 p-6 cursor-pointer text-center">
+                            <i class="fas fa-cloud-arrow-up text-2xl text-slate-500"></i>
+                            <span class="text-xs text-slate-400">Haz clic para subir tu pantallazo (PNG, JPG)</span>
+                        </label>
+                        <input type="file" id="file-blog1" accept="image/*" class="hidden"
+                            onchange="handleUpload('blog1', this)" />
+                        <div id="preview-blog1" class="hidden mt-3 relative inline-block">
+                            <img id="preview-img-blog1" class="max-h-52 rounded-xl border border-emerald-700" />
+                            <button onclick="removeUpload('blog1')"
+                                class="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-rose-600 hover:bg-rose-700 text-white flex items-center justify-center text-xs shadow-lg">
+                                <i class="fas fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM blog2 -->
+                <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 sm:p-6 shadow-xl mb-6">
+                    <div class="flex items-start justify-between gap-4 mb-4">
+                        <div class="flex items-start gap-4">
+                            <span
+                                class="w-9 h-9 shrink-0 rounded-lg bg-indigo-600/20 border border-indigo-800 text-indigo-400 text-sm font-bold flex items-center justify-center">6</span>
+                            <div>
+                                <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase">Blog
+                                    CGA</span>
+                                <h3 class="text-base sm:text-lg font-bold text-white mt-0.5">Datos de los funcionarios
+                                    de
+                                    etapa productiva</h3>
+                            </div>
+                        </div>
+                        <a href="https://elblogcga.blogspot.com/" target="_blank" rel="noopener noreferrer"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm shrink-0">
+                            <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            <span>Blog</span>
+                        </a>
+                    </div>
+
+                    <!-- Imagen blog2 debajo del titulo -->
+                    <div
+                        class="mb-4 overflow-hidden rounded-xl border border-slate-700/80 bg-slate-950/60 p-2 text-center">
+                        <img src="blog2.png" alt="Blog CGA - Datos de los funcionarios de etapa productiva"
+                            class="max-h-56 w-auto mx-auto rounded-lg object-contain transition-transform duration-300 hover:scale-[1.01]" />
+                    </div>
+
+                    <p class="text-sm text-slate-300 leading-relaxed text-justify mb-4">Si necesitas informaci&oacute;n
+                        de
+                        los funcionarios de etapa productiva, en este espacio debes ingresar.</p>
+                    <div class="mb-4">
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-image text-[10px]"></i> Ejemplo de referencia</span>
+                        <img src="ejemplo6.png" alt="Ejemplo Blog CGA - etapa productiva"
+                            class="w-full rounded-xl border border-slate-800" />
+                    </div>
+                    <div>
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-upload text-[10px]"></i> Tu evidencia</span>
+                        <label for="file-blog2" id="drop-blog2"
+                            class="upload-box flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-700 p-6 cursor-pointer text-center">
+                            <i class="fas fa-cloud-arrow-up text-2xl text-slate-500"></i>
+                            <span class="text-xs text-slate-400">Haz clic para subir tu pantallazo (PNG, JPG)</span>
+                        </label>
+                        <input type="file" id="file-blog2" accept="image/*" class="hidden"
+                            onchange="handleUpload('blog2', this)" />
+                        <div id="preview-blog2" class="hidden mt-3 relative inline-block">
+                            <img id="preview-img-blog2" class="max-h-52 rounded-xl border border-emerald-700" />
+                            <button onclick="removeUpload('blog2')"
+                                class="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-rose-600 hover:bg-rose-700 text-white flex items-center justify-center text-xs shadow-lg">
+                                <i class="fas fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM blog3 -->
+                <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 sm:p-6 shadow-xl mb-6">
+                    <div class="flex items-start justify-between gap-4 mb-4">
+                        <div class="flex items-start gap-4">
+                            <span
+                                class="w-9 h-9 shrink-0 rounded-lg bg-indigo-600/20 border border-indigo-800 text-indigo-400 text-sm font-bold flex items-center justify-center">7</span>
+                            <div>
+                                <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase">Blog
+                                    CGA</span>
+                                <h3 class="text-base sm:text-lg font-bold text-white mt-0.5">Sincronizar el calendario
+                                    de
+                                    eventos</h3>
+                            </div>
+                        </div>
+                        <a href="https://elblogcga.blogspot.com/" target="_blank" rel="noopener noreferrer"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm shrink-0">
+                            <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            <span>Blog</span>
+                        </a>
+                    </div>
+
+                    <!-- Imagen blog3 debajo del titulo -->
+                    <div
+                        class="mb-4 overflow-hidden rounded-xl border border-slate-700/80 bg-slate-950/60 p-2 text-center">
+                        <img src="blog3.png" alt="Blog CGA - Sincronizar el calendario de eventos"
+                            class="max-h-56 w-auto mx-auto rounded-lg object-contain transition-transform duration-300 hover:scale-[1.01]" />
+                    </div>
+
+                    <p class="text-sm text-slate-300 leading-relaxed text-justify mb-4">Para estar enterado de los
+                        eventos que se realizan en el Centro, en este espacio puedes sincronizar tu calendario.</p>
+                    <div class="mb-4">
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-image text-[10px]"></i> Ejemplo de referencia</span>
+                        <img src="ejemplo7.png" alt="Ejemplo Blog CGA - eventos"
+                            class="w-full rounded-xl border border-slate-800" />
+                    </div>
+                    <div>
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-upload text-[10px]"></i> Tu evidencia</span>
+                        <label for="file-blog3" id="drop-blog3"
+                            class="upload-box flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-700 p-6 cursor-pointer text-center">
+                            <i class="fas fa-cloud-arrow-up text-2xl text-slate-500"></i>
+                            <span class="text-xs text-slate-400">Haz clic para subir tu pantallazo (PNG, JPG)</span>
+                        </label>
+                        <input type="file" id="file-blog3" accept="image/*" class="hidden"
+                            onchange="handleUpload('blog3', this)" />
+                        <div id="preview-blog3" class="hidden mt-3 relative inline-block">
+                            <img id="preview-img-blog3" class="max-h-52 rounded-xl border border-emerald-700" />
+                            <button onclick="removeUpload('blog3')"
+                                class="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-rose-600 hover:bg-rose-700 text-white flex items-center justify-center text-xs shadow-lg">
+                                <i class="fas fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM blog4 -->
+                <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 sm:p-6 shadow-xl mb-6">
+                    <div class="flex items-start justify-between gap-4 mb-4">
+                        <div class="flex items-start gap-4">
+                            <span
+                                class="w-9 h-9 shrink-0 rounded-lg bg-indigo-600/20 border border-indigo-800 text-indigo-400 text-sm font-bold flex items-center justify-center">8</span>
+                            <div>
+                                <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase">Blog
+                                    CGA</span>
+                                <h3 class="text-base sm:text-lg font-bold text-white mt-0.5">Descargar el formulario de
+                                    compromiso</h3>
+                            </div>
+                        </div>
+                        <a href="https://elblogcga.blogspot.com/" target="_blank" rel="noopener noreferrer"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm shrink-0">
+                            <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            <span>Blog</span>
+                        </a>
+                    </div>
+
+                    <!-- Imagen blog4 debajo del titulo -->
+                    <div
+                        class="mb-4 overflow-hidden rounded-xl border border-slate-700/80 bg-slate-950/60 p-2 text-center">
+                        <img src="blog4.png" alt="Blog CGA - Descargar el formulario de compromiso"
+                            class="max-h-56 w-auto mx-auto rounded-lg object-contain transition-transform duration-300 hover:scale-[1.01]" />
+                    </div>
+
+                    <p class="text-sm text-slate-300 leading-relaxed text-justify mb-4">Si no te acuerdas cu&aacute;l
+                        compromiso firmaste al ingresar al SENA, en este espacio descarga el formulario.</p>
+                    <div class="mb-4">
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-image text-[10px]"></i> Ejemplo de referencia</span>
+                        <img src="ejemplo8.png" alt="Ejemplo Blog CGA - formulario de compromiso"
+                            class="w-full rounded-xl border border-slate-800" />
+                    </div>
+                    <div>
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-upload text-[10px]"></i> Tu evidencia</span>
+                        <label for="file-blog4" id="drop-blog4"
+                            class="upload-box flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-700 p-6 cursor-pointer text-center">
+                            <i class="fas fa-cloud-arrow-up text-2xl text-slate-500"></i>
+                            <span class="text-xs text-slate-400">Haz clic para subir tu pantallazo (PNG, JPG)</span>
+                        </label>
+                        <input type="file" id="file-blog4" accept="image/*" class="hidden"
+                            onchange="handleUpload('blog4', this)" />
+                        <div id="preview-blog4" class="hidden mt-3 relative inline-block">
+                            <img id="preview-img-blog4" class="max-h-52 rounded-xl border border-emerald-700" />
+                            <button onclick="removeUpload('blog4')"
+                                class="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-rose-600 hover:bg-rose-700 text-white flex items-center justify-center text-xs shadow-lg">
+                                <i class="fas fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Boton Navegacion al final de Blog SENA -->
+                <div class="mt-8 flex justify-end">
+                    <button onclick="switchTab('soysena')"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm px-6 py-3 rounded-xl transition flex items-center gap-2 shadow-md">
+                        <span>Ir a SoySena</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÃ‘A: SOYSENA                           -->
+        <!-- ========================================== -->
+        <section id="pane-soysena" class="tab-pane hidden">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-6">
+                    <span
+                        class="text-[11px] font-extrabold tracking-widest text-slate-900 uppercase flex items-center justify-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-slate-900"></span> Correo Institucional
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-black text-slate-950 mt-1">SoySena</h2>
+                    <p class="text-xs font-semibold text-slate-800 mt-1">Identifica el espacio y carga tu evidencia (1
+                        paso)</p>
+                </div>
+
+                <!-- ITEM soysena1 -->
+                <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 sm:p-6 shadow-xl mb-6">
+                    <div class="flex items-start justify-between gap-4 mb-4">
+                        <div class="flex items-start gap-4">
+                            <span
+                                class="w-9 h-9 shrink-0 rounded-lg bg-indigo-600/20 border border-indigo-800 text-indigo-400 text-sm font-bold flex items-center justify-center">9</span>
+                            <div>
+                                <span
+                                    class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase">SoySena</span>
+                                <h3 class="text-base sm:text-lg font-bold text-white mt-0.5">Correo institucional</h3>
+                            </div>
+                        </div>
+                        <a href="https://tuclave.sena.edu.co/" target="_blank" rel="noopener noreferrer"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm shrink-0">
+                            <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            <span>SoySena</span>
+                        </a>
+                    </div>
+
+                    <!-- Imagen soysena1 debajo del titulo -->
+                    <div
+                        class="mb-4 overflow-hidden rounded-xl border border-slate-700/80 bg-slate-950/60 p-2 text-center">
+                        <img src="soysena1.png" alt="SoySena - Correo institucional"
+                            class="max-h-56 w-auto mx-auto rounded-lg object-contain transition-transform duration-300 hover:scale-[1.01]" />
+                    </div>
+
+                    <div class="bg-slate-950 border border-indigo-900/60 rounded-xl p-4 mb-4">
+                        <p class="text-xs font-bold text-indigo-300 uppercase tracking-wider mb-1.5"><i
+                                class="fas fa-lightbulb mr-1"></i> Tip especial</p>
+                        <p class="text-sm text-slate-300 leading-relaxed text-justify">Conoce tu correo Institucional
+                            e ingresa en &eacute;l, desde Outlook.com, y toma un pantallazo del mismo.</p>
+                        <p class="text-sm text-slate-300 leading-relaxed text-justify mt-2">Si no lo sabes, ingresa a
+                            <a href="https://tuclave.sena.edu.co/" target="_blank"
+                                class="text-indigo-400 font-medium hover:underline">https://tuclave.sena.edu.co/</a> y
+                            confirma
+                            si ya te lo asignaron, o toma pantallazo del estado en el que se encuentra.
+                        </p>
+                    </div>
+                    <div class="mb-4">
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-image text-[10px]"></i> Ejemplo de referencia</span>
+                        <img src="ejemplo9.png" alt="Ejemplo SoySena - correo institucional"
+                            class="w-full rounded-xl border border-slate-800" />
+                    </div>
+                    <div>
+                        <span
+                            class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
+                                class="fas fa-upload text-[10px]"></i> Tu evidencia</span>
+                        <label for="file-soysena1" id="drop-soysena1"
+                            class="upload-box flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-700 p-6 cursor-pointer text-center">
+                            <i class="fas fa-cloud-arrow-up text-2xl text-slate-500"></i>
+                            <span class="text-xs text-slate-400">Haz clic para subir tu pantallazo (PNG, JPG)</span>
+                        </label>
+                        <input type="file" id="file-soysena1" accept="image/*" class="hidden"
+                            onchange="handleUpload('soysena1', this)" />
+                        <div id="preview-soysena1" class="hidden mt-3 relative inline-block">
+                            <img id="preview-img-soysena1" class="max-h-52 rounded-xl border border-emerald-700" />
+                            <button onclick="removeUpload('soysena1')"
+                                class="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-rose-600 hover:bg-rose-700 text-white flex items-center justify-center text-xs shadow-lg">
+                                <i class="fas fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Boton Navegacion al final de SoySena hacia Dashboard -->
+                <div class="mt-8 flex justify-end">
+                    <button onclick="switchTab('dashboard')"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm px-6 py-3 rounded-xl transition flex items-center gap-2 shadow-md">
+                        <span>Ir al Dashboard</span>
+                        <i class="fas fa-chart-pie text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÃ‘A: DASHBOARD                         -->
+        <!-- ========================================== -->
+        <section id="pane-dashboard" class="tab-pane hidden">
+            <div class="max-w-5xl mx-auto">
+
+                <div class="flex items-center justify-between flex-wrap gap-3 mb-6">
+                    <div>
+                        <span
+                            class="text-[11px] font-extrabold tracking-widest text-slate-900 uppercase flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-slate-900"></span> Resultado Consolidado
+                        </span>
+                        <h2 class="text-xl sm:text-2xl font-black text-slate-950 mt-1">Dashboard de Evidencias</h2>
+                    </div>
+                    <span id="dash-status-pill"
+                        class="text-xs font-bold px-3 py-1 rounded-lg bg-amber-950/70 text-amber-400 flex items-center gap-1.5 border border-amber-800">
+                        <span class="w-2 h-2 rounded-full bg-amber-400"></span> Sin evidencias cargadas
+                    </span>
+                </div>
+
+                <!-- KPIs -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-slate-900/90 rounded-xl border border-slate-700/80 p-4 text-center shadow-lg">
+                        <p class="text-2xl font-black text-white" id="kpi-subidos">0</p>
+                        <p class="text-[11px] text-slate-400 mt-1 uppercase tracking-wide">Archivos Subidos</p>
+                    </div>
+                    <div class="bg-slate-900/90 rounded-xl border border-slate-700/80 p-4 text-center shadow-lg">
+                        <p class="text-2xl font-black text-white" id="kpi-pendientes">9</p>
+                        <p class="text-[11px] text-slate-400 mt-1 uppercase tracking-wide">Archivos Pendientes</p>
+                    </div>
+                    <div class="bg-slate-900/90 rounded-xl border border-slate-700/80 p-4 text-center shadow-lg">
+                        <p class="text-2xl font-black text-white" id="kpi-porcentaje">0%</p>
+                        <p class="text-[11px] text-slate-400 mt-1 uppercase tracking-wide">% de Avance</p>
+                    </div>
+                    <div class="bg-slate-900/90 rounded-xl border border-slate-700/80 p-4 text-center shadow-lg">
+                        <p class="text-2xl font-black text-white">90%</p>
+                        <p class="text-[11px] text-slate-400 mt-1 uppercase tracking-wide">M&iacute;nimo para Aprobar
+                        </p>
+                    </div>
+                </div>
+
+                <!-- SECCION DE VALIDACION DE TODAS LAS PESTANAS (CUMPLIO / NO CUMPLIO) -->
+                <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 sm:p-6 shadow-xl mb-6">
+                    <div class="flex items-center justify-between flex-wrap gap-3 pb-4 mb-5 border-b border-slate-800">
+                        <div>
+                            <span
+                                class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase flex items-center gap-1.5">
+                                <i class="fas fa-list-check text-xs"></i> Control de Cumplimiento
+                            </span>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mt-1">Validaci&oacute;n por
+                                Pesta&ntilde;as</h3>
+                            <p class="text-xs text-slate-400 mt-0.5">Estado de env&iacute;o de evidencias por cada
+                                plataforma institucional</p>
+                        </div>
+                        <div id="tab-validation-summary-badge">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Cuadricula con las 3 pestanas -->
+                    <div id="tab-validation-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Injected dynamically -->
+                    </div>
+                </div>
+
+                <!-- Grafico + Checklist Consolidado -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 shadow-xl">
+                        <h3 class="text-sm font-bold text-slate-200 mb-3">Avance General de Carga</h3>
+                        <div class="h-64">
+                            <canvas id="donutChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 shadow-xl">
+                        <h3 class="text-sm font-bold text-slate-200 mb-3">Checklist Consolidado (9)</h3>
+                        <div id="checklist-container" class="space-y-2 max-h-64 overflow-y-auto pr-1"></div>
+                    </div>
+                </div>
+
+                <!-- Conclusion -->
+                <div id="dashboard-conclusion-box"
+                    class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 shadow-xl mb-6">
+                    <p class="text-amber-400 font-bold mb-1"><i class="fas fa-triangle-exclamation mr-1"></i> Sin
+                        evidencias cargadas</p>
+                    <p class="text-sm text-slate-300">Ve a las pesta&ntilde;as Sofia Plus, Blog SENA y SoySena para
+                        cargar
+                        tus 9 evidencias. La actividad se aprueba con un 90% de archivos cargados.</p>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="printEvidence()"
+                        class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm px-6 py-3 rounded-xl transition inline-flex items-center gap-2 shadow-md">
+                        <i class="fas fa-print"></i>
+                        <span>Imprimir Registro</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-4 no-print">
+        <p class="text-center text-[11px] text-slate-500">Plataformas Virtuales del SENA &middot; Simulador de
+            reconocimiento de Sofia Plus, Blog CGA y SoySena</p>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- ÃREA DE IMPRESIÃ“N                          -->
+    <!-- ========================================== -->
+    <div id="print-area">
+        <div style="text-align:center; margin-bottom:18px;">
+            <h1 style="font-size:20px; font-weight:800; margin:0;">Registro de Evidencias - Plataformas Virtuales del
+                SENA</h1>
+            <p style="font-size:11px; color:#475569; margin-top:4px;">Sofia Plus &bull; Blog CGA &bull; SoySena</p>
+        </div>
+
+        <div class="print-box" style="border-radius:10px; padding:14px; margin-bottom:16px;">
+            <h2 style="font-size:13px; font-weight:700; margin:0 0 8px 0;">Datos del Aprendiz</h2>
+            <table>
+                <tr>
+                    <td style="font-weight:600; width:35%;">Nombre completo</td>
+                    <td id="print-nombre">-</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600;">Documento de identidad</td>
+                    <td id="print-doc">-</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600;">NÃºmero de ficha</td>
+                    <td id="print-ficha">-</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600;">Programa de formaciÃ³n</td>
+                    <td id="print-programa">-</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600;">Centro de formaciÃ³n</td>
+                    <td id="print-centro">-</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600;">Regional</td>
+                    <td id="print-regional">-</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600;">Fecha</td>
+                    <td id="print-fecha">-</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="print-box" style="border-radius:10px; padding:14px; margin-bottom:16px;">
+            <h2 style="font-size:13px; font-weight:700; margin:0 0 8px 0;">Resultado Consolidado</h2>
+            <table>
+                <tr>
+                    <td style="font-weight:600; width:35%;">Archivos subidos</td>
+                    <td id="print-subidos">0 / 9</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600;">Porcentaje de avance</td>
+                    <td id="print-porcentaje">0%</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600;">Dictamen (mÃ­nimo 90%)</td>
+                    <td id="print-dictamen">Pendiente</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="print-box" style="border-radius:10px; padding:14px;">
+            <h2 style="font-size:13px; font-weight:700; margin:0 0 8px 0;">Detalle de Evidencias</h2>
+            <table id="print-checklist-table">
+                <tr>
+                    <th>#</th>
+                    <th>Plataforma</th>
+                    <th>Evidencia</th>
+                    <th>Estado</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // NAVEGACIÃ“N ENTRE PESTAÃ‘AS
+        // ============================================
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.add('hidden'));
+            document.getElementById('pane-' + tabName).classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            const btn = document.getElementById('tab-' + tabName);
+            if (btn) btn.classList.add('active');
+
+            if (tabName === 'dashboard') updateDashboard();
+        }
+
+        // ============================================
+        // REGISTRO
+        // ============================================
+        let registeredLearner = null;
+
+        function guardarRegistro(event) {
+            event.preventDefault();
+            registeredLearner = {
+                nombre: document.getElementById('reg-nombre').value.trim(),
+                doc: document.getElementById('reg-doc').value.trim(),
+                ficha: document.getElementById('reg-ficha').value.trim(),
+                programa: document.getElementById('reg-programa').value,
+                centro: document.getElementById('reg-centro').value,
+                regional: document.getElementById('reg-regional').value
+            };
+            document.getElementById('registro-guardado-msg').classList.remove('hidden');
+
+            // Redirige automaticamente a la pestana Introduccion
+            setTimeout(() => {
+                switchTab('introduccion');
+            }, 350);
+        }
+
+        // ============================================
+        // CARGA DE EVIDENCIAS
+        // ============================================
+        const ITEMS = [
+            { id: 'sofia1', plataforma: 'Sofia Plus', label: 'Registrar una novedad' },
+            { id: 'sofia2', plataforma: 'Sofia Plus', label: 'Descargar certificado de matrÃ­cula' },
+            { id: 'sofia3', plataforma: 'Sofia Plus', label: 'Consultar ruta de aprendizaje' },
+            { id: 'sofia4', plataforma: 'Sofia Plus', label: 'Modificar informaciÃ³n personal' },
+            { id: 'blog1', plataforma: 'Blog CGA', label: 'InformaciÃ³n general de la CoordinaciÃ³n' },
+            { id: 'blog2', plataforma: 'Blog CGA', label: 'Datos de los funcionarios de etapa productiva' },
+            { id: 'blog3', plataforma: 'Blog CGA', label: 'Sincronizar el calendario de eventos' },
+            { id: 'blog4', plataforma: 'Blog CGA', label: 'Descargar el formulario de compromiso' },
+            { id: 'soysena1', plataforma: 'SoySena', label: 'Correo institucional' }
+        ];
+        const TOTAL_ITEMS = ITEMS.length;
+        const MIN_APROBACION = 90;
+
+        const uploadState = {};
+        ITEMS.forEach(it => uploadState[it.id] = null);
+
+        function handleUpload(id, inputEl) {
+            const file = inputEl.files && inputEl.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = e => {
+                uploadState[id] = { name: file.name, dataUrl: e.target.result };
+
+                const img = document.getElementById('preview-img-' + id);
+                img.src = e.target.result;
+                document.getElementById('preview-' + id).classList.remove('hidden');
+                document.getElementById('drop-' + id).classList.add('hidden');
+
+                const dropBox = document.getElementById('drop-' + id);
+                dropBox.classList.add('has-file');
+
+                updateDashboard();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeUpload(id) {
+            uploadState[id] = null;
+            document.getElementById('file-' + id).value = '';
+            document.getElementById('preview-' + id).classList.add('hidden');
+            const dropBox = document.getElementById('drop-' + id);
+            dropBox.classList.remove('hidden');
+            dropBox.classList.remove('has-file');
+            updateDashboard();
+        }
+
+        // ============================================
+        // DASHBOARD (Chart.js)
+        // ============================================
+        let donutChartInstance = null;
+
+        function initChart() {
+            const ctx = document.getElementById('donutChart').getContext('2d');
+            donutChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Subidos', 'Pendientes'],
+                    datasets: [{
+                        data: [0, TOTAL_ITEMS],
+                        backgroundColor: ['#4f46e5', '#1e293b'],
+                        borderColor: '#020617',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '72%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#94a3b8', boxWidth: 12, padding: 14 }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateDashboard() {
+            const subidos = ITEMS.filter(it => uploadState[it.id]).length;
+            const pendientes = TOTAL_ITEMS - subidos;
+            const porcentaje = Math.round((subidos / TOTAL_ITEMS) * 100);
+            const aprobado = porcentaje >= MIN_APROBACION;
+
+            document.getElementById('kpi-subidos').innerText = subidos;
+            document.getElementById('kpi-pendientes').innerText = pendientes;
+            document.getElementById('kpi-porcentaje').innerText = porcentaje + '%';
+
+            if (donutChartInstance) {
+                donutChartInstance.data.datasets[0].data = [subidos, pendientes];
+                donutChartInstance.update();
+            }
+
+            // ============================================
+            // VALIDACION PESTANA POR PESTANA (CUMPLIO / NO CUMPLIO)
+            // ============================================
+            const TABS_CONFIG = [
+                {
+                    tabId: 'sofiaplus',
+                    name: 'Sofia Plus',
+                    icon: 'fa-graduation-cap',
+                    items: ITEMS.filter(it => it.plataforma === 'Sofia Plus')
+                },
+                {
+                    tabId: 'blogsena',
+                    name: 'Blog SENA',
+                    icon: 'fa-blog',
+                    items: ITEMS.filter(it => it.plataforma === 'Blog CGA')
+                },
+                {
+                    tabId: 'soysena',
+                    name: 'SoySena',
+                    icon: 'fa-envelope',
+                    items: ITEMS.filter(it => it.plataforma === 'SoySena')
+                }
+            ];
+
+            let completedTabsCount = 0;
+
+            const valGrid = document.getElementById('tab-validation-grid');
+            if (valGrid) {
+                valGrid.innerHTML = TABS_CONFIG.map(tab => {
+                    const totalTab = tab.items.length;
+                    const subidosTab = tab.items.filter(it => uploadState[it.id]).length;
+                    const cumplioTab = (subidosTab === totalTab);
+                    if (cumplioTab) completedTabsCount++;
+
+                    let statusBadge = '';
+                    let cardBorder = '';
+                    if (cumplioTab) {
+                        statusBadge = `<span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-950/80 text-emerald-400 border border-emerald-800 flex items-center gap-1"><i class="fas fa-circle-check"></i> CUMPLI&Oacute; (${subidosTab}/${totalTab})</span>`;
+                        cardBorder = 'border-emerald-800/80 bg-slate-950/80';
+                    } else if (subidosTab > 0) {
+                        statusBadge = `<span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-950/80 text-amber-400 border border-amber-800 flex items-center gap-1"><i class="fas fa-triangle-exclamation"></i> INCOMPLETO (${subidosTab}/${totalTab})</span>`;
+                        cardBorder = 'border-amber-800/60 bg-slate-950/80';
+                    } else {
+                        statusBadge = `<span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-rose-950/80 text-rose-400 border border-rose-800 flex items-center gap-1"><i class="fas fa-circle-xmark"></i> NO CUMPLI&Oacute; (0/${totalTab})</span>`;
+                        cardBorder = 'border-slate-800 bg-slate-950/80';
+                    }
+
+                    const itemsHtml = tab.items.map(it => {
+                        const done = !!uploadState[it.id];
+                        return `<li class="flex items-center justify-between gap-2 text-xs py-1.5 border-b border-slate-900 last:border-0">
+                            <span class="text-slate-300 truncate font-medium flex items-center gap-1.5">
+                                <i class="fas ${done ? 'fa-check text-emerald-400' : 'fa-xmark text-rose-400'} text-[10px]"></i>
+                                ${it.label}
+                            </span>
+                            <span class="text-[10px] font-bold shrink-0 ${done ? 'text-emerald-400' : 'text-rose-400'}">
+                                ${done ? 'Cumpli&oacute;' : 'No cumpli&oacute;'}
+                            </span>
+                        </li>`;
+                    }).join('');
+
+                    return `<div class="rounded-xl border ${cardBorder} p-4 flex flex-col justify-between transition-all duration-200 shadow-md">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-3 pb-2 border-b border-slate-800/80">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-7 h-7 rounded-lg ${cumplioTab ? 'bg-emerald-600/20 text-emerald-400 border border-emerald-700' : 'bg-indigo-600/20 text-indigo-400 border border-indigo-800'} flex items-center justify-center text-xs">
+                                        <i class="fas ${tab.icon}"></i>
+                                    </div>
+                                    <h4 class="text-xs sm:text-sm font-bold text-white">${tab.name}</h4>
+                                </div>
+                                ${statusBadge}
+                            </div>
+                            <ul class="space-y-0.5 mb-3">
+                                ${itemsHtml}
+                            </ul>
+                        </div>
+                        <button onclick="switchTab('${tab.tabId}')"
+                            class="w-full mt-2 py-2 px-3 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-indigo-600 text-slate-200 hover:text-white transition flex items-center justify-center gap-1.5 shadow-sm">
+                            <span>Ir a ${tab.name}</span>
+                            <i class="fas fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>`;
+                }).join('');
+            }
+
+            const summaryBadge = document.getElementById('tab-validation-summary-badge');
+            if (summaryBadge) {
+                if (completedTabsCount === 3) {
+                    summaryBadge.innerHTML = `<span class="text-xs font-bold px-3 py-1.5 rounded-lg bg-emerald-950/80 text-emerald-400 border border-emerald-800 flex items-center gap-1.5"><i class="fas fa-circle-check"></i> Todas las pesta&ntilde;as cumplidas (3/3)</span>`;
+                } else if (completedTabsCount > 0) {
+                    summaryBadge.innerHTML = `<span class="text-xs font-bold px-3 py-1.5 rounded-lg bg-amber-950/80 text-amber-400 border border-amber-800 flex items-center gap-1.5"><i class="fas fa-triangle-exclamation"></i> Pesta&ntilde;as completas: ${completedTabsCount} de 3</span>`;
+                } else {
+                    summaryBadge.innerHTML = `<span class="text-xs font-bold px-3 py-1.5 rounded-lg bg-rose-950/80 text-rose-400 border border-rose-800 flex items-center gap-1.5"><i class="fas fa-circle-xmark"></i> Sin pesta&ntilde;as completas (0/3)</span>`;
+                }
+            }
+
+            // Checklist Consolidado
+            const container = document.getElementById('checklist-container');
+            container.innerHTML = ITEMS.map((it, idx) => {
+                const done = !!uploadState[it.id];
+                return `<div class="checklist-row rounded-lg px-3 py-2 flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-2 min-w-0">
+                        <span class="w-5 h-5 shrink-0 rounded-md ${done ? 'bg-emerald-600' : 'bg-slate-700'} flex items-center justify-center">
+                            <i class="fas ${done ? 'fa-check' : 'fa-minus'} text-[10px] text-white"></i>
+                        </span>
+                        <span class="text-xs text-slate-300 truncate">${idx + 1}. ${it.plataforma} - ${it.label}</span>
+                    </div>
+                    <span class="text-[10px] font-bold uppercase shrink-0 ${done ? 'text-emerald-400' : 'text-slate-500'}">${done ? 'Subido' : 'Pendiente'}</span>
+                </div>`;
+            }).join('');
+
+            // Estado / conclusion general
+            const pill = document.getElementById('dash-status-pill');
+            const conclusionBox = document.getElementById('dashboard-conclusion-box');
+
+            if (subidos === 0) {
+                pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-amber-950/70 text-amber-400 flex items-center gap-1.5 border border-amber-800';
+                pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400"></span> Sin evidencias cargadas';
+                conclusionBox.innerHTML = `<p class="text-amber-400 font-bold mb-1"><i class="fas fa-triangle-exclamation mr-1"></i> Sin evidencias cargadas</p><p class="text-sm text-slate-300">Ve a las pesta&ntilde;as Sofia Plus, Blog SENA y SoySena para cargar tus 9 evidencias. La actividad se aprueba con un 90% de archivos cargados.</p>`;
+            } else if (aprobado) {
+                pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-emerald-950/70 text-emerald-400 flex items-center gap-1.5 border border-emerald-800';
+                pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400"></span> Aprobado (&ge;90%)';
+                conclusionBox.innerHTML = `<p class="text-emerald-400 font-bold mb-1"><i class="fas fa-check-double mr-1"></i> Dictamen Satisfactorio (${subidos} / ${TOTAL_ITEMS} - ${porcentaje}%)</p><p class="text-sm text-slate-300">Superaste el m&iacute;nimo aprobatorio del 90% de evidencias cargadas. Recuerda imprimir tu registro para tu portafolio.</p>`;
+            } else {
+                pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-rose-950/70 text-rose-400 flex items-center gap-1.5 border border-rose-800';
+                pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-500"></span> Por Mejorar (&lt;90%)';
+                conclusionBox.innerHTML = `<p class="text-rose-400 font-bold mb-1"><i class="fas fa-triangle-exclamation mr-1"></i> Dictamen Diagn&oacute;stico (${subidos} / ${TOTAL_ITEMS} - ${porcentaje}%)</p><p class="text-sm text-slate-300">A&uacute;n no alcanzas el m&iacute;nimo aprobatorio del 90% de evidencias cargadas. Revisa la validaci&oacute;n por pesta&ntilde;as y completa los pantallazos pendientes.</p>`;
+            }
+        }
+
+        // ============================================
+        // IMPRESION: Registro + Resultado
+        // ============================================
+        function printEvidence() {
+            if (!registeredLearner) {
+                alert('Por favor completa el Registro antes de imprimir.');
+                switchTab('registro');
+                return;
+            }
+
+            const subidos = ITEMS.filter(it => uploadState[it.id]).length;
+            const porcentaje = Math.round((subidos / TOTAL_ITEMS) * 100);
+            const aprobado = porcentaje >= MIN_APROBACION;
+
+            document.getElementById('print-fecha').innerText = new Date().toLocaleString('es-CO');
+            document.getElementById('print-nombre').innerText = registeredLearner.nombre || '-';
+            document.getElementById('print-doc').innerText = registeredLearner.doc || '-';
+            document.getElementById('print-ficha').innerText = registeredLearner.ficha || '-';
+            document.getElementById('print-programa').innerText = registeredLearner.programa || '-';
+            document.getElementById('print-centro').innerText = registeredLearner.centro || '-';
+            document.getElementById('print-regional').innerText = registeredLearner.regional || '-';
+
+            document.getElementById('print-subidos').innerText = `${subidos} / ${TOTAL_ITEMS}`;
+            document.getElementById('print-porcentaje').innerText = `${porcentaje}%`;
+            document.getElementById('print-dictamen').innerText = aprobado ? 'APROBADO' : 'POR MEJORAR';
+
+            const table = document.getElementById('print-checklist-table');
+            table.innerHTML = `<tr><th>#</th><th>Plataforma</th><th>Evidencia</th><th>Estado</th></tr>` +
+                ITEMS.map((it, idx) => {
+                    const done = !!uploadState[it.id];
+                    return `<tr><td>${idx + 1}</td><td>${it.plataforma}</td><td>${it.label}</td><td>${done ? 'Subido' : 'Pendiente'}</td></tr>`;
+                }).join('');
+
+            window.print();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initChart();
+            updateDashboard();
+        });
+    </script>
+</body>
+
+</html>

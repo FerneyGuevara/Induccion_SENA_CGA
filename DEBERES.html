@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reglamento SENA - Deberes y Prohibiciones</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: #898AAD;
+      color: #f1f5f9;
+    }
+
+    /* Pestañas */
+    .tab-btn {
+      transition: all 0.2s ease;
+      cursor: pointer;
+      background-color: #0f172a;
+      border: 1px solid #1e293b;
+      color: #94a3b8;
+    }
+
+    .tab-btn:hover:not(.active) {
+      background-color: #1e293b;
+      border-color: #334155;
+      color: #f8fafc;
+    }
+
+    .tab-btn.active {
+      background-color: #4f46e5 !important;
+      color: #ffffff !important;
+      border-color: #6366f1 !important;
+      box-shadow: 0 4px 14px -2px rgba(79, 70, 229, 0.45) !important;
+    }
+
+    /* Opciones interactivas */
+    .option-card {
+      transition: all 0.2s ease;
+      border: 1px solid #1e293b;
+    }
+
+    .option-card:hover {
+      border-color: #6366f1 !important;
+      background-color: rgba(99, 102, 241, 0.12) !important;
+    }
+
+    select,
+    input[type="text"] {
+      color-scheme: dark;
+    }
+
+    /* ========================================================= */
+    /* MODO DE IMPRESIÓN OFICIAL Y DEFINITIVO                   */
+    /* ========================================================= */
+    @media print {
+      body {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      /* Ocultar elementos de navegación y de control */
+      header,
+      nav,
+      footer,
+      .no-print,
+      #pane-registro,
+      #pane-deberes,
+      #pane-prohibiciones,
+      #pane-matriz,
+      #pane-dashboard,
+      #custom-modal {
+        display: none !important;
+      }
+
+      /* Forzar despliegue del contenedor de evaluación e impresión */
+      #pane-evaluacion {
+        display: block !important;
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+
+      #pane-evaluacion>div.no-print {
+        display: none !important;
+      }
+
+      /* Desplegar área imprimible con contraste nítido */
+      #print-area {
+        display: block !important;
+        visibility: visible !important;
+        width: 100% !important;
+        padding: 10mm !important;
+        margin: 0 !important;
+        background: #ffffff !important;
+        color: #0f172a !important;
+      }
+
+      #print-area * {
+        visibility: visible !important;
+        color: #0f172a !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+      }
+
+      #print-area .bg-slate-900\/90,
+      #print-area .bg-slate-950,
+      #print-area .bg-slate-900 {
+        background-color: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+      }
+
+      #print-area table {
+        width: 100% !important;
+        border: 1px solid #cbd5e1 !important;
+        border-collapse: collapse !important;
+        background-color: #ffffff !important;
+      }
+
+      #print-area thead tr,
+      #print-area thead th {
+        background-color: #f1f5f9 !important;
+        color: #1e293b !important;
+        border-bottom: 2px solid #cbd5e1 !important;
+      }
+
+      #print-area tbody tr {
+        background-color: #ffffff !important;
+        border-bottom: 1px solid #e2e8f0 !important;
+      }
+
+      #print-area td {
+        border: 1px solid #e2e8f0 !important;
+        color: #0f172a !important;
+      }
+    }
+  </style>
+</head>
+
+<body
+  class="bg-[#898AAD] text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-indigo-500/30 selection:text-indigo-200">
+
+  <!-- ========================================== -->
+  <!-- HEADER PRINCIPAL                           -->
+  <!-- ========================================== -->
+  <header class="border-b border-slate-800 bg-slate-950 sticky top-0 z-50 no-print shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+
+      <!-- Brand & Título -->
+      <div class="flex items-center gap-3">
+        <img src="sena.png" alt="Logo SENA" class="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0" />
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-base sm:text-lg font-bold text-indigo-400 leading-none">Matriz - Reglamento del Aprendiz
+              "Deberes"
+            </h1>
+          </div>
+          <p class="text-[11px] text-slate-400 mt-0.5">Reglamento del Aprendiz SENA</p>
+        </div>
+      </div>
+
+      <!-- Métricas y Controles de Acción -->
+      <div class="flex items-center gap-2.5 sm:gap-4 flex-wrap">
+        <div
+          class="flex items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800 text-xs text-slate-300">
+          <i class="far fa-clock text-amber-400"></i>
+          <span>Tiempo:</span>
+          <span id="timer-display" class="font-mono font-bold text-slate-100">60:00</span>
+        </div>
+
+        <div
+          class="flex items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800 text-xs text-slate-300">
+          <span>Intentos:</span>
+          <span id="attempts-badge"
+            class="bg-indigo-600 text-white font-mono text-[11px] px-2 py-0.5 rounded font-bold">1 / 4</span>
+        </div>
+
+        <button onclick="confirmReset()"
+          class="bg-rose-900/50 hover:bg-rose-900 text-rose-200 px-3.5 py-1.5 rounded-lg text-xs font-semibold border border-rose-800 transition flex items-center gap-1.5">
+          <i class="fas fa-rotate-left text-[11px]"></i>
+          <span>Reiniciar Intento</span>
+        </button>
+
+        <button onclick="printEvidence()"
+          class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold border border-emerald-500 transition flex items-center gap-1.5 shadow-sm">
+          <i class="fas fa-print text-[11px]"></i>
+          <span>Imprimir Resultados</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================== -->
+  <!-- CONTENEDOR PRINCIPAL                      -->
+  <!-- ========================================== -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-grow">
+
+    <!-- Panel Resumen Superior -->
+    <div
+      class="bg-slate-900/90 backdrop-blur-sm rounded-2xl p-5 mb-6 border border-slate-700/80 flex flex-wrap items-center justify-between gap-4 no-print shadow-xl">
+      <div>
+        <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Ruta de Cumplimiento Integral
+        </span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">Simulador Práctico: Compromisos,
+          Deberes y Régimen Disciplinario</h2>
+        <p class="text-xs text-slate-400 mt-0.5">Duración estimada: 60 minutos | Calificación mínima aprobatoria: 90%
+        </p>
+      </div>
+
+      <div class="flex items-center gap-4 bg-slate-950 p-3 px-4 rounded-xl border border-slate-800 shadow-inner">
+        <div class="text-right">
+          <div class="text-[10px] uppercase font-bold tracking-wider text-slate-400">Puntaje Global</div>
+          <div class="text-xl sm:text-2xl font-black text-slate-100 leading-none mt-0.5">
+            <span id="global-score">0</span> <span class="text-xs font-normal text-slate-400">/ 100 pts</span>
+          </div>
+        </div>
+        <div id="score-circle"
+          class="w-12 h-12 rounded-xl border-2 border-indigo-500 bg-slate-900 flex items-center justify-center font-bold text-xs text-indigo-300 shadow-inner">
+          0%
+        </div>
+      </div>
+    </div>
+
+    <!-- Menú de Pestañas -->
+    <nav class="flex gap-2 border-b border-slate-800/80 pb-3 mb-6 overflow-x-auto no-print">
+      <button onclick="window.location.href='index.html'" id="tab-inicio"
+        class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+        <i class="fas fa-house text-xs"></i> Inicio
+      </button>
+      <button onclick="switchTab('registro')" id="tab-registro"
+        class="tab-btn active px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+        <i class="fas fa-id-card text-xs"></i> 1. Registro
+      </button>
+      <button onclick="switchTab('deberes')" id="tab-deberes"
+        class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+        <i class="fas fa-book-bookmark text-xs"></i> Deberes
+      </button>
+      <button onclick="switchTab('prohibiciones')" id="tab-prohibiciones"
+        class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+        <i class="fas fa-ban text-xs"></i> Prohibición expresa y específica
+      </button>
+      <button onclick="switchTab('matriz')" id="tab-matriz"
+        class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+        <i class="fas fa-table-cells-large text-xs"></i> Clasificación y Casos
+      </button>
+      <button onclick="switchTab('evaluacion')" id="tab-evaluacion"
+        class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+        <i class="fas fa-clipboard-check text-xs"></i> Evaluación
+      </button>
+      <button onclick="switchTab('dashboard')" id="tab-dashboard"
+        class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+        <i class="fas fa-chart-pie text-xs"></i> Dashboard
+      </button>
+
+    </nav>
+
+    <!-- ========================================== -->
+    <!-- 1. PESTAÑA: REGISTRO                       -->
+    <!-- ========================================== -->
+    <section id="pane-registro" class="tab-pane block">
+      <div
+        class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 max-w-3xl mx-auto shadow-2xl">
+        <div class="flex items-center gap-3 pb-4 mb-6 border-b border-slate-800">
+          <div
+            class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 text-indigo-400 flex items-center justify-center font-bold text-base shadow-inner">
+            <i class="fas fa-user-pen"></i>
+          </div>
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-indigo-400">Identificación y Caracterización del Aprendiz
+            </h2>
+            <p class="text-xs text-slate-400">Ingresa tus datos institucionales para autenticar la evidencia de
+              aprendizaje.</p>
+          </div>
+        </div>
+
+        <form id="form-registro" onsubmit="event.preventDefault(); proceedToDeberes();"
+          class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Nombre Completo
+              *</label>
+            <input type="text" id="reg-nombre" required placeholder="Ej: Carlos Alberto Torres Gómez"
+              class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Documento de
+              Identidad (CC / TI / CE) *</label>
+            <input type="text" id="reg-doc" required placeholder="Ej: 1020304050"
+              class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Número de Ficha de
+              Caracterización *</label>
+            <input type="text" id="reg-ficha" required placeholder="Ej: 2874912"
+              class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Programa de
+              Formación *</label>
+            <select id="reg-programa" onchange="syncPrograma(this.value)"
+              class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-100 outline-none focus:border-indigo-500 transition">
+              <option value="Técnico en Talento Humano">Técnico en Talento Humano</option>
+              <option value="Técnico en Asistencia a la Función Pública">Técnico en Asistencia a la Función Publica
+              </option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Centro de
+              Formación *</label>
+            <input type="text" id="reg-centro" value="Gestión Administrativa" readonly
+              class="w-full px-3.5 py-2.5 bg-slate-950/60 border border-slate-800/80 rounded-xl text-sm font-semibold text-slate-400 outline-none cursor-not-allowed" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Regional *</label>
+            <input type="text" id="reg-regional" value="Distrito Capital" readonly
+              class="w-full px-3.5 py-2.5 bg-slate-950/60 border border-slate-800/80 rounded-xl text-sm font-semibold text-slate-400 outline-none cursor-not-allowed" />
+          </div>
+
+          <div class="md:col-span-2 pt-4 border-t border-slate-800 flex justify-end">
+            <button type="submit"
+              class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+              <span>Confirmar e Iniciar Fase 1</span>
+              <i class="fas fa-arrow-right text-xs"></i>
+            </button>
+          </div>
+        </form>
+
+        <div class="mt-6 bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-400 leading-relaxed">
+          <p class="font-bold text-slate-200 mb-1 flex items-center gap-1.5">
+            <i class="fas fa-circle-info text-indigo-400"></i> Responsabilidad y Compromiso Formativo
+          </p>
+          El cumplimiento de los deberes reglamentarios y el acatamiento de las prohibiciones garantizan la excelencia
+          técnica, la sana convivencia y la integridad ética en el desempeño laboral de la Gestión del Talento Humano y
+          la Función Pública.
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 2. PESTAÑA: DEBERES                        -->
+    <!-- ========================================== -->
+    <section id="pane-deberes" class="tab-pane hidden">
+      <div class="bg-slate-950/85 backdrop-blur-sm rounded-2xl border border-slate-800 p-6 sm:p-7 mb-6 shadow-2xl">
+        <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+          <div>
+            <h2 class="text-xl font-bold text-indigo-400">Deberes del Aprendiz SENA</h2>
+            <p class="text-xs text-slate-400 mt-0.5">Organizar las tareas en el orden correcto en que se ejecutan</p>
+          </div>
+          <span
+            class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Ponderación:
+            30 Puntos</span>
+        </div>
+
+        <div class="space-y-6">
+
+          <!-- Actividad 1: Conducto Regular -->
+          <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-800 shadow-sm">
+            <div class="flex items-start gap-3 mb-3">
+              <span
+                class="w-7 h-7 rounded-lg bg-slate-950 border border-slate-800 text-indigo-400 text-xs font-bold flex items-center justify-center shrink-0">1</span>
+              <div>
+                <h3 class="text-sm font-bold text-slate-200">Conducto Regular ante Situaciones Formativas</h3>
+                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                  Ordena el flujo escalonado que debe seguir el aprendiz para reportar anomalías o eventualidades que
+                  afecten la ejecución de su formación:
+                </p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+              <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                <label class="block text-xs font-bold text-indigo-400 mb-1.5">Paso 1 (Primera Instancia):</label>
+                <select id="seq-step-1" onchange="calculateScore()"
+                  class="w-full text-xs p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
+                  <option value="">Seleccione instancia...</option>
+                  <option value="coordinador">Coordinador Académico</option>
+                  <option value="instructor">Instructor del programa</option>
+                  <option value="subdirector">Subdirector de Centro</option>
+                </select>
+              </div>
+
+              <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                <label class="block text-xs font-bold text-indigo-400 mb-1.5">Paso 2 (Segunda Instancia):</label>
+                <select id="seq-step-2" onchange="calculateScore()"
+                  class="w-full text-xs p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
+                  <option value="">Seleccione instancia...</option>
+                  <option value="instructor">Instructor del programa</option>
+                  <option value="coordinador">Coordinador Académico</option>
+                  <option value="comite">Comité de Evaluación y Seguimiento</option>
+                </select>
+              </div>
+
+              <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                <label class="block text-xs font-bold text-indigo-400 mb-1.5">Paso 3 (Instancia Sancionatoria /
+                  Asesora):</label>
+                <select id="seq-step-3" onchange="calculateScore()"
+                  class="w-full text-xs p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
+                  <option value="">Seleccione instancia...</option>
+                  <option value="comite">Comité de Evaluación y Seguimiento</option>
+                  <option value="porteria">Oficina de correspondencia</option>
+                  <option value="empresa">Empresa patrocinadora</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actividad 2: Completar Términos -->
+          <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-800 shadow-sm">
+            <div class="flex items-start gap-3 mb-3">
+              <span
+                class="w-7 h-7 rounded-lg bg-slate-950 border border-slate-800 text-indigo-400 text-xs font-bold flex items-center justify-center shrink-0">2</span>
+              <div>
+                <h3 class="text-sm font-bold text-slate-200">Completar Términos: Credenciales Virtuales y Condiciones
+                  Socioeconómicas</h3>
+                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                  seleccione la frase que completa el enunciado
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed">
+              <p>
+                "El usuario y la contraseña suministrada para ingresar a las plataformas virtuales son de uso
+                <select id="cloze-1" onchange="calculateScore()"
+                  class="inline-block mx-1 p-1 bg-slate-900 border border-slate-700 rounded text-indigo-400 font-semibold outline-none">
+                  <option value="">[...]</option>
+                  <option value="compartido">compartido y grupal</option>
+                  <option value="personal">personal y exclusivo</option>
+                  <option value="publico">público para la ficha</option>
+                </select>, por lo tanto, no deben transferirse a terceros."
+              </p>
+              <p>
+                "Cuando el aprendiz no cuente con las condiciones económicas para acceder al uniforme de uso diario,
+                esto
+                <select id="cloze-2" onchange="calculateScore()"
+                  class="inline-block mx-1 p-1 bg-slate-900 border border-slate-700 rounded text-indigo-400 font-semibold outline-none">
+                  <option value="">[...]</option>
+                  <option value="si_causal">sí será causal de expulsión</option>
+                  <option value="no_causal">no será causal para impedir el acceso</option>
+                  <option value="multa">impondrá amonestación económica</option>
+                </select> a los ambientes formativos, ni se le podrá exigir una marca o proveedor específico."
+              </p>
+            </div>
+          </div>
+
+          <!-- Actividad 3: Caso Vivencial -->
+          <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-800 shadow-sm">
+            <div class="flex items-start gap-3 mb-3">
+              <span
+                class="w-7 h-7 rounded-lg bg-slate-950 border border-slate-800 text-indigo-400 text-xs font-bold flex items-center justify-center shrink-0">3</span>
+              <div>
+                <h3 class="text-sm font-bold text-slate-200">Caso Vivencial: Integridad Académica y Derechos de Autor
+                </h3>
+                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                  Para el informe final de diseño de manuales de funciones y perfiles por competencias, un equipo
+                  descarga íntegramente la documentación corporativa de una entidad externa y la presenta con sus
+                  nombres sin citar fuentes ni referenciar autores. ¿Qué deber legal se infringe?
+                </p>
+              </div>
+            </div>
+
+            <div class="space-y-2.5 sm:pl-10">
+              <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                <input type="radio" name="deb-q3" value="A" onchange="calculateScore()"
+                  class="mt-0.5 accent-indigo-500" />
+                <span class="text-xs text-slate-300 font-normal">A) No se infringe ningún deber, dado que en el SENA los
+                  documentos empresariales son de libre apropiación sin necesidad de referenciar autorías.</span>
+              </label>
+              <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                <input type="radio" name="deb-q3" value="B" onchange="calculateScore()"
+                  class="mt-0.5 accent-indigo-500" />
+                <span class="text-xs text-slate-300 font-normal">B) Se infringe el deber de realizar personalmente las
+                  actividades con autoría propia, creatividad y respetar los derechos de propiedad intelectual.</span>
+              </label>
+              <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                <input type="radio" name="deb-q3" value="C" onchange="calculateScore()"
+                  class="mt-0.5 accent-indigo-500" />
+                <span class="text-xs text-slate-300 font-normal">C) Únicamente se incumple el deber de puntualidad
+                  administrativa en la entrega de guías pedagógicas.</span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="mt-8 pt-4 border-t border-slate-800 flex justify-end">
+          <button onclick="proceedToProhibiciones()"
+            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+            <span>Avanzar a Prohibición expresa y específica</span>
+            <i class="fas fa-arrow-right text-xs"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 3. PESTAÑA: PROHIBICIONES                  -->
+    <!-- ========================================== -->
+    <section id="pane-prohibiciones" class="tab-pane hidden">
+      <div class="bg-slate-950/85 backdrop-blur-sm rounded-2xl border border-slate-800 p-6 sm:p-7 mb-6 shadow-2xl">
+        <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+          <div>
+            <h2 class="text-xl font-bold text-indigo-400">Prohibición expresa y específica</h2>
+            <p class="text-xs text-slate-400 mt-0.5">Clasificación interactiva y análisis del régimen disciplinario.</p>
+          </div>
+          <span
+            class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Ponderación:
+            20 Puntos</span>
+        </div>
+
+        <!-- Clasificador Interactivo (12 pts) -->
+        <div class="mb-6 bg-slate-900/80 p-5 rounded-xl border border-slate-800 shadow-sm">
+          <h3 class="text-sm font-bold text-slate-200 mb-1 flex items-center gap-2">
+            <i class="fas fa-arrows-split-up-and-left text-indigo-400"></i> 1. Clasificador de Conductas: ¿Deber o
+            Prohibición Expresa?
+          </h3>
+          <p class="text-xs text-slate-400 mb-4">
+            Clasifica cada postulado normativo seleccionando su categoría exacta conforme al reglamento:
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800">
+              <p class="text-slate-300 mb-2.5 leading-relaxed">
+                "Ingresar o portar armas u objetos cortopunzantes al Centro de Formación, incluso si el aprendiz es
+                miembro activo de la fuerza pública o de organismos de seguridad."
+              </p>
+              <select id="proh-item-1" onchange="calculateScore()"
+                class="w-full p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
+                <option value="">Seleccione categoría...</option>
+                <option value="deber">Deber del Aprendiz</option>
+                <option value="prohibicion">Prohibición Expresa</option>
+              </select>
+            </div>
+
+            <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800">
+              <p class="text-slate-300 mb-2.5 leading-relaxed">
+                "Mantener permanentemente actualizados los datos de residencia, correo y teléfono en SofiaPlus, APE y
+                aplicativos de la entidad."
+              </p>
+              <select id="proh-item-2" onchange="calculateScore()"
+                class="w-full p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
+                <option value="">Seleccione categoría...</option>
+                <option value="deber">Deber del Aprendiz</option>
+                <option value="prohibicion">Prohibición Expresa</option>
+              </select>
+            </div>
+
+            <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800">
+              <p class="text-slate-300 mb-2.5 leading-relaxed">
+                "Utilizar la red de internet o equipos del SENA para difundir propaganda electoral, proselitismo
+                político o actividades de culto religioso dentro de las sedes."
+              </p>
+              <select id="proh-item-3" onchange="calculateScore()"
+                class="w-full p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
+                <option value="">Seleccione categoría...</option>
+                <option value="deber">Deber del Aprendiz</option>
+                <option value="prohibicion">Prohibición Expresa</option>
+              </select>
+            </div>
+
+            <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800">
+              <p class="text-slate-300 mb-2.5 leading-relaxed">
+                "Utilizar el nombre institucional, sedes físicas o canales virtuales del SENA para realizar actividades
+                particulares comerciales con o sin ánimo de lucro."
+              </p>
+              <select id="proh-item-4" onchange="calculateScore()"
+                class="w-full p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
+                <option value="">Seleccione categoría...</option>
+                <option value="deber">Deber del Aprendiz</option>
+                <option value="prohibicion">Prohibición Expresa</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pregunta Analítica de Prohibición (8 pts) -->
+        <div class="p-5 bg-slate-900/80 rounded-xl border border-slate-800 shadow-sm">
+          <h3 class="text-sm font-bold text-slate-200 mb-2">2. Análisis de Acoso y Discriminación en el ambiente de
+            formacion</h3>
+          <p class="text-xs text-slate-400 mb-3 leading-relaxed">
+            En un ambiente de formación, un grupo crea un canal en redes sociales para publicar mensajes ofensivos y
+            descalificaciones hacia una compañera por su orientación sexual y situación económica. ¿Cómo describe el
+            reglamento esta conducta?
+          </p>
+          <div class="space-y-2 text-xs">
+            <label class="option-card flex items-start gap-3 p-3 bg-slate-950 rounded-xl cursor-pointer">
+              <input type="radio" name="proh-q2" value="A" onchange="calculateScore()"
+                class="mt-0.5 accent-indigo-500" />
+              <span class="text-slate-300 font-normal">A) Constituye una falta menor solucionable mediante amonestación
+                verbal sin registro en hoja de vida.</span>
+            </label>
+            <label class="option-card flex items-start gap-3 p-3 bg-slate-950 rounded-xl cursor-pointer">
+              <input type="radio" name="proh-q2" value="B" onchange="calculateScore()"
+                class="mt-0.5 accent-indigo-500" />
+              <span class="text-slate-300 font-normal">B) Constituye una infracción directa a las prohibiciones expresas
+                de acoso (bullying/mobbing) y discriminación por identidad, vulnerabilidad o condición económica.</span>
+            </label>
+            <label class="option-card flex items-start gap-3 p-3 bg-slate-950 rounded-xl cursor-pointer">
+              <input type="radio" name="proh-q2" value="C" onchange="calculateScore()"
+                class="mt-0.5 accent-indigo-500" />
+              <span class="text-slate-300 font-normal">C) Al realizarse fuera del horario formativo presencial, el SENA
+                carece de competencia disciplinaria sobre la conducta de sus aprendices.</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-4 border-t border-slate-800 flex justify-end">
+          <button onclick="proceedToMatriz()"
+            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+            <span>Avanzar a Clasificación y Casos</span>
+            <i class="fas fa-arrow-right text-xs"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 4. PESTAÑA: CLASIFICACIÓN Y CASOS          -->
+    <!-- ========================================== -->
+    <section id="pane-matriz" class="tab-pane hidden">
+      <div class="bg-slate-950/85 backdrop-blur-sm rounded-2xl border border-slate-800 p-6 sm:p-7 mb-6 shadow-2xl">
+        <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+          <div>
+            <h2 class="text-xl font-bold text-indigo-400">Clasificación y Matriz Situacional</h2>
+            <p class="text-xs text-slate-400 mt-0.5">Asignación dimensional de responsabilidades y etapa productiva.</p>
+          </div>
+          <span
+            class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Ponderación:
+            25 Puntos</span>
+        </div>
+
+        <!-- Matriz de Clasificación (15 pts) -->
+        <div class="mb-6 bg-slate-900/80 p-5 rounded-xl border border-slate-800 shadow-sm">
+          <h3 class="text-sm font-bold text-slate-200 mb-1 flex items-center gap-2">
+            <i class="fas fa-table-cells text-indigo-400"></i> Matriz de Clasificación: Ámbitos de Cumplimiento
+          </h3>
+          <p class="text-xs text-slate-400 mb-4">
+            Asigna el ámbito normativo (Académico, Disciplinario o Administrativo) correspondiente a cada deber
+            institucional:
+          </p>
+
+          <div class="overflow-x-auto rounded-xl border border-slate-800">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-slate-950 text-slate-300 uppercase font-semibold border-b border-slate-800">
+                  <th class="p-3">Conducta del prendiz</th>
+                  <th class="p-3 text-center">Referencia</th>
+                  <th class="p-3">Ámbito de Responsabilidad</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800 text-slate-300 bg-slate-950/50">
+                <tr>
+                  <td class="p-3 font-medium">Gestionar oportunamente traslados, aplazamientos o retiros voluntarios
+                    según procedimiento.</td>
+                  <td class="p-3 text-center text-slate-400">Novedades</td>
+                  <td class="p-3">
+                    <select id="mat-tipo-1" onchange="calculateScore()"
+                      class="w-full p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
+                      <option value="">Seleccione ámbito...</option>
+                      <option value="administrativo">Deber Administrativo</option>
+                      <option value="disciplinario">Deber Disciplinario</option>
+                      <option value="academico">Deber Académico</option>
+                    </select>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="p-3 font-medium">Asistir puntualmente y cumplir con la entrega de evidencias conforme a la
+                    planeación y guías.</td>
+                  <td class="p-3 text-center text-slate-400">Asistencia y Guías</td>
+                  <td class="p-3">
+                    <select id="mat-tipo-2" onchange="calculateScore()"
+                      class="w-full p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
+                      <option value="">Seleccione ámbito...</option>
+                      <option value="administrativo">Deber Administrativo</option>
+                      <option value="disciplinario">Deber Disciplinario</option>
+                      <option value="academico">Deber Académico</option>
+                    </select>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="p-3 font-medium">Trato digno, uso de EPP, respeto al bien público y abstenerse de ingresar
+                    sustancias psicoactivas.</td>
+                  <td class="p-3 text-center text-slate-400">Convivencia y SST</td>
+                  <td class="p-3">
+                    <select id="mat-tipo-3" onchange="calculateScore()"
+                      class="w-full p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
+                      <option value="">Seleccione ámbito...</option>
+                      <option value="administrativo">Deber Administrativo</option>
+                      <option value="disciplinario">Deber Disciplinario / Convivencia</option>
+                      <option value="academico">Deber Académico</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Caso Vivencial: Consecución de Etapa Productiva (10 pts) -->
+        <div class="p-5 bg-slate-900/80 rounded-xl border border-slate-800 shadow-sm">
+          <h3 class="text-sm font-bold text-slate-200 mb-2">2. Caso: Gestión Directa del Contrato de Aprendizaje</h3>
+          <p class="text-xs text-slate-400 mb-3 leading-relaxed">
+            Un aprendiz gestiona directamente por su cuenta una vacante de patrocinio empresarial para su etapa
+            productiva y firma contrato con una compañía multinacional. ¿Cuál es su obligación perentoria?
+          </p>
+          <div class="space-y-2 text-xs">
+            <label class="option-card flex items-start gap-3 p-3 bg-slate-950 rounded-xl cursor-pointer">
+              <input type="radio" name="prod-q1" value="A" onchange="calculateScore()"
+                class="mt-0.5 accent-indigo-500" />
+              <span class="text-slate-300 font-normal">A) Informar inmediatamente al Centro de Formación y a los
+                responsables de apoyar el proceso para su respectivo registro y seguimiento institucional.</span>
+            </label>
+            <label class="option-card flex items-start gap-3 p-3 bg-slate-950 rounded-xl cursor-pointer">
+              <input type="radio" name="prod-q1" value="B" onchange="calculateScore()"
+                class="mt-0.5 accent-indigo-500" />
+              <span class="text-slate-300 font-normal">B) Mantener en reserva el contrato hasta finalizar los seis meses
+                de práctica para evitar trámites pedagógicos.</span>
+            </label>
+            <label class="option-card flex items-start gap-3 p-3 bg-slate-950 rounded-xl cursor-pointer">
+              <input type="radio" name="prod-q1" value="C" onchange="calculateScore()"
+                class="mt-0.5 accent-indigo-500" />
+              <span class="text-slate-300 font-normal">C) Solicitar la cancelación de matrícula para no tener que
+                presentar bitácoras al instructor de seguimiento.</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-4 border-t border-slate-800 flex justify-end">
+          <button onclick="proceedToEvaluacion()"
+            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+            <span>Avanzar a Evaluación</span>
+            <i class="fas fa-arrow-right text-xs"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 5. PESTAÑA: EVALUACIÓN INTEGRADORA         -->
+    <!-- ========================================== -->
+    <section id="pane-evaluacion" class="tab-pane hidden">
+      <div
+        class="bg-slate-950/85 backdrop-blur-sm rounded-2xl border border-slate-800 p-6 sm:p-7 mb-6 shadow-2xl no-print">
+        <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+          <div>
+            <h2 class="text-xl font-bold text-indigo-400">Evaluación Integradora</h2>
+            <p class="text-xs text-slate-400 mt-0.5">Responde las 3 preguntas de síntesis aplicadas al cumplimiento del
+              reglamento.</p>
+          </div>
+          <span
+            class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Ponderación:
+            25 Puntos</span>
+        </div>
+
+        <div class="space-y-5 mb-8">
+          <!-- Pregunta 1 -->
+          <div class="p-5 bg-slate-900/80 rounded-xl border border-slate-800 shadow-sm">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-xs font-bold text-indigo-400 uppercase tracking-tight">1. Uso del Uniforme e Ingreso a
+                la Formación</span>
+              <span class="text-[11px] text-slate-400 font-semibold">Valor: 8 pts</span>
+            </div>
+            <p class="text-xs text-slate-300 mb-3.5 leading-relaxed">
+              Si un aprendiz no cuenta con los recursos económicos para comprar el uniforme de uso diario institucional,
+              ¿qué consagra expresamente el reglamento?
+            </p>
+            <div class="space-y-2.5">
+              <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                <input type="radio" name="eva-q1" value="A" class="mt-0.5 accent-indigo-500" />
+                <span class="text-xs text-slate-300 font-normal">A) No será causal para que instructores o directivos
+                  impidan su acceso a la formación, ni se podrá exigir marca o proveedor específico.</span>
+              </label>
+              <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                <input type="radio" name="eva-q1" value="B" class="mt-0.5 accent-indigo-500" />
+                <span class="text-xs text-slate-300 font-normal">B) La coordinación académica debe imponer cancelación
+                  inmediata de matrícula por incumplimiento del código de vestuario.</span>
+              </label>
+              <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                <input type="radio" name="eva-q1" value="C" class="mt-0.5 accent-indigo-500" />
+                <span class="text-xs text-slate-300 font-normal">C) Debe pagar una póliza económica adicional a la
+                  entidad para ingresar con ropa particular.</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Pregunta 2 -->
+          <div class="p-5 bg-slate-900/80 rounded-xl border border-slate-800 shadow-sm">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-xs font-bold text-indigo-400 uppercase tracking-tight">2. Autenticidad Documental y
+                Falsedad</span>
+              <span class="text-[11px] text-slate-400 font-semibold">Valor: 8 pts</span>
+            </div>
+            <p class="text-xs text-slate-300 mb-3.5 leading-relaxed">
+              Aportar documentos adulterados o registrar datos falsos en SofiaPlus/Zajuna para obtener beneficios de
+              sostenimiento económico o certificación anticipada constituye:
+            </p>
+            <div class="space-y-2.5">
+              <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                <input type="radio" name="eva-q2" value="A" class="mt-0.5 accent-indigo-500" />
+                <span class="text-xs text-slate-300 font-normal">A) Un error administrativo no sancionable que se
+                  subsana con actualizar la contraseña del usuario.</span>
+              </label>
+              <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                <input type="radio" name="eva-q2" value="B" class="mt-0.5 accent-indigo-500" />
+                <span class="text-xs text-slate-300 font-normal">B) Una prohibición expresa gravísima sujeta a
+                  investigación disciplinaria y posibles implicaciones legales por fraude.</span>
+              </label>
+              <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                <input type="radio" name="eva-q2" value="C" class="mt-0.5 accent-indigo-500" />
+                <span class="text-xs text-slate-300 font-normal">C) Una falta leve que únicamente requiere una disculpa
+                  escrita ante el vocero de grupo.</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Pregunta 3 -->
+          <div class="p-5 bg-slate-900/80 rounded-xl border border-slate-800 shadow-sm">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-xs font-bold text-indigo-400 uppercase tracking-tight">3. Porte de Armas en
+                Instalaciones SENA</span>
+              <span class="text-[11px] text-slate-400 font-semibold">Valor: 9 pts</span>
+            </div>
+            <p class="text-xs text-slate-300 mb-3.5 leading-relaxed">
+              Respecto al ingreso de armas de fuego u objetos cortopunzantes al Centro de Formación, ¿cuál es la
+              disposición expresa para miembros activos de la fuerza pública en condición de aprendices?
+            </p>
+            <div class="space-y-2.5">
+              <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                <input type="radio" name="eva-q3" value="A" class="mt-0.5 accent-indigo-500" />
+                <span class="text-xs text-slate-300 font-normal">A) Están expresamente prohibidos de portar armas dentro
+                  del Centro de Formación durante su proceso formativo.</span>
+              </label>
+              <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                <input type="radio" name="eva-q3" value="B" class="mt-0.5 accent-indigo-500" />
+                <span class="text-xs text-slate-300 font-normal">B) Tienen autorización irrestricta de portarlas siempre
+                  que vistan su uniforme oficial de servicio.</span>
+              </label>
+              <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
+                <input type="radio" name="eva-q3" value="C" class="mt-0.5 accent-indigo-500" />
+                <span class="text-xs text-slate-300 font-normal">C) Pueden portarlas únicamente si el instructor técnico
+                  les otorga permiso por escrito en la guía pedagógica.</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- ÁREA DE IMPRESIÓN Y RESULTADOS                                            -->
+      <!-- ========================================================================= -->
+      <div id="print-area">
+
+        <div class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+
+          <div class="flex flex-wrap items-center justify-between pb-4 mb-5 border-b border-slate-800 gap-4">
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-center text-indigo-400 font-bold text-lg shrink-0">
+                <i class="fas fa-landmark"></i>
+              </div>
+              <div>
+                <h1 class="text-base sm:text-lg font-bold text-indigo-400 tracking-tight">SERVICIO NACIONAL DE
+                  APRENDIZAJE - SENA</h1>
+                <p class="text-xs font-semibold text-slate-300">Centro de Gestión Administrativa | Regional Distrito
+                  Capital</p>
+                <p id="print-programa-subtitle" class="text-[11px] text-slate-400 uppercase tracking-wider">Programa:
+                  Técnico en Talento Humano | Reglamento del Aprendiz</p>
+              </div>
+            </div>
+            <div class="text-right text-xs text-slate-400 font-mono">
+              <div>FECHA DE REPORTE: <span id="print-fecha" class="font-bold text-slate-200">10 de septiembre de
+                  2026</span></div>
+              <div class="font-bold text-indigo-400">EVIDENCIA: DEBERES Y PROHIBICIONES</div>
+            </div>
+          </div>
+
+          <!-- BLOQUE 1: IDENTIFICACIÓN Y CARACTERIZACIÓN DEL APRENDIZ -->
+          <div class="mb-6">
+            <div class="flex items-center gap-2 mb-3">
+              <i class="fas fa-id-card text-indigo-400"></i>
+              <h2 class="text-sm font-bold text-indigo-400 uppercase tracking-wide">Identificación y Caracterización del
+                Aprendiz</h2>
+            </div>
+
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs shadow-inner">
+              <div>
+                <span class="text-slate-400 block font-semibold text-[10px] uppercase tracking-wider">NOMBRE
+                  COMPLETO:</span>
+                <span id="print-nombre"
+                  class="font-bold text-slate-100 uppercase text-xs sm:text-sm mt-0.5 block">--</span>
+              </div>
+              <div>
+                <span class="text-slate-400 block font-semibold text-[10px] uppercase tracking-wider">DOCUMENTO DE
+                  IDENTIDAD:</span>
+                <span id="print-doc" class="font-bold text-slate-100 text-xs sm:text-sm mt-0.5 block">--</span>
+              </div>
+              <div>
+                <span class="text-slate-400 block font-semibold text-[10px] uppercase tracking-wider">FICHA DE
+                  CARACTERIZACIÓN:</span>
+                <span id="print-ficha" class="font-bold text-slate-100 text-xs sm:text-sm mt-0.5 block">--</span>
+              </div>
+              <div>
+                <span class="text-slate-400 block font-semibold text-[10px] uppercase tracking-wider">PROGRAMA DE
+                  FORMACIÓN:</span>
+                <span id="print-programa" class="font-bold text-slate-300 mt-0.5 block">Técnico en Talento Humano</span>
+              </div>
+              <div>
+                <span class="text-slate-400 block font-semibold text-[10px] uppercase tracking-wider">CENTRO DE
+                  FORMACIÓN:</span>
+                <span class="font-bold text-slate-300 mt-0.5 block">Gestión Administrativa</span>
+              </div>
+              <div>
+                <span class="text-slate-400 block font-semibold text-[10px] uppercase tracking-wider">REGIONAL:</span>
+                <span class="font-bold text-slate-300 mt-0.5 block">Distrito Capital</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- BLOQUE 2: DESGLOSE DETALLADO DE CALIFICACIÓN POR COMPETENCIA -->
+          <div>
+            <div class="flex flex-wrap items-center justify-between pb-2 mb-3 gap-2 border-b border-slate-800">
+              <div class="flex items-center gap-2">
+                <i class="fas fa-chart-line text-indigo-400"></i>
+                <h2 class="text-sm font-bold text-indigo-400 uppercase tracking-wide">Desglose Detallado de Calificación
+                  por Competencia</h2>
+              </div>
+              <span id="matrix-status-pill"
+                class="text-xs font-bold px-3 py-1 rounded-lg bg-slate-950 text-slate-400 flex items-center gap-1.5 border border-slate-800">
+                <span class="w-2 h-2 rounded-full bg-slate-500"></span> Pendiente de Consolidación
+              </span>
+            </div>
+
+            <div class="overflow-x-auto rounded-xl border border-slate-800 shadow-inner">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-800 text-slate-400 font-bold uppercase tracking-wider bg-slate-900">
+                    <th class="py-3 px-4">Dimensión Normativa</th>
+                    <th class="py-3 px-3 text-center">Puntos Posibles</th>
+                    <th class="py-3 px-3 text-center">Puntos Obtenidos</th>
+                    <th class="py-3 px-3 text-center">Cumplimiento</th>
+                    <th class="py-3 px-4 text-center">Estado</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800 text-slate-300 bg-slate-950/70">
+                  <tr class="hover:bg-slate-900/50 transition">
+                    <td class="py-3.5 px-4">
+                      <div class="font-bold text-slate-100">Deberes del Aprendiz</div>
+                      <div class="text-[11px] text-slate-400">Secuenciación, credenciales y derechos de autor</div>
+                    </td>
+                    <td class="py-3.5 px-3 text-center font-medium">30 pts</td>
+                    <td class="py-3.5 px-3 text-center font-bold text-slate-100" id="tb-deb-pts">--</td>
+                    <td class="py-3.5 px-3 text-center font-medium" id="tb-deb-pct">0%</td>
+                    <td class="py-3.5 px-4 text-center">
+                      <span id="tb-deb-badge"
+                        class="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-slate-900 text-slate-400 border border-slate-800">Pendiente</span>
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-slate-900/50 transition">
+                    <td class="py-3.5 px-4">
+                      <div class="font-bold text-slate-100">Prohibición expresa y específica</div>
+                      <div class="text-[11px] text-slate-400">Armas, proselitismo, lucro particular y acoso</div>
+                    </td>
+                    <td class="py-3.5 px-3 text-center font-medium">20 pts</td>
+                    <td class="py-3.5 px-3 text-center font-bold text-slate-100" id="tb-proh-pts">--</td>
+                    <td class="py-3.5 px-3 text-center font-medium" id="tb-proh-pct">0%</td>
+                    <td class="py-3.5 px-4 text-center">
+                      <span id="tb-proh-badge"
+                        class="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-slate-900 text-slate-400 border border-slate-800">Pendiente</span>
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-slate-900/50 transition">
+                    <td class="py-3.5 px-4">
+                      <div class="font-bold text-slate-100">Clasificación y Casos</div>
+                      <div class="text-[11px] text-slate-400">Ámbitos (Académico, Disciplinario, Administrativo) y
+                        Contrato de Aprendizaje</div>
+                    </td>
+                    <td class="py-3.5 px-3 text-center font-medium">25 pts</td>
+                    <td class="py-3.5 px-3 text-center font-bold text-slate-100" id="tb-mat-pts">--</td>
+                    <td class="py-3.5 px-3 text-center font-medium" id="tb-mat-pct">0%</td>
+                    <td class="py-3.5 px-4 text-center">
+                      <span id="tb-mat-badge"
+                        class="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-slate-900 text-slate-400 border border-slate-800">Pendiente</span>
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-slate-900/50 transition">
+                    <td class="py-3.5 px-4">
+                      <div class="font-bold text-slate-100">Evaluación Integradora</div>
+                      <div class="text-[11px] text-slate-400">Síntesis diagnóstica de uniformes, fraude documental y
+                        seguridad física</div>
+                    </td>
+                    <td class="py-3.5 px-3 text-center font-medium">25 pts</td>
+                    <td class="py-3.5 px-3 text-center font-bold text-slate-100" id="tb-eva-pts">--</td>
+                    <td class="py-3.5 px-3 text-center font-medium" id="tb-eva-pct">0%</td>
+                    <td class="py-3.5 px-4 text-center">
+                      <span id="tb-eva-badge"
+                        class="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-slate-900 text-slate-400 border border-slate-800">Pendiente</span>
+                    </td>
+                  </tr>
+
+                  <!-- Fila Total Consolidado -->
+                  <tr class="bg-slate-900 font-bold border-t-2 border-slate-800">
+                    <td class="py-4 px-4 text-right uppercase tracking-wider text-slate-300">Calificación Global
+                      Consolidada:</td>
+                    <td class="py-4 px-3 text-center text-slate-200">100 pts</td>
+                    <td class="py-4 px-3 text-center text-slate-100 text-sm font-black" id="tb-tot-pts">0 pts</td>
+                    <td class="py-4 px-3 text-center text-slate-100 text-sm font-black" id="tb-tot-pct">0%</td>
+                    <td class="py-4 px-4 text-center">
+                      <span id="tb-tot-badge"
+                        class="px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-950 text-slate-400 border border-slate-800">
+                        Pendiente
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div
+              class="mt-6 pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 no-print">
+              <p class="text-xs text-slate-400 text-center sm:text-left">
+                <i class="fas fa-circle-info text-indigo-400 mr-1"></i> Al hacer clic, se recalcula la tabla superior y
+                se sincronizan las métricas en tiempo real.
+              </p>
+              <button onclick="consolidateEvaluation()"
+                class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                <i class="fas fa-check-circle"></i>
+                <span>Generar y Revisar Acta de Evidencia</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 6. PESTAÑA: DASHBOARD DE ANALÍTICA        -->
+    <!-- ========================================== -->
+    <section id="pane-dashboard" class="tab-pane hidden">
+      <div class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+        <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+          <div>
+            <h2 class="text-xl font-bold text-indigo-400">Dashboard</h2>
+            <p class="text-xs text-slate-400 mt-0.5">Métricas en tiempo real sobre el dominio normativo.</p>
+          </div>
+          <span
+            class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Analítica
+            Institucional</span>
+        </div>
+
+        <!-- Tarjetas KPI -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          <div class="p-5 bg-slate-950 rounded-xl border border-slate-800 flex items-center gap-4 shadow-sm">
+            <div
+              class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 text-indigo-400 flex items-center justify-center text-xl font-bold">
+              <i class="fas fa-bullseye"></i>
+            </div>
+            <div>
+              <div class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Puntaje Obtenido</div>
+              <div class="text-2xl font-black text-slate-100 tracking-tight"><span id="kpi-score">0</span> <span
+                  class="text-xs font-normal text-slate-400">/ 100</span></div>
+            </div>
+          </div>
+
+          <div class="p-5 bg-slate-950 rounded-xl border border-slate-800 flex items-center gap-4 shadow-sm">
+            <div
+              class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 text-amber-400 flex items-center justify-center text-xl font-bold">
+              <i class="fas fa-stopwatch"></i>
+            </div>
+            <div>
+              <div class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Tiempo Transcurrido</div>
+              <div id="kpi-time" class="text-2xl font-black text-slate-100 font-mono tracking-tight">00:00</div>
+            </div>
+          </div>
+
+          <div class="p-5 bg-slate-950 rounded-xl border border-slate-800 flex items-center gap-4 shadow-sm">
+            <div
+              class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 text-emerald-400 flex items-center justify-center text-xl font-bold">
+              <i class="fas fa-rotate"></i>
+            </div>
+            <div>
+              <div class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Oportunidad Actual</div>
+              <div class="text-2xl font-black text-slate-100 tracking-tight"><span id="kpi-attempt">1</span> <span
+                  class="text-xs font-normal text-slate-400">de 4</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <div class="p-5 bg-slate-950 rounded-xl border border-slate-800 shadow-sm">
+            <h3 class="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+              <i class="fas fa-chart-column"></i> Cumplimiento por Dimensión Normativa (%)
+            </h3>
+            <div class="h-64 flex items-center justify-center">
+              <canvas id="barChart"></canvas>
+            </div>
+          </div>
+
+          <div class="p-5 bg-slate-950 rounded-xl border border-slate-800 shadow-sm">
+            <h3 class="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+              <i class="fas fa-chart-pie"></i> Efectividad Global de la Evidencia
+            </h3>
+            <div class="h-64 flex items-center justify-center">
+              <canvas id="donutChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conclusión Dinámica -->
+        <div class="p-5 bg-slate-950 rounded-xl border border-slate-800 shadow-sm">
+          <h3 class="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2.5 flex items-center gap-2">
+            <i class="fas fa-clipboard-check"></i> Conclusión y Dictamen Diagnóstico de Aprendizaje
+          </h3>
+          <div id="dashboard-conclusion-box"
+            class="text-xs text-slate-300 leading-relaxed bg-slate-900/90 p-4 rounded-lg border border-slate-800">
+            Pendiente de consolidación. Resuelve las secciones de Deberes, Prohibición expresa y específica y Matriz, y
+            haz clic en "Generar y Revisar Acta de Evidencia" para emitir el dictamen.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- PIE DE PÁGINA                              -->
+  <!-- ========================================== -->
+  <footer class="bg-slate-950 border-t border-slate-800 py-4 text-center text-xs text-slate-500 no-print shadow-inner">
+    <p class="font-medium text-slate-400">Servicio Nacional de Aprendizaje SENA - Centro de Gestión Administrativa (CGA)
+    </p>
+    <p id="footer-programa-text" class="text-[11px] text-slate-500 mt-0.5">Herramienta de Formación Profesional Integral
+    </p>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- MODAL INSTITUCIONAL                        -->
+  <!-- ========================================== -->
+  <div id="custom-modal"
+    class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div
+      class="bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-800 transform transition-all text-slate-100">
+      <div
+        class="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 text-indigo-400 flex items-center justify-center text-xl font-bold mb-4 mx-auto shadow-inner"
+        id="modal-icon">
+        <i class="fas fa-circle-check"></i>
+      </div>
+      <h3 class="text-base font-bold text-indigo-400 text-center mb-1.5" id="modal-title">Atención</h3>
+      <p class="text-xs text-slate-300 text-center mb-6 leading-relaxed" id="modal-msg">Mensaje institucional.</p>
+      <div class="flex gap-3 justify-center" id="modal-actions">
+        <button onclick="closeModal()"
+          class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition">
+          Entendido
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- LÓGICA JAVASCRIPT                          -->
+  <!-- ========================================== -->
+  <script>
+    let currentAttempt = 1;
+    const maxAttempts = 4;
+    let timeRemaining = 60 * 60;
+    let timeElapsed = 0;
+    let timerInterval = null;
+    let registeredLearner = null;
+
+    let scores = {
+      deberes: 0,
+      prohibiciones: 0,
+      matriz: 0,
+      evaluacion: 0,
+      total: 0
+    };
+
+    let barChartInstance = null;
+    let donutChartInstance = null;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      startTimer();
+      initCharts();
+    });
+
+    function syncPrograma(val) {
+      const printProg = document.getElementById('print-programa');
+      if (printProg) printProg.innerText = val;
+      const printSub = document.getElementById('print-programa-subtitle');
+      if (printSub) printSub.innerText = `Programa: ${val} | Reglamento del Aprendiz`;
+    }
+
+    function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (timeRemaining > 0) {
+          timeRemaining--;
+          timeElapsed++;
+          updateTimerDisplay();
+        } else {
+          clearInterval(timerInterval);
+          showModal('Tiempo Finalizado', 'El tiempo límite de 60 minutos ha expirado. Procederemos a consolidar los resultados obtenidos.');
+          consolidateEvaluation();
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const m = Math.floor(timeRemaining / 60);
+      const s = timeRemaining % 60;
+      document.getElementById('timer-display').innerText =
+        `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+
+      const em = Math.floor(timeElapsed / 60);
+      const es = timeElapsed % 60;
+      document.getElementById('kpi-time').innerText =
+        `${em.toString().padStart(2, '0')}:${es.toString().padStart(2, '0')}`;
+    }
+
+    function showModal(title, msg, isConfirm = false, onConfirm = null) {
+      document.getElementById('modal-title').innerText = title;
+      document.getElementById('modal-msg').innerText = msg;
+      const actionsContainer = document.getElementById('modal-actions');
+
+      if (isConfirm) {
+        actionsContainer.innerHTML = `
+          <button onclick="closeModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold px-4 py-2 rounded-xl transition">Cancelar</button>
+          <button id="modal-confirm-btn" class="bg-rose-900 hover:bg-rose-800 text-rose-100 text-xs font-semibold px-4 py-2 rounded-xl transition border border-rose-700">Confirmar</button>
+        `;
+        document.getElementById('modal-confirm-btn').onclick = () => {
+          closeModal();
+          if (onConfirm) onConfirm();
+        };
+      } else {
+        actionsContainer.innerHTML = `
+          <button onclick="closeModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition">Entendido</button>
+        `;
+      }
+      document.getElementById('custom-modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('custom-modal').classList.add('hidden');
+    }
+
+    function switchTab(tabId) {
+      if (tabId !== 'registro' && !registeredLearner) {
+        showModal('Registro Obligatorio', 'Debes completar y confirmar primero tus datos institucionales en la pestaña de Registro.');
+        return;
+      }
+
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      document.getElementById(`pane-${tabId}`).classList.remove('hidden');
+      const activeBtn = document.getElementById(`tab-${tabId}`);
+      activeBtn.classList.add('active');
+
+      if (tabId === 'dashboard') {
+        updateCharts();
+      }
+    }
+
+    function proceedToDeberes() {
+      const nombre = document.getElementById('reg-nombre').value.trim();
+      const doc = document.getElementById('reg-doc').value.trim();
+      const ficha = document.getElementById('reg-ficha').value.trim();
+      const programa = document.getElementById('reg-programa').value;
+
+      if (!nombre || !doc || !ficha) {
+        showModal('Campos Incompletos', 'Por favor diligencia tu Nombre, Documento y Ficha de caracterización.');
+        return;
+      }
+
+      registeredLearner = { nombre, doc, ficha, programa };
+
+      document.getElementById('print-nombre').innerText = nombre;
+      document.getElementById('print-doc').innerText = doc;
+      document.getElementById('print-ficha').innerText = ficha;
+      syncPrograma(programa);
+
+      switchTab('deberes');
+    }
+
+    function proceedToProhibiciones() {
+      switchTab('prohibiciones');
+    }
+
+    function proceedToMatriz() {
+      switchTab('matriz');
+    }
+
+    function proceedToEvaluacion() {
+      switchTab('evaluacion');
+    }
+
+    function calculateScore() {
+      // 1. Deberes (30 pts: Secuencia 10, Cloze 10, Caso 10)
+      let debScore = 0;
+      const s1 = document.getElementById('seq-step-1').value;
+      const s2 = document.getElementById('seq-step-2').value;
+      const s3 = document.getElementById('seq-step-3').value;
+      if (s1 === 'instructor') debScore += 3.5;
+      if (s2 === 'coordinador') debScore += 3.5;
+      if (s3 === 'comite') debScore += 3;
+
+      const c1 = document.getElementById('cloze-1').value;
+      const c2 = document.getElementById('cloze-2').value;
+      if (c1 === 'personal') debScore += 5;
+      if (c2 === 'no_causal') debScore += 5;
+
+      const debQ3 = document.querySelector('input[name="deb-q3"]:checked');
+      if (debQ3 && debQ3.value === 'B') debScore += 10;
+      scores.deberes = Math.round(debScore);
+
+      // 2. Prohibiciones (20 pts: 4 selects x 3 pts = 12, pregunta = 8)
+      let prohScore = 0;
+      if (document.getElementById('proh-item-1').value === 'prohibicion') prohScore += 3;
+      if (document.getElementById('proh-item-2').value === 'deber') prohScore += 3;
+      if (document.getElementById('proh-item-3').value === 'prohibicion') prohScore += 3;
+      if (document.getElementById('proh-item-4').value === 'prohibicion') prohScore += 3;
+
+      const prohQ2 = document.querySelector('input[name="proh-q2"]:checked');
+      if (prohQ2 && prohQ2.value === 'B') prohScore += 8;
+      scores.prohibiciones = prohScore;
+
+      // 3. Matriz y Casos (25 pts: 3 selects x 5 pts = 15, caso práctica = 10)
+      let matScore = 0;
+      if (document.getElementById('mat-tipo-1').value === 'administrativo') matScore += 5;
+      if (document.getElementById('mat-tipo-2').value === 'academico') matScore += 5;
+      if (document.getElementById('mat-tipo-3').value === 'disciplinario') matScore += 5;
+
+      const prodQ1 = document.querySelector('input[name="prod-q1"]:checked');
+      if (prodQ1 && prodQ1.value === 'A') matScore += 10;
+      scores.matriz = matScore;
+
+      // 4. Evaluación (25 pts: Q1=8, Q2=8, Q3=9)
+      let evaScore = 0;
+      const q1 = document.querySelector('input[name="eva-q1"]:checked');
+      const q2 = document.querySelector('input[name="eva-q2"]:checked');
+      const q3 = document.querySelector('input[name="eva-q3"]:checked');
+
+      if (q1 && q1.value === 'A') evaScore += 8;
+      if (q2 && q2.value === 'B') evaScore += 8;
+      if (q3 && q3.value === 'A') evaScore += 9;
+      scores.evaluacion = evaScore;
+
+      // Total
+      scores.total = scores.deberes + scores.prohibiciones + scores.matriz + scores.evaluacion;
+
+      document.getElementById('global-score').innerText = scores.total;
+      document.getElementById('score-circle').innerText = `${scores.total}%`;
+      document.getElementById('kpi-score').innerText = scores.total;
+
+      updateCharts();
+    }
+
+    function consolidateEvaluation() {
+      if (!registeredLearner) {
+        showModal('Atención', 'Debes registrar primero tus datos institucionales en la pestaña de Registro.');
+        switchTab('registro');
+        return;
+      }
+
+      calculateScore();
+
+      const pDeb = Math.round((scores.deberes / 30) * 100);
+      const pProh = Math.round((scores.prohibiciones / 20) * 100);
+      const pMat = Math.round((scores.matriz / 25) * 100);
+      const pEva = Math.round((scores.evaluacion / 25) * 100);
+
+      // Calificación mínima aprobatoria: 90%
+      const isGlobalApproved = scores.total >= 90;
+
+      document.getElementById('tb-deb-pts').innerText = `${scores.deberes} pts`;
+      document.getElementById('tb-deb-pct').innerText = `${pDeb}%`;
+      updateBadge('tb-deb-badge', pDeb >= 90);
+
+      document.getElementById('tb-proh-pts').innerText = `${scores.prohibiciones} pts`;
+      document.getElementById('tb-proh-pct').innerText = `${pProh}%`;
+      updateBadge('tb-proh-badge', pProh >= 90);
+
+      document.getElementById('tb-mat-pts').innerText = `${scores.matriz} pts`;
+      document.getElementById('tb-mat-pct').innerText = `${pMat}%`;
+      updateBadge('tb-mat-badge', pMat >= 90);
+
+      document.getElementById('tb-eva-pts').innerText = `${scores.evaluacion} pts`;
+      document.getElementById('tb-eva-pct').innerText = `${pEva}%`;
+      updateBadge('tb-eva-badge', pEva >= 90);
+
+      document.getElementById('tb-tot-pts').innerText = `${scores.total} pts`;
+      document.getElementById('tb-tot-pct').innerText = `${scores.total}%`;
+
+      const totBadge = document.getElementById('tb-tot-badge');
+      const matrixStatusPill = document.getElementById('matrix-status-pill');
+
+      if (isGlobalApproved) {
+        totBadge.className = 'px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-emerald-950/70 text-emerald-400 border border-emerald-800';
+        totBadge.innerText = 'Aprobado';
+
+        matrixStatusPill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-emerald-950/70 text-emerald-400 flex items-center gap-1.5 border border-emerald-800';
+        matrixStatusPill.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400"></span> Consolidado y Aprobado';
+      } else {
+        totBadge.className = 'px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-rose-950/70 text-rose-400 border border-rose-800';
+        totBadge.innerText = 'Por Mejorar';
+
+        matrixStatusPill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-rose-950/70 text-rose-400 flex items-center gap-1.5 border border-rose-800';
+        matrixStatusPill.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-500"></span> Por Mejorar (< 90%)';
+      }
+    }
+
+    function updateBadge(badgeId, isPass) {
+      const el = document.getElementById(badgeId);
+      if (isPass) {
+        el.className = 'px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-emerald-950/70 text-emerald-400 border border-emerald-800';
+        el.innerText = 'Aprobado';
+      } else {
+        el.className = 'px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-amber-950/70 text-amber-400 border border-amber-800';
+        el.innerText = 'Por Mejorar';
+      }
+    }
+
+    function printEvidence() {
+      if (!registeredLearner) {
+        showModal('Registro Incompleto', 'Diligencia tus datos en la pestaña de Registro antes de imprimir.');
+        return;
+      }
+
+      document.getElementById('print-nombre').innerText = registeredLearner.nombre;
+      document.getElementById('print-doc').innerText = registeredLearner.doc;
+      document.getElementById('print-ficha').innerText = registeredLearner.ficha;
+      syncPrograma(registeredLearner.programa);
+
+      consolidateEvaluation();
+      window.print();
+    }
+
+    function confirmReset() {
+      if (currentAttempt >= maxAttempts) {
+        showModal('Intentos Agotados', 'Has alcanzado el límite máximo de cuatro (4) intentos permitidos para esta actividad.');
+        return;
+      }
+
+      showModal(
+        'Confirmar Reinicio de Intento',
+        `¿Deseas reiniciar la actividad? Se restablecerán las selecciones de las preguntas y se consumirá el intento ${currentAttempt + 1} de ${maxAttempts}.`,
+        true,
+        () => {
+          currentAttempt++;
+          document.getElementById('attempts-badge').innerText = `${currentAttempt} / ${maxAttempts}`;
+          document.getElementById('kpi-attempt').innerText = currentAttempt;
+
+          document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+          document.querySelectorAll('select').forEach(s => {
+            if (s.id !== 'reg-programa') s.selectedIndex = 0;
+          });
+
+          ['deb', 'proh', 'mat', 'eva'].forEach(k => {
+            document.getElementById(`tb-${k}-pts`).innerText = '--';
+            document.getElementById(`tb-${k}-pct`).innerText = '0%';
+            const badge = document.getElementById(`tb-${k}-badge`);
+            badge.className = 'px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-slate-900 text-slate-400 border border-slate-800';
+            badge.innerText = 'Pendiente';
+          });
+          document.getElementById('tb-tot-pts').innerText = '0 pts';
+          document.getElementById('tb-tot-pct').innerText = '0%';
+          const totBadge = document.getElementById('tb-tot-badge');
+          totBadge.className = 'px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-900 text-slate-400 border border-slate-800';
+          totBadge.innerText = 'Pendiente';
+
+          const pill = document.getElementById('matrix-status-pill');
+          pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-slate-950 text-slate-400 flex items-center gap-1.5 border border-slate-800';
+          pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-slate-500"></span> Pendiente de Consolidación';
+
+          scores = { deberes: 0, prohibiciones: 0, matriz: 0, evaluacion: 0, total: 0 };
+          document.getElementById('global-score').innerText = '0';
+          document.getElementById('score-circle').innerText = '0%';
+          document.getElementById('kpi-score').innerText = '0';
+          updateCharts();
+
+          switchTab('deberes');
+        }
+      );
+    }
+
+    function initCharts() {
+      const ctxBar = document.getElementById('barChart').getContext('2d');
+      barChartInstance = new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+          labels: ['Deberes', 'Prohibición expresa', 'Clasificación y Casos', 'Evaluación'],
+          datasets: [{
+            label: '% Cumplimiento',
+            data: [0, 0, 0, 0],
+            backgroundColor: '#4f46e5',
+            borderColor: '#6366f1',
+            borderWidth: 1,
+            borderRadius: 8,
+            barThickness: 32
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              grid: { color: '#1e293b' },
+              ticks: {
+                color: '#94a3b8',
+                callback: val => `${val}%`
+              }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: '#94a3b8' }
+            }
+          },
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+
+      const ctxDonut = document.getElementById('donutChart').getContext('2d');
+      donutChartInstance = new Chart(ctxDonut, {
+        type: 'doughnut',
+        data: {
+          labels: ['Puntos Obtenidos', 'Puntos Restantes'],
+          datasets: [{
+            data: [0, 100],
+            backgroundColor: ['#4f46e5', '#1e293b'],
+            borderColor: '#020617',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '72%',
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                color: '#94a3b8',
+                boxWidth: 12,
+                padding: 14
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function updateCharts() {
+      if (!barChartInstance || !donutChartInstance) return;
+
+      const pDeb = Math.round((scores.deberes / 30) * 100);
+      const pProh = Math.round((scores.prohibiciones / 20) * 100);
+      const pMat = Math.round((scores.matriz / 25) * 100);
+      const pEva = Math.round((scores.evaluacion / 25) * 100);
+
+      barChartInstance.data.datasets[0].data = [pDeb, pProh, pMat, pEva];
+      barChartInstance.update();
+
+      const remaining = Math.max(0, 100 - scores.total);
+      donutChartInstance.data.datasets[0].data = [scores.total, remaining];
+      donutChartInstance.update();
+
+      const conclusionBox = document.getElementById('dashboard-conclusion-box');
+      if (scores.total >= 90) {
+        conclusionBox.innerHTML = `
+          <p class="text-emerald-400 font-bold mb-1">
+            <i class="fas fa-check-double mr-1"></i> Dictamen Satisfactorio (Aprobado - ${scores.total} pts / ${scores.total}%):
+          </p>
+          <p>
+            El aprendiz evidencia un dominio ético, disciplinario y procedimental sobresaliente, superando el umbral de excelencia del 90%. Reconoce con exactitud el conducto regular formativo, el deber de autoría y derechos de autor, la confidencialidad de credenciales en plataformas virtuales y la observancia taxativa de las prohibiciones expresas sobre armas, fraude y respeto en la comunidad educativa.
+          </p>
+        `;
+      } else if (scores.total > 0) {
+        conclusionBox.innerHTML = `
+          <p class="text-amber-400 font-bold mb-1">
+            <i class="fas fa-triangle-exclamation mr-1"></i> Dictamen Diagnóstico (Por Mejorar - ${scores.total} pts / ${scores.total}%):
+          </p>
+          <p>
+            El puntaje alcanzado no supera la calificación mínima aprobatoria del 90%. Se identifican oportunidades de mejora en la secuenciación de instancias de reporte, diferenciación de prohibiciones expresas o responsabilidades en etapa productiva. Se recomienda revisar el marco reglamentario y realizar un nuevo intento.
+          </p>
+        `;
+      } else {
+        conclusionBox.innerHTML = `
+          <p class="text-slate-400 italic">
+            Sin datos suficientes. Completa las actividades formativas y haz clic en "Generar y Revisar Acta de Evidencia" para emitir el dictamen correspondiente.
+          </p>
+        `;
+      }
+    }
+  </script>
+</body>
+
+</html>

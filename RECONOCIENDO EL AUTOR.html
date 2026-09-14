@@ -1,0 +1,1601 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reconociendo al Autor - SENA</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #898AAD;
+            color: #f1f5f9;
+        }
+
+        .tab-btn {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+            color: #94a3b8;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background-color: #1e293b;
+            border-color: #334155;
+            color: #f8fafc;
+        }
+
+        .tab-btn.active {
+            background-color: #4f46e5 !important;
+            color: #ffffff !important;
+            border-color: #6366f1 !important;
+            box-shadow: 0 4px 14px -2px rgba(79, 70, 229, 0.45) !important;
+        }
+
+        .tab-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .info-card {
+            transition: all 0.2s ease;
+            border: 1px solid #1e293b;
+        }
+
+        .option-row {
+            transition: all 0.15s ease;
+            border: 1px solid #1e293b;
+            background-color: #0f172a;
+            cursor: pointer;
+        }
+
+        .option-row:hover {
+            border-color: #6366f1;
+            background-color: rgba(99, 102, 241, 0.08);
+        }
+
+        .option-row.selected {
+            border-color: #6366f1 !important;
+            background-color: rgba(99, 102, 241, 0.15) !important;
+        }
+
+        .option-row.correct {
+            border-color: #10b981 !important;
+            background-color: rgba(16, 185, 129, 0.12) !important;
+        }
+
+        .option-row.incorrect {
+            border-color: #f43f5e !important;
+            background-color: rgba(244, 63, 94, 0.12) !important;
+        }
+
+        .check-item {
+            transition: all 0.15s ease;
+            border: 1px solid #1e293b;
+            background-color: #0f172a;
+            cursor: pointer;
+        }
+
+        .check-item:hover {
+            border-color: #6366f1;
+        }
+
+        .check-item.checked {
+            border-color: #6366f1 !important;
+            background-color: rgba(99, 102, 241, 0.12) !important;
+        }
+
+        select,
+        input[type="text"] {
+            color-scheme: dark;
+        }
+
+        .checklist-row {
+            border: 1px solid #1e293b;
+        }
+
+        .module-locked {
+            opacity: 0.55;
+            pointer-events: none;
+        }
+
+        #print-area {
+            display: none;
+        }
+
+        @media print {
+            body {
+                background-color: #ffffff !important;
+                color: #0f172a !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            header,
+            nav,
+            footer,
+            .no-print,
+            .tab-pane {
+                display: none !important;
+            }
+
+            #print-area {
+                display: block !important;
+                visibility: visible !important;
+                width: 100% !important;
+                padding: 10mm !important;
+                margin: 0 !important;
+                background: #ffffff !important;
+                color: #0f172a !important;
+            }
+
+            #print-area * {
+                visibility: visible !important;
+                color: #0f172a !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+            }
+
+            #print-area .print-box {
+                border: 1px solid #cbd5e1 !important;
+                background: #ffffff !important;
+            }
+
+            #print-area table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+            }
+
+            #print-area td,
+            #print-area th {
+                border: 1px solid #cbd5e1 !important;
+                padding: 6px 10px !important;
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-[#898AAD] text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-indigo-500/30 selection:text-indigo-200">
+
+    <!-- ========================================== -->
+    <!-- HEADER PRINCIPAL                           -->
+    <!-- ========================================== -->
+    <header class="border-b border-slate-800 bg-slate-950 sticky top-0 z-50 no-print shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <img src="data:image/png;base64,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"
+                    alt="Logo SENA" class="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0" />
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold text-indigo-400 leading-none">Reconociendo al Autor
+                    </h1>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Simulador Interactivo del Reglamento del Aprendiz -
+                        Art. 10&deg; Num. 1</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2.5 sm:gap-4 flex-wrap">
+                <span id="timer-pill"
+                    class="bg-slate-900 border border-slate-700 text-slate-200 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                    <i class="fas fa-stopwatch text-amber-400"></i>
+                    <span id="timer-display">60:00</span>
+                </span>
+                <span id="intentos-pill"
+                    class="bg-slate-900 border border-slate-700 text-slate-200 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                    <i class="fas fa-rotate-right text-indigo-400"></i>
+                    <span id="intentos-display">Intento 1 / 4</span>
+                </span>
+                <button onclick="reiniciarIntento()" id="btn-reiniciar"
+                    class="bg-slate-800 hover:bg-rose-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 hover:border-rose-600 transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fas fa-arrow-rotate-left text-[11px]"></i>
+                    <span>Reiniciar Intento</span>
+                </button>
+                <button onclick="printEvidence()"
+                    class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold border border-emerald-500 transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fas fa-print text-[11px]"></i>
+                    <span>Imprimir Resultados</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- CONTENEDOR PRINCIPAL                       -->
+    <!-- ========================================== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-grow">
+
+        <!-- Panel Resumen Superior -->
+        <div
+            class="bg-slate-900/90 backdrop-blur-sm rounded-2xl p-5 mb-6 border border-slate-700/80 no-print shadow-xl">
+            <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Prevenci&oacute;n del Plagio y
+                Citaci&oacute;n Acad&eacute;mica
+            </span>
+            <h2 class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">Reconociendo al Autor -
+                Reglamento del Aprendiz SENA</h2>
+            <p class="text-xs text-slate-400 mt-0.5">Marco Normativo &bull; El Plagio &bull; Prevenci&oacute;n &bull;
+                Citaci&oacute;n APA &bull; Evaluaci&oacute;n &bull; Aprobaci&oacute;n m&iacute;nima: 90%</p>
+        </div>
+
+        <!-- Menu de Pestanas -->
+        <nav class="flex gap-2 border-b border-slate-800/80 pb-3 mb-6 overflow-x-auto no-print">
+            <button onclick="window.location.href='index.html'" id="tab-inicio"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-house text-xs"></i> Inicio
+            </button>
+            <button onclick="switchTab('registro')" id="tab-registro"
+                class="tab-btn active px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-id-card text-xs"></i> Registro
+            </button>
+            <button onclick="switchTab('presentacion')" id="tab-presentacion"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-file-pdf text-xs"></i> Presentaci&oacute;n
+            </button>
+            <button onclick="switchTab('normativo')" id="tab-normativo"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-gavel text-xs"></i> Marco Normativo
+            </button>
+            <button onclick="switchTab('plagio')" id="tab-plagio"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-user-secret text-xs"></i> El Plagio
+            </button>
+            <button onclick="switchTab('prevencion')" id="tab-prevencion"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-shield-halved text-xs"></i> Prevenci&oacute;n
+            </button>
+            <button onclick="switchTab('citacion')" id="tab-citacion"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-quote-right text-xs"></i> Citaci&oacute;n APA
+            </button>
+            <button onclick="switchTab('evaluacion')" id="tab-evaluacion"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-clipboard-check text-xs"></i> Evaluaci&oacute;n &amp; Acta
+            </button>
+            <button onclick="switchTab('dashboard')" id="tab-dashboard"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-chart-pie text-xs"></i> Dashboard
+            </button>
+        </nav>
+
+        <!-- ========================================== -->
+        <!-- PESTANA: REGISTRO                          -->
+        <!-- ========================================== -->
+        <section id="pane-registro" class="tab-pane block">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 max-w-3xl mx-auto shadow-2xl">
+                <div class="pb-4 mb-6 border-b border-slate-800">
+                    <h2 class="text-base sm:text-lg font-bold text-indigo-400">Registro del Aprendiz</h2>
+                    <p class="text-xs text-slate-400">Diligencia tus datos para identificar tu registro y los
+                        resultados obtenidos al momento de imprimir el acta.</p>
+                </div>
+
+                <form id="form-registro" onsubmit="guardarRegistro(event)"
+                    class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Nombre Completo *</label>
+                        <input type="text" id="reg-nombre" required placeholder="Ej: Laura Camila Ramirez"
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition" />
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Documento de Identidad
+                            *</label>
+                        <input type="text" id="reg-doc" required placeholder="Ej: 1020304050"
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition" />
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">N&uacute;mero de Ficha
+                            *</label>
+                        <input type="text" id="reg-ficha" required placeholder="Ej: 2758431"
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition" />
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Programa de
+                            Formaci&oacute;n *</label>
+                        <select id="reg-programa" required
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition cursor-pointer">
+                            <option value="" disabled selected>Selecciona un programa...</option>
+                            <option value="T&eacute;cnico en Talento Humano">T&eacute;cnico en Talento Humano</option>
+                            <option value="T&eacute;cnico en Asistencia a la Funci&oacute;n P&uacute;blica">
+                                T&eacute;cnico en Asistencia a la Funci&oacute;n P&uacute;blica</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Centro de
+                            Formaci&oacute;n</label>
+                        <input type="text" id="reg-centro" value="Centro de Gesti&oacute;n Administrativa" readonly
+                            class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-sm text-slate-400 cursor-not-allowed outline-none" />
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Regional</label>
+                        <input type="text" id="reg-regional" value="Distrito Capital" readonly
+                            class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-sm text-slate-400 cursor-not-allowed outline-none" />
+                    </div>
+
+                    <div class="md:col-span-2 pt-2">
+                        <button type="submit"
+                            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-5 py-3 rounded-xl transition flex items-center justify-center gap-2 shadow-md">
+                            <i class="fas fa-floppy-disk text-xs"></i>
+                            <span>Confirmar e Iniciar Simulador</span>
+                        </button>
+                        <p id="registro-guardado-msg"
+                            class="hidden text-center text-emerald-400 text-xs font-semibold mt-3">
+                            <i class="fas fa-check-circle mr-1"></i> Registro guardado. Redirigiendo a
+                            Presentaci&oacute;n...
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTANA: PRESENTACION                      -->
+        <!-- ========================================== -->
+        <section id="pane-presentacion" class="tab-pane hidden module-locked">
+            <div class="max-w-5xl mx-auto">
+                <div
+                    class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-5 sm:p-7 shadow-2xl">
+                    <div class="flex items-center justify-between flex-wrap gap-4 pb-4 mb-5 border-b border-slate-800">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-11 h-11 rounded-xl bg-indigo-600/20 border border-indigo-800 flex items-center justify-center shrink-0">
+                                <i class="fas fa-file-pdf text-indigo-400 text-lg"></i>
+                            </div>
+                            <div>
+                                <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase">Material
+                                    de Apoyo &bull; Lectura Gu&iacute;a</span>
+                                <h2 class="text-base sm:text-lg font-bold text-white">Presentaci&oacute;n: Reconociendo
+                                    al Autor</h2>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-slate-400">
+                            <i class="fas fa-book-open text-indigo-400"></i> Lectura introductoria previa al simulador
+                        </div>
+                    </div>
+
+                    <!-- Visor PDF embebido -->
+                    <div class="w-full bg-slate-950 rounded-xl border border-slate-800 overflow-hidden shadow-inner mb-6"
+                        style="height: 720px;">
+                        <iframe src="Reconociendo al autor.pdf#toolbar=1&navpanes=0" class="w-full h-full border-0"
+                            title="Reconociendo al Autor PDF">
+                            <div class="p-8 text-center text-slate-300">
+                                <p class="mb-4">Tu navegador no permite la visualizaci&oacute;n integrada del documento
+                                    PDF.</p>
+                                <a href="Reconociendo al autor.pdf" target="_blank"
+                                    class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-semibold text-xs shadow-md">
+                                    <i class="fas fa-external-link-alt"></i> Abrir documento PDF
+                                </a>
+                            </div>
+                        </iframe>
+                    </div>
+
+                    <!-- Botones al finalizar la pestaÃ±a -->
+                    <div class="pt-4 border-t border-slate-800 flex items-center justify-between flex-wrap gap-4">
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <!-- BotÃ³n 1: Norma APA -->
+                            <a href="Manual de Normas APA 7ma edición.pdf"
+                                download="Manual de Normas APA 7ma edición.pdf"
+                                class="bg-slate-800 hover:bg-indigo-600 text-slate-100 hover:text-white border border-slate-700 hover:border-indigo-500 font-semibold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                                <i class="fas fa-download text-indigo-400"></i>
+                                <span>Norma APA</span>
+                            </a>
+                            <!-- BotÃ³n 2: PresentaciÃ³n -->
+                            <a href="Reconociendo al autor.pdf" download="Reconociendo al autor.pdf"
+                                class="bg-slate-800 hover:bg-indigo-600 text-slate-100 hover:text-white border border-slate-700 hover:border-indigo-500 font-semibold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                                <i class="fas fa-download text-indigo-400"></i>
+                                <span>Presentaci&oacute;n</span>
+                            </a>
+                        </div>
+
+                        <!-- BotÃ³n para avanzar a Marco Normativo -->
+                        <button onclick="avanzarDesdePresentacion()"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md ml-auto">
+                            <span>Continuar a Marco Normativo</span>
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTANA: MARCO NORMATIVO                   -->
+        <!-- ========================================== -->
+        <section id="pane-normativo" class="tab-pane hidden module-locked">
+            <div class="max-w-3xl mx-auto">
+                <div
+                    class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-8 shadow-2xl">
+                    <div class="flex items-start gap-4 mb-5">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-indigo-600/20 border border-indigo-800 flex items-center justify-center shrink-0">
+                            <i class="fas fa-gavel text-indigo-400 text-lg"></i>
+                        </div>
+                        <div>
+                            <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase">M&oacute;dulo
+                                1 &bull; 10 Pts</span>
+                            <h2 class="text-lg sm:text-xl font-bold text-white">Marco Normativo</h2>
+                            <p class="text-xs text-slate-400 mt-0.5">Reglamento del Aprendiz SENA - Art&iacute;culo
+                                10&deg;, Numeral 1</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 border-l-4 border-indigo-600 rounded-xl p-4 mb-6">
+                        <p class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase mb-2">
+                            Art&iacute;culo 10&deg;. Numeral 1</p>
+                        <p class="text-sm text-slate-200 leading-relaxed text-justify">
+                            "Plagiar materiales, trabajos y dem&aacute;s documentos generados en los grupos de
+                            trabajo o producto del trabajo en equipo institucional, as&iacute; como las fuentes
+                            bibliogr&aacute;ficas consultadas en los diferentes soportes."
+                        </p>
+                    </div>
+
+                    <p class="text-sm text-slate-300 leading-relaxed text-justify mb-6">
+                        El Reglamento del Aprendiz SENA establece el plagio como una conducta que compromete la
+                        Formaci&oacute;n Profesional Integral. Por esta raz&oacute;n, reconocer al autor de las ideas
+                        que consultamos no es solo un requisito acad&eacute;mico, sino una responsabilidad
+                        &eacute;tica dentro y fuera del Centro de Formaci&oacute;n.
+                    </p>
+
+                    <div id="quiz-normativo" class="space-y-3 mb-2"></div>
+
+                    <div class="mt-6 flex justify-between items-center flex-wrap gap-3">
+                        <span id="fb-normativo" class="text-xs font-semibold"></span>
+                        <button onclick="verificarModulo('normativo')"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                            <span>Guardar y Continuar</span>
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTANA: EL PLAGIO (6 CASOS)                -->
+        <!-- ========================================== -->
+        <section id="pane-plagio" class="tab-pane hidden module-locked">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-6">
+                    <span
+                        class="text-[11px] font-extrabold tracking-widest text-slate-900 uppercase flex items-center justify-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-slate-900"></span> M&oacute;dulo 2 &bull; 30 Pts
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-black text-slate-950 mt-1">&iquest;Qu&eacute; es el Plagio?
+                    </h2>
+                    <p class="text-xs font-semibold text-slate-800 mt-1">Analiza 6 casos y selecciona el tipo de
+                        plagio que se comete en cada situaci&oacute;n</p>
+                </div>
+
+                <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 sm:p-6 shadow-xl mb-6">
+                    <p class="text-sm text-slate-300 leading-relaxed text-justify">
+                        El plagio se comete de distintas formas: usar frases de un autor sin su reconocimiento,
+                        referenciar sin seguir las normas, parafrasear inapropiadamente, usar comillas de forma
+                        incorrecta, copiarse de un compa&ntilde;ero, o copiar de sitios web, libros, revistas y otras
+                        fuentes sin dar cr&eacute;dito.
+                    </p>
+                    <p class="text-[11px] text-slate-500 mt-3">Fuente: biblioteca.sena.edu.co/paginas/modulo4_5.html
+                    </p>
+                </div>
+
+                <div id="casos-plagio-container"></div>
+
+                <div
+                    class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 shadow-xl flex justify-between items-center flex-wrap gap-3 mt-2">
+                    <span id="fb-plagio" class="text-xs font-semibold"></span>
+                    <button onclick="verificarModulo('plagio')"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                        <span>Guardar y Continuar</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTANA: PREVENCION (Buenas practicas)      -->
+        <!-- ========================================== -->
+        <section id="pane-prevencion" class="tab-pane hidden module-locked">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-6">
+                    <span
+                        class="text-[11px] font-extrabold tracking-widest text-slate-900 uppercase flex items-center justify-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-slate-900"></span> M&oacute;dulo 3 &bull; 20 Pts
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-black text-slate-950 mt-1">&iquest;C&oacute;mo evitarlo?</h2>
+                    <p class="text-xs font-semibold text-slate-800 mt-1">Marca &uacute;nicamente las estrategias
+                        correctas para evitar el plagio</p>
+                </div>
+
+                <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 sm:p-6 shadow-xl mb-6">
+                    <p class="text-sm text-slate-300 leading-relaxed text-justify">
+                        Es de gran importancia saber cu&aacute;les son las responsabilidades que se asumen cuando se
+                        consulta un material para apoyar el desarrollo de un trabajo. Revisa cada afirmaci&oacute;n y
+                        selecciona &uacute;nicamente las que representan una buena pr&aacute;ctica acad&eacute;mica.
+                    </p>
+                    <p class="text-[11px] text-slate-500 mt-3">Fuente: biblioteca.sena.edu.co/paginas/modulo4_5.html
+                    </p>
+                </div>
+
+                <div id="check-prevencion" class="space-y-2.5 mb-6"></div>
+
+                <div
+                    class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 shadow-xl flex justify-between items-center flex-wrap gap-3">
+                    <span id="fb-prevencion" class="text-xs font-semibold"></span>
+                    <button onclick="verificarModulo('prevencion')"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                        <span>Guardar y Continuar</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTANA: CITACION APA                       -->
+        <!-- ========================================== -->
+        <section id="pane-citacion" class="tab-pane hidden module-locked">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-6">
+                    <span
+                        class="text-[11px] font-extrabold tracking-widest text-slate-900 uppercase flex items-center justify-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-slate-900"></span> M&oacute;dulo 4 &bull; 20 Pts
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-black text-slate-950 mt-1">Citaci&oacute;n y Estilo APA
+                        7&ordf; Edici&oacute;n</h2>
+                    <p class="text-xs font-semibold text-slate-800 mt-1">&iquest;Para qu&eacute;, cu&aacute;ndo y
+                        c&oacute;mo citar al autor?</p>
+                </div>
+
+                <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 sm:p-6 shadow-xl mb-6">
+                    <p class="text-sm text-slate-300 leading-relaxed text-justify">
+                        Con la aplicaci&oacute;n del estilo APA (American Psychology Association) se evita el
+                        plagio, se reconoce el m&eacute;rito de los autores que se consultan y se genera una cultura
+                        de respeto por los contenidos elaborados. Ante cualquier duda, consulta a tu instructor
+                        cu&aacute;l es la norma de referenciaci&oacute;n recomendada.
+                    </p>
+                    <p class="text-[11px] text-slate-500 mt-3">Fuente:
+                        biblioteca.sena.edu.co/images/PDF/InstructivoAPA.pdf</p>
+                </div>
+
+                <div id="quiz-citacion" class="space-y-5 mb-2"></div>
+
+                <div
+                    class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 shadow-xl flex justify-between items-center flex-wrap gap-3 mt-4">
+                    <span id="fb-citacion" class="text-xs font-semibold"></span>
+                    <button onclick="verificarModulo('citacion')"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                        <span>Guardar y Continuar</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTANA: EVALUACION & ACTA                  -->
+        <!-- ========================================== -->
+        <section id="pane-evaluacion" class="tab-pane hidden module-locked">
+            <div class="max-w-3xl mx-auto">
+                <div
+                    class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-8 shadow-2xl">
+                    <div class="flex items-start gap-4 mb-5">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-indigo-600/20 border border-indigo-800 flex items-center justify-center shrink-0">
+                            <i class="fas fa-clipboard-check text-indigo-400 text-lg"></i>
+                        </div>
+                        <div>
+                            <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase">M&oacute;dulo
+                                5 &bull; 20 Pts</span>
+                            <h2 class="text-lg sm:text-xl font-bold text-white">Evaluaci&oacute;n de S&iacute;ntesis
+                            </h2>
+                            <p class="text-xs text-slate-400 mt-0.5">2 preguntas integradoras. Al finalizar, genera
+                                tu Acta de Evidencia.</p>
+                        </div>
+                    </div>
+
+                    <div id="quiz-evaluacion" class="space-y-5 mb-6"></div>
+
+                    <div class="text-center mb-8">
+                        <button onclick="generarActa()"
+                            class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm px-8 py-3.5 rounded-xl transition inline-flex items-center gap-2 shadow-lg">
+                            <i class="fas fa-file-circle-check"></i>
+                            <span>Generar y Revisar Acta de Evidencia</span>
+                        </button>
+                    </div>
+
+                    <div id="acta-resultado" class="hidden">
+                        <div
+                            class="pb-4 mb-4 border-b border-slate-800 flex items-center justify-between flex-wrap gap-3">
+                            <h3 class="text-base font-bold text-white">Desglose Detallado de Calificaci&oacute;n por
+                                Competencia</h3>
+                            <span id="acta-estado-pill"
+                                class="text-xs font-bold px-3 py-1.5 rounded-lg border flex items-center gap-1.5"></span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs sm:text-sm">
+                                <thead>
+                                    <tr class="text-left text-slate-400 border-b border-slate-800">
+                                        <th class="py-2 pr-3">M&oacute;dulo / Competencia</th>
+                                        <th class="py-2 pr-3 text-center">Puntos Obtenidos</th>
+                                        <th class="py-2 pr-3 text-center">Puntos Posibles</th>
+                                        <th class="py-2 text-center">Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="acta-tabla-body" class="text-slate-200"></tbody>
+                                <tfoot>
+                                    <tr class="border-t border-slate-700 font-bold text-white">
+                                        <td class="py-2.5 pr-3">Puntaje Total Consolidado</td>
+                                        <td class="py-2.5 pr-3 text-center" id="acta-total-obtenido">0</td>
+                                        <td class="py-2.5 pr-3 text-center">100</td>
+                                        <td class="py-2.5 text-center" id="acta-porcentaje-final">0%</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="mt-5 text-center">
+                            <button onclick="switchTab('dashboard')"
+                                class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm px-6 py-2.5 rounded-xl transition inline-flex items-center gap-2 shadow-md">
+                                <span>Ver Dashboard Anal&iacute;tico</span>
+                                <i class="fas fa-chart-pie text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTANA: DASHBOARD                          -->
+        <!-- ========================================== -->
+        <section id="pane-dashboard" class="tab-pane hidden">
+            <div class="max-w-5xl mx-auto">
+
+                <div class="flex items-center justify-between flex-wrap gap-3 mb-6">
+                    <div>
+                        <span
+                            class="text-[11px] font-extrabold tracking-widest text-slate-900 uppercase flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-slate-900"></span> Resultado Consolidado
+                        </span>
+                        <h2 class="text-xl sm:text-2xl font-black text-slate-950 mt-1">Dashboard de Desempe&ntilde;o
+                        </h2>
+                    </div>
+                    <span id="dash-status-pill"
+                        class="text-xs font-bold px-3 py-1 rounded-lg bg-amber-950/70 text-amber-400 flex items-center gap-1.5 border border-amber-800">
+                        <span class="w-2 h-2 rounded-full bg-amber-400"></span> Evaluaci&oacute;n pendiente
+                    </span>
+                </div>
+
+                <!-- KPIs -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-slate-900/90 rounded-xl border border-slate-700/80 p-4 text-center shadow-lg">
+                        <p class="text-2xl font-black text-white" id="kpi-puntos">0</p>
+                        <p class="text-[11px] text-slate-400 mt-1 uppercase tracking-wide">Puntos Obtenidos</p>
+                    </div>
+                    <div class="bg-slate-900/90 rounded-xl border border-slate-700/80 p-4 text-center shadow-lg">
+                        <p class="text-2xl font-black text-white" id="kpi-pendientes">100</p>
+                        <p class="text-[11px] text-slate-400 mt-1 uppercase tracking-wide">Puntos por Obtener</p>
+                    </div>
+                    <div class="bg-slate-900/90 rounded-xl border border-slate-700/80 p-4 text-center shadow-lg">
+                        <p class="text-2xl font-black text-white" id="kpi-porcentaje">0%</p>
+                        <p class="text-[11px] text-slate-400 mt-1 uppercase tracking-wide">% de Efectividad</p>
+                    </div>
+                    <div class="bg-slate-900/90 rounded-xl border border-slate-700/80 p-4 text-center shadow-lg">
+                        <p class="text-2xl font-black text-white">90%</p>
+                        <p class="text-[11px] text-slate-400 mt-1 uppercase tracking-wide">M&iacute;nimo Aprobatorio
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Grafico + Cuadro de resultados por competencia -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 shadow-xl">
+                        <h3 class="text-sm font-bold text-slate-200 mb-3">Desempe&ntilde;o por Dimensi&oacute;n
+                        </h3>
+                        <div class="h-64">
+                            <canvas id="barChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 shadow-xl">
+                        <h3 class="text-sm font-bold text-slate-200 mb-3">Efectividad Global</h3>
+                        <div class="h-64">
+                            <canvas id="donutChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cuadro de Resultados -->
+                <div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 shadow-xl mb-6">
+                    <h3 class="text-sm font-bold text-slate-200 mb-3">Cuadro de Resultados por Competencia</h3>
+                    <div id="cuadro-resultados-container" class="space-y-2 max-h-64 overflow-y-auto pr-1"></div>
+                </div>
+
+                <!-- Conclusion -->
+                <div id="dashboard-conclusion-box"
+                    class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 shadow-xl mb-6">
+                    <p class="text-amber-400 font-bold mb-1"><i class="fas fa-triangle-exclamation mr-1"></i>
+                        Evaluaci&oacute;n pendiente</p>
+                    <p class="text-sm text-slate-300">Completa los m&oacute;dulos de Marco Normativo, El Plagio,
+                        Prevenci&oacute;n, Citaci&oacute;n APA y Evaluaci&oacute;n &amp; Acta para conocer tu
+                        dictamen diagn&oacute;stico. La actividad se aprueba con un 90% del puntaje total.</p>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="printEvidence()"
+                        class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm px-6 py-3 rounded-xl transition inline-flex items-center gap-2 shadow-md">
+                        <i class="fas fa-print"></i>
+                        <span>Imprimir Resultados</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-4 no-print">
+        <p class="text-center text-[11px] text-slate-500">Reconociendo al Autor &middot; Simulador del Reglamento
+            del Aprendiz SENA &bull; Coordinaci&oacute;n de Talento Humano &bull; CGA Distrito Capital</p>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- AREA DE IMPRESION                          -->
+    <!-- ========================================== -->
+    <div id="print-area">
+        <div style="text-align:center; margin-bottom:18px;">
+            <h1 style="font-size:20px; font-weight:800; margin:0;">Acta de Resultados - Reconociendo al Autor</h1>
+            <p style="font-size:11px; color:#475569; margin-top:4px;">Simulador del Reglamento del Aprendiz SENA -
+                Art. 10&deg; Num. 1</p>
+        </div>
+
+        <div class="print-box" style="border-radius:10px; padding:14px; margin-bottom:16px;">
+            <h2 style="font-size:13px; font-weight:700; margin:0 0 8px 0;">Datos del Aprendiz</h2>
+            <table>
+                <tr>
+                    <td style="font-weight:600; width:35%;">Nombre completo</td>
+                    <td id="print-nombre">-</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600;">Documento de identidad</td>
+                    <td id="print-doc">-</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600;">N&uacute;mero de ficha</td>
+                    <td id="print-ficha">-</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600;">Programa de formaci&oacute;n</td>
+                    <td id="print-programa">-</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600;">Centro de formaci&oacute;n</td>
+                    <td id="print-centro">-</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600;">Regional</td>
+                    <td id="print-regional">-</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600;">Fecha</td>
+                    <td id="print-fecha">-</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="print-box" style="border-radius:10px; padding:14px; margin-bottom:16px;">
+            <h2 style="font-size:13px; font-weight:700; margin:0 0 8px 0;">Resultado Consolidado</h2>
+            <table>
+                <tr>
+                    <td style="font-weight:600; width:35%;">Puntaje obtenido</td>
+                    <td id="print-puntos">0 / 100</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600;">Porcentaje de efectividad</td>
+                    <td id="print-porcentaje">0%</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600;">Dictamen (m&iacute;nimo 90%)</td>
+                    <td id="print-dictamen">Pendiente</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600;">Intentos utilizados</td>
+                    <td id="print-intentos">1 / 4</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="print-box" style="border-radius:10px; padding:14px;">
+            <h2 style="font-size:13px; font-weight:700; margin:0 0 8px 0;">Desglose por Competencia</h2>
+            <table id="print-desglose-table">
+                <tr>
+                    <th>#</th>
+                    <th>M&oacute;dulo</th>
+                    <th>Puntos Obtenidos</th>
+                    <th>Puntos Posibles</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // CONFIGURACION GENERAL
+        // ============================================
+        const MIN_APROBACION = 90;
+        const MAX_INTENTOS = 4;
+        const TIEMPO_TOTAL_SEG = 60 * 60; // 60:00
+
+        let registeredLearner = null;
+        let currentAttempt = 1;
+        let timerRemaining = TIEMPO_TOTAL_SEG;
+        let timerInterval = null;
+        let evaluacionGenerada = false;
+
+        // ============================================
+        // BANCO DE PREGUNTAS
+        // ============================================
+        const QUIZ_NORMATIVO = [
+            {
+                id: 'n1',
+                points: 10,
+                prompt: '¿Cuál de las siguientes conductas constituye una falta grave según el Artículo 10°, Numeral 1 del Reglamento del Aprendiz SENA?',
+                options: [
+                    { id: 'a', text: 'Trabajar en equipo institucional citando correctamente todas las fuentes consultadas.' },
+                    { id: 'b', text: 'Plagiar materiales, trabajos y demás documentos generados en grupos de trabajo, o las fuentes bibliográficas consultadas.', correct: true },
+                    { id: 'c', text: 'Consultar bibliografía física o digital en la biblioteca del SENA.' },
+                    { id: 'd', text: 'Presentar un trabajo individual sin apoyo de fuentes externas.' }
+                ]
+            }
+        ];
+
+        const CASOS_PLAGIO = [
+            {
+                id: 'p1', points: 5,
+                prompt: 'Caso 1: Juan copia varias frases textuales de un artículo de una revista reconocida y las incluye en su ensayo tal cual, sin ninguna marca que indique que no son de su autoría.',
+                options: [
+                    { id: 'a', text: 'Copiar de sitios web, libros, revistas u otras fuentes sin dar crédito', correct: true },
+                    { id: 'b', text: 'Copiarse de un compañero' },
+                    { id: 'c', text: 'Uso inapropiado de comillas' },
+                    { id: 'd', text: 'Parafraseo inapropiado' }
+                ]
+            },
+            {
+                id: 'p2', points: 5,
+                prompt: 'Caso 2: María usa las palabras exactas de un autor dentro de su documento, pero no las encierra en comillas ni indica que se trata de una cita textual.',
+                options: [
+                    { id: 'a', text: 'Referenciar sin seguir las normas nacionales o internacionales' },
+                    { id: 'b', text: 'Uso inapropiado de comillas', correct: true },
+                    { id: 'c', text: 'Copiarse de un compañero' },
+                    { id: 'd', text: 'Copiar de sitios web o revistas' }
+                ]
+            },
+            {
+                id: 'p3', points: 5,
+                prompt: 'Caso 3: Carlos entrega como propio un taller que en realidad desarrolló su compañero de ficha.',
+                options: [
+                    { id: 'a', text: 'Parafraseo inapropiado' },
+                    { id: 'b', text: 'Uso de frases sin consentimiento del autor' },
+                    { id: 'c', text: 'Copiarse de un compañero', correct: true },
+                    { id: 'd', text: 'Referenciar sin normas' }
+                ]
+            },
+            {
+                id: 'p4', points: 5,
+                prompt: 'Caso 4: Sofía toma la idea principal de un texto y la reescribe cambiando solo algunas palabras, sin explicarla con sus propias palabras ni citar al autor.',
+                options: [
+                    { id: 'a', text: 'Parafraseo inapropiado', correct: true },
+                    { id: 'b', text: 'Copiarse de un compañero' },
+                    { id: 'c', text: 'Uso inapropiado de comillas' },
+                    { id: 'd', text: 'Copiar de sitios web' }
+                ]
+            },
+            {
+                id: 'p5', points: 5,
+                prompt: 'Caso 5: Andrés incluye en su informe una definición tomada literalmente de una página web, sin registrar el autor, el año ni el enlace de la fuente.',
+                options: [
+                    { id: 'a', text: 'Referenciar sin seguir las normas nacionales o internacionales', correct: true },
+                    { id: 'b', text: 'Copiarse de un compañero' },
+                    { id: 'c', text: 'Uso inapropiado de comillas' },
+                    { id: 'd', text: 'Parafraseo inapropiado' }
+                ]
+            },
+            {
+                id: 'p6', points: 5,
+                prompt: 'Caso 6: Laura utiliza en su presentación una frase célebre de un experto reconocido, presentándola como si fuera de su propia autoría, sin mencionar a quién pertenece.',
+                options: [
+                    { id: 'a', text: 'Copiar de sitios web o revistas' },
+                    { id: 'b', text: 'Uso de frases o expresiones de un autor sin su consentimiento', correct: true },
+                    { id: 'c', text: 'Referenciar sin normas' },
+                    { id: 'd', text: 'Copiarse de un compañero' }
+                ]
+            }
+        ];
+
+        const PREVENCION_ITEMS = [
+            { id: 'e1', points: 2.5, correct: true, text: 'Priorizar mis ideas propias sobre las de los autores consultados.' },
+            { id: 'e2', points: 2.5, correct: true, text: 'Usar las ideas de otras personas de manera respetuosa, entendiendo que son un apoyo para mi sustentación.' },
+            { id: 'e3', points: 2.5, correct: true, text: 'Usar comillas cuando cito directamente las palabras de otro autor.' },
+            { id: 'e4', points: 2.5, correct: true, text: 'Reconocer a lo largo del documento los trabajos consultados que han apoyado mi desarrollo.' },
+            { id: 'e5', points: 2.5, correct: true, text: 'Listar la totalidad de la bibliografía consultada al final del documento.' },
+            { id: 'e6', points: 2.5, correct: false, text: 'Cambiar solo algunas palabras de un texto copiado y presentarlo como una idea propia.' },
+            { id: 'e7', points: 2.5, correct: false, text: 'Omitir la lista de referencias si el trabajo es corto.' },
+            { id: 'e8', points: 2.5, correct: false, text: 'Copiar un párrafo completo de un compañero, si él está de acuerdo en compartirlo.' }
+        ];
+
+        const QUIZ_CITACION = [
+            {
+                id: 'c1', points: 5,
+                prompt: '¿Cuál es uno de los principales propósitos de citar al autor en un trabajo académico?',
+                options: [
+                    { id: 'a', text: 'Facilitar al lector la ubicación de las fuentes consultadas y reconocer a los autores.', correct: true },
+                    { id: 'b', text: 'Aumentar artificialmente el número de páginas del documento.' },
+                    { id: 'c', text: 'Evitar que el instructor revise el documento completo.' },
+                    { id: 'd', text: 'Cumplir un requisito de forma, sin ninguna finalidad académica.' }
+                ]
+            },
+            {
+                id: 'c2', points: 5,
+                prompt: '¿En cuál de los siguientes casos NO es estrictamente necesario citar una fuente?',
+                options: [
+                    { id: 'a', text: 'Cuando se parafrasea la idea de un autor.' },
+                    { id: 'b', text: 'Cuando la información es de conocimiento general y ampliamente aceptada.', correct: true },
+                    { id: 'c', text: 'Cuando se traduce un texto de otro idioma.' },
+                    { id: 'd', text: 'Cuando se obtienen datos o definiciones que soportan el trabajo.' }
+                ]
+            },
+            {
+                id: 'c3', points: 5,
+                prompt: 'Antes de aplicar una norma de citación en un trabajo, ¿qué recomienda el material de la biblioteca SENA?',
+                options: [
+                    { id: 'a', text: 'Preguntar al instructor cuál es la norma de referenciación recomendada, ya que existen diferentes normas y versiones.', correct: true },
+                    { id: 'b', text: 'Usar siempre la primera norma que se encuentre en internet.' },
+                    { id: 'c', text: 'No es necesario seguir ninguna norma si el trabajo es informal.' },
+                    { id: 'd', text: 'Utilizar una norma diferente en cada párrafo del documento.' }
+                ]
+            },
+            {
+                id: 'c4', points: 5,
+                prompt: '¿Qué beneficio institucional resalta el SENA sobre el uso del estilo APA (7ª edición)?',
+                options: [
+                    { id: 'a', text: 'Evita el plagio, reconoce el mérito de los autores consultados y genera una cultura de respeto por los contenidos elaborados.', correct: true },
+                    { id: 'b', text: 'Permite omitir las fuentes si el documento es extenso.' },
+                    { id: 'c', text: 'Es obligatorio únicamente para trabajos de grado universitario.' },
+                    { id: 'd', text: 'Sustituye la necesidad de leer el instructivo de citación.' }
+                ]
+            }
+        ];
+
+        const QUIZ_EVALUACION = [
+            {
+                id: 'ev1', points: 10,
+                prompt: 'Un aprendiz redacta un ensayo tomando ideas de tres fuentes diferentes, las expresa con sus propias palabras, indica entre paréntesis el autor y el año de cada idea, y al final relaciona la bibliografía completa. ¿Qué principio está aplicando correctamente?',
+                options: [
+                    { id: 'a', text: 'Está citando adecuadamente para evitar el plagio y reconocer a los autores consultados.', correct: true },
+                    { id: 'b', text: 'Está incurriendo en plagio por parafrasear sin copiar literalmente.' },
+                    { id: 'c', text: 'Está cometiendo una falta al no usar comillas en ningún fragmento.' },
+                    { id: 'd', text: 'Está incumpliendo el reglamento por consultar más de una fuente.' }
+                ]
+            },
+            {
+                id: 'ev2', points: 10,
+                prompt: 'Según el Reglamento del Aprendiz SENA, plagiar los trabajos generados en equipo o las fuentes bibliográficas consultadas se considera:',
+                options: [
+                    { id: 'a', text: 'Una buena práctica de trabajo colaborativo entre aprendices.' },
+                    { id: 'b', text: 'Una falta establecida en el Artículo 10°, Numeral 1, que compromete la Formación Profesional Integral.', correct: true },
+                    { id: 'c', text: 'Una recomendación opcional del instructor.' },
+                    { id: 'd', text: 'Un requisito exigido únicamente en la etapa productiva.' }
+                ]
+            }
+        ];
+
+        // ============================================
+        // ESTADO DE MODULOS
+        // ============================================
+        const MODULE_ORDER = ['normativo', 'plagio', 'prevencion', 'citacion', 'evaluacion'];
+        const MODULE_MAX = { normativo: 10, plagio: 30, prevencion: 20, citacion: 20, evaluacion: 20 };
+        const MODULE_LABEL = {
+            normativo: 'Marco Normativo (Art. 10° Núm. 1)',
+            plagio: 'Identificación del Plagio (6 casos)',
+            prevencion: 'Prevención del Plagio',
+            citacion: 'Citación y Estilo APA',
+            evaluacion: 'Evaluación de Síntesis'
+        };
+
+        let moduleScores = { normativo: 0, plagio: 0, prevencion: 0, citacion: 0, evaluacion: 0 };
+        let moduleDone = { normativo: false, plagio: false, prevencion: false, citacion: false, evaluacion: false };
+        let selections = {}; // respuesta seleccionada por pregunta id (quizzes)
+        let checks = {}; // estado de checkboxes (prevencion)
+
+        // ============================================
+        // RENDER: PREGUNTAS DE OPCION UNICA
+        // ============================================
+        function renderQuiz(containerId, questions, disabled) {
+            const el = document.getElementById(containerId);
+            el.innerHTML = questions.map((q, qi) => {
+                const optsHtml = q.options.map(opt => {
+                    const selectedClass = selections[q.id] === opt.id ? 'selected' : '';
+                    return `<div class="option-row rounded-xl p-3.5 flex items-center gap-3" data-qid="${q.id}" data-oid="${opt.id}" onclick="${disabled ? '' : `seleccionarOpcion('${q.id}','${opt.id}')`}">
+                <span class="w-6 h-6 shrink-0 rounded-full border-2 border-slate-600 flex items-center justify-center opt-radio-${q.id}-${opt.id}">
+                    <span class="w-2.5 h-2.5 rounded-full bg-indigo-400 ${selections[q.id] === opt.id ? '' : 'hidden'}"></span>
+                </span>
+                <span class="text-sm text-slate-200">${opt.text}</span>
+            </div>`;
+                }).join('');
+                return `<div class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 shadow-lg">
+            <p class="text-sm font-semibold text-white mb-3">${qi + 1}. ${q.prompt}</p>
+            <div class="space-y-2.5">${optsHtml}</div>
+        </div>`;
+            }).join('');
+        }
+
+        function seleccionarOpcion(qid, oid) {
+            selections[qid] = oid;
+            // Re-render solo actualiza el estado visual sin perder el resto
+            document.querySelectorAll(`.option-row[data-qid="${qid}"]`).forEach(row => {
+                const isThis = row.getAttribute('data-oid') === oid;
+                row.classList.toggle('selected', isThis);
+                const dot = row.querySelector('span > span');
+                if (dot) dot.classList.toggle('hidden', !isThis);
+            });
+        }
+
+        // ============================================
+        // RENDER: CASOS DE PLAGIO (usa renderQuiz generico)
+        // ============================================
+        function renderCasosPlagio(disabled) {
+            renderQuiz('casos-plagio-container', CASOS_PLAGIO, disabled);
+        }
+
+        // ============================================
+        // RENDER: CHECKBOX PREVENCION
+        // ============================================
+        function renderPrevencion(disabled) {
+            const el = document.getElementById('check-prevencion');
+            el.innerHTML = PREVENCION_ITEMS.map(it => {
+                const isChecked = !!checks[it.id];
+                return `<div class="check-item rounded-xl p-3.5 flex items-center gap-3 ${isChecked ? 'checked' : ''}" data-id="${it.id}" onclick="${disabled ? '' : `toggleCheck('${it.id}')`}">
+            <span class="w-5 h-5 shrink-0 rounded-md border-2 border-slate-600 flex items-center justify-center">
+                <i class="fas fa-check text-[10px] text-indigo-400 ${isChecked ? '' : 'hidden'}"></i>
+            </span>
+            <span class="text-sm text-slate-200">${it.text}</span>
+        </div>`;
+            }).join('');
+        }
+
+        function toggleCheck(id) {
+            checks[id] = !checks[id];
+            const row = document.querySelector(`.check-item[data-id="${id}"]`);
+            const isChecked = !!checks[id];
+            row.classList.toggle('checked', isChecked);
+            const icon = row.querySelector('i');
+            icon.classList.toggle('hidden', !isChecked);
+        }
+
+        // ============================================
+        // NAVEGACION ENTRE PESTANAS
+        // ============================================
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.add('hidden'));
+            document.getElementById('pane-' + tabName).classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            const btn = document.getElementById('tab-' + tabName);
+            if (btn) btn.classList.add('active');
+
+            if (tabName === 'dashboard') updateDashboard();
+        }
+
+        function unlockModule(name) {
+            const pane = document.getElementById('pane-' + name);
+            const btn = document.getElementById('tab-' + name);
+            if (pane) pane.classList.remove('module-locked');
+            if (btn) btn.disabled = false;
+        }
+
+        function lockAllModulesExceptRegistro() {
+            const allModules = ['presentacion', ...MODULE_ORDER];
+            allModules.forEach(name => {
+                const pane = document.getElementById('pane-' + name);
+                const btn = document.getElementById('tab-' + name);
+                if (pane) pane.classList.add('module-locked');
+                if (btn) btn.disabled = true;
+            });
+        }
+
+        // ============================================
+        // REGISTRO
+        // ============================================
+        function guardarRegistro(event) {
+            event.preventDefault();
+            const prog = document.getElementById('reg-programa').value;
+            if (!prog) {
+                alert('Por favor selecciona un Programa de FormaciÃ³n.');
+                return;
+            }
+
+            registeredLearner = {
+                nombre: document.getElementById('reg-nombre').value.trim(),
+                doc: document.getElementById('reg-doc').value.trim(),
+                ficha: document.getElementById('reg-ficha').value.trim(),
+                programa: prog,
+                centro: document.getElementById('reg-centro').value,
+                regional: document.getElementById('reg-regional').value
+            };
+
+            const msg = document.getElementById('registro-guardado-msg');
+            if (msg) {
+                msg.innerHTML = '<i class="fas fa-check-circle mr-1"></i> Registro guardado. Redirigiendo a PresentaciÃ³n...';
+                msg.classList.remove('hidden');
+            }
+
+            unlockModule('presentacion');
+            unlockModule('normativo');
+
+            setTimeout(() => {
+                switchTab('presentacion');
+            }, 350);
+        }
+
+        function avanzarDesdePresentacion() {
+            unlockModule('normativo');
+            switchTab('normativo');
+        }
+
+        // ============================================
+        // VERIFICACION DE MODULOS
+        // ============================================
+        function verificarModulo(name) {
+            let score = 0;
+            let allAnswered = true;
+
+            if (name === 'normativo') {
+                QUIZ_NORMATIVO.forEach(q => {
+                    if (!selections[q.id]) { allAnswered = false; return; }
+                    const opt = q.options.find(o => o.id === selections[q.id]);
+                    if (opt && opt.correct) score += q.points;
+                });
+            } else if (name === 'plagio') {
+                CASOS_PLAGIO.forEach(q => {
+                    if (!selections[q.id]) { allAnswered = false; return; }
+                    const opt = q.options.find(o => o.id === selections[q.id]);
+                    if (opt && opt.correct) score += q.points;
+                });
+            } else if (name === 'prevencion') {
+                PREVENCION_ITEMS.forEach(it => {
+                    const checked = !!checks[it.id];
+                    if (checked === it.correct) score += it.points;
+                });
+                allAnswered = true; // checkboxes: ausencia de marca es una respuesta valida (falso)
+            } else if (name === 'citacion') {
+                QUIZ_CITACION.forEach(q => {
+                    if (!selections[q.id]) { allAnswered = false; return; }
+                    const opt = q.options.find(o => o.id === selections[q.id]);
+                    if (opt && opt.correct) score += q.points;
+                });
+            }
+
+            if (!allAnswered) {
+                const fb = document.getElementById('fb-' + name);
+                fb.className = 'text-xs font-semibold text-amber-400';
+                fb.innerHTML = '<i class="fas fa-triangle-exclamation mr-1"></i> Responde todas las preguntas antes de continuar.';
+                return;
+            }
+
+            moduleScores[name] = score;
+            moduleDone[name] = true;
+
+            // Feedback visual de correcto/incorrecto en las opciones (solo quizzes de opcion unica)
+            if (name !== 'prevencion') {
+                const questions = name === 'normativo' ? QUIZ_NORMATIVO : name === 'plagio' ? CASOS_PLAGIO : QUIZ_CITACION;
+                questions.forEach(q => {
+                    q.options.forEach(opt => {
+                        const row = document.querySelector(`.option-row[data-qid="${q.id}"][data-oid="${opt.id}"]`);
+                        if (!row) return;
+                        if (opt.correct) row.classList.add('correct');
+                        else if (selections[q.id] === opt.id) row.classList.add('incorrect');
+                        row.onclick = null;
+                    });
+                });
+            } else {
+                PREVENCION_ITEMS.forEach(it => {
+                    const row = document.querySelector(`.check-item[data-id="${it.id}"]`);
+                    if (!row) return;
+                    const checked = !!checks[it.id];
+                    if (checked === it.correct) row.classList.add('correct');
+                    else row.classList.add('incorrect');
+                    row.onclick = null;
+                });
+            }
+
+            const max = MODULE_MAX[name];
+            const fb = document.getElementById('fb-' + name);
+            fb.className = 'text-xs font-semibold text-emerald-400';
+            fb.innerHTML = `<i class="fas fa-check-circle mr-1"></i> Módulo guardado: ${score} / ${max} pts`;
+
+            const idx = MODULE_ORDER.indexOf(name);
+            const next = MODULE_ORDER[idx + 1];
+            if (next) {
+                unlockModule(next);
+                setTimeout(() => switchTab(next), 500);
+            }
+        }
+
+        // ============================================
+        // ACTA DE EVIDENCIA (CONSOLIDACION FINAL)
+        // ============================================
+        function generarActa() {
+            let score = 0;
+            let allAnswered = true;
+            QUIZ_EVALUACION.forEach(q => {
+                if (!selections[q.id]) { allAnswered = false; return; }
+                const opt = q.options.find(o => o.id === selections[q.id]);
+                if (opt && opt.correct) score += q.points;
+            });
+
+            if (!allAnswered) {
+                alert('Por favor responde las 2 preguntas de la Evaluación de Síntesis antes de generar el Acta.');
+                return;
+            }
+
+            moduleScores.evaluacion = score;
+            moduleDone.evaluacion = true;
+            evaluacionGenerada = true;
+
+            QUIZ_EVALUACION.forEach(q => {
+                q.options.forEach(opt => {
+                    const row = document.querySelector(`.option-row[data-qid="${q.id}"][data-oid="${opt.id}"]`);
+                    if (!row) return;
+                    if (opt.correct) row.classList.add('correct');
+                    else if (selections[q.id] === opt.id) row.classList.add('incorrect');
+                    row.onclick = null;
+                });
+            });
+
+            renderActaTabla();
+            document.getElementById('acta-resultado').classList.remove('hidden');
+            unlockModule('dashboard');
+            updateDashboard();
+        }
+
+        function calcularTotales() {
+            const total = MODULE_ORDER.reduce((acc, m) => acc + (moduleScores[m] || 0), 0);
+            const porcentaje = Math.round((total / 100) * 100);
+            const aprobado = porcentaje >= MIN_APROBACION;
+            return { total, porcentaje, aprobado };
+        }
+
+        function renderActaTabla() {
+            const { total, porcentaje, aprobado } = calcularTotales();
+            const body = document.getElementById('acta-tabla-body');
+            body.innerHTML = MODULE_ORDER.map(m => {
+                const obtenido = moduleScores[m] || 0;
+                const max = MODULE_MAX[m];
+                const cumplio = obtenido >= max * 0.9;
+                return `<tr class="border-b border-slate-900">
+            <td class="py-2 pr-3">${MODULE_LABEL[m]}</td>
+            <td class="py-2 pr-3 text-center font-semibold">${obtenido}</td>
+            <td class="py-2 pr-3 text-center text-slate-400">${max}</td>
+            <td class="py-2 text-center">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md ${cumplio ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-800' : 'bg-amber-950/80 text-amber-400 border border-amber-800'}">
+                    ${cumplio ? 'ÓPTIMO' : 'A REFORZAR'}
+                </span>
+            </td>
+        </tr>`;
+            }).join('');
+
+            document.getElementById('acta-total-obtenido').innerText = total;
+            document.getElementById('acta-porcentaje-final').innerText = porcentaje + '%';
+
+            const pill = document.getElementById('acta-estado-pill');
+            if (aprobado) {
+                pill.className = 'text-xs font-bold px-3 py-1.5 rounded-lg border flex items-center gap-1.5 bg-emerald-950/80 text-emerald-400 border-emerald-800';
+                pill.innerHTML = '<i class="fas fa-circle-check"></i> APROBADO';
+            } else {
+                pill.className = 'text-xs font-bold px-3 py-1.5 rounded-lg border flex items-center gap-1.5 bg-rose-950/80 text-rose-400 border-rose-800';
+                pill.innerHTML = '<i class="fas fa-circle-xmark"></i> POR MEJORAR';
+            }
+        }
+
+        // ============================================
+        // DASHBOARD (Chart.js)
+        // ============================================
+        let barChartInstance = null;
+        let donutChartInstance = null;
+
+        function initCharts() {
+            const ctxBar = document.getElementById('barChart').getContext('2d');
+            barChartInstance = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ['Normativo', 'Plagio', 'Prevención', 'Citación APA', 'Evaluación'],
+                    datasets: [{
+                        label: 'Puntos obtenidos',
+                        data: [0, 0, 0, 0, 0],
+                        backgroundColor: '#4f46e5',
+                        borderRadius: 6
+                    }, {
+                        label: 'Puntos posibles',
+                        data: [10, 30, 20, 20, 20],
+                        backgroundColor: '#1e293b',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { display: false } },
+                        y: { ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { color: '#94a3b8', boxWidth: 12, padding: 12, font: { size: 10 } } }
+                    }
+                }
+            });
+
+            const ctxDonut = document.getElementById('donutChart').getContext('2d');
+            donutChartInstance = new Chart(ctxDonut, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Puntos obtenidos', 'Puntos pendientes'],
+                    datasets: [{
+                        data: [0, 100],
+                        backgroundColor: ['#4f46e5', '#1e293b'],
+                        borderColor: '#020617',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '72%',
+                    plugins: {
+                        legend: { position: 'bottom', labels: { color: '#94a3b8', boxWidth: 12, padding: 14 } }
+                    }
+                }
+            });
+        }
+
+        function updateDashboard() {
+            const { total, porcentaje, aprobado } = calcularTotales();
+            const pendientes = 100 - total;
+
+            document.getElementById('kpi-puntos').innerText = total;
+            document.getElementById('kpi-pendientes').innerText = pendientes;
+            document.getElementById('kpi-porcentaje').innerText = porcentaje + '%';
+
+            if (barChartInstance) {
+                barChartInstance.data.datasets[0].data = MODULE_ORDER.map(m => moduleScores[m] || 0);
+                barChartInstance.update();
+            }
+            if (donutChartInstance) {
+                donutChartInstance.data.datasets[0].data = [total, Math.max(pendientes, 0)];
+                donutChartInstance.update();
+            }
+
+            // Cuadro de Resultados
+            const container = document.getElementById('cuadro-resultados-container');
+            container.innerHTML = MODULE_ORDER.map((m, idx) => {
+                const done = moduleDone[m];
+                const obtenido = moduleScores[m] || 0;
+                const max = MODULE_MAX[m];
+                return `<div class="checklist-row rounded-lg px-3 py-2 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2 min-w-0">
+                <span class="w-5 h-5 shrink-0 rounded-md ${done ? 'bg-emerald-600' : 'bg-slate-700'} flex items-center justify-center">
+                    <i class="fas ${done ? 'fa-check' : 'fa-minus'} text-[10px] text-white"></i>
+                </span>
+                <span class="text-xs text-slate-300 truncate">${idx + 1}. ${MODULE_LABEL[m]}</span>
+            </div>
+            <span class="text-[10px] font-bold uppercase shrink-0 ${done ? 'text-emerald-400' : 'text-slate-500'}">${obtenido} / ${max} pts</span>
+        </div>`;
+            }).join('');
+
+            const pill = document.getElementById('dash-status-pill');
+            const conclusionBox = document.getElementById('dashboard-conclusion-box');
+
+            if (!evaluacionGenerada) {
+                pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-amber-950/70 text-amber-400 flex items-center gap-1.5 border border-amber-800';
+                pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400"></span> Evaluación pendiente';
+                conclusionBox.innerHTML = `<p class="text-amber-400 font-bold mb-1"><i class="fas fa-triangle-exclamation mr-1"></i> Evaluación pendiente</p><p class="text-sm text-slate-300">Completa los módulos de Marco Normativo, El Plagio, Prevención, Citación APA y Evaluación &amp; Acta para conocer tu dictamen diagnóstico. La actividad se aprueba con un 90% del puntaje total.</p>`;
+            } else if (aprobado) {
+                pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-emerald-950/70 text-emerald-400 flex items-center gap-1.5 border border-emerald-800';
+                pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400"></span> Aprobado (≥90%)';
+                conclusionBox.innerHTML = `<p class="text-emerald-400 font-bold mb-1"><i class="fas fa-check-double mr-1"></i> Dictamen Satisfactorio (${total} / 100 - ${porcentaje}%)</p><p class="text-sm text-slate-300">Superaste el mínimo aprobatorio del 90%. Reconoces correctamente al autor, evitando el plagio y aplicando adecuadamente la citación APA. Recuerda imprimir tu Acta de Resultados para tu portafolio.</p>`;
+            } else {
+                pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-rose-950/70 text-rose-400 flex items-center gap-1.5 border border-rose-800';
+                pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-500"></span> Por Mejorar (<90%)';
+                conclusionBox.innerHTML = `<p class="text-rose-400 font-bold mb-1"><i class="fas fa-triangle-exclamation mr-1"></i> Dictamen Diagnóstico (${total} / 100 - ${porcentaje}%)</p><p class="text-sm text-slate-300">Aún no alcanzas el mínimo aprobatorio del 90%. Revisa el Cuadro de Resultados por competencia y refuerza los módulos marcados como "A reforzar" antes de tu próximo intento.</p>`;
+            }
+        }
+
+        // ============================================
+        // INTENTOS Y REINICIO
+        // ============================================
+        function reiniciarIntento() {
+            if (currentAttempt >= MAX_INTENTOS) return;
+            currentAttempt++;
+
+            // Reset de estado
+            moduleScores = { normativo: 0, plagio: 0, prevencion: 0, citacion: 0, evaluacion: 0 };
+            moduleDone = { normativo: false, plagio: false, prevencion: false, citacion: false, evaluacion: false };
+            selections = {};
+            checks = {};
+            evaluacionGenerada = false;
+
+            // Re-render de todos los quizzes (desbloqueados)
+            renderQuiz('quiz-normativo', QUIZ_NORMATIVO, false);
+            renderCasosPlagio(false);
+            renderPrevencion(false);
+            renderQuiz('quiz-citacion', QUIZ_CITACION, false);
+            renderQuiz('quiz-evaluacion', QUIZ_EVALUACION, false);
+
+            ['fb-normativo', 'fb-plagio', 'fb-prevencion', 'fb-citacion'].forEach(id => {
+                document.getElementById(id).innerHTML = '';
+            });
+
+            document.getElementById('acta-resultado').classList.add('hidden');
+
+            lockAllModulesExceptRegistro();
+            if (registeredLearner) { unlockModule('presentacion'); unlockModule('normativo'); }
+
+            document.getElementById('intentos-display').innerText = `Intento ${currentAttempt} / ${MAX_INTENTOS}`;
+            if (currentAttempt >= MAX_INTENTOS) {
+                const btn = document.getElementById('btn-reiniciar');
+                btn.disabled = true;
+                btn.classList.add('opacity-40', 'cursor-not-allowed');
+            }
+
+            updateDashboard();
+            switchTab('registro');
+        }
+
+        // ============================================
+        // TEMPORIZADOR (60:00 min)
+        // ============================================
+        function formatTime(totalSeconds) {
+            const m = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+            const s = Math.floor(totalSeconds % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timerRemaining--;
+                if (timerRemaining <= 0) {
+                    timerRemaining = 0;
+                    clearInterval(timerInterval);
+                    bloquearPorTiempo();
+                }
+                document.getElementById('timer-display').innerText = formatTime(timerRemaining);
+                const pill = document.getElementById('timer-pill');
+                if (timerRemaining <= 300) {
+                    pill.classList.add('border-rose-600');
+                }
+            }, 1000);
+        }
+
+        function bloquearPorTiempo() {
+            document.querySelectorAll('.option-row, .check-item').forEach(el => el.onclick = null);
+            document.querySelectorAll('.tab-pane button').forEach(btn => btn.disabled = true);
+            // Consolida automáticamente lo respondido hasta el momento
+            if (!moduleDone.normativo) verificarModuloSilencioso('normativo');
+            if (!moduleDone.plagio) verificarModuloSilencioso('plagio');
+            if (!moduleDone.prevencion) verificarModuloSilencioso('prevencion');
+            if (!moduleDone.citacion) verificarModuloSilencioso('citacion');
+            if (!evaluacionGenerada) {
+                let score = 0;
+                QUIZ_EVALUACION.forEach(q => {
+                    if (!selections[q.id]) return;
+                    const opt = q.options.find(o => o.id === selections[q.id]);
+                    if (opt && opt.correct) score += q.points;
+                });
+                moduleScores.evaluacion = score;
+                moduleDone.evaluacion = true;
+                evaluacionGenerada = true;
+            }
+            renderActaTabla();
+            document.getElementById('acta-resultado').classList.remove('hidden');
+            unlockModule('dashboard');
+            switchTab('dashboard');
+            alert('El tiempo (60:00 min) ha finalizado. Se consolidaron automáticamente tus resultados.');
+        }
+
+        function verificarModuloSilencioso(name) {
+            let score = 0;
+            if (name === 'normativo') {
+                QUIZ_NORMATIVO.forEach(q => {
+                    if (!selections[q.id]) return;
+                    const opt = q.options.find(o => o.id === selections[q.id]);
+                    if (opt && opt.correct) score += q.points;
+                });
+            } else if (name === 'plagio') {
+                CASOS_PLAGIO.forEach(q => {
+                    if (!selections[q.id]) return;
+                    const opt = q.options.find(o => o.id === selections[q.id]);
+                    if (opt && opt.correct) score += q.points;
+                });
+            } else if (name === 'prevencion') {
+                PREVENCION_ITEMS.forEach(it => {
+                    const checked = !!checks[it.id];
+                    if (checked === it.correct) score += it.points;
+                });
+            } else if (name === 'citacion') {
+                QUIZ_CITACION.forEach(q => {
+                    if (!selections[q.id]) return;
+                    const opt = q.options.find(o => o.id === selections[q.id]);
+                    if (opt && opt.correct) score += q.points;
+                });
+            }
+            moduleScores[name] = score;
+            moduleDone[name] = true;
+        }
+
+        // ============================================
+        // IMPRESION: Registro + Resultado
+        // ============================================
+        function printEvidence() {
+            if (!registeredLearner) {
+                alert('Por favor completa el Registro antes de imprimir.');
+                switchTab('registro');
+                return;
+            }
+
+            const { total, porcentaje, aprobado } = calcularTotales();
+
+            document.getElementById('print-fecha').innerText = new Date().toLocaleString('es-CO');
+            document.getElementById('print-nombre').innerText = registeredLearner.nombre || '-';
+            document.getElementById('print-doc').innerText = registeredLearner.doc || '-';
+            document.getElementById('print-ficha').innerText = registeredLearner.ficha || '-';
+            document.getElementById('print-programa').innerText = registeredLearner.programa || '-';
+            document.getElementById('print-centro').innerText = registeredLearner.centro || '-';
+            document.getElementById('print-regional').innerText = registeredLearner.regional || '-';
+
+            document.getElementById('print-puntos').innerText = `${total} / 100`;
+            document.getElementById('print-porcentaje').innerText = `${porcentaje}%`;
+            document.getElementById('print-dictamen').innerText = evaluacionGenerada ? (aprobado ? 'APROBADO' : 'POR MEJORAR') : 'PENDIENTE';
+            document.getElementById('print-intentos').innerText = `${currentAttempt} / ${MAX_INTENTOS}`;
+
+            const table = document.getElementById('print-desglose-table');
+            table.innerHTML = `<tr><th>#</th><th>Módulo</th><th>Puntos Obtenidos</th><th>Puntos Posibles</th></tr>` +
+                MODULE_ORDER.map((m, idx) => {
+                    return `<tr><td>${idx + 1}</td><td>${MODULE_LABEL[m]}</td><td>${moduleScores[m] || 0}</td><td>${MODULE_MAX[m]}</td></tr>`;
+                }).join('');
+
+            window.print();
+        }
+
+        // ============================================
+        // INICIALIZACION
+        // ============================================
+        window.addEventListener('DOMContentLoaded', () => {
+            renderQuiz('quiz-normativo', QUIZ_NORMATIVO, false);
+            renderCasosPlagio(false);
+            renderPrevencion(false);
+            renderQuiz('quiz-citacion', QUIZ_CITACION, false);
+            renderQuiz('quiz-evaluacion', QUIZ_EVALUACION, false);
+
+            lockAllModulesExceptRegistro();
+            document.getElementById('timer-display').innerText = formatTime(timerRemaining);
+            document.getElementById('intentos-display').innerText = `Intento ${currentAttempt} / ${MAX_INTENTOS}`;
+
+            initCharts();
+            updateDashboard();
+            startTimer();
+        });
+
+    </script>
+</body>
+
+</html>
