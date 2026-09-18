@@ -188,7 +188,7 @@
                 <button onclick="printEvidence()"
                     class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold border border-emerald-500 transition flex items-center gap-1.5 shadow-sm">
                     <i class="fas fa-print text-[11px]"></i>
-                    <span>Imprimir</span>
+                    <span>Imprimir Resultados</span>
                 </button>
             </div>
 
@@ -1962,11 +1962,22 @@
         // ============================================
         // IMPRESIÓN: Registro + Resultado de Evaluación
         // ============================================
-        function printEvidence() {
+                function printEvidence() {
             if (!registeredLearner) {
-                alert('Por favor completa el Registro antes de imprimir.');
-                switchTab('registro');
-                return;
+                const nombre = document.getElementById('reg-nombre')?.value.trim();
+                const doc = document.getElementById('reg-doc')?.value.trim();
+                const ficha = document.getElementById('reg-ficha')?.value.trim();
+                const prog = document.getElementById('reg-programa')?.value || '';
+                const centro = document.getElementById('reg-centro')?.value || '';
+                const regional = document.getElementById('reg-regional')?.value || '';
+
+                if (nombre && doc && ficha && prog) {
+                    registeredLearner = { nombre, doc, ficha, programa: prog, centro, regional };
+                } else {
+                    alert('Por favor completa el Registro antes de imprimir.');
+                    switchTab('registro');
+                    return;
+                }
             }
 
             document.getElementById('print-fecha').innerText = new Date().toLocaleString('es-CO');
@@ -1985,7 +1996,7 @@
                 document.getElementById('print-answered').innerText = `${lastEval.answered} / ${TOTAL_QUESTIONS}`;
                 document.getElementById('print-dictamen').innerText = lastEval.passed ? 'APROBADO' : 'POR MEJORAR';
             } else {
-                document.getElementById('print-score').innerText = 'Evaluación no realizada aún';
+                document.getElementById('print-score').innerText = 'EvaluaciÃ³n no realizada aÃºn';
                 document.getElementById('print-scoreA').innerText = '-';
                 document.getElementById('print-scoreB').innerText = '-';
                 document.getElementById('print-scoreC').innerText = '-';
@@ -1993,7 +2004,20 @@
                 document.getElementById('print-dictamen').innerText = 'Pendiente';
             }
 
-            window.print();
+            const originalTitle = document.title;
+            const docNum = (registeredLearner && registeredLearner.doc) ? registeredLearner.doc : (document.getElementById('reg-doc')?.value.trim() || 'DOCUMENTO');
+            document.title = `${docNum}-IIS`;
+
+            const restoreTitle = () => {
+                document.title = originalTitle;
+                window.removeEventListener('afterprint', restoreTitle);
+            };
+            window.addEventListener('afterprint', restoreTitle);
+
+            setTimeout(() => {
+                window.print();
+                setTimeout(restoreTitle, 2000);
+            }, 300);
         }
 
         window.addEventListener('DOMContentLoaded', () => {

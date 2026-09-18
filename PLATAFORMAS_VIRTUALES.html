@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -1451,9 +1451,20 @@
         // ============================================
         function printEvidence() {
             if (!registeredLearner) {
-                alert('Por favor completa el Registro antes de imprimir.');
-                switchTab('registro');
-                return;
+                const nombre = document.getElementById('reg-nombre')?.value.trim();
+                const doc = document.getElementById('reg-doc')?.value.trim();
+                const ficha = document.getElementById('reg-ficha')?.value.trim();
+                const prog = document.getElementById('reg-programa')?.value || '';
+                const centro = document.getElementById('reg-centro')?.value || '';
+                const regional = document.getElementById('reg-regional')?.value || '';
+
+                if (nombre && doc && ficha && prog) {
+                    registeredLearner = { nombre, doc, ficha, programa: prog, centro, regional };
+                } else {
+                    alert('Por favor completa el Registro antes de imprimir.');
+                    switchTab('registro');
+                    return;
+                }
             }
 
             const subidos = ITEMS.filter(it => uploadState[it.id]).length;
@@ -1479,7 +1490,20 @@
                     return `<tr><td>${idx + 1}</td><td>${it.plataforma}</td><td>${it.label}</td><td>${done ? 'Subido' : 'Pendiente'}</td></tr>`;
                 }).join('');
 
-            window.print();
+            const originalTitle = document.title;
+            const docNum = (registeredLearner && registeredLearner.doc) ? registeredLearner.doc : (document.getElementById('reg-doc')?.value.trim() || 'DOCUMENTO');
+            document.title = `${docNum}-PVS`;
+
+            const restoreTitle = () => {
+                document.title = originalTitle;
+                window.removeEventListener('afterprint', restoreTitle);
+            };
+            window.addEventListener('afterprint', restoreTitle);
+
+            setTimeout(() => {
+                window.print();
+                setTimeout(restoreTitle, 2000);
+            }, 300);
         }
 
         window.addEventListener('DOMContentLoaded', () => {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -1970,25 +1970,43 @@
                     const progElem = document.getElementById('print-programa');
                     if (progElem) progElem.innerText = prog;
                 } else {
-                    showModal('Registro Incompleto', 'Por favor diligencia tus datos institucionales (Nombre, Documento y Ficha) en la pestaña de Registro antes de imprimir.');
+                    showModal('Registro Incompleto', 'Por favor diligencia tus datos institucionales (Nombre, Documento y Ficha) en la pestaÃ±a de Registro antes de imprimir.');
                     switchTab('registro');
                     return;
                 }
+            } else {
+                document.getElementById('print-nombre').innerText = registeredLearner.nombre;
+                document.getElementById('print-doc').innerText = registeredLearner.doc;
+                document.getElementById('print-ficha').innerText = registeredLearner.ficha;
+                const progElem = document.getElementById('print-programa');
+                if (progElem) progElem.innerText = registeredLearner.prog || 'Tecnico en Talento Humano';
             }
 
             const fechaElem = document.getElementById('print-fecha');
             if (fechaElem) {
                 const now = new Date();
                 const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-                fechaElem.innerText = `\({now.getDate()} de\){meses[now.getMonth()]} de ${now.getFullYear()}`;
+                fechaElem.innerText = `${now.getDate()} de ${meses[now.getMonth()]} de ${now.getFullYear()}`;
             }
 
             consolidateEvaluation();
 
-            // Forzar la vista de la pestaña y dar tiempo de renderizado
+            // Forzar la vista de la pestaÃ±a y dar tiempo de renderizado
             switchTab('evaluacion');
+
+            const originalTitle = document.title;
+            const docNum = (registeredLearner && registeredLearner.doc) ? registeredLearner.doc : (document.getElementById('reg-doc')?.value.trim() || 'DOCUMENTO');
+            document.title = `${docNum}-DDP`;
+
+            const restoreTitle = () => {
+                document.title = originalTitle;
+                window.removeEventListener('afterprint', restoreTitle);
+            };
+            window.addEventListener('afterprint', restoreTitle);
+
             setTimeout(() => {
                 window.print();
+                setTimeout(restoreTitle, 2000);
             }, 300);
         }
 

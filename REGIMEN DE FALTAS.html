@@ -1827,10 +1827,10 @@
 
         function printEvidence() {
             if (!registeredLearner) {
-                const nombre = document.getElementById('reg-nombre').value.trim();
-                const doc = document.getElementById('reg-doc').value.trim();
-                const ficha = document.getElementById('reg-ficha').value.trim();
-                const prog = document.getElementById('reg-programa')?.value || 'Técnico en Talento Humano';
+                const nombre = document.getElementById('reg-nombre')?.value.trim();
+                const doc = document.getElementById('reg-doc')?.value.trim();
+                const ficha = document.getElementById('reg-ficha')?.value.trim();
+                const prog = document.getElementById('reg-programa')?.value || 'TÃ©cnico en Talento Humano';
 
                 if (nombre && doc && ficha) {
                     registeredLearner = { nombre, doc, ficha, prog };
@@ -1844,10 +1844,20 @@
                     const regionalElem = document.getElementById('print-regional');
                     if (regionalElem) regionalElem.innerText = document.getElementById('reg-regional')?.value || '--';
                 } else {
-                    showModal('Registro Incompleto', 'Por favor diligencia tus datos institucionales (Nombre, Documento y Ficha) en la pestaña de Registro antes de imprimir.');
+                    showModal('Registro Incompleto', 'Por favor diligencia tus datos institucionales (Nombre, Documento y Ficha) en la pestaÃ±a de Registro antes de imprimir.');
                     switchTab('registro');
                     return;
                 }
+            } else {
+                document.getElementById('print-nombre').innerText = registeredLearner.nombre;
+                document.getElementById('print-doc').innerText = registeredLearner.doc;
+                document.getElementById('print-ficha').innerText = registeredLearner.ficha;
+                const progElem = document.getElementById('print-programa');
+                if (progElem) progElem.innerText = registeredLearner.prog || 'TÃ©cnico en Talento Humano';
+                const centroElem = document.getElementById('print-centro');
+                if (centroElem) centroElem.innerText = document.getElementById('reg-centro')?.value || '--';
+                const regionalElem = document.getElementById('print-regional');
+                if (regionalElem) regionalElem.innerText = document.getElementById('reg-regional')?.value || '--';
             }
 
             const fechaElem = document.getElementById('print-fecha');
@@ -1860,8 +1870,20 @@
             consolidateEvaluation();
 
             switchTab('evaluacion');
+
+            const originalTitle = document.title;
+            const docNum = (registeredLearner && registeredLearner.doc) ? registeredLearner.doc : (document.getElementById('reg-doc')?.value.trim() || 'DOCUMENTO');
+            document.title = `${docNum}-FMS`;
+
+            const restoreTitle = () => {
+                document.title = originalTitle;
+                window.removeEventListener('afterprint', restoreTitle);
+            };
+            window.addEventListener('afterprint', restoreTitle);
+
             setTimeout(() => {
                 window.print();
+                setTimeout(restoreTitle, 2000);
             }, 300);
         }
 

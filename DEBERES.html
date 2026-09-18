@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -1457,17 +1457,45 @@
 
     function printEvidence() {
       if (!registeredLearner) {
-        showModal('Registro Incompleto', 'Diligencia tus datos en la pestaña de Registro antes de imprimir.');
-        return;
+        const nombre = document.getElementById('reg-nombre')?.value.trim();
+        const doc = document.getElementById('reg-doc')?.value.trim();
+        const ficha = document.getElementById('reg-ficha')?.value.trim();
+        const prog = document.getElementById('reg-programa')?.value || '';
+
+        if (nombre && doc && ficha && prog) {
+          registeredLearner = { nombre, doc, ficha, programa: prog };
+          document.getElementById('print-nombre').innerText = nombre;
+          document.getElementById('print-doc').innerText = doc;
+          document.getElementById('print-ficha').innerText = ficha;
+          syncPrograma(prog);
+        } else {
+          showModal('Registro Incompleto', 'Diligencia tus datos en la pestaÃ±a de Registro antes de imprimir.');
+          switchTab('registro');
+          return;
+        }
+      } else {
+        document.getElementById('print-nombre').innerText = registeredLearner.nombre;
+        document.getElementById('print-doc').innerText = registeredLearner.doc;
+        document.getElementById('print-ficha').innerText = registeredLearner.ficha;
+        syncPrograma(registeredLearner.programa);
       }
 
-      document.getElementById('print-nombre').innerText = registeredLearner.nombre;
-      document.getElementById('print-doc').innerText = registeredLearner.doc;
-      document.getElementById('print-ficha').innerText = registeredLearner.ficha;
-      syncPrograma(registeredLearner.programa);
-
       consolidateEvaluation();
-      window.print();
+
+      const originalTitle = document.title;
+      const docNum = (registeredLearner && registeredLearner.doc) ? registeredLearner.doc : (document.getElementById('reg-doc')?.value.trim() || 'DOCUMENTO');
+      document.title = `${docNum}-DRA`;
+
+      const restoreTitle = () => {
+        document.title = originalTitle;
+        window.removeEventListener('afterprint', restoreTitle);
+      };
+      window.addEventListener('afterprint', restoreTitle);
+
+      setTimeout(() => {
+        window.print();
+        setTimeout(restoreTitle, 2000);
+      }, 300);
     }
 
     function confirmReset() {

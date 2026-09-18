@@ -483,7 +483,8 @@
                     <p class="text-sm text-slate-300 leading-relaxed text-justify">
                         El plagio se comete de distintas formas: usar frases de un autor sin su reconocimiento,
                         referenciar sin seguir las normas, parafrasear inapropiadamente, usar comillas de forma
-                        incorrecta, copiarse de un compa&ntilde;ero, o copiar de sitios web, libros, revistas y otras
+                        incorrecta, copiarse de un compa&ntilde;ero (plagio), o copiar de sitios web, libros, revistas y
+                        otras
                         fuentes sin dar cr&eacute;dito.
                     </p>
                     <p class="text-[11px] text-slate-500 mt-3">Fuente: biblioteca.sena.edu.co/paginas/modulo4_5.html
@@ -866,7 +867,7 @@
                 prompt: 'Caso 1: Juan copia varias frases textuales de un artículo de una revista reconocida y las incluye en su ensayo tal cual, sin ninguna marca que indique que no son de su autoría.',
                 options: [
                     { id: 'a', text: 'Copiar de sitios web, libros, revistas u otras fuentes sin dar crédito', correct: true },
-                    { id: 'b', text: 'Copiarse de un compañero' },
+                    { id: 'b', text: 'Copiarse de un compañero (plagio)' },
                     { id: 'c', text: 'Uso inapropiado de comillas' },
                     { id: 'd', text: 'Parafraseo inapropiado' }
                 ]
@@ -877,7 +878,7 @@
                 options: [
                     { id: 'a', text: 'Referenciar sin seguir las normas nacionales o internacionales' },
                     { id: 'b', text: 'Uso inapropiado de comillas', correct: true },
-                    { id: 'c', text: 'Copiarse de un compañero' },
+                    { id: 'c', text: 'Copiarse de un compañero (plagio)' },
                     { id: 'd', text: 'Copiar de sitios web o revistas' }
                 ]
             },
@@ -887,7 +888,7 @@
                 options: [
                     { id: 'a', text: 'Parafraseo inapropiado' },
                     { id: 'b', text: 'Uso de frases sin consentimiento del autor' },
-                    { id: 'c', text: 'Copiarse de un compañero', correct: true },
+                    { id: 'c', text: 'Copiarse de un compañero (plagio)', correct: true },
                     { id: 'd', text: 'Referenciar sin normas' }
                 ]
             },
@@ -896,7 +897,7 @@
                 prompt: 'Caso 4: Sofía toma la idea principal de un texto y la reescribe cambiando solo algunas palabras, sin explicarla con sus propias palabras ni citar al autor.',
                 options: [
                     { id: 'a', text: 'Parafraseo inapropiado', correct: true },
-                    { id: 'b', text: 'Copiarse de un compañero' },
+                    { id: 'b', text: 'Copiarse de un compañero (plagio)' },
                     { id: 'c', text: 'Uso inapropiado de comillas' },
                     { id: 'd', text: 'Copiar de sitios web' }
                 ]
@@ -906,7 +907,7 @@
                 prompt: 'Caso 5: Andrés incluye en su informe una definición tomada literalmente de una página web, sin registrar el autor, el año ni el enlace de la fuente.',
                 options: [
                     { id: 'a', text: 'Referenciar sin seguir las normas nacionales o internacionales', correct: true },
-                    { id: 'b', text: 'Copiarse de un compañero' },
+                    { id: 'b', text: 'Copiarse de un compañero (plagio)' },
                     { id: 'c', text: 'Uso inapropiado de comillas' },
                     { id: 'd', text: 'Parafraseo inapropiado' }
                 ]
@@ -918,7 +919,7 @@
                     { id: 'a', text: 'Copiar de sitios web o revistas' },
                     { id: 'b', text: 'Uso de frases o expresiones de un autor sin su consentimiento', correct: true },
                     { id: 'c', text: 'Referenciar sin normas' },
-                    { id: 'd', text: 'Copiarse de un compañero' }
+                    { id: 'd', text: 'Copiarse de un compañero (plagio)' }
                 ]
             }
         ];
@@ -1547,9 +1548,20 @@
         // ============================================
         function printEvidence() {
             if (!registeredLearner) {
-                alert('Por favor completa el Registro antes de imprimir.');
-                switchTab('registro');
-                return;
+                const nombre = document.getElementById('reg-nombre')?.value.trim();
+                const doc = document.getElementById('reg-doc')?.value.trim();
+                const ficha = document.getElementById('reg-ficha')?.value.trim();
+                const prog = document.getElementById('reg-programa')?.value || '';
+                const centro = document.getElementById('reg-centro')?.value || '';
+                const regional = document.getElementById('reg-regional')?.value || '';
+
+                if (nombre && doc && ficha && prog) {
+                    registeredLearner = { nombre, doc, ficha, programa: prog, centro, regional };
+                } else {
+                    alert('Por favor completa el Registro antes de imprimir.');
+                    switchTab('registro');
+                    return;
+                }
             }
 
             const { total, porcentaje, aprobado } = calcularTotales();
@@ -1568,12 +1580,25 @@
             document.getElementById('print-intentos').innerText = `${currentAttempt} / ${MAX_INTENTOS}`;
 
             const table = document.getElementById('print-desglose-table');
-            table.innerHTML = `<tr><th>#</th><th>Módulo</th><th>Puntos Obtenidos</th><th>Puntos Posibles</th></tr>` +
+            table.innerHTML = `<tr><th>#</th><th>MÃ³dulo</th><th>Puntos Obtenidos</th><th>Puntos Posibles</th></tr>` +
                 MODULE_ORDER.map((m, idx) => {
                     return `<tr><td>${idx + 1}</td><td>${MODULE_LABEL[m]}</td><td>${moduleScores[m] || 0}</td><td>${MODULE_MAX[m]}</td></tr>`;
                 }).join('');
 
-            window.print();
+            const originalTitle = document.title;
+            const docNum = (registeredLearner && registeredLearner.doc) ? registeredLearner.doc : (document.getElementById('reg-doc')?.value.trim() || 'DOCUMENTO');
+            document.title = `${docNum}-DAS`;
+
+            const restoreTitle = () => {
+                document.title = originalTitle;
+                window.removeEventListener('afterprint', restoreTitle);
+            };
+            window.addEventListener('afterprint', restoreTitle);
+
+            setTimeout(() => {
+                window.print();
+                setTimeout(restoreTitle, 2000);
+            }, 300);
         }
 
         // ============================================
