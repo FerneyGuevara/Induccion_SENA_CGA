@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -290,8 +290,7 @@
                 <img src="sena.png" alt="Logo SENA" class="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0" />
                 <div>
                     <div class="flex items-center gap-2">
-                        <h1 class="text-base sm:text-lg font-bold text-indigo-400 leading-none">Matriz - Reglamento del
-                            Aprendiz
+                        <h1 class="text-base sm:text-lg font-bold text-indigo-400 leading-none">Reglamento del Aprendiz
                         </h1>
                         <span
                             class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-md font-semibold">"Régimen
@@ -341,15 +340,20 @@
         <!-- Panel Resumen Superior -->
         <div
             class="bg-slate-900/90 backdrop-blur-sm rounded-2xl p-5 mb-6 border border-slate-700/80 flex flex-wrap items-center justify-between gap-4 no-print shadow-xl">
-            <div>
-                <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase flex items-center gap-1.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Ruta Pedagógica Integral
-                </span>
-                <h2 class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">Guía Interactiva: Faltas,
-                    Medidas y Sanciones</h2>
-                <p class="text-xs text-slate-400 mt-0.5">Duración estimada: 60 minutos | Calificación mínima
-                    aprobatoria: 90%
-                </p>
+            <div class="flex items-center gap-4">
+                <img src="sena.png" alt="SENA" class="w-12 h-12 object-contain shrink-0" />
+                <div>
+                    <span
+                        class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Ruta Pedagógica Integral
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">Guía Interactiva:
+                        Faltas,
+                        Medidas y Sanciones</h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Duración estimada: 60 minutos | Calificación mínima
+                        aprobatoria: 90%
+                    </p>
+                </div>
             </div>
 
             <div class="flex items-center gap-4 bg-slate-950 p-3 px-4 rounded-xl border border-slate-800 shadow-inner">
@@ -372,6 +376,10 @@
             <button onclick="window.location.href='index.html'" id="tab-inicio"
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
                 <i class="fas fa-house text-xs"></i> Inicio
+            </button>
+            <button onclick="window.location.href='Instructivo_SENA FALTAS.pdf'" id="tab-instructivo"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-file-pdf text-xs text-rose-400"></i> Instructivo
             </button>
             <button onclick="switchTab('registro')" id="tab-registro"
                 class="tab-btn active px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
@@ -617,8 +625,8 @@
                                 <h3 class="text-sm font-bold text-slate-200">Caso 3: Agresión Intencionada contra un
                                     compañero</h3>
                                 <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-                                    Un aprendiz, por decisión y voluntad propia, agrede físicamente a un compañero,
-                                    causándole lesiones que ponen en riesgo su integridad física.
+                                    Un aprendiz, por decisión propia, agrede físicamente a un compañero, causándole
+                                    lesiones que ponen en riesgo su integridad física.
                                 </p>
                                 <p class="text-xs font-bold text-indigo-400 mt-2">CONFORME AL ARTÍCULO 42, ¿CÓMO SE
                                     CALIFICA ESTA FALTA?</p>
@@ -1976,7 +1984,7 @@
             if (scores.total >= 90) {
                 conclusionBox.innerHTML = `
           <p class="text-emerald-400 font-bold mb-1">
-            <i class="fas fa-check-double mr-1"></i> Dictamen Satisfactorio (Aprobado - ${scores.total} pts / ${scores.total}%):
+            <i class="fas fa-check-double mr-1"></i> Resultado Satisfactorio (Aprobado - ${scores.total} pts / ${scores.total}%):
           </p>
           <p>
             El aprendiz evidencia dominio integral del Régimen de Faltas, Medidas Formativas, Disciplinarias y

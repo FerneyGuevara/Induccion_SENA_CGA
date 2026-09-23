@@ -1,0 +1,1497 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guía Interactiva: Novedades SENA</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #898AAD;
+            color: #f1f5f9;
+        }
+
+        .tab-btn {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+            color: #94a3b8;
+        }
+
+        .tab-btn:hover:not(.active):not(:disabled) {
+            background-color: #1e293b;
+            border-color: #334155;
+            color: #f8fafc;
+        }
+
+        .tab-btn.active {
+            background-color: #4f46e5 !important;
+            color: #ffffff !important;
+            border-color: #6366f1 !important;
+            box-shadow: 0 4px 14px -2px rgba(79, 70, 229, 0.45) !important;
+        }
+
+        .tab-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .option-card {
+            transition: all 0.2s ease;
+            border: 1px solid #1e293b;
+            cursor: pointer;
+        }
+
+        .option-card:hover {
+            border-color: #6366f1 !important;
+            background-color: rgba(99, 102, 241, 0.12) !important;
+        }
+
+        select,
+        input[type="text"] {
+            color-scheme: dark;
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            color: #f8fafc;
+            padding: 8px 12px;
+            border-radius: 8px;
+            outline: none;
+            width: 100%;
+        }
+
+        select:focus,
+        input[type="text"]:focus {
+            border-color: #6366f1;
+        }
+
+        /* Flip cards */
+        .flip-card {
+            perspective: 1200px;
+            height: 120px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            text-align: center;
+            border: 1px solid #4338ca;
+        }
+
+        .flip-card-front {
+            background: linear-gradient(160deg, #1e1b4b, #0f172a);
+        }
+
+        .flip-card-back {
+            background: #0f172a;
+            border: 1px solid #6366f1;
+            transform: rotateY(180deg);
+            font-size: 12px;
+            line-height: 1.4;
+            color: #cbd5e1;
+        }
+
+        /* Drag & drop */
+        .drag-item {
+            cursor: grab;
+            transition: all 0.15s ease;
+            background: #1e293b;
+            border: 1px solid #475569;
+        }
+
+        .drag-item:active {
+            cursor: grabbing;
+        }
+
+        .drag-item.dragging {
+            opacity: 0.35;
+        }
+
+        .drag-bank {
+            min-height: 50px;
+            transition: 0.2s;
+        }
+
+        .drop-zone {
+            transition: all 0.15s ease;
+            min-height: 60px;
+            border: 2px dashed #475569;
+            background-color: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drop-zone.drag-over {
+            border-color: #6366f1 !important;
+            background-color: rgba(99, 102, 241, 0.12) !important;
+        }
+
+        @media print {
+            body {
+                background: #fff !important;
+                color: #000 !important;
+            }
+
+            header,
+            nav,
+            .no-print,
+            .tab-pane {
+                display: none !important;
+            }
+
+            #print-area {
+                display: block !important;
+                padding: 20px;
+            }
+
+            .print-box {
+                border: 1px solid #ccc;
+                padding: 15px;
+                border-radius: 8px;
+                margin-bottom: 15px;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            td,
+            th {
+                border: 1px solid #ccc;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-[#898AAD] text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-indigo-500/30 selection:text-indigo-200">
+
+    <!-- HEADER PRINCIPAL -->
+    <header class="border-b border-slate-800 bg-slate-950 sticky top-0 z-50 no-print shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+
+            <div class="flex items-center gap-3">
+                <img src="sena.png" alt="Logo SENA" class="w-9 h-9 object-contain shrink-0"
+                    onerror="this.style.display='none'" />
+                <div>
+                    <h1 class="text-sm sm:text-base font-bold text-indigo-400 leading-none">Gestión de Novedades SENA
+                    </h1>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Reglamento del Aprendiz - Cap. IV, Art. 17 y 18</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 flex-wrap">
+                <div
+                    class="flex items-center gap-1.5 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs">
+                    <i class="fas fa-clock text-indigo-400 text-[11px]"></i>
+                    <span id="global-timer" class="font-mono font-bold text-slate-100">60:00</span>
+                </div>
+                <div
+                    class="flex items-center gap-1.5 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs">
+                    <i class="fas fa-rotate text-indigo-400 text-[11px]"></i>
+                    <span>Intentos:</span>
+                    <span id="attempts-left" class="font-bold text-slate-100">4</span>
+                </div>
+
+                <button onclick="confirmReset()"
+                    class="bg-rose-900/50 hover:bg-rose-900 text-rose-200 px-3.5 py-1.5 rounded-lg text-xs font-semibold border border-rose-800 transition flex items-center gap-1.5">
+                    <i class="fas fa-rotate-left text-[11px]"></i>
+                    <span>Reiniciar Intento</span>
+                </button>
+
+                <button onclick="printEvidence()"
+                    class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold border border-emerald-500 transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fas fa-print text-[11px]"></i>
+                    <span>Imprimir Resultados</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-grow">
+
+        <!-- Panel Resumen Superior -->
+        <div
+            class="bg-slate-900/90 backdrop-blur-sm rounded-2xl p-5 mb-6 border border-slate-700/80 flex flex-wrap items-center justify-between gap-4 no-print shadow-xl">
+            <div>
+                <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Ruta Pedagógica Integral
+                </span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">Guía Interactiva: Novedades
+                    del Aprendiz</h2>
+                <p class="text-xs text-slate-400 mt-0.5">Duración estimada: 60 minutos | Calificación mínima
+                    aprobatoria: 90%</p>
+            </div>
+
+            <div class="flex items-center gap-4 bg-slate-950 p-3 px-4 rounded-xl border border-slate-800 shadow-inner">
+                <div class="text-right">
+                    <div class="text-[10px] uppercase font-bold tracking-wider text-slate-400">Puntaje Global</div>
+                    <div class="text-xl sm:text-2xl font-black text-slate-100 leading-none mt-0.5">
+                        <span id="global-score">0</span> <span class="text-xs font-normal text-slate-400">/ 100
+                            pts</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navegación de pestañas -->
+        <nav class="flex flex-wrap gap-2 mb-6 no-print">
+            <button onclick="window.location.href='index.html'"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 shadow-md">
+                <i class="fas fa-house"></i> Inicio
+            </button>
+            <button onclick="switchTab('registro')" id="tab-registro"
+                class="tab-btn active px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 shadow-md">
+                <i class="fas fa-id-card"></i> 1. Registro
+            </button>
+            <button onclick="switchTab('presentacion')" id="tab-presentacion"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 shadow-md">
+                <i class="fas fa-file-pdf"></i> Presentaciòn
+            </button>
+            <button onclick="switchTab('traslado')" id="tab-traslado"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 shadow-md module-locked"
+                disabled>
+                Traslado
+            </button>
+            <button onclick="switchTab('aplazamiento')" id="tab-aplazamiento"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 shadow-md module-locked"
+                disabled>
+                Aplazamiento
+            </button>
+            <button onclick="switchTab('retiro')" id="tab-retiro"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 shadow-md module-locked"
+                disabled>
+                Retiro Voluntario
+            </button>
+            <button onclick="switchTab('reintegro')" id="tab-reintegro"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 shadow-md module-locked"
+                disabled>
+                Reintegro
+            </button>
+            <button onclick="switchTab('evaluacion')" id="tab-evaluacion"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 shadow-md module-locked"
+                disabled>
+                <i class="fas fa-clipboard-check"></i> Evaluación
+            </button>
+            <button onclick="switchTab('dashboard')" id="tab-dashboard"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 shadow-md module-locked"
+                disabled>
+                <i class="fas fa-chart-pie"></i> Dashboard
+            </button>
+        </nav>
+
+        <!-- PESTAÑA: REGISTRO -->
+        <section id="pane-registro" class="tab-pane block">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 max-w-3xl mx-auto shadow-2xl">
+                <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-800">
+                    <div
+                        class="w-10 h-10 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-center text-indigo-400">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-100">Registro del Aprendiz</h2>
+                        <p class="text-xs text-slate-400">Diligencia tus datos para iniciar el recorrido formativo.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Nombre
+                            Completo *</label>
+                        <input type="text" id="reg-nombre" required placeholder="Ej: Carlos Mario Mejia"
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm font-semibold text-slate-100 outline-none" />
+                    </div>
+                    <div>
+                        <label
+                            class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Documento
+                            de Identidad *</label>
+                        <input type="text" id="reg-doc" required placeholder="Ej: 123456789"
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm font-semibold text-slate-100 outline-none" />
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Número
+                            de Ficha *</label>
+                        <input type="text" id="reg-ficha" required placeholder="Ej: 3456217"
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm font-semibold text-slate-100 outline-none" />
+                    </div>
+                    <div>
+                        <label
+                            class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Programa
+                            de Formación *</label>
+                        <select id="reg-programa" required
+                            class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm font-semibold text-slate-100 outline-none">
+                            <option value="" disabled selected>Seleccione un programa...</option>
+                            <option value="Técnico en Talento Humano">Técnico en Talento Humano</option>
+                            <option value="Técnico en Asistencia a la Función Pública">Técnico en Asistencia a la
+                                Función Pública</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Centro
+                            de Formación</label>
+                        <input type="text" id="reg-centro" value="Gestión Administrativa" readonly
+                            class="w-full px-3.5 py-2.5 bg-slate-950/60 border border-slate-800 rounded-xl text-sm font-semibold text-slate-400 outline-none" />
+                    </div>
+                    <div>
+                        <label
+                            class="block text-xs font-semibold text-slate-300 uppercase tracking-tight mb-1.5">Regional</label>
+                        <input type="text" id="reg-regional" value="Distrito Capital" readonly
+                            class="w-full px-3.5 py-2.5 bg-slate-950/60 border border-slate-800 rounded-xl text-sm font-semibold text-slate-400 outline-none" />
+                    </div>
+                </div>
+
+                <div
+                    class="bg-slate-950 mt-6 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed">
+                    <p class="font-bold text-slate-200 mb-1.5 flex items-center gap-1.5">
+                        <i class="fas fa-circle-info text-indigo-400"></i> ¿Qué son las Novedades del Aprendiz?
+                    </p>
+                    <p>
+                        Son trámites académicos y administrativos que el aprendiz puede gestionar ante la Entidad
+                        durante su proceso de formación, tales como traslado, aplazamiento, retiro voluntario y
+                        reintegro. Están estipuladas y regidas bajo los lineamientos del Capítulo IV (Artículos 17 y 18)
+                        del Reglamento del Aprendiz SENA.
+                    </p>
+                </div>
+
+                <button onclick="proceedToFirstModule()"
+                    class="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold py-3 rounded-xl transition flex items-center justify-center gap-2 shadow-lg">
+                    Confirmar e Iniciar Fase 1 <i class="fas fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- PESTAÑA: PRESENTACIÓN -->
+        <section id="pane-presentacion" class="tab-pane hidden">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 max-w-5xl mx-auto shadow-2xl mb-6">
+                <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-4">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-center text-indigo-400 shrink-0">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-100">Presentaciòn: Novedades SENA</h2>
+                            <p class="text-xs text-slate-400">Consulta el documento oficial y orientaciones de novedades
+                                formativas.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <a href="NOVEDADES.pdf" target="_blank"
+                            class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs px-3.5 py-2 rounded-xl transition flex items-center gap-2 shadow-sm">
+                            <i class="fas fa-external-link-alt text-indigo-400"></i>
+                            <span>Abrir en nueva Pestaña</span>
+                        </a>
+                        <a href="NOVEDADES.pdf" download="NOVEDADES.pdf"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs px-3.5 py-2 rounded-xl transition flex items-center gap-2 shadow-md">
+                            <i class="fas fa-download"></i>
+                            <span>Descargar PDF</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Visor PDF embebido -->
+                <div class="w-full bg-slate-950 rounded-xl border border-slate-800 overflow-hidden shadow-inner mb-6"
+                    style="height: 750px;">
+                    <iframe src="NOVEDADES.pdf#toolbar=1&navpanes=0" class="w-full h-full border-0"
+                        title="Presentaciòn Novedades PDF">
+                        <div class="p-8 text-center text-slate-300">
+                            <p class="mb-4">Tu navegador no permite la visualización integrada del documento PDF.</p>
+                            <a href="NOVEDADES.pdf" target="_blank"
+                                class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-semibold text-xs shadow-md">
+                                <i class="fas fa-external-link-alt"></i> Abrir documento PDF
+                            </a>
+                        </div>
+                    </iframe>
+                </div>
+
+                <!-- Boton Guardar y Avanzar al final de la presentacion -->
+                <div class="flex justify-between items-center mt-6 pt-4 border-t border-slate-800">
+                    <button onclick="switchTab('registro')"
+                        class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl transition flex items-center gap-2">
+                        <i class="fas fa-arrow-left text-xs"></i> <span>Volver a Registro</span>
+                    </button>
+                    <button onclick="avanzarDesdePresentacion()"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-6 py-3 rounded-xl shadow-lg flex items-center gap-2 transition">
+                        <span>Guardar y Avanzar</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA: TRASLADO -->
+        <section id="pane-traslado" class="tab-pane hidden">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+                <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-indigo-400">Trámite de Novedad: Traslado</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Analiza la información normativa y resuelve los
+                            ejercicios interactivos.</p>
+                    </div>
+                    <span
+                        class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Ponderación:
+                        20 Pts</span>
+                </div>
+
+                <!-- Info Block -->
+                <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm mb-6">
+                    <p class="text-sm text-slate-300 leading-relaxed text-justify">
+                        <strong>Traslado:</strong> Es la solicitud formal que hace el aprendiz para continuar su proceso
+                        de formación en programas de la misma red tecnológica, en otro Centro, diferente jornada o
+                        cambiar de modalidad presencial a virtual (o viceversa).
+                        La coordinación académica analiza su viabilidad. <br><br>
+                        <strong>Condiciones:</strong> El grupo destino debe corresponder al mismo programa o red. Haber
+                        cursado mínimo el primer trimestre, sin sanciones vigentes y con disponibilidad de cupo. <strong
+                            class="text-indigo-300">Solo se puede solicitar un (1) traslado.</strong>
+                    </p>
+                </div>
+
+                <!-- Questions -->
+                <div class="space-y-5">
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">1. ¿Cuántos traslados puede solicitar el
+                            aprendiz durante su formación?</p>
+                        <select id="t-q1" class="text-sm">
+                            <option value="">Seleccione...</option>
+                            <option value="1">Solo un traslado en todo el proceso</option>
+                            <option value="2">Uno por trimestre</option>
+                        </select>
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">2. El aprendiz debe haber cursado como mínimo:
+                        </p>
+                        <div class="grid grid-cols-1 gap-2.5">
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-900 rounded-xl">
+                                <input type="radio" name="t-q2" value="A" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300">El primer trimestre de su formación.</span>
+                            </label>
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-900 rounded-xl">
+                                <input type="radio" name="t-q2" value="B" class="mt-0.5 accent-indigo-500" />
+                                <span class="text-xs text-slate-300">El 50% del programa.</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">3. Tarjeta Interactiva: Haz clic en la tarjeta
+                            que <strong>NO</strong> es un requisito válido para traslado.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="flip-card" onclick="flipSelect('t-q3', 'A', this)">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h4 class="font-bold text-white text-sm">Opción A</h4>
+                                    </div>
+                                    <div class="flip-card-back flex items-center justify-center">No tener sanciones
+                                        académicas ni disciplinarias vigentes.</div>
+                                </div>
+                            </div>
+                            <div class="flip-card" onclick="flipSelect('t-q3', 'B', this)">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h4 class="font-bold text-white text-sm">Opción B</h4>
+                                    </div>
+                                    <div class="flip-card-back flex items-center justify-center">Estar cursando el
+                                        último trimestre de formación.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="t-q3-ans" value="">
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">4. Relaciona: Arrastra el actor a la zona
+                            correcta que analiza inicialmente la viabilidad.</p>
+                        <div class="flex gap-2 mb-3 drag-bank" id="t-q4-bank">
+                            <div class="drag-item px-3 py-2 rounded-lg text-xs text-white" draggable="true"
+                                data-val="coordinacion">Coordinación Académica</div>
+                            <div class="drag-item px-3 py-2 rounded-lg text-xs text-white" draggable="true"
+                                data-val="instructor">Instructor Técnico</div>
+                        </div>
+                        <div class="drop-zone p-3 rounded-lg text-xs text-slate-400" id="t-q4-drop">Arrastra la
+                            respuesta aquí</div>
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">5. Selecciona: El grupo destino debe
+                            corresponder al mismo _______ o red de conocimiento.</p>
+                        <select id="t-q5" class="text-sm">
+                            <option value="">Seleccione...</option>
+                            <option value="modulo">Módulo transversal</option>
+                            <option value="programa">Programa de formación</option>
+                            <option value="centro">Centro de formación</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center mt-7">
+                    <span id="fb-traslado" class="text-xs font-bold text-emerald-400"></span>
+                    <button onclick="checkModule('traslado')"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-6 py-3 rounded-xl shadow-lg">Guardar
+                        y Avanzar <i class="fas fa-arrow-right text-xs"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA: APLAZAMIENTO -->
+        <section id="pane-aplazamiento" class="tab-pane hidden">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+                <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-indigo-400">Trámite de Novedad: Aplazamiento</h2>
+                    </div>
+                    <span
+                        class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Ponderación:
+                        20 Pts</span>
+                </div>
+                <!-- Info -->
+                <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm mb-6">
+                    <p class="text-sm text-slate-300 leading-relaxed text-justify">
+                        Suspensión temporal autorizada por razones excepcionales que impiden asistir por <strong>veinte
+                            (20) o más días continuos</strong>. No se aceptan sin justificación. <br><br>
+                        <strong>Causas válidas:</strong> Incapacidad médica (>= 20 días), Licencias
+                        maternidad/paternidad, Calamidad doméstica, Asuntos judiciales, o Servicio militar. El término
+                        máximo es hasta 3 meses (prorrogables previa evaluación). <br>
+                        <strong class="text-amber-400">Nota:</strong> El aprendiz conserva la condición, pero suspende
+                        los apoyos socioeconómicos y DEBE asistir hasta tener respuesta oficial.
+                    </p>
+                </div>
+                <!-- Questions -->
+                <div class="space-y-5">
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">1. ¿Qué sucede con los apoyos socioeconómicos
+                            durante el aplazamiento?</p>
+                        <select id="a-q1" class="text-sm">
+                            <option value="">Seleccione...</option>
+                            <option value="A">Se suspenden temporalmente</option>
+                            <option value="B">Continúan con normalidad</option>
+                        </select>
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">2. Una incapacidad médica válida para aplazar
+                            debe ser de mínimo:</p>
+                        <select id="a-q2" class="text-sm">
+                            <option value="">Seleccione...</option>
+                            <option value="5">5 días continuos</option>
+                            <option value="10">10 días continuos</option>
+                            <option value="20">20 días continuos</option>
+                        </select>
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">3. Tarjeta Interactiva: ¿El aprendiz puede
+                            dejar de asistir tan pronto radica la solicitud?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="flip-card" onclick="flipSelect('a-q3', 'A', this)">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h4 class="font-bold text-white text-sm">Opción A</h4>
+                                    </div>
+                                    <div class="flip-card-back flex items-center justify-center">Sí, queda excusado de
+                                        inmediato.</div>
+                                </div>
+                            </div>
+                            <div class="flip-card" onclick="flipSelect('a-q3', 'B', this)">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h4 class="font-bold text-white text-sm">Opción B</h4>
+                                    </div>
+                                    <div class="flip-card-back flex items-center justify-center">No, debe asistir hasta
+                                        tener respuesta oficial.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="a-q3-ans" value="">
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">4. Relaciona: Arrastra el tiempo inicial máximo
+                            permitido para un aplazamiento.</p>
+                        <div class="flex gap-2 mb-3 drag-bank" id="a-q4-bank">
+                            <div class="drag-item px-3 py-2 rounded-lg text-xs text-white" draggable="true"
+                                data-val="3meses">Hasta 3 meses</div>
+                            <div class="drag-item px-3 py-2 rounded-lg text-xs text-white" draggable="true"
+                                data-val="1ano">Hasta 1 año</div>
+                        </div>
+                        <div class="drop-zone p-3 rounded-lg text-xs text-slate-400" id="a-q4-drop">Arrastra la
+                            respuesta aquí</div>
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">5. De las siguientes opciones, selecciona la
+                            causal INVÁLIDA.</p>
+                        <div class="grid grid-cols-1 gap-2.5">
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-900 rounded-xl"><input
+                                    type="radio" name="a-q5" value="A" class="mt-0.5 accent-indigo-500" /><span
+                                    class="text-xs text-slate-300">Calamidad doméstica comprobada.</span></label>
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-900 rounded-xl"><input
+                                    type="radio" name="a-q5" value="B" class="mt-0.5 accent-indigo-500" /><span
+                                    class="text-xs text-slate-300">Falta de tiempo por carga laboral extra no vinculada
+                                    al SENA.</span></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mt-7">
+                    <span id="fb-aplazamiento" class="text-xs font-bold text-emerald-400"></span>
+                    <button onclick="checkModule('aplazamiento')"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-6 py-3 rounded-xl shadow-lg">Guardar
+                        y Avanzar <i class="fas fa-arrow-right text-xs"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA: RETIRO VOLUNTARIO -->
+        <section id="pane-retiro" class="tab-pane hidden">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+                <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-indigo-400">Trámite de Novedad: Retiro Voluntario</h2>
+                    </div>
+                    <span
+                        class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Ponderación:
+                        20 Pts</span>
+                </div>
+                <div class="bg-slate-950 p-5 rounded-xl border-l-4 border-indigo-500 shadow-sm mb-6">
+                    <p class="text-sm text-slate-300 leading-relaxed text-justify">
+                        Es la solicitud formal para el retiro definitivo del programa. Será resuelta por el Coordinador
+                        académico, a fin de analizar las causas y agotar posibilidades de permanencia. <br><br>
+                        <strong class="text-rose-400">ATENCIÓN:</strong> La solicitud de retiro que NO cuente con causas
+                        justificables (Incapacidad de 20 días, Licencias, Calamidad, Asuntos judiciales o Servicio
+                        militar) se constituirá en una <strong>falta grave</strong>, por lo tanto, la novedad que se
+                        registre será la de <strong>cancelación de la matrícula</strong>.
+                    </p>
+                </div>
+                <!-- Questions -->
+                <div class="space-y-5">
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">1. Un retiro SIN causa justificada soportada
+                            resulta en:</p>
+                        <select id="r-q1" class="text-sm">
+                            <option value="">Seleccione...</option>
+                            <option value="A">Estado de espera</option>
+                            <option value="B">Falta grave y Cancelación de Matrícula</option>
+                        </select>
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">2. Selecciona: El funcionario encargado de
+                            analizar inicialmente el retiro para intentar retener al aprendiz es el ______ Académico.
+                        </p>
+                        <select id="r-q2" class="text-sm">
+                            <option value="">Seleccione...</option>
+                            <option value="instructor">Instructor</option>
+                            <option value="coordinador">Coordinador</option>
+                            <option value="subdirector">Subdirector</option>
+                        </select>
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">3. Una calamidad doméstica comprobada, ¿es
+                            causa justificada para retiro?</p>
+                        <div class="grid grid-cols-1 gap-2.5">
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-900 rounded-xl"><input
+                                    type="radio" name="r-q3" value="A" class="mt-0.5 accent-indigo-500" /><span
+                                    class="text-xs text-slate-300">Sí, siempre que esté debidamente
+                                    soportada.</span></label>
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-900 rounded-xl"><input
+                                    type="radio" name="r-q3" value="B" class="mt-0.5 accent-indigo-500" /><span
+                                    class="text-xs text-slate-300">No, nunca es válida.</span></label>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">4. Tarjeta Interactiva: Selecciona la tarjeta
+                            que describe una Causa Justificada para retiro voluntario.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="flip-card" onclick="flipSelect('r-q4', 'A', this)">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h4 class="font-bold text-white text-sm">Opción A</h4>
+                                    </div>
+                                    <div class="flip-card-back flex items-center justify-center">Prestación de servicio
+                                        militar obligatorio.</div>
+                                </div>
+                            </div>
+                            <div class="flip-card" onclick="flipSelect('r-q4', 'B', this)">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h4 class="font-bold text-white text-sm">Opción B</h4>
+                                    </div>
+                                    <div class="flip-card-back flex items-center justify-center">Cambio de preferencias
+                                        vocacionales repentinas.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="r-q4-ans" value="">
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">5. Relaciona: Arrastra el tiempo máximo del que
+                            dispone el Centro para registrar la novedad en plataforma tras su aprobación.</p>
+                        <div class="flex gap-2 mb-3 drag-bank" id="r-q5-bank">
+                            <div class="drag-item px-3 py-2 rounded-lg text-xs text-white" draggable="true"
+                                data-val="2dias">2 días hábiles</div>
+                            <div class="drag-item px-3 py-2 rounded-lg text-xs text-white" draggable="true"
+                                data-val="1mes">1 mes</div>
+                        </div>
+                        <div class="drop-zone p-3 rounded-lg text-xs text-slate-400" id="r-q5-drop">Arrastra la
+                            respuesta aquí</div>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mt-7">
+                    <span id="fb-retiro" class="text-xs font-bold text-emerald-400"></span>
+                    <button onclick="checkModule('retiro')"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-6 py-3 rounded-xl shadow-lg">Guardar
+                        y Avanzar <i class="fas fa-arrow-right text-xs"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA: REINTEGRO -->
+        <section id="pane-reintegro" class="tab-pane hidden">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+                <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-indigo-400">Trámite de Novedad: Reintegro</h2>
+                    </div>
+                    <span
+                        class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Ponderación:
+                        20 Pts</span>
+                </div>
+                <div class="bg-slate-950 p-5 rounded-xl border-l-4 border-indigo-500 shadow-sm mb-6">
+                    <p class="text-sm text-slate-300 leading-relaxed text-justify">
+                        Solicitud para que se gestione el retorno al proceso de formación tras un aplazamiento. La
+                        autorización está supeditada a que exista un grupo en estado en ejecución del mismo
+                        programa.<br><br>
+                        <strong>Tiempos críticos:</strong> Debe solicitarse dentro de los <strong>cinco (5) días hábiles
+                            previos</strong> al vencimiento del plazo concedido. De no hacerlo, se entiende como causal
+                        de <strong>deserción</strong>. Si no es posible el reintegro por falta de cupo, el aprendiz
+                        puede mantener la condición de aplazado hasta por 1 año, o solicitar retiro voluntario
+                        justificado (sin sanción).
+                    </p>
+                </div>
+                <!-- Questions -->
+                <div class="space-y-5">
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">1. Selecciona: La solicitud de reintegro debe
+                            radicarse ______ días hábiles previos al vencimiento.</p>
+                        <select id="re-q1" class="text-sm">
+                            <option value="">Seleccione...</option>
+                            <option value="1">1 día hábil previo</option>
+                            <option value="3">3 días hábiles previos</option>
+                            <option value="5">5 días hábiles previos</option>
+                        </select>
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">2. Si no radica el reintegro en el plazo
+                            establecido, la consecuencia es:</p>
+                        <div class="grid grid-cols-1 gap-2.5">
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-900 rounded-xl"><input
+                                    type="radio" name="re-q2" value="A" class="mt-0.5 accent-indigo-500" /><span
+                                    class="text-xs text-slate-300">Amonestación verbal.</span></label>
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-900 rounded-xl"><input
+                                    type="radio" name="re-q2" value="B" class="mt-0.5 accent-indigo-500" /><span
+                                    class="text-xs text-slate-300">Causal directa de deserción.</span></label>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">3. Si solicita retiro justificado por falta de
+                            cupo de reintegro en el SENA:</p>
+                        <select id="re-q3" class="text-sm">
+                            <option value="">Seleccione...</option>
+                            <option value="A">Genera sanción que impide postularse a otro programa.</option>
+                            <option value="B">NO genera sanción y puede postularse nuevamente.</option>
+                        </select>
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">4. Tarjeta Interactiva: Si el SENA no tiene
+                            grupo para el reintegro, ¿hasta cuánto tiempo puede mantener la condición de aplazado?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="flip-card" onclick="flipSelect('re-q4', 'A', this)">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h4 class="font-bold text-white text-sm">Opción A</h4>
+                                    </div>
+                                    <div class="flip-card-back flex items-center justify-center">Hasta por un (1) año.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flip-card" onclick="flipSelect('re-q4', 'B', this)">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h4 class="font-bold text-white text-sm">Opción B</h4>
+                                    </div>
+                                    <div class="flip-card-back flex items-center justify-center">Hasta por tres (3)
+                                        años.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="re-q4-ans" value="">
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">5. Relaciona: Arrastra la palabra que define el
+                            estado requerido del grupo destino para un reintegro exitoso.</p>
+                        <div class="flex gap-2 mb-3 drag-bank" id="re-q5-bank">
+                            <div class="drag-item px-3 py-2 rounded-lg text-xs text-white" draggable="true"
+                                data-val="ejecucion">En Ejecución</div>
+                            <div class="drag-item px-3 py-2 rounded-lg text-xs text-white" draggable="true"
+                                data-val="terminado">Terminado</div>
+                        </div>
+                        <div class="drop-zone p-3 rounded-lg text-xs text-slate-400" id="re-q5-drop">Arrastra la
+                            respuesta aquí</div>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mt-7">
+                    <span id="fb-reintegro" class="text-xs font-bold text-emerald-400"></span>
+                    <button onclick="checkModule('reintegro')"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-6 py-3 rounded-xl shadow-lg">Guardar
+                        y Avanzar <i class="fas fa-arrow-right text-xs"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA: EVALUACION SINTESIS -->
+        <section id="pane-evaluacion" class="tab-pane hidden">
+
+            <!-- EL FORMULARIO DE EVALUACIÓN (SE OCULTARÁ AL GENERAR ACTA) -->
+            <div id="evaluacion-form"
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+                <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-indigo-400">Evaluación Final de Síntesis</h2>
+                    </div>
+                    <span
+                        class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-xs px-3 py-1 rounded-full">Ponderación:
+                        20 Pts</span>
+                </div>
+                <div class="space-y-5">
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">1. Toda solicitud de novedad debe dirigirse
+                            formalmente radicada a:</p>
+                        <select id="e-q1" class="text-sm">
+                            <option value="">Seleccione...</option>
+                            <option value="A">Los instructores técnicos</option>
+                            <option value="B">La Subdirección del Centro de Formación</option>
+                        </select>
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">2. ¿Qué comité analiza y sugiere soluciones
+                            para las novedades radicadas?</p>
+                        <div class="grid grid-cols-1 gap-2.5">
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-900 rounded-xl"><input
+                                    type="radio" name="e-q2" value="A" class="mt-0.5 accent-indigo-500" /><span
+                                    class="text-xs text-slate-300">Comité de Evaluación y Seguimiento.</span></label>
+                            <label class="option-card flex items-start gap-3 p-3.5 bg-slate-900 rounded-xl"><input
+                                    type="radio" name="e-q2" value="B" class="mt-0.5 accent-indigo-500" /><span
+                                    class="text-xs text-slate-300">Comité de Bienestar Institucional.</span></label>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">3. Relaciona: Arrastra el tiempo máximo para
+                            registrar la novedad en el sistema de gestión académica luego de quedar en firme la
+                            decisión.</p>
+                        <div class="flex gap-2 mb-3 drag-bank" id="e-q3-bank">
+                            <div class="drag-item px-3 py-2 rounded-lg text-xs text-white" draggable="true"
+                                data-val="8dias">8 días calendario</div>
+                            <div class="drag-item px-3 py-2 rounded-lg text-xs text-white" draggable="true"
+                                data-val="15dias">15 días hábiles</div>
+                        </div>
+                        <div class="drop-zone p-3 rounded-lg text-xs text-slate-400" id="e-q3-drop">Arrastra la
+                            respuesta aquí</div>
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">4. Tarjeta Interactiva: La anulación de
+                            certificado o reingreso se formaliza mediante:</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="flip-card" onclick="flipSelect('e-q4', 'A', this)">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h4 class="font-bold text-white text-sm">Opción A</h4>
+                                    </div>
+                                    <div class="flip-card-back flex items-center justify-center">Resolución motivada del
+                                        Centro.</div>
+                                </div>
+                            </div>
+                            <div class="flip-card" onclick="flipSelect('e-q4', 'B', this)">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h4 class="font-bold text-white text-sm">Opción B</h4>
+                                    </div>
+                                    <div class="flip-card-back flex items-center justify-center">Acta simple sin firmas
+                                        de subdirección.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="e-q4-ans" value="">
+                    </div>
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 shadow-sm">
+                        <p class="text-sm font-bold text-slate-200 mb-3">5. Relaciona: Arrastra el acuerdo base vigente
+                            del Reglamento del Aprendiz utilizado como fuente normativa.</p>
+                        <div class="flex gap-2 mb-3 drag-bank" id="e-q5-bank">
+                            <div class="drag-item px-3 py-2 rounded-lg text-xs text-white" draggable="true"
+                                data-val="0009">Acuerdo 0009 de 2024</div>
+                            <div class="drag-item px-3 py-2 rounded-lg text-xs text-white" draggable="true"
+                                data-val="119">Ley 119 de 1994</div>
+                        </div>
+                        <div class="drop-zone p-3 rounded-lg text-xs text-slate-400" id="e-q5-drop">Arrastra la
+                            respuesta aquí</div>
+                    </div>
+                </div>
+                <div class="flex justify-end mt-7">
+                    <button onclick="checkModule('evaluacion')"
+                        class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold px-6 py-3 rounded-xl shadow-lg"><i
+                            class="fas fa-file-signature text-xs"></i> Consolidar y Generar Acta</button>
+                </div>
+            </div>
+
+            <!-- CONTENEDOR DEL ACTA (INICIALMENTE OCULTO, APARECE AL EVALUAR) -->
+            <div id="acta-container"
+                class="hidden bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+                <div class="flex flex-wrap items-center justify-between pb-4 mb-5 border-b border-slate-800 gap-4">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-center text-indigo-400 font-bold text-lg">
+                            <i class="fas fa-file-signature"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-lg font-bold text-indigo-400">Acta de Resultados - Novedades SENA</h1>
+                            <p class="text-xs text-slate-400">SENA - Ruta Integral | Fecha: <span
+                                    id="acta-fecha">--</span></p>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="text-sm font-bold text-indigo-400 mb-3">1. Información de Registro del Aprendiz</h2>
+                <table class="w-full text-xs mb-6 text-left border-b border-slate-800 pb-2">
+                    <thead class="text-slate-400 uppercase text-[10px]">
+                        <tr>
+                            <th class="py-1.5">Nombre</th>
+                            <th class="py-1.5">Documento</th>
+                            <th class="py-1.5">Ficha</th>
+                            <th class="py-1.5">Programa</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-slate-200 font-semibold">
+                        <tr>
+                            <td class="py-1.5" id="lbl-nombre">--</td>
+                            <td id="lbl-doc">--</td>
+                            <td id="lbl-ficha">--</td>
+                            <td id="lbl-prog">--</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2 class="text-sm font-bold text-indigo-400 mb-3">2. Resultado de la Evaluación</h2>
+                <table class="w-full text-xs mb-2">
+                    <thead class="bg-slate-950 text-slate-400 uppercase text-[10px]">
+                        <tr>
+                            <th class="text-left py-2 px-2 rounded-tl-lg">Componente</th>
+                            <th class="text-center py-2 px-2">Puntaje</th>
+                            <th class="text-center py-2 px-2">%</th>
+                            <th class="text-center py-2 px-2 rounded-tr-lg">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbl-acta-body"></tbody>
+                    <tfoot>
+                        <tr class="bg-slate-950 font-bold border-t border-slate-800">
+                            <td class="py-3 px-2 text-slate-100 rounded-bl-lg">TOTAL</td>
+                            <td class="py-3 px-2 text-center text-indigo-400 text-sm" id="lbl-total-pts">0 pts</td>
+                            <td class="py-3 px-2 text-center text-indigo-400 text-sm" id="lbl-total-pct">0%</td>
+                            <td class="py-3 px-2 text-center rounded-br-lg"><span id="lbl-badge-final"
+                                    class="px-3 py-1.5 rounded-lg text-xs uppercase tracking-wider shadow-md">Pendiente</span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="mt-8 flex justify-end">
+                    <button onclick="switchTab('dashboard')"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-6 py-3 rounded-xl transition shadow-lg"><i
+                            class="fas fa-chart-pie mr-2"></i> Ver Dashboard Analítico</button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- DASHBOARD (REDISENADO SEGUN LA IMAGEN) -->
+        <section id="pane-dashboard" class="tab-pane hidden">
+            <p class="text-sm text-slate-400 mb-4">Métricas en tiempo real sobre el dominio de Gestión de Novedades.</p>
+
+            <!-- KPIs -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div
+                    class="bg-slate-900/90 rounded-xl border border-slate-700/80 p-5 flex items-center gap-4 shadow-lg">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-indigo-900/50 border border-indigo-800 flex items-center justify-center text-indigo-400 text-xl">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Puntaje Obtenido</p>
+                        <p class="text-2xl font-black text-white"><span id="kpi-puntos">0</span> <span
+                                class="text-sm font-normal text-slate-500">/ 100</span></p>
+                    </div>
+                </div>
+                <div
+                    class="bg-slate-900/90 rounded-xl border border-slate-700/80 p-5 flex items-center gap-4 shadow-lg">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-amber-900/50 border border-amber-800 flex items-center justify-center text-amber-400 text-xl">
+                        <i class="fas fa-stopwatch"></i>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Tiempo Restante</p>
+                        <p class="text-2xl font-black text-white" id="kpi-tiempo">60:00</p>
+                    </div>
+                </div>
+                <div
+                    class="bg-slate-900/90 rounded-xl border border-slate-700/80 p-5 flex items-center gap-4 shadow-lg">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-emerald-900/50 border border-emerald-800 flex items-center justify-center text-emerald-400 text-xl">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Oportunidad Actual</p>
+                        <p class="text-2xl font-black text-white"><span id="kpi-intentos">1</span> <span
+                                class="text-sm font-normal text-slate-500">de 4</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GRÁFICOS (CON CORRECCIÓN DE CRECIMIENTO INFINITO) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <div class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 shadow-2xl">
+                    <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i class="fas fa-chart-bar text-indigo-400"></i> Rendimiento por Dimensión (% Cumplimiento)
+                    </h3>
+                    <div class="relative h-64 w-full">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 shadow-2xl">
+                    <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i class="fas fa-chart-pie text-indigo-400"></i> Distribución de Efectividad Global
+                    </h3>
+                    <div class="relative h-64 w-full">
+                        <canvas id="doughnutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DICTAMEN PEDAGÓGICO -->
+            <div class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 shadow-2xl">
+                <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <i class="fas fa-clipboard-list text-indigo-400"></i> Conclusión y Dictamen Diagnóstico de
+                    Aprendizaje
+                </h3>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                    <p id="dashboard-dictamen" class="text-sm text-slate-400 italic">
+                        Sin datos suficientes. Diligencia las fases de Traslado, Aplazamiento, Retiro Voluntario,
+                        Reintegro y consolida la evaluación para emitir el dictamen formativo.
+                    </p>
+                </div>
+
+                <div class="mt-6 flex justify-end">
+                    <button onclick="printEvidence()"
+                        class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold px-6 py-2.5 rounded-xl shadow-lg transition flex items-center gap-2">
+                        <i class="fas fa-print"></i> Imprimir Acta de Resultados
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ÁREA DE IMPRESIÓN OFICIAL -->
+    <div id="print-area" class="hidden print:block">
+        <h1 style="font-size:24px; font-weight:bold; border-bottom: 2px solid #000; padding-bottom: 10px;">Acta de
+            Evaluación - Novedades SENA</h1>
+        <p style="margin-top: 10px;"><strong>Fecha:</strong> <span id="print-fecha"></span></p>
+        <div class="print-box">
+            <h2 style="font-size: 16px; margin-bottom: 10px; text-decoration: underline;">Datos del Aprendiz</h2>
+            <table>
+                <tr>
+                    <td><strong>Nombre:</strong></td>
+                    <td id="print-nombre">-</td>
+                    <td><strong>Documento:</strong></td>
+                    <td id="print-doc">-</td>
+                </tr>
+                <tr>
+                    <td><strong>Ficha:</strong></td>
+                    <td id="print-ficha">-</td>
+                    <td><strong>Programa:</strong></td>
+                    <td id="print-prog">-</td>
+                </tr>
+            </table>
+        </div>
+        <div class="print-box">
+            <h2 style="font-size: 16px; margin-bottom: 10px; text-decoration: underline;">Resultados Detallados</h2>
+            <table>
+                <thead style="background: #eee;">
+                    <tr>
+                        <th>Módulo de Novedad</th>
+                        <th>Puntaje</th>
+                    </tr>
+                </thead>
+                <tbody id="print-tbody"></tbody>
+                <tfoot style="font-weight:bold; background: #eee;">
+                    <tr>
+                        <td>PUNTAJE TOTAL</td>
+                        <td id="print-total"></td>
+                    </tr>
+                    <tr>
+                        <td>DICTAMEN FINAL (Min. 90%)</td>
+                        <td id="print-dictamen"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div id="custom-modal"
+        class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4 no-print">
+        <div
+            class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-sm w-full shadow-2xl transform transition-all">
+            <h3 id="modal-title" class="text-base font-bold text-indigo-400 mb-2"></h3>
+            <p id="modal-message" class="text-sm text-slate-300 leading-relaxed mb-5"></p>
+            <div id="modal-actions" class="flex justify-end gap-2">
+                <button onclick="closeModal()"
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition shadow-md">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const MODULES = [
+            { id: 'traslado', title: 'Traslado', answers: ['1', 'A', 'A', 'coordinacion', 'programa'] },
+            { id: 'aplazamiento', title: 'Aplazamiento', answers: ['A', '20', 'B', '3meses', 'B'] },
+            { id: 'retiro', title: 'Retiro Voluntario', answers: ['B', 'coordinador', 'A', 'A', '2dias'] },
+            { id: 'reintegro', title: 'Reintegro', answers: ['5', 'B', 'B', 'A', 'ejecucion'] },
+            { id: 'evaluacion', title: 'Evaluación de Síntesis', answers: ['B', 'A', '8dias', 'A', '0009'] }
+        ];
+
+        let scores = { traslado: 0, aplazamiento: 0, retiro: 0, reintegro: 0, evaluacion: 0, total: 0 };
+        let draggedItems = {};
+        let attemptsLeft = 4;
+        let learnerData = null;
+
+        function showModal(title, msg) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-message').innerText = msg;
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+        function closeModal() { document.getElementById('custom-modal').classList.add('hidden'); }
+
+        // Drag & Drop Setup (Corregido para 1 solo item por zona)
+        document.querySelectorAll('.drag-item').forEach(el => {
+            el.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('text', el.dataset.val);
+                el.classList.add('dragging');
+            });
+            el.addEventListener('dragend', () => el.classList.remove('dragging'));
+        });
+
+        document.querySelectorAll('.drop-zone').forEach(zone => {
+            zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+            zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+            zone.addEventListener('drop', e => {
+                e.preventDefault();
+                zone.classList.remove('drag-over');
+                const val = e.dataTransfer.getData('text');
+                const item = document.querySelector(`.drag-item[data-val="${val}"]`);
+                if (item) {
+                    // Si ya hay un item en la zona, regresarlo a su contenedor (bank) original
+                    const existing = zone.querySelector('.drag-item');
+                    if (existing) {
+                        const bankId = zone.id.replace('-drop', '-bank');
+                        const bank = document.getElementById(bankId);
+                        if (bank) bank.appendChild(existing);
+                    }
+                    // Limpiar y colocar el nuevo
+                    zone.innerHTML = '';
+                    zone.appendChild(item);
+                    draggedItems[zone.id] = val;
+                }
+            });
+        });
+
+        // Permitir regresar items al banco de opciones
+        document.querySelectorAll('.drag-bank').forEach(bank => {
+            bank.addEventListener('dragover', e => { e.preventDefault(); });
+            bank.addEventListener('drop', e => {
+                e.preventDefault();
+                const val = e.dataTransfer.getData('text');
+                const item = document.querySelector(`.drag-item[data-val="${val}"]`);
+                if (item) { bank.appendChild(item); }
+            });
+        });
+
+        // Flip Cards (Corregido comportamiento interactivo)
+        function flipSelect(id, val, el) {
+            document.getElementById(id + '-ans').value = val;
+            // Remover flip de las otras tarjetas en el mismo grupo y atenuarlas
+            el.parentElement.querySelectorAll('.flip-card').forEach(c => {
+                if (c !== el) {
+                    c.classList.remove('flipped');
+                    c.style.opacity = '0.5';
+                }
+            });
+            // Aplicar flip a la seleccionada
+            el.style.opacity = '1';
+            el.classList.add('flipped');
+        }
+
+        // Navegación
+        function switchTab(tabId) {
+            if (!learnerData && tabId !== 'registro' && tabId !== 'presentacion') return showModal('Registro Requerido', 'Por favor, diligencia tus datos iniciales primero.');
+            document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            const targetPane = document.getElementById(`pane-${tabId}`);
+            if (targetPane) targetPane.classList.remove('hidden');
+            const btn = document.getElementById(`tab-${tabId}`);
+            if (btn) btn.classList.add('active');
+        }
+
+        function avanzarDesdePresentacion() {
+            const n = document.getElementById('reg-nombre') ? document.getElementById('reg-nombre').value.trim() : '';
+            const d = document.getElementById('reg-doc') ? document.getElementById('reg-doc').value.trim() : '';
+            const f = document.getElementById('reg-ficha') ? document.getElementById('reg-ficha').value.trim() : '';
+            const p = document.getElementById('reg-programa') ? document.getElementById('reg-programa').value : '';
+
+            if (n && d && f && p) {
+                learnerData = { nombre: n, doc: d, ficha: f, prog: p };
+            }
+
+            const tabTraslado = document.getElementById('tab-traslado');
+            if (tabTraslado) {
+                tabTraslado.classList.remove('module-locked');
+                tabTraslado.disabled = false;
+            }
+
+            if (learnerData) {
+                switchTab('traslado');
+            } else {
+                showModal('Registro Inicial Requerido', 'Por favor completa tus datos en la pestaña de Registro para continuar.');
+                switchTab('registro');
+            }
+        }
+
+        function proceedToFirstModule() {
+            const n = document.getElementById('reg-nombre').value;
+            const d = document.getElementById('reg-doc').value;
+            const f = document.getElementById('reg-ficha').value;
+            const p = document.getElementById('reg-programa').value;
+            if (!n || !d || !f || !p) return showModal('Campos Incompletos', 'Asegúrate de llenar Nombre, Documento, Ficha y Programa.');
+            learnerData = { nombre: n, doc: d, ficha: f, prog: p };
+            document.getElementById('tab-traslado').classList.remove('module-locked');
+            document.getElementById('tab-traslado').disabled = false;
+            switchTab('traslado');
+        }
+
+        function getAns(id, type) {
+            if (type === 'sel') return document.getElementById(id).value;
+            if (type === 'rad') return document.querySelector(`input[name="${id}"]:checked`)?.value || '';
+            if (type === 'hid') return document.getElementById(id).value;
+            if (type === 'drp') {
+                // Verificar si el elemento sigue dentro del drop-zone
+                const zone = document.getElementById(id);
+                const item = zone.querySelector('.drag-item');
+                return item ? item.dataset.val : '';
+            }
+            return '';
+        }
+
+        function checkModule(modId) {
+            const mod = MODULES.find(m => m.id === modId);
+            let uAns = [];
+
+            if (modId === 'traslado') uAns = [getAns('t-q1', 'sel'), getAns('t-q2', 'rad'), getAns('t-q3-ans', 'hid'), getAns('t-q4-drop', 'drp'), getAns('t-q5', 'sel')];
+            if (modId === 'aplazamiento') uAns = [getAns('a-q1', 'sel'), getAns('a-q2', 'sel'), getAns('a-q3-ans', 'hid'), getAns('a-q4-drop', 'drp'), getAns('a-q5', 'rad')];
+            if (modId === 'retiro') uAns = [getAns('r-q1', 'sel'), getAns('r-q2', 'sel'), getAns('r-q3', 'rad'), getAns('r-q4-ans', 'hid'), getAns('r-q5-drop', 'drp')];
+            if (modId === 'reintegro') uAns = [getAns('re-q1', 'sel'), getAns('re-q2', 'rad'), getAns('re-q3', 'sel'), getAns('re-q4-ans', 'hid'), getAns('re-q5-drop', 'drp')];
+            if (modId === 'evaluacion') uAns = [getAns('e-q1', 'sel'), getAns('e-q2', 'rad'), getAns('e-q3-drop', 'drp'), getAns('e-q4-ans', 'hid'), getAns('e-q5-drop', 'drp')];
+
+            if (uAns.includes('')) return showModal('Respuestas Incompletas', 'Por favor, responde las 5 preguntas antes de avanzar.');
+
+            let pts = 0;
+            uAns.forEach((ans, i) => { if (ans === mod.answers[i]) pts += 4; });
+            scores[modId] = pts;
+
+            if (modId === 'evaluacion') {
+                renderActa();
+                document.getElementById('evaluacion-form').classList.add('hidden');
+                document.getElementById('acta-container').classList.remove('hidden');
+                document.getElementById('tab-dashboard').classList.remove('module-locked');
+                document.getElementById('tab-dashboard').disabled = false;
+                renderDashboard();
+            } else {
+                showModal('Éxito', `Respuestas guardadas. Obtuviste ${pts} de 20 puntos en esta sección.`);
+                const idx = MODULES.findIndex(m => m.id === modId);
+                const nxt = MODULES[idx + 1].id;
+                document.getElementById(`tab-${nxt}`).classList.remove('module-locked');
+                document.getElementById(`tab-${nxt}`).disabled = false;
+                switchTab(nxt);
+            }
+        }
+
+        function renderActa() {
+            scores.total = Object.values(scores).reduce((a, b) => a + b, 0) - (scores.total || 0); // Sumar solo modulos
+
+            document.getElementById('lbl-nombre').innerText = learnerData.nombre;
+            document.getElementById('lbl-doc').innerText = learnerData.doc;
+            document.getElementById('lbl-ficha').innerText = learnerData.ficha;
+            document.getElementById('lbl-prog').innerText = learnerData.prog;
+            document.getElementById('acta-fecha').innerText = new Date().toLocaleString('es-CO');
+
+            let tbody = '';
+            MODULES.forEach(m => {
+                const pts = scores[m.id];
+                const pct = (pts / 20) * 100;
+                const css = pts >= 18 ? 'bg-emerald-950/70 text-emerald-400 border-emerald-800' : 'bg-rose-950/70 text-rose-400 border-rose-800';
+                const txt = pts >= 18 ? 'Aprobado' : 'Reforzar';
+                tbody += `<tr class="border-b border-slate-800"><td class="py-2 px-2 text-slate-200">${m.title}</td><td class="py-2 px-2 text-center font-bold">${pts}/20</td><td class="py-2 px-2 text-center">${pct}%</td><td class="py-2 px-2 text-center"><span class="px-2 py-1 rounded-md border text-[10px] font-bold ${css}">${txt}</span></td></tr>`;
+            });
+            document.getElementById('tbl-acta-body').innerHTML = tbody;
+
+            document.getElementById('lbl-total-pts').innerText = `${scores.total} pts`;
+            document.getElementById('lbl-total-pct').innerText = `${scores.total}%`;
+
+            const badge = document.getElementById('lbl-badge-final');
+            if (scores.total >= 90) {
+                badge.className = 'px-3 py-1.5 rounded-lg text-xs uppercase tracking-wider font-bold bg-emerald-600 text-white shadow-lg border border-emerald-500';
+                badge.innerText = 'APROBADO';
+            } else {
+                badge.className = 'px-3 py-1.5 rounded-lg text-xs uppercase tracking-wider font-bold bg-rose-600 text-white shadow-lg border border-rose-500';
+                badge.innerText = 'NO APROBADO';
+            }
+        }
+
+        let chart1, chart2;
+        function renderDashboard() {
+            document.getElementById('kpi-puntos').innerText = scores.total;
+
+            // Sincronizar tiempo restante del timer global
+            document.getElementById('kpi-tiempo').innerText = document.getElementById('global-timer').innerText;
+
+            // Oportunidad actual (Si quedan 4 intentos, es el intento 1)
+            const currentAttempt = 5 - attemptsLeft;
+            document.getElementById('kpi-intentos').innerText = currentAttempt;
+
+            const dictamen = document.getElementById('dashboard-dictamen');
+            if (scores.total >= 90) {
+                dictamen.innerHTML = `<span class="text-emerald-400 font-bold not-italic">¡Excelente resultado!</span><span class="not-italic text-slate-300"> Con ${scores.total}/100 puntos, demuestras una sólida apropiación del Reglamento del Aprendiz (Art. 17 y 18). Conoces perfectamente las condiciones para realizar traslados, aplazamientos, retiros y reintegros, cumpliendo con el umbral aprobatorio del 90%.</span>`;
+            } else {
+                dictamen.innerHTML = `<span class="text-rose-400 font-bold not-italic">Requiere refuerzo.</span><span class="not-italic text-slate-300"> Obtuviste ${scores.total}/100 puntos, lo cual está por debajo del 90% requerido. Te sugerimos repasar cuidadosamente las causales justificadas de retiro y los tiempos límites de reintegro estipulados en el Acuerdo 0009 de 2024.</span>`;
+            }
+
+            const dataPts = MODULES.map(m => scores[m.id]);
+            if (chart1) chart1.destroy();
+            chart1 = new Chart(document.getElementById('barChart'), {
+                type: 'bar', data: { labels: ['Traslado', 'Aplaz.', 'Retiro', 'Reint.', 'Eval.'], datasets: [{ label: '% Cumplimiento', data: dataPts.map(p => (p / 20) * 100), backgroundColor: '#4f46e5', borderRadius: 4 }] },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 100, grid: { color: '#1e293b' }, ticks: { callback: function (value) { return value + "%" } } }, x: { grid: { display: false } } }, plugins: { legend: { display: false } }, color: '#cbd5e1' }
+            });
+
+            if (chart2) chart2.destroy();
+            chart2 = new Chart(document.getElementById('doughnutChart'), {
+                type: 'doughnut', data: { labels: ['Puntos Obtenidos', 'Puntos Restantes'], datasets: [{ data: [scores.total, 100 - scores.total], backgroundColor: ['#4f46e5', '#1e293b'], borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#cbd5e1' } } } }
+            });
+        }
+
+        function printEvidence() {
+            if (!learnerData || scores.total === 0) return showModal('Acciòn no permitida', 'Debes finalizar la Evaluaciòn de Sintesis y Generar el Acta primero');
+            document.getElementById('print-fecha').innerText = new Date().toLocaleString('es-CO');
+            document.getElementById('print-nombre').innerText = learnerData.nombre;
+            document.getElementById('print-doc').innerText = learnerData.doc;
+            document.getElementById('print-ficha').innerText = learnerData.ficha;
+            document.getElementById('print-prog').innerText = learnerData.prog;
+
+            let html = '';
+            MODULES.forEach(m => html += `<tr><td style="padding:10px;">${m.title}</td><td style="text-align:center; font-weight:bold;">${scores[m.id]} / 20</td></tr>`);
+            document.getElementById('print-tbody').innerHTML = html;
+            document.getElementById('print-total').innerText = `${scores.total} / 100`;
+            document.getElementById('print-dictamen').innerText = scores.total >= 90 ? 'APROBADO (Cumple con el 90% mÃ­nimo)' : 'NO APROBADO (Requiere plan de mejora)';
+
+            const originalTitle = document.title;
+            const docNum = (learnerData && learnerData.doc) ? String(learnerData.doc).trim().replace(/\s+/g, '') : (document.getElementById('reg-doc')?.value.trim() || 'DOCUMENTO');
+            document.title = `${docNum}-NAS`;
+
+            const restoreTitle = () => {
+                document.title = originalTitle;
+                window.removeEventListener('afterprint', restoreTitle);
+            };
+            window.addEventListener('afterprint', restoreTitle);
+
+            setTimeout(() => {
+                window.print();
+                setTimeout(restoreTitle, 2000);
+            }, 300);
+        }
+
+        function confirmReset() {
+            if (attemptsLeft <= 0) return showModal('Intentos agotados', 'Has consumido tus 4 intentos.');
+            attemptsLeft--;
+            document.getElementById('attempts-left').innerText = attemptsLeft;
+            scores = { traslado: 0, aplazamiento: 0, retiro: 0, reintegro: 0, evaluacion: 0, total: 0 };
+
+            // Limpiar UI
+            document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+            document.querySelectorAll('select').forEach(i => i.value = '');
+            document.querySelectorAll('.flip-card').forEach(c => { c.classList.remove('flipped'); c.style.opacity = '1' });
+            document.getElementById('global-score').innerText = 0;
+            document.getElementById('evaluacion-form').classList.remove('hidden');
+            document.getElementById('acta-container').classList.add('hidden');
+
+            // Regresar elementos drag and drop a sus bancos
+            document.querySelectorAll('.drop-zone').forEach(zone => {
+                const item = zone.querySelector('.drag-item');
+                if (item) {
+                    const bank = document.getElementById(zone.id.replace('-drop', '-bank'));
+                    if (bank) bank.appendChild(item);
+                }
+            });
+
+            switchTab('traslado');
+            showModal('Intento Reiniciado', `Las respuestas se han borrado. Te quedan ${attemptsLeft} intentos.`);
+        }
+
+        // Reloj Global
+        let t = 3600;
+        setInterval(() => {
+            if (t > 0) {
+                t--;
+                document.getElementById('global-timer').innerText = `${String(Math.floor(t / 60)).padStart(2, '0')}:${String(t % 60).padStart(2, '0')}`;
+            }
+        }, 1000);
+    </script>
+</body>
+
+</html>
