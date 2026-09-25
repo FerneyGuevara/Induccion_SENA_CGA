@@ -127,6 +127,35 @@
                 border: 1px solid #cbd5e1 !important;
                 padding: 6px 10px !important;
             }
+
+            #print-area .print-img-grid {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 8px !important;
+            }
+
+            #print-area .print-img-card {
+                border: 1px solid #cbd5e1 !important;
+                border-radius: 6px !important;
+                padding: 4px !important;
+                text-align: center !important;
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+
+            #print-area .print-img-card img {
+                width: 100% !important;
+                height: 70px !important;
+                object-fit: contain !important;
+                display: block !important;
+                margin: 0 auto 4px auto !important;
+            }
+
+            #print-area .print-img-card span {
+                font-size: 8px !important;
+                line-height: 1.2 !important;
+                display: block !important;
+            }
         }
     </style>
 </head>
@@ -173,7 +202,7 @@
             </span>
             <h2 class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">Plataformas Virtuales
                 Institucionales - SENA</h2>
-            <p class="text-xs text-slate-400 mt-0.5">Sofia Plus &bull; Blog CGA &bull; SoySena &bull; 9 evidencias
+            <p class="text-xs text-slate-400 mt-0.5">sofiaPlus &bull; BlogSENA &bull; SoySENA &bull; 9 evidencias
                 requeridas &bull; Aprobaciòn minima: 90% de archivos cargados</p>
         </div>
 
@@ -488,7 +517,7 @@
                     <!-- Imagen sofia2 debajo del titulo -->
                     <div
                         class="mb-4 overflow-hidden rounded-xl border border-slate-700/80 bg-slate-950/60 p-2 text-center">
-                        <img src="sofia2.png" alt="Sofia Plus - Descargar certificado de matrÃ­cula"
+                        <img src="sofia2.png" alt="Sofia Plus - Descargar certificado de Matricula"
                             class="max-h-56 w-auto mx-auto rounded-lg object-contain transition-transform duration-300 hover:scale-[1.01]" />
                     </div>
 
@@ -603,7 +632,7 @@
                     <!-- Imagen sofia4 debajo del titulo -->
                     <div
                         class="mb-4 overflow-hidden rounded-xl border border-slate-700/80 bg-slate-950/60 p-2 text-center">
-                        <img src="sofia4.png" alt="Sofia Plus - Modificar informaciÃ³n personal"
+                        <img src="sofia4.png" alt="Sofia Plus - Modificar información personal"
                             class="max-h-56 w-auto mx-auto rounded-lg object-contain transition-transform duration-300 hover:scale-[1.01]" />
                     </div>
 
@@ -613,7 +642,7 @@
                         <span
                             class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
                                 class="fas fa-image text-[10px]"></i> Ejemplo de referencia</span>
-                        <img src="ejemplo4.png" alt="Ejemplo Sofia Plus - informaciÃ³n personal"
+                        <img src="ejemplo4.png" alt="Ejemplo Sofia Plus - Información personal"
                             class="w-full rounded-xl border border-slate-800" />
                     </div>
                     <div>
@@ -688,7 +717,7 @@
                     <!-- Imagen blog1 debajo del titulo -->
                     <div
                         class="mb-4 overflow-hidden rounded-xl border border-slate-700/80 bg-slate-950/60 p-2 text-center">
-                        <img src="blog1.png" alt="Blog CGA - InformaciÃ³n general de la CoordinaciÃ³n"
+                        <img src="blog1.png" alt="Blog CGA - Información general de la Coordinación"
                             class="max-h-56 w-auto mx-auto rounded-lg object-contain transition-transform duration-300 hover:scale-[1.01]" />
                     </div>
 
@@ -698,7 +727,7 @@
                         <span
                             class="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5 mb-2"><i
                                 class="fas fa-image text-[10px]"></i> Ejemplo de referencia</span>
-                        <img src="ejemplo5.png" alt="Ejemplo Blog CGA - informaciÃ³n general"
+                        <img src="ejemplo5.png" alt="Ejemplo Blog CGA - Información general"
                             class="w-full rounded-xl border border-slate-800" />
                     </div>
                     <div>
@@ -1083,7 +1112,7 @@
                     class="bg-slate-900/90 rounded-2xl border border-slate-700/80 p-5 shadow-xl mb-6">
                     <p class="text-amber-400 font-bold mb-1"><i class="fas fa-triangle-exclamation mr-1"></i> Sin
                         evidencias cargadas</p>
-                    <p class="text-sm text-slate-300">Ve a las pesta&ntilde;as Sofia Plus, Blog SENA y SoySena para
+                    <p class="text-sm text-slate-300">Ve a las pesta&ntilde;as sofiaPlus, BlogSENA y SoySENA para
                         cargar
                         tus 9 evidencias. La actividad se aprueba con un 90% de archivos cargados.</p>
                 </div>
@@ -1103,7 +1132,7 @@
     <!-- FOOTER -->
     <footer class="border-t border-slate-800 bg-slate-950 py-4 no-print">
         <p class="text-center text-[11px] text-slate-500">Plataformas Virtuales del SENA &middot; Simulador de
-            reconocimiento de Sofia Plus, Blog CGA y SoySena</p>
+            reconocimiento de sofiaPlus, BlogSENA y SoySENA</p>
     </footer>
 
     <!-- ========================================== -->
@@ -1113,7 +1142,7 @@
         <div style="text-align:center; margin-bottom:18px;">
             <h1 style="font-size:20px; font-weight:800; margin:0;">Registro de Evidencias - Plataformas Virtuales del
                 SENA</h1>
-            <p style="font-size:11px; color:#475569; margin-top:4px;">Sofia Plus &bull; Blog CGA &bull; SoySena</p>
+            <p style="font-size:11px; color:#475569; margin-top:4px;">sofiaPlus &bull; BlogSENA &bull; SoySENA</p>
         </div>
 
         <div class="print-box" style="border-radius:10px; padding:14px; margin-bottom:16px;">
@@ -1128,15 +1157,15 @@
                     <td id="print-doc">-</td>
                 </tr>
                 <tr>
-                    <td style="font-weight:600;">NÃºmero de ficha</td>
+                    <td style="font-weight:600;">Numero de ficha</td>
                     <td id="print-ficha">-</td>
                 </tr>
                 <tr>
-                    <td style="font-weight:600;">Programa de formaciÃ³n</td>
+                    <td style="font-weight:600;">Programa de formación</td>
                     <td id="print-programa">-</td>
                 </tr>
                 <tr>
-                    <td style="font-weight:600;">Centro de formaciÃ³n</td>
+                    <td style="font-weight:600;">Centro de formación</td>
                     <td id="print-centro">-</td>
                 </tr>
                 <tr>
@@ -1162,13 +1191,13 @@
                     <td id="print-porcentaje">0%</td>
                 </tr>
                 <tr>
-                    <td style="font-weight:600;">Dictamen (mÃ­nimo 90%)</td>
+                    <td style="font-weight:600;">Resultado (mínimo 90%)</td>
                     <td id="print-dictamen">Pendiente</td>
                 </tr>
             </table>
         </div>
 
-        <div class="print-box" style="border-radius:10px; padding:14px;">
+        <div class="print-box" style="border-radius:10px; padding:14px; margin-bottom:16px;">
             <h2 style="font-size:13px; font-weight:700; margin:0 0 8px 0;">Detalle de Evidencias</h2>
             <table id="print-checklist-table">
                 <tr>
@@ -1178,6 +1207,12 @@
                     <th>Estado</th>
                 </tr>
             </table>
+        </div>
+
+        <div class="print-box" style="border-radius:10px; padding:14px;">
+            <h2 style="font-size:13px; font-weight:700; margin:0 0 8px 0;">Evidencias Fotogr&aacute;ficas - sofiaPlus,
+                BlogSENA y SoySENA</h2>
+            <div id="print-imagenes" class="print-img-grid"></div>
         </div>
     </div>
 
@@ -1223,15 +1258,15 @@
         // CARGA DE EVIDENCIAS
         // ============================================
         const ITEMS = [
-            { id: 'sofia1', plataforma: 'Sofia Plus', label: 'Registrar una novedad' },
-            { id: 'sofia2', plataforma: 'Sofia Plus', label: 'Descargar certificado de matrÃ­cula' },
-            { id: 'sofia3', plataforma: 'Sofia Plus', label: 'Consultar ruta de aprendizaje' },
-            { id: 'sofia4', plataforma: 'Sofia Plus', label: 'Modificar informaciÃ³n personal' },
-            { id: 'blog1', plataforma: 'Blog CGA', label: 'InformaciÃ³n general de la CoordinaciÃ³n' },
-            { id: 'blog2', plataforma: 'Blog CGA', label: 'Datos de los funcionarios de etapa productiva' },
-            { id: 'blog3', plataforma: 'Blog CGA', label: 'Sincronizar el calendario de eventos' },
-            { id: 'blog4', plataforma: 'Blog CGA', label: 'Descargar el formulario de compromiso' },
-            { id: 'soysena1', plataforma: 'SoySena', label: 'Correo institucional' }
+            { id: 'sofia1', plataforma: 'sofiaPlus', label: 'Registrar una novedad' },
+            { id: 'sofia2', plataforma: 'sofiaPlus', label: 'Descargar certificado de Matricula' },
+            { id: 'sofia3', plataforma: 'sofiaPlus', label: 'Consultar ruta de aprendizaje' },
+            { id: 'sofia4', plataforma: 'sofiaPlus', label: 'Modificar información personal' },
+            { id: 'blog1', plataforma: 'BlogSENA', label: 'Información general de la Coordinación' },
+            { id: 'blog2', plataforma: 'BlogSENA', label: 'Datos de los funcionarios de etapa productiva' },
+            { id: 'blog3', plataforma: 'BlogSENA', label: 'Sincronizar el calendario de eventos' },
+            { id: 'blog4', plataforma: 'BlogSENA', label: 'Descargar el formulario de compromiso' },
+            { id: 'soysena1', plataforma: 'SoySENA', label: 'Correo institucional' }
         ];
         const TOTAL_ITEMS = ITEMS.length;
         const MIN_APROBACION = 90;
@@ -1323,21 +1358,21 @@
             const TABS_CONFIG = [
                 {
                     tabId: 'sofiaplus',
-                    name: 'Sofia Plus',
+                    name: 'sofiaPlus',
                     icon: 'fa-graduation-cap',
-                    items: ITEMS.filter(it => it.plataforma === 'Sofia Plus')
+                    items: ITEMS.filter(it => it.plataforma === 'sofiaPlus')
                 },
                 {
                     tabId: 'blogsena',
-                    name: 'Blog SENA',
+                    name: 'BlogSENA',
                     icon: 'fa-blog',
-                    items: ITEMS.filter(it => it.plataforma === 'Blog CGA')
+                    items: ITEMS.filter(it => it.plataforma === 'BlogSENA')
                 },
                 {
                     tabId: 'soysena',
-                    name: 'SoySena',
+                    name: 'SoySENA',
                     icon: 'fa-envelope',
-                    items: ITEMS.filter(it => it.plataforma === 'SoySena')
+                    items: ITEMS.filter(it => it.plataforma === 'SoySENA')
                 }
             ];
 
@@ -1434,7 +1469,7 @@
             if (subidos === 0) {
                 pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-amber-950/70 text-amber-400 flex items-center gap-1.5 border border-amber-800';
                 pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400"></span> Sin evidencias cargadas';
-                conclusionBox.innerHTML = `<p class="text-amber-400 font-bold mb-1"><i class="fas fa-triangle-exclamation mr-1"></i> Sin evidencias cargadas</p><p class="text-sm text-slate-300">Ve a las pesta&ntilde;as Sofia Plus, Blog SENA y SoySena para cargar tus 9 evidencias. La actividad se aprueba con un 90% de archivos cargados.</p>`;
+                conclusionBox.innerHTML = `<p class="text-amber-400 font-bold mb-1"><i class="fas fa-triangle-exclamation mr-1"></i> Sin evidencias cargadas</p><p class="text-sm text-slate-300">Ve a las pesta&ntilde;as sofiaPlus, BlogSENA y SoySENA para cargar tus 9 evidencias. La actividad se aprueba con un 90% de archivos cargados.</p>`;
             } else if (aprobado) {
                 pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-emerald-950/70 text-emerald-400 flex items-center gap-1.5 border border-emerald-800';
                 pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400"></span> Aprobado (&ge;90%)';
@@ -1489,6 +1524,24 @@
                     const done = !!uploadState[it.id];
                     return `<tr><td>${idx + 1}</td><td>${it.plataforma}</td><td>${it.label}</td><td>${done ? 'Subido' : 'Pendiente'}</td></tr>`;
                 }).join('');
+
+            // Imágenes cargadas en sofiaPlus, BlogSENA y SoySENA (tamaño pequeño)
+            const imgContainer = document.getElementById('print-imagenes');
+            const itemsConImagen = ITEMS.filter(it =>
+                (it.plataforma === 'sofiaPlus' || it.plataforma === 'BlogSENA' || it.plataforma === 'SoySENA') && uploadState[it.id]
+            );
+
+            if (itemsConImagen.length === 0) {
+                imgContainer.innerHTML = `<p style="font-size:11px; color:#475569;">No hay im&aacute;genes cargadas en sofiaPlus, BlogSENA ni SoySENA.</p>`;
+            } else {
+                imgContainer.innerHTML = itemsConImagen.map(it => {
+                    const data = uploadState[it.id];
+                    return `<div class="print-img-card">
+                        <img src="${data.dataUrl}" alt="${it.label}">
+                        <span>${it.plataforma}<br>${it.label}</span>
+                    </div>`;
+                }).join('');
+            }
 
             const originalTitle = document.title;
             const docNum = (registeredLearner && registeredLearner.doc) ? registeredLearner.doc : (document.getElementById('reg-doc')?.value.trim() || 'DOCUMENTO');

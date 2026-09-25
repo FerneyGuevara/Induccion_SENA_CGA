@@ -222,6 +222,10 @@
                 class="tab-btn active px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
                 <i class="fas fa-id-card text-xs"></i> Registro
             </button>
+            <button onclick="switchTab('video')" id="tab-video"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-circle-play text-xs"></i> Video
+            </button>
             <button onclick="switchTab('introduccion')" id="tab-introduccion"
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
                 <i class="fas fa-circle-info text-xs"></i> Introducción
@@ -241,10 +245,6 @@
             <button onclick="switchTab('complementariedad')" id="tab-complementariedad"
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
                 <i class="fas fa-layer-group text-xs"></i> Complementariedad
-            </button>
-            <button onclick="switchTab('video')" id="tab-video"
-                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
-                <i class="fas fa-circle-play text-xs"></i> Video
             </button>
             <button onclick="switchTab('infografia')" id="tab-infografia"
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
@@ -340,7 +340,7 @@
                     <p class="text-xs text-slate-400">Ficha técnica operativa y marco normativo de referencia</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
                     <div class="info-card bg-slate-950 p-4 rounded-xl text-center">
                         <i class="fas fa-gavel text-indigo-400 text-lg mb-2"></i>
                         <h3 class="text-xs font-bold text-slate-200 mb-1">Norma Base</h3>
@@ -359,7 +359,12 @@
                     <div class="info-card bg-slate-950 p-4 rounded-xl text-center">
                         <i class="fas fa-building-shield text-indigo-400 text-lg mb-2"></i>
                         <h3 class="text-xs font-bold text-slate-200 mb-1">Ámbito</h3>
-                        <p class="text-xs text-slate-400">Exclusivo sector formal/institucional</p>
+                        <p class="text-xs text-slate-400 text-left">Exclusivo sector formal/institucional</p>
+                    </div>
+                    <div class="info-card bg-slate-950 p-4 rounded-xl text-center">
+                        <i class="fas fa-scale-balanced text-indigo-400 text-lg mb-2"></i>
+                        <h3 class="text-xs font-bold text-slate-200 mb-1">Reforma Laboral</h3>
+                        <p class="text-xs text-slate-400">Ley 2466 de 2025</p>
                     </div>
                 </div>
 
@@ -711,9 +716,9 @@
             </div>
 
             <div class="flex justify-end mb-6">
-                <button onclick="switchTab('video')"
+                <button onclick="switchTab('infografia')"
                     class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
-                    <span>Siguiente: Video</span>
+                    <span>Siguiente: Infografía</span>
                     <i class="fas fa-arrow-right text-xs"></i>
                 </button>
             </div>
@@ -750,9 +755,9 @@
             </div>
 
             <div class="flex justify-end mb-6 max-w-3xl mx-auto">
-                <button onclick="switchTab('infografia')"
+                <button onclick="switchTab('introduccion')"
                     class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
-                    <span>Siguiente: Infografía</span>
+                    <span>Siguiente: Introducción</span>
                     <i class="fas fa-arrow-right text-xs"></i>
                 </button>
             </div>
@@ -1009,269 +1014,272 @@
                             </div>
 
                             <div class="bg-slate-950 p-5 rounded-xl border border-slate-800" id="box-q8">
-                                <p class="text-sm font-semibold text-slate-200 mb-3">8. ¿Qué artículo de la Ley 789
-                                    de 2002 prohíbe la duplicidad o simultaneidad irregular de relaciones de
-                                    aprendizaje?</p>
+                                <p class="text-sm font-semibold text-slate-200 mb-3">8. ¿Quién es el encargado de
+                                    expedir la constancia de cumplimiento a satisfacción cuando el aprendiz elige la
+                                    modalidad de "Participación en Proyectos Productivos" (como SENA Empresa o SENA
+                                    proveedor SENA)?</p>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                                     <label
-                                        class="flex items-center gap-2 bg-slate-900/80 border border-slate-800 rounded-lg px-3 py-2 cursor-pointer">
-                                        <input type="radio" name="q8" value="art15" class="accent-indigo-500" />
-                                        Artículo 15
+                                        class="flex items-start gap-2 bg-slate-900/80 border border-slate-800 rounded-lg px-3 py-2 cursor-pointer">
+                                        <input type="radio" name="q8" value="A" class="mt-0.5 accent-indigo-500" />
+                                        <span>El responsable del proceso del aprendiz en la unidad productiva
+                                            familiar.</span>
                                     </label>
                                     <label
-                                        class="flex items-center gap-2 bg-slate-900/80 border border-slate-800 rounded-lg px-3 py-2 cursor-pointer">
-                                        <input type="radio" name="q8" value="art33" class="accent-indigo-500" />
-                                        Artículo 33
+                                        class="flex items-start gap-2 bg-slate-900/80 border border-slate-800 rounded-lg px-3 py-2 cursor-pointer">
+                                        <input type="radio" name="q8" value="B" class="mt-0.5 accent-indigo-500" />
+                                        <span>El directivo de la institución u ONG facilitadora.</span>
                                     </label>
                                     <label
-                                        class="flex items-center gap-2 bg-slate-900/80 border border-slate-800 rounded-lg px-3 py-2 cursor-pointer">
-                                        <input type="radio" name="q8" value="art7" class="accent-indigo-500" /> Artículo
-                                        7
+                                        class="flex items-start gap-2 bg-slate-900/80 border border-slate-800 rounded-lg px-3 py-2 cursor-pointer">
+                                        <input type="radio" name="q8" value="C" class="mt-0.5 accent-indigo-500" />
+                                        <span>El subdirector de centro respectivo.</span>
                                     </label>
                                     <label
-                                        class="flex items-center gap-2 bg-slate-900/80 border border-slate-800 rounded-lg px-3 py-2 cursor-pointer">
-                                        <input type="radio" name="q8" value="art42" class="accent-indigo-500" />
-                                        Artículo 42
+                                        class="flex items-start gap-2 bg-slate-900/80 border border-slate-800 rounded-lg px-3 py-2 cursor-pointer">
+                                        <input type="radio" name="q8" value="D" class="mt-0.5 accent-indigo-500" />
+                                        <span>La empresa respectiva donde se realiza la práctica.</span>
                                     </label>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- BLOQUE B: LISTAS DESPLEGABLES -->
-                    <div>
-                        <h3 class="text-sm font-bold text-slate-200 mb-1">B. Relaciona la alternativa con el
-                            responsable de la afiliación a ARL/seguridad social (listas desplegables)</h3>
-                        <p class="text-xs text-slate-400 mb-4">Selecciona el responsable correcto para cada
-                            alternativa. (8 pts c/u)</p>
-
-                        <div class="space-y-3">
-                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-wrap items-center justify-between gap-3"
-                                id="box-dd1">
-                                <p class="text-xs text-slate-300 flex-1 min-w-[220px]">Alternativa 1: Contrato de
-                                    aprendizaje (empresas obligadas/voluntarias)</p>
-                                <select id="dd1"
-                                    class="text-xs p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
-                                    <option value="">Seleccione responsable...</option>
-                                    <option value="empresa">Empresa patrocinadora</option>
-                                    <option value="empleador">Empleador</option>
-                                    <option value="gestora">Entidad gestora o coformadora</option>
-                                    <option value="coformadora">Entidad coformadora</option>
-                                    <option value="sena">El SENA</option>
-                                </select>
-                            </div>
-                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-wrap items-center justify-between gap-3"
-                                id="box-dd2">
-                                <p class="text-xs text-slate-300 flex-1 min-w-[220px]">Alternativa 2: Vínculo /
-                                    contrato laboral afines al perfil</p>
-                                <select id="dd2"
-                                    class="text-xs p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
-                                    <option value="">Seleccione responsable...</option>
-                                    <option value="empresa">Empresa patrocinadora</option>
-                                    <option value="empleador">Empleador</option>
-                                    <option value="gestora">Entidad gestora o coformadora</option>
-                                    <option value="coformadora">Entidad coformadora</option>
-                                    <option value="sena">El SENA</option>
-                                </select>
-                            </div>
-                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-wrap items-center justify-between gap-3"
-                                id="box-dd3">
-                                <p class="text-xs text-slate-300 flex-1 min-w-[220px]">Alternativa 3: Proyecto
-                                    productivo I+D+I / Simulación SENA</p>
-                                <select id="dd3"
-                                    class="text-xs p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
-                                    <option value="">Seleccione responsable...</option>
-                                    <option value="empresa">Empresa patrocinadora</option>
-                                    <option value="empleador">Empleador</option>
-                                    <option value="gestora">Entidad gestora o coformadora</option>
-                                    <option value="coformadora">Entidad coformadora</option>
-                                    <option value="sena">El SENA</option>
-                                </select>
-                            </div>
-                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-wrap items-center justify-between gap-3"
-                                id="box-dd4">
-                                <p class="text-xs text-slate-300 flex-1 min-w-[220px]">Alternativa 4: Vínculo
-                                    formativo / Pasantía (Entidades / ONG / S.A.L.)</p>
-                                <select id="dd4"
-                                    class="text-xs p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
-                                    <option value="">Seleccione responsable...</option>
-                                    <option value="empresa">Empresa patrocinadora</option>
-                                    <option value="empleador">Empleador</option>
-                                    <option value="gestora">Entidad gestora o coformadora</option>
-                                    <option value="coformadora">Entidad coformadora</option>
-                                    <option value="sena">El SENA</option>
-                                </select>
-                            </div>
-                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-wrap items-center justify-between gap-3"
-                                id="box-dd5">
-                                <p class="text-xs text-slate-300 flex-1 min-w-[220px]">Alternativa 5: Monitoría
-                                    institucional (Centros SENA)</p>
-                                <select id="dd5"
-                                    class="text-xs p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
-                                    <option value="">Seleccione responsable...</option>
-                                    <option value="empresa">Empresa patrocinadora</option>
-                                    <option value="empleador">Empleador</option>
-                                    <option value="gestora">Entidad gestora o coformadora</option>
-                                    <option value="coformadora">Entidad coformadora</option>
-                                    <option value="sena">El SENA</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- BLOQUE C: TARJETAS DE RESPUESTA -->
-                    <div>
-                        <h3 class="text-sm font-bold text-slate-200 mb-1">C. Selecciona la tarjeta con la respuesta
-                            correcta</h3>
-                        <p class="text-xs text-slate-400 mb-4">Toca la tarjeta que consideres correcta para cada
-                            pregunta. (4 pts c/u)</p>
-
-                        <div class="space-y-5">
-                            <div class="bg-slate-950 p-5 rounded-xl border border-slate-800" id="box-c1">
-                                <p class="text-sm font-semibold text-slate-200 mb-3">1. ¿Qué alternativa corresponde
-                                    a "Apoyo a procesos formativos institucionales... adjudicada por bienestar y
-                                    comité"?</p>
-                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c1','monitoria', this)">Monitoría institucional</div>
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c1','contrato', this)">Contrato de aprendizaje</div>
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c1','pasantia', this)">Pasantía en ONG</div>
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c1','proyecto', this)">Proyecto productivo</div>
-                                </div>
-                            </div>
-
-                            <div class="bg-slate-950 p-5 rounded-xl border border-slate-800" id="box-c2">
-                                <p class="text-sm font-semibold text-slate-200 mb-3">2. ¿Qué conceptos jurídicos
-                                    SENA prohíben realizar la etapa productiva en empresa propia?</p>
-                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c2','conceptos90914', this)">90914/2024 y 47942/2022</div>
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c2','decreto055', this)">Decreto 055 de 2015</div>
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c2','ley789', this)">Ley 789 art. 33</div>
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c2','acuerdo005', this)">Acuerdo 005 de 2018</div>
-                                </div>
-                            </div>
-
-                            <div class="bg-slate-950 p-5 rounded-xl border border-slate-800" id="box-c3">
-                                <p class="text-sm font-semibold text-slate-200 mb-3">3. ¿Cuál es el máximo de días
-                                    hábiles de inactividad permitido entre la alternativa A y la alternativa B en la
-                                    complementariedad horaria?</p>
-                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c3','2dias', this)">2 días hábiles</div>
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c3','5dias', this)">5 días hábiles</div>
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c3','10dias', this)">10 días hábiles</div>
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c3','15dias', this)">15 días hábiles</div>
-                                </div>
-                            </div>
-
-                            <div class="bg-slate-950 p-5 rounded-xl border border-slate-800" id="box-c4">
-                                <p class="text-sm font-semibold text-slate-200 mb-3">4. ¿Quién emite el aval formal
-                                    y registra la novedad de inicio de etapa productiva en el sistema de gestión?
-                                </p>
-                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c4','instructor', this)">Instructor técnico</div>
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c4','coordinador', this)">Coordinador Académico</div>
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c4','empleador', this)">El empleador</div>
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c4','aprendiz', this)">El propio aprendiz</div>
-                                </div>
-                            </div>
-
-                            <div class="bg-slate-950 p-5 rounded-xl border border-slate-800" id="box-c5">
-                                <p class="text-sm font-semibold text-slate-200 mb-3">5. ¿Qué se excluye totalmente
-                                    como alternativa válida según el manual normativo?</p>
-                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c5','campesena', this)">Economía popular/CampeSENA</div>
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c5','contrato', this)">Contrato de aprendizaje</div>
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c5','monitoria', this)">Monitoría institucional</div>
-                                    <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
-                                        onclick="selectCard('c5','proyecto', this)">Proyecto productivo</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- RESULTADO -->
-                    <div class="pt-2 flex flex-wrap items-center justify-between gap-3">
-                        <button onclick="evaluar()"
-                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
-                            <i class="fas fa-square-check text-xs"></i>
-                            <span>Calcular Resultado</span>
-                        </button>
-                        <div id="resultado-badge"
-                            class="px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-900 text-slate-400 border border-slate-800">
-                            Pendiente
-                        </div>
-                    </div>
-
-                    <!-- MATRIZ DE DESGLOSE DETALLADO -->
-                    <div id="resultado-matriz"
-                        class="hidden bg-slate-950 p-5 sm:p-6 rounded-xl border border-slate-800">
-                        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-                            <h3 class="text-sm font-bold text-indigo-400 flex items-center gap-2">
-                                <i class="fas fa-chart-line text-xs"></i> Desglose Detallado de Calificación por
-                                Competencia
-                            </h3>
-                            <div id="matriz-status-pill"
-                                class="text-xs font-bold px-3 py-1 rounded-lg bg-slate-900 text-slate-400 border border-slate-800 flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-slate-500"></span> Pendiente
-                            </div>
-                        </div>
-
-                        <div class="overflow-x-auto rounded-xl border border-slate-800">
-                            <table class="w-full text-xs">
-                                <thead>
-                                    <tr class="bg-slate-900 text-indigo-300">
-                                        <th class="text-left px-4 py-3 font-bold">Dimensión Normativa</th>
-                                        <th class="text-center px-4 py-3 font-bold">Puntos Posibles</th>
-                                        <th class="text-center px-4 py-3 font-bold">Puntos Obtenidos</th>
-                                        <th class="text-center px-4 py-3 font-bold">Cumplimiento</th>
-                                        <th class="text-center px-4 py-3 font-bold">Estado</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="matriz-tbody" class="text-slate-300">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div id="resultado-detalle"
-                        class="hidden bg-slate-950 p-5 rounded-xl border border-slate-800 text-sm text-slate-300 leading-relaxed text-justify">
-                    </div>
-
-                    <!-- ACCIONES POST-EVALUACIÓN: REINTENTAR / SIN INTENTOS -->
-                    <div id="btn-reintentar-wrap" class="hidden flex justify-end">
-                        <button id="btn-reintentar" onclick="reintentarEvaluacion()"
-                            class="bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
-                            <i class="fas fa-arrow-rotate-left text-xs"></i>
-                            <span>Volver al Repaso y Reintentar</span>
-                        </button>
-                    </div>
-
-                    <div id="msg-sin-intentos"
-                        class="hidden bg-rose-950/40 border border-rose-800 text-rose-300 text-xs sm:text-sm font-semibold p-4 rounded-xl flex items-center gap-2">
-                        <i class="fas fa-circle-xmark"></i>
-                        <span>Has agotado tus 4 intentos disponibles. No es posible reiniciar la evaluación
-                            nuevamente.</span>
-                    </div>
-
                 </div>
+            </div>
+
+            <!-- BLOQUE B: LISTAS DESPLEGABLES -->
+            <div>
+                <h3 class="text-sm font-bold text-black mb-1">B. Relaciona la alternativa con el
+                    responsable de la afiliación a ARL/seguridad social (listas desplegables)</h3>
+                <p class="text-xs font-semibold text-black mb-4">Selecciona el responsable correcto para cada
+                    alternativa. (8 pts c/u)</p>
+
+                <div class="space-y-3">
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-wrap items-center justify-between gap-3"
+                        id="box-dd1">
+                        <p class="text-xs text-slate-300 flex-1 min-w-[220px]">Alternativa 1: Contrato de
+                            aprendizaje (empresas obligadas/voluntarias)</p>
+                        <select id="dd1"
+                            class="text-xs p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
+                            <option value="">Seleccione responsable...</option>
+                            <option value="empresa">Empresa patrocinadora</option>
+                            <option value="empleador">Empleador</option>
+                            <option value="gestora">Entidad gestora o coformadora</option>
+                            <option value="coformadora">Entidad coformadora</option>
+                            <option value="sena">El SENA</option>
+                        </select>
+                    </div>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-wrap items-center justify-between gap-3"
+                        id="box-dd2">
+                        <p class="text-xs text-slate-300 flex-1 min-w-[220px]">Alternativa 2: Vínculo /
+                            contrato laboral afines al perfil</p>
+                        <select id="dd2"
+                            class="text-xs p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
+                            <option value="">Seleccione responsable...</option>
+                            <option value="empresa">Empresa patrocinadora</option>
+                            <option value="empleador">Empleador</option>
+                            <option value="gestora">Entidad gestora o coformadora</option>
+                            <option value="coformadora">Entidad coformadora</option>
+                            <option value="sena">El SENA</option>
+                        </select>
+                    </div>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-wrap items-center justify-between gap-3"
+                        id="box-dd3">
+                        <p class="text-xs text-slate-300 flex-1 min-w-[220px]">Alternativa 3: Proyecto
+                            productivo I+D+I / Simulación SENA</p>
+                        <select id="dd3"
+                            class="text-xs p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
+                            <option value="">Seleccione responsable...</option>
+                            <option value="empresa">Empresa patrocinadora</option>
+                            <option value="empleador">Empleador</option>
+                            <option value="gestora">Entidad gestora o coformadora</option>
+                            <option value="coformadora">Entidad coformadora</option>
+                            <option value="sena">El SENA</option>
+                        </select>
+                    </div>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-wrap items-center justify-between gap-3"
+                        id="box-dd4">
+                        <p class="text-xs text-slate-300 flex-1 min-w-[220px]">Alternativa 4: Vínculo
+                            formativo / Pasantía (Entidades / ONG / S.A.L.)</p>
+                        <select id="dd4"
+                            class="text-xs p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
+                            <option value="">Seleccione responsable...</option>
+                            <option value="empresa">Empresa patrocinadora</option>
+                            <option value="empleador">Empleador</option>
+                            <option value="gestora">Entidad gestora o coformadora</option>
+                            <option value="coformadora">Entidad coformadora</option>
+                            <option value="sena">El SENA</option>
+                        </select>
+                    </div>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-wrap items-center justify-between gap-3"
+                        id="box-dd5">
+                        <p class="text-xs text-slate-300 flex-1 min-w-[220px]">Alternativa 5: Monitoría
+                            institucional (Centros SENA)</p>
+                        <select id="dd5"
+                            class="text-xs p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 outline-none focus:border-indigo-500">
+                            <option value="">Seleccione responsable...</option>
+                            <option value="empresa">Empresa patrocinadora</option>
+                            <option value="empleador">Empleador</option>
+                            <option value="gestora">Entidad gestora o coformadora</option>
+                            <option value="coformadora">Entidad coformadora</option>
+                            <option value="sena">El SENA</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE C: TARJETAS DE RESPUESTA -->
+            <div>
+                <h3 class="text-sm font-bold text-black mb-1">C. Selecciona la tarjeta con la respuesta
+                    correcta</h3>
+                <p class="text-xs font-semibold text-black mb-4">Toca la tarjeta que consideres correcta para cada
+                    pregunta. (4 pts c/u)</p>
+
+                <div class="space-y-5">
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800" id="box-c1">
+                        <p class="text-sm font-semibold text-slate-200 mb-3">1. ¿Qué alternativa corresponde
+                            a "Apoyo a procesos formativos institucionales... adjudicada por bienestar y
+                            comité"?</p>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c1','monitoria', this)">Monitoría institucional</div>
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c1','contrato', this)">Contrato de aprendizaje</div>
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c1','pasantia', this)">Pasantía en ONG</div>
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c1','proyecto', this)">Proyecto productivo</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800" id="box-c2">
+                        <p class="text-sm font-semibold text-slate-200 mb-3">2. ¿Qué conceptos jurídicos
+                            SENA prohíben realizar la etapa productiva en empresa propia?</p>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c2','conceptos90914', this)">90914/2024 y 47942/2022</div>
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c2','decreto055', this)">Decreto 055 de 2015</div>
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c2','ley789', this)">Ley 789 art. 33</div>
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c2','acuerdo005', this)">Acuerdo 005 de 2018</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800" id="box-c3">
+                        <p class="text-sm font-semibold text-slate-200 mb-3">3. ¿Cuál es el máximo de días
+                            hábiles de inactividad permitido entre la alternativa A y la alternativa B en la
+                            complementariedad horaria?</p>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c3','2dias', this)">2 días hábiles</div>
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c3','5dias', this)">5 días hábiles</div>
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c3','10dias', this)">10 días hábiles</div>
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c3','15dias', this)">15 días hábiles</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800" id="box-c4">
+                        <p class="text-sm font-semibold text-slate-200 mb-3">4. ¿Quién emite el aval formal
+                            y registra la novedad de inicio de etapa productiva en el sistema de gestión?
+                        </p>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c4','instructor', this)">Instructor técnico</div>
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c4','coordinador', this)">Coordinador Académico</div>
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c4','empleador', this)">El empleador</div>
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c4','aprendiz', this)">El propio aprendiz</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800" id="box-c5">
+                        <p class="text-sm font-semibold text-slate-200 mb-3">5. ¿Qué se excluye totalmente
+                            como alternativa válida según el manual normativo?</p>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c5','campesena', this)">Economía popular/CampeSENA</div>
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c5','contrato', this)">Contrato de aprendizaje</div>
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c5','monitoria', this)">Monitoría institucional</div>
+                            <div class="card-option rounded-xl px-3 py-4 text-center text-xs font-semibold"
+                                onclick="selectCard('c5','proyecto', this)">Proyecto productivo</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESULTADO -->
+            <div class="pt-2 flex flex-wrap items-center justify-between gap-3">
+                <button onclick="evaluar()"
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                    <i class="fas fa-square-check text-xs"></i>
+                    <span>Calcular Resultado</span>
+                </button>
+                <div id="resultado-badge"
+                    class="px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-900 text-slate-400 border border-slate-800">
+                    Pendiente
+                </div>
+            </div>
+
+            <!-- MATRIZ DE DESGLOSE DETALLADO -->
+            <div id="resultado-matriz" class="hidden bg-slate-950 p-5 sm:p-6 rounded-xl border border-slate-800">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                    <h3 class="text-sm font-bold text-indigo-400 flex items-center gap-2">
+                        <i class="fas fa-chart-line text-xs"></i> Desglose Detallado de Calificación por
+                        Competencia
+                    </h3>
+                    <div id="matriz-status-pill"
+                        class="text-xs font-bold px-3 py-1 rounded-lg bg-slate-900 text-slate-400 border border-slate-800 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-slate-500"></span> Pendiente
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto rounded-xl border border-slate-800">
+                    <table class="w-full text-xs">
+                        <thead>
+                            <tr class="bg-slate-900 text-indigo-300">
+                                <th class="text-left px-4 py-3 font-bold">Dimensión Normativa</th>
+                                <th class="text-center px-4 py-3 font-bold">Puntos Posibles</th>
+                                <th class="text-center px-4 py-3 font-bold">Puntos Obtenidos</th>
+                                <th class="text-center px-4 py-3 font-bold">Cumplimiento</th>
+                                <th class="text-center px-4 py-3 font-bold">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="matriz-tbody" class="text-slate-300">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="resultado-detalle"
+                class="hidden bg-slate-950 p-5 rounded-xl border border-slate-800 text-sm text-slate-300 leading-relaxed text-justify">
+            </div>
+
+            <!-- ACCIONES POST-EVALUACIÓN: REINTENTAR / SIN INTENTOS -->
+            <div id="btn-reintentar-wrap" class="hidden flex justify-end">
+                <button id="btn-reintentar" onclick="reintentarEvaluacion()"
+                    class="bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                    <i class="fas fa-arrow-rotate-left text-xs"></i>
+                    <span>Volver al Repaso y Reintentar</span>
+                </button>
+            </div>
+
+            <div id="msg-sin-intentos"
+                class="hidden bg-rose-950/40 border border-rose-800 text-rose-300 text-xs sm:text-sm font-semibold p-4 rounded-xl flex items-center gap-2">
+                <i class="fas fa-circle-xmark"></i>
+                <span>Has agotado tus 4 intentos disponibles. No es posible reiniciar la evaluación
+                    nuevamente.</span>
+            </div>
+
+            </div>
             </div>
 
             <div class="flex justify-end mb-6">
@@ -1419,7 +1427,7 @@
                     <td>90%</td>
                 </tr>
                 <tr>
-                    <td style="font-weight:bold;">Dictamen</td>
+                    <td style="font-weight:bold;">Resultado</td>
                     <td id="print-dictamen">-</td>
                 </tr>
             </table>
@@ -1532,7 +1540,7 @@
 
             // Cambia automáticamente a la pestaña Introducción tras guardar el registro
             setTimeout(() => {
-                switchTab('introduccion');
+                switchTab('video');
             }, 500);
         }
 
@@ -1608,7 +1616,7 @@
             q5: 'gfpif023',
             q6: '12',
             q7: '100porciento',
-            q8: 'art33',
+            q8: 'C',
             dd1: 'empresa',
             dd2: 'empleador',
             dd3: 'gestora',
@@ -1884,7 +1892,7 @@
             if (passed) {
                 pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-emerald-950/70 text-emerald-400 flex items-center gap-1.5 border border-emerald-800';
                 pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400"></span> Aprobado (&ge;90%)';
-                conclusionBox.innerHTML = `<p class="text-emerald-400 font-bold mb-1"><i class="fas fa-check-double mr-1"></i> Dictamen Satisfactorio (${totalScore} pts / 100)</p><p>El resultado supera la calificación mínima aprobatoria del 90% y evidencia un buen dominio de las alternativas, el proceso, las restricciones y la complementariedad horaria de la etapa productiva del SENA.</p>`;
+                conclusionBox.innerHTML = `<p class="text-emerald-400 font-bold mb-1"><i class="fas fa-check-double mr-1"></i> Resultado Satisfactorio (${totalScore} pts / 100)</p><p>El resultado supera la calificación mínima aprobatoria del 90% y evidencia un buen dominio de las alternativas, el proceso, las restricciones y la complementariedad horaria de la etapa productiva del SENA.</p>`;
             } else {
                 pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-rose-950/70 text-rose-400 flex items-center gap-1.5 border border-rose-800';
                 pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-500"></span> Por Mejorar (&lt;90%)';
@@ -1929,7 +1937,7 @@
                 document.getElementById('print-answered').innerText = `${lastEval.answered} / ${TOTAL_QUESTIONS}`;
                 document.getElementById('print-dictamen').innerText = lastEval.passed ? 'APROBADO' : 'POR MEJORAR';
             } else {
-                document.getElementById('print-score').innerText = 'EvaluaciÃ³n no realizada aÃºn';
+                document.getElementById('print-score').innerText = 'Evaluaci\u00f3n no realizada aun';
                 document.getElementById('print-scoreA').innerText = '-';
                 document.getElementById('print-scoreB').innerText = '-';
                 document.getElementById('print-scoreC').innerText = '-';

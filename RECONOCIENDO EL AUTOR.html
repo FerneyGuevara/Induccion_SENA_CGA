@@ -822,7 +822,7 @@
             <table id="print-desglose-table">
                 <tr>
                     <th>#</th>
-                    <th>M&oacute;dulo</th>
+                    <th>Modulo</th>
                     <th>Puntos Obtenidos</th>
                     <th>Puntos Posibles</th>
                 </tr>
@@ -1580,7 +1580,7 @@
             document.getElementById('print-intentos').innerText = `${currentAttempt} / ${MAX_INTENTOS}`;
 
             const table = document.getElementById('print-desglose-table');
-            table.innerHTML = `<tr><th>#</th><th>MÃ³dulo</th><th>Puntos Obtenidos</th><th>Puntos Posibles</th></tr>` +
+            table.innerHTML = `<tr><th>#</th><th>Modulo</th><th>Puntos Obtenidos</th><th>Puntos Posibles</th></tr>` +
                 MODULE_ORDER.map((m, idx) => {
                     return `<tr><td>${idx + 1}</td><td>${MODULE_LABEL[m]}</td><td>${moduleScores[m] || 0}</td><td>${MODULE_MAX[m]}</td></tr>`;
                 }).join('');

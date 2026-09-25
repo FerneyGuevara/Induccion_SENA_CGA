@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -482,6 +482,18 @@
                         cursado mínimo el primer trimestre, sin sanciones vigentes y con disponibilidad de cupo. <strong
                             class="text-indigo-300">Solo se puede solicitar un (1) traslado.</strong>
                     </p>
+                    <div
+                        class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between flex-wrap gap-3">
+                        <span class="text-xs text-slate-400 flex items-center gap-2">
+                            <i class="fas fa-file-pdf text-rose-400 text-sm"></i>
+                            <span>Formato / Documento informativo de Traslados</span>
+                        </span>
+                        <a href="Traslados.pdf" download="Taslados.pdf"
+                            class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition duration-200 shadow-lg shadow-indigo-600/20">
+                            <i class="fas fa-download"></i>
+                            <span>DESCARGAR PDF</span>
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Questions -->
@@ -590,6 +602,18 @@
                         <strong class="text-amber-400">Nota:</strong> El aprendiz conserva la condición, pero suspende
                         los apoyos socioeconómicos y DEBE asistir hasta tener respuesta oficial.
                     </p>
+                    <div
+                        class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between flex-wrap gap-3">
+                        <span class="text-xs text-slate-400 flex items-center gap-2">
+                            <i class="fas fa-file-pdf text-rose-400 text-sm"></i>
+                            <span>Formato / Documento informativo de Aplazamiento</span>
+                        </span>
+                        <a href="aplazamiento.pdf" download="aplazamiento.pdf"
+                            class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition duration-200 shadow-lg shadow-indigo-600/20">
+                            <i class="fas fa-download"></i>
+                            <span>DESCARGA PDF</span>
+                        </a>
+                    </div>
                 </div>
                 <!-- Questions -->
                 <div class="space-y-5">
@@ -693,6 +717,18 @@
                         militar) se constituirá en una <strong>falta grave</strong>, por lo tanto, la novedad que se
                         registre será la de <strong>cancelación de la matrícula</strong>.
                     </p>
+                    <div
+                        class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between flex-wrap gap-3">
+                        <span class="text-xs text-slate-400 flex items-center gap-2">
+                            <i class="fas fa-file-pdf text-rose-400 text-sm"></i>
+                            <span>Formato / Documento informativo de Retiro Voluntario</span>
+                        </span>
+                        <a href="retiro.pdf" download="retiro.pdf"
+                            class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition duration-200 shadow-lg shadow-indigo-600/20">
+                            <i class="fas fa-download"></i>
+                            <span>DESCARGA PDF</span>
+                        </a>
+                    </div>
                 </div>
                 <!-- Questions -->
                 <div class="space-y-5">
@@ -799,6 +835,18 @@
                         puede mantener la condición de aplazado hasta por 1 año, o solicitar retiro voluntario
                         justificado (sin sanción).
                     </p>
+                    <div
+                        class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between flex-wrap gap-3">
+                        <span class="text-xs text-slate-400 flex items-center gap-2">
+                            <i class="fas fa-file-pdf text-rose-400 text-sm"></i>
+                            <span>Formato / Documento informativo de Reintegro</span>
+                        </span>
+                        <a href="Reintegro.pdf" download="Reintegro.pdf"
+                            class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition duration-200 shadow-lg shadow-indigo-600/20">
+                            <i class="fas fa-download"></i>
+                            <span>DESCARGA PDF</span>
+                        </a>
+                    </div>
                 </div>
                 <!-- Questions -->
                 <div class="space-y-5">
@@ -1044,7 +1092,8 @@
 
         <!-- DASHBOARD (REDISENADO SEGUN LA IMAGEN) -->
         <section id="pane-dashboard" class="tab-pane hidden">
-            <p class="text-sm text-slate-400 mb-4">Métricas en tiempo real sobre el dominio de Gestión de Novedades.</p>
+            <p class="text-sm font-semibold text-black mb-4">Métricas en tiempo real sobre el dominio de Gestión de
+                Novedades.</p>
 
             <!-- KPIs -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -1167,7 +1216,7 @@
                         <td id="print-total"></td>
                     </tr>
                     <tr>
-                        <td>DICTAMEN FINAL (Min. 90%)</td>
+                        <td>RESULTADO FINAL (Min. 90%)</td>
                         <td id="print-dictamen"></td>
                     </tr>
                 </tfoot>
@@ -1191,7 +1240,7 @@
 
     <script>
         const MODULES = [
-            { id: 'traslado', title: 'Traslado', answers: ['1', 'A', 'A', 'coordinacion', 'programa'] },
+            { id: 'traslado', title: 'Traslado', answers: ['1', 'A', 'B', 'coordinacion', 'programa'] },
             { id: 'aplazamiento', title: 'Aplazamiento', answers: ['A', '20', 'B', '3meses', 'B'] },
             { id: 'retiro', title: 'Retiro Voluntario', answers: ['B', 'coordinador', 'A', 'A', '2dias'] },
             { id: 'reintegro', title: 'Reintegro', answers: ['5', 'B', 'B', 'A', 'ejecucion'] },

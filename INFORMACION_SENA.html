@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -202,15 +202,27 @@
 
         <!-- Panel Resumen Superior -->
         <div
-            class="bg-slate-900/90 backdrop-blur-sm rounded-2xl p-5 mb-6 border border-slate-700/80 no-print shadow-xl">
-            <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Conoce la Institución
-            </span>
-            <h2 class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">Servicio Nacional de
-                Aprendizaje
-                - SENA</h2>
-            <p class="text-xs text-slate-400 mt-0.5">Símbolos, historia, fundadores, misión, visión, políticas,
-                valores, himno y evaluación &bull; Calificación mínima aprobatoria: 90%</p>
+            class="bg-slate-900/90 backdrop-blur-sm rounded-2xl p-5 mb-6 border border-slate-700/80 flex flex-wrap items-center justify-between gap-4 no-print shadow-xl">
+            <div class="flex items-center gap-4">
+                <img src="sena.png" alt="Logo SENA" class="w-12 h-12 sm:w-14 sm:h-14 object-contain shrink-0"
+                    onerror="this.style.display='none'" />
+                <div>
+                    <span
+                        class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Conoce la Institución
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">Servicio Nacional de
+                        Aprendizaje - SENA</h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Símbolos, historia, fundadores y directivos, misión,
+                        visión, políticas,
+                        valores, himno y evaluación &bull; Calificación mínima aprobatoria: 90%</p>
+                </div>
+            </div>
+            <a href="https://www.sena.edu.co/la-entidad/quienes-somos" target="_blank" rel="noopener noreferrer"
+                class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-md hover:shadow-indigo-500/20 shrink-0">
+                <span>Más Información</span>
+                <i class="fas fa-arrow-up-right-from-square text-xs"></i>
+            </a>
         </div>
 
         <!-- Menú de Pestañas -->
@@ -218,6 +230,10 @@
             <button onclick="window.location.href='index.html'" id="tab-inicio"
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
                 <i class="fas fa-house text-xs"></i> Inicio
+            </button>
+            <button onclick="window.location.href='Instructivo_SENA_INFORMACION INSTITUCIONAL.pdf'" id="tab-instructivo"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-file-pdf text-xs text-rose-400"></i> Instructivo
             </button>
             <button onclick="switchTab('registro')" id="tab-registro"
                 class="tab-btn active px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
@@ -233,7 +249,7 @@
             </button>
             <button onclick="switchTab('fundadores')" id="tab-fundadores"
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
-                <i class="fas fa-users text-xs"></i> Fundadores
+                <i class="fas fa-users text-xs"></i> Fundadores y Directivos
             </button>
             <button onclick="switchTab('mision')" id="tab-mision"
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
@@ -514,7 +530,7 @@
             <div class="flex justify-end mb-6">
                 <button onclick="switchTab('fundadores')"
                     class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
-                    <span>Siguiente: Fundadores</span>
+                    <span>Siguiente: Fundadores y Directivos</span>
                     <i class="fas fa-arrow-right text-xs"></i>
                 </button>
             </div>
@@ -533,43 +549,151 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="info-card bg-slate-950 p-5 rounded-xl text-center">
+                    <div class="info-card bg-slate-950 p-5 rounded-xl text-center flex flex-col items-center">
                         <img src="Rodolfo Martinez Tono.png" alt="Rodolfo Martínez Tono"
-                            class="w-16 h-16 rounded-full border border-indigo-800 mx-auto object-cover mb-3" />
+                            class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-2 border-indigo-800/80 mx-auto object-cover object-top mb-3.5 shadow-lg" />
                         <h3 class="text-sm font-bold text-slate-100">Rodolfo Martínez Tono</h3>
                         <span
                             class="inline-block mt-1 mb-3 bg-indigo-950/80 text-indigo-300 border border-indigo-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wide">Principal
                             Fundador</span>
-                        <p class="text-xs text-slate-400 leading-relaxed text-justify">
+                        <p class="text-xs text-slate-400 leading-relaxed text-justify mt-auto">
                             Visionario que impulsó la creación del SENA inspirado en el modelo de formación profesional
-                            europeo. Su
-                            liderazgo fue fundamental para establecer las bases de la institución.
+                            europeo. Su liderazgo fue fundamental para establecer las bases de la institución.
                         </p>
                     </div>
-                    <div class="info-card bg-slate-950 p-5 rounded-xl text-center">
+                    <div class="info-card bg-slate-950 p-5 rounded-xl text-center flex flex-col items-center">
                         <img src="Raimundo Emiliani Román.png" alt="Raimundo Emiliani Román"
-                            class="w-16 h-16 rounded-full border border-indigo-800 mx-auto object-cover mb-3" />
+                            class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-2 border-indigo-800/80 mx-auto object-cover object-top mb-3.5 shadow-lg" />
                         <h3 class="text-sm font-bold text-slate-100">Raimundo Emiliani Román</h3>
                         <span
                             class="inline-block mt-1 mb-3 bg-indigo-950/80 text-indigo-300 border border-indigo-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wide">Co-fundador</span>
-                        <p class="text-xs text-slate-400 leading-relaxed text-justify">
+                        <p class="text-xs text-slate-400 leading-relaxed text-justify mt-auto">
                             Ministro de Trabajo durante la Junta Militar, jugó un papel clave en la promulgación del
-                            Decreto-Ley 118
-                            que dio vida al SENA.
+                            Decreto-Ley 118 que dio vida al SENA.
                         </p>
                     </div>
-                    <div class="info-card bg-slate-950 p-5 rounded-xl text-center">
+                    <div class="info-card bg-slate-950 p-5 rounded-xl text-center flex flex-col items-center">
                         <img src="Diego Montaña Cuéllar.png" alt="Diego Montaña Cuéllar"
-                            class="w-16 h-16 rounded-full border border-indigo-800 mx-auto object-cover mb-3" />
+                            class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-2 border-indigo-800/80 mx-auto object-cover object-top mb-3.5 shadow-lg" />
                         <h3 class="text-sm font-bold text-slate-100">Diego Montaña Cuéllar</h3>
                         <span
                             class="inline-block mt-1 mb-3 bg-indigo-950/80 text-indigo-300 border border-indigo-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wide">Ideólogo</span>
-                        <p class="text-xs text-slate-400 leading-relaxed text-justify">
+                        <p class="text-xs text-slate-400 leading-relaxed text-justify mt-auto">
                             Contribuyó con las bases conceptuales del modelo de formación profesional que adoptaría el
-                            SENA en sus
-                            inicios.
+                            SENA en sus inicios.
                         </p>
                     </div>
+                </div>
+            </div>
+
+            <!-- CUADRO: DIRECTIVOS SENA -->
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl">
+                <div class="pb-4 mb-6 border-b border-slate-800">
+                    <h2 class="text-base sm:text-lg font-bold text-indigo-400">Directivos SENA</h2>
+                    <p class="text-xs text-slate-400">Estructura directiva y líneas de liderazgo institucional</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Columna 1: Dirección General -->
+                    <div class="info-card bg-slate-950 p-5 rounded-xl text-center flex flex-col items-center">
+                        <img src="Fray Ricardo Torres Castro.png" alt="Fray Ricardo Torres Castro"
+                            class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-2 border-indigo-800/80 mx-auto object-cover object-top mb-3.5 shadow-lg" />
+                        <h3 class="text-sm font-bold text-slate-100">Fray Ricardo Torres Castro</h3>
+                        <span
+                            class="inline-block mt-1 mb-2 bg-indigo-950/80 text-indigo-300 border border-indigo-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wide">Director
+                            General</span>
+                        <p class="text-xs text-slate-400 leading-relaxed text-justify mb-2">
+                            Fraile de la Orden de Predicadores (Dominicos), nacido en Tunja, Boyacá. Es licenciado en
+                            Filosofía, bachiller en Teología, magíster en Administración y en Negocios Internacionales,
+                            y candidato a doctor cuenta con amplia experiencia académica y de gestón. Se ha desempeñado
+                            como rector y decano de la Universidad Santo Tomás, donde desarrolló parte importante de su
+                            trayectoria profesional.
+                        </p>
+                        <p class="text-xs text-slate-400 leading-relaxed text-justify ">
+                            También fue asesor del Centro Nacional de Memoria Histórica y ha desarrollado labores
+                            relacionadas con la defensa de los derechos humanos, consolidando una trayectoria vinculada
+                            a la educación, la gestión institucional y el trabajo social.
+                        </p>
+                    </div>
+
+                    <!-- Columna 2: Director Regional Distrito Capital -->
+                    <div class="info-card bg-slate-950 p-5 rounded-xl text-center flex flex-col items-center">
+                        <img src="Gerardo Arturo Medina Rosas.png" alt="Gerardo Arturo Medina Rosas"
+                            class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-2 border-indigo-800/80 mx-auto object-cover object-top mb-3.5 shadow-lg" />
+                        <h3 class="text-sm font-bold text-slate-100">Gerardo Arturo Medina Rosas</h3>
+                        <span
+                            class="inline-block mt-1 mb-2 bg-indigo-950/80 text-indigo-300 border border-indigo-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wide">Director
+                            Regional Distrito Capital</span>
+                        <p class="text-xs text-slate-400 leading-relaxed text-justify mb-2">
+                            Fisioterapeuta, Especialista en Gerencia en Salud y en Administración Pública.
+                        </p>
+                        <p class="text-xs text-slate-400 leading-relaxed text-justify mb-2">
+                            Se ha desempeñado en la dirección de entidades del sector público, especialmente en el área
+                            de la salud; en instituciones de prestación de servicios y en secretarías territoriales. En
+                            la actualidad es el Subdirector del Centro de Formación de Talento Humano en Salud de la
+                            Regional Distrito Capital.
+                        </p>
+                        <p class="text-xs text-slate-400 leading-relaxed text-justify ">
+                            Se ha desempeñado también como docente y consultor en áreas de la protección social.
+                        </p>
+                    </div>
+
+                    <!-- Columna 3: Subdirector (E) Centro de Gestión Administrativa -->
+                    <div class="info-card bg-slate-950 p-5 rounded-xl text-center flex flex-col items-center">
+                        <img src="Miguel Angel Ruiz Bohorquez.png" alt="Miguel Ángel Ruiz Bohórquez"
+                            class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-2 border-indigo-800/80 mx-auto object-cover object-top mb-3.5 shadow-lg" />
+                        <h3 class="text-sm font-bold text-slate-100">Miguel Ángel Ruiz Bohórquez</h3>
+                        <span
+                            class="inline-block mt-1 mb-2 bg-indigo-950/80 text-indigo-300 border border-indigo-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wide">SUBDIRECTOR
+                            (E) CENTRO DE GESTIÓN ADMINISTRATIVA</span>
+                        <p class="text-xs text-slate-400 leading-relaxed text-justify mb-2">
+                            Profesional en Administración Pública, Especialista en Planeación Educativa y Planes de
+                            Desarrollo, y Técnico en Gestión del Talento Humano del SENA.
+                        </p>
+                        <p class="text-xs text-slate-400 leading-relaxed text-justify ">
+                            Su liderazgo social y vocación de servicio fortalecen el trabajo institucional, impulsando
+                            acciones con impacto y sentido humano.
+                        </p>
+                    </div>
+
+                    <!-- Columna 4: Coordinador Talento Humano -->
+                    <div class="info-card bg-slate-950 p-5 rounded-xl text-center flex flex-col items-center">
+                        <img src="Harold Ivan Mera Martinez.png" alt="Harold Iván Mera Martínez"
+                            class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-2 border-indigo-800/80 mx-auto object-cover object-top mb-3.5 shadow-lg" />
+                        <h3 class="text-sm font-bold text-slate-100">Harold Iván Mera Martínez</h3>
+                        <span
+                            class="inline-block mt-1 mb-2 bg-indigo-950/80 text-indigo-300 border border-indigo-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wide">COORDINADOR
+                            TALENTO HUMANO</span>
+                        <p class="text-xs text-slate-400 leading-relaxed text-justify mb-2">
+                            Economista con énfasis en Administración de Empresas, 25 años experiencia docente y en el
+                            sector real, en: la formulación y evaluación de Planes de negocios y proyectos de inversión;
+                            el área financiera en elaboración, análisis y control de presupuestos y costos; el área
+                            administrativa en control de tiempos y movimientos, manejo de personal, producción, almacén
+                            e inventarios, logística, asesor y consultor en áreas administrativas, económicas y
+                            financieras, formulación y evaluación de proyectos de inversión, formación como instructor
+                            para la formación integral por competencias del SENA.
+                        </p>
+                        <p class="text-xs text-slate-400 leading-relaxed text-justify mb-2">
+                            Caracterizado por ser una persona líder con altos valores éticos, morales y sociales, con
+                            disposición para el trabajo en equipo, proactivo y dispuesto a aceptar retos personales,
+                            profesionales y laborales.
+                        </p>
+                        <p class="text-xs text-slate-400 leading-relaxed text-justify">
+                            Lideran la ejecución directa de la formación profesional Integral, programas académicos,
+                            ambientes de aprendizaje, instructores y aprendices de la coordinación.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Botón Más Directivos -->
+                <div class="mt-6 pt-5 border-t border-slate-800/80 flex justify-end">
+                    <a href="https://www.sena.edu.co/la-entidad/perfiles-directivos" target="_blank"
+                        rel="noopener noreferrer"
+                        class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-md hover:shadow-indigo-500/20">
+                        <span>Más Directivos</span>
+                        <i class="fas fa-arrow-up-right-from-square text-xs"></i>
+                    </a>
                 </div>
             </div>
 
@@ -863,16 +987,16 @@
 
             <div
                 class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-6 sm:p-7 mb-6 shadow-2xl max-w-3xl mx-auto">
-                <div class="pb-4 mb-6 border-b border-slate-800">
+                <div class="pb-4 mb-6 border-b border-slate-800 text-center">
                     <h2 class="text-base sm:text-lg font-bold text-indigo-400">Himno del SENA</h2>
                     <p class="text-xs text-slate-400">Letra: Luis Alfredo Sarmiento &bull; Música: Daniel Marlez</p>
                 </div>
 
-                <div class="bg-slate-950 p-5 sm:p-6 rounded-xl border border-indigo-800/60 mb-5">
+                <div class="bg-slate-950 p-5 sm:p-6 rounded-xl border border-indigo-800/60 mb-5 text-center">
                     <span
-                        class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wide">Coro</span>
-                    <p class="text-sm text-slate-200 leading-relaxed text-justify mt-3 italic">
-                        Estudiantes del SENA adelante<br />
+                        class="inline-block bg-indigo-950/80 text-indigo-300 border border-indigo-800 font-bold text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wide">Coro</span>
+                    <p class="text-sm sm:text-base text-slate-200 leading-relaxed text-center mt-3 italic font-medium">
+                        Aprendices del SENA adelante<br />
                         Por Colombia luchad con amor<br />
                         Con el ánimo noble y radiante<br />
                         Transformémosla en mundo mejor
@@ -880,38 +1004,38 @@
                 </div>
 
                 <div class="space-y-4">
-                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800">
-                        <span class="text-xs font-bold text-indigo-400">I</span>
-                        <p class="text-sm text-slate-300 leading-relaxed text-justify mt-2">
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 text-center">
+                        <span class="inline-block text-xs font-bold text-indigo-400">I</span>
+                        <p class="text-sm text-slate-300 leading-relaxed text-center mt-2">
                             De la patria el futuro destino<br />
                             En las manos del joven está<br />
                             El trabajo es seguro camino<br />
                             Que el progreso a Colombia dará
                         </p>
                     </div>
-                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800">
-                        <span class="text-xs font-bold text-indigo-400">II</span>
-                        <p class="text-sm text-slate-300 leading-relaxed text-justify mt-2">
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 text-center">
+                        <span class="inline-block text-xs font-bold text-indigo-400">II</span>
+                        <p class="text-sm text-slate-300 leading-relaxed text-center mt-2">
                             En la forja del SENA se forman<br />
                             Hombres libres que anhelan triunfar<br />
                             Con la ciencia y la técnica unidas<br />
                             Nuevos rumbos de paz trazarán
                         </p>
                     </div>
-                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800">
-                        <span class="text-xs font-bold text-indigo-400">III</span>
-                        <p class="text-sm text-slate-300 leading-relaxed text-justify mt-2">
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 text-center">
+                        <span class="inline-block text-xs font-bold text-indigo-400">III</span>
+                        <p class="text-sm text-slate-300 leading-relaxed text-center mt-2">
                             Hoy la patria nos grita sentida<br />
-                            ¡Estudiantes del SENA triunfad!<br />
+                            ¡Aprendices del SENA triunfad!<br />
                             Solo así lograréis en la vida<br />
                             Más justicia, mayor libertad
                         </p>
                     </div>
-                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800">
-                        <span class="text-xs font-bold text-indigo-400">IV</span>
-                        <p class="text-sm text-slate-300 leading-relaxed text-justify mt-2">
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 text-center">
+                        <span class="inline-block text-xs font-bold text-indigo-400">IV</span>
+                        <p class="text-sm text-slate-300 leading-relaxed text-center mt-2">
                             Avancemos con fuerza guerrera<br />
-                            ¡Estudiantes con firme tesón!<br />
+                            ¡Aprendices con firme tesón!<br />
                             Que la patria en nosotros espera<br />
                             Su pacífica revolución
                         </p>
@@ -1553,7 +1677,7 @@
                     <td>90%</td>
                 </tr>
                 <tr>
-                    <td style="font-weight:bold;">Dictamen</td>
+                    <td style="font-weight:bold;">Resultado</td>
                     <td id="print-dictamen">-</td>
                 </tr>
             </table>
@@ -1951,18 +2075,18 @@
             if (passed) {
                 pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-emerald-950/70 text-emerald-400 flex items-center gap-1.5 border border-emerald-800';
                 pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400"></span> Aprobado (&ge;90%)';
-                conclusionBox.innerHTML = `<p class="text-emerald-400 font-bold mb-1"><i class="fas fa-check-double mr-1"></i> Dictamen Satisfactorio (${totalScore} pts / 100)</p><p>El resultado supera la calificación mínima aprobatoria del 90% y evidencia un buen dominio de la historia, fundadores, misión, visión, políticas y valores del SENA.</p>`;
+                conclusionBox.innerHTML = `<p class="text-emerald-400 font-bold mb-1"><i class="fas fa-check-double mr-1"></i> Resultado Satisfactorio (${totalScore} pts / 100)</p><p>El resultado supera la calificación mínima aprobatoria del 90% y evidencia un buen dominio de la historia, fundadores, misión, visión, políticas y valores del SENA.</p>`;
             } else {
                 pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-rose-950/70 text-rose-400 flex items-center gap-1.5 border border-rose-800';
                 pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-500"></span> Por Mejorar (&lt;90%)';
-                conclusionBox.innerHTML = `<p class="text-rose-400 font-bold mb-1"><i class="fas fa-triangle-exclamation mr-1"></i> Dictamen Diagnóstico (${totalScore} pts / 100)</p><p>El puntaje no alcanza el mínimo aprobatorio del 90%. Revisa el bloque con menor porcentaje en el gráfico de barras y vuelve a intentar la evaluación.</p>`;
+                conclusionBox.innerHTML = `<p class="text-rose-400 font-bold mb-1"><i class="fas fa-triangle-exclamation mr-1"></i> Resultado Diagnóstico (${totalScore} pts / 100)</p><p>El puntaje no alcanza el mínimo aprobatorio del 90%. Revisa el bloque con menor porcentaje en el gráfico de barras y vuelve a intentar la evaluación.</p>`;
             }
         }
 
         // ============================================
         // IMPRESIÓN: Registro + Resultado de Evaluación
         // ============================================
-                function printEvidence() {
+        function printEvidence() {
             if (!registeredLearner) {
                 const nombre = document.getElementById('reg-nombre')?.value.trim();
                 const doc = document.getElementById('reg-doc')?.value.trim();

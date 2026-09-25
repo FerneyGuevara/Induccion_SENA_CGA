@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -168,9 +168,9 @@
         <img src="sena.png" alt="Logo SENA" class="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0" />
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-base sm:text-lg font-bold text-indigo-400 leading-none">Matriz - Reglamento del Aprendiz
-              "Deberes"
-            </h1>
+            <h1 class="text-base sm:text-lg font-bold text-indigo-400 leading-none">Reglamento del Aprendiz</h1>
+            <span
+              class="bg-indigo-950/80 text-indigo-300 border border-indigo-800 text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-md font-semibold">"Deberes"</span>
           </div>
           <p class="text-[11px] text-slate-400 mt-0.5">Reglamento del Aprendiz SENA</p>
         </div>
@@ -216,14 +216,17 @@
     <!-- Panel Resumen Superior -->
     <div
       class="bg-slate-900/90 backdrop-blur-sm rounded-2xl p-5 mb-6 border border-slate-700/80 flex flex-wrap items-center justify-between gap-4 no-print shadow-xl">
-      <div>
-        <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Ruta de Cumplimiento Integral
-        </span>
-        <h2 class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">Simulador Práctico: Compromisos,
-          Deberes y Régimen Disciplinario</h2>
-        <p class="text-xs text-slate-400 mt-0.5">Duración estimada: 60 minutos | Calificación mínima aprobatoria: 90%
-        </p>
+      <div class="flex items-center gap-4">
+        <img src="sena.png" alt="SENA" class="w-12 h-12 object-contain shrink-0" />
+        <div>
+          <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Ruta de Cumplimiento Integral
+          </span>
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">Simulador Práctico: Compromisos,
+            Deberes y Régimen Disciplinario</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Duración estimada: 60 minutos | Calificación mínima aprobatoria: 90%
+          </p>
+        </div>
       </div>
 
       <div class="flex items-center gap-4 bg-slate-950 p-3 px-4 rounded-xl border border-slate-800 shadow-inner">
@@ -246,6 +249,10 @@
         class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
         <i class="fas fa-house text-xs"></i> Inicio
       </button>
+      <button onclick="window.location.href='Instructivo_SENA DEBERES.pdf'" id="tab-instructivo"
+        class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+        <i class="fas fa-file-pdf text-xs text-rose-400"></i> Instructivo
+      </button>
       <button onclick="switchTab('registro')" id="tab-registro"
         class="tab-btn active px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
         <i class="fas fa-id-card text-xs"></i> 1. Registro
@@ -256,7 +263,7 @@
       </button>
       <button onclick="switchTab('prohibiciones')" id="tab-prohibiciones"
         class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
-        <i class="fas fa-ban text-xs"></i> Prohibición expresa y específica
+        <i class="fas fa-ban text-xs"></i> Prohibiciones específicas
       </button>
       <button onclick="switchTab('matriz')" id="tab-matriz"
         class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
@@ -510,7 +517,7 @@
         <div class="mt-8 pt-4 border-t border-slate-800 flex justify-end">
           <button onclick="proceedToProhibiciones()"
             class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
-            <span>Avanzar a Prohibición expresa y específica</span>
+            <span>Avanzar a Prohibiciones específicas</span>
             <i class="fas fa-arrow-right text-xs"></i>
           </button>
         </div>
@@ -524,7 +531,7 @@
       <div class="bg-slate-950/85 backdrop-blur-sm rounded-2xl border border-slate-800 p-6 sm:p-7 mb-6 shadow-2xl">
         <div class="flex flex-wrap items-center justify-between pb-4 mb-6 border-b border-slate-800 gap-2">
           <div>
-            <h2 class="text-xl font-bold text-indigo-400">Prohibición expresa y específica</h2>
+            <h2 class="text-xl font-bold text-indigo-400">Prohibiciones específicas</h2>
             <p class="text-xs text-slate-400 mt-0.5">Clasificación interactiva y análisis del régimen disciplinario.</p>
           </div>
           <span
@@ -616,7 +623,8 @@
             <label class="option-card flex items-start gap-3 p-3 bg-slate-950 rounded-xl cursor-pointer">
               <input type="radio" name="proh-q2" value="B" onchange="calculateScore()"
                 class="mt-0.5 accent-indigo-500" />
-              <span class="text-slate-300 font-normal">B) Constituye una infracción directa a las prohibiciones expresas
+              <span class="text-slate-300 font-normal">B) Constituye una falta gravísima directa a las prohibiciones
+                expresas
                 de acoso (bullying/mobbing) y discriminación por identidad, vulnerabilidad o condición económica.</span>
             </label>
             <label class="option-card flex items-start gap-3 p-3 bg-slate-950 rounded-xl cursor-pointer">
@@ -727,7 +735,7 @@
           <h3 class="text-sm font-bold text-slate-200 mb-2">2. Caso: Gestión Directa del Contrato de Aprendizaje</h3>
           <p class="text-xs text-slate-400 mb-3 leading-relaxed">
             Un aprendiz gestiona directamente por su cuenta una vacante de patrocinio empresarial para su etapa
-            productiva y firma contrato con una compañía multinacional. ¿Cuál es su obligación perentoria?
+            productiva y firma contrato con una compañía multinacional. ¿Qué es lo primero que debe realizar?
           </p>
           <div class="space-y-2 text-xs">
             <label class="option-card flex items-start gap-3 p-3 bg-slate-950 rounded-xl cursor-pointer">
@@ -788,7 +796,8 @@
             </div>
             <p class="text-xs text-slate-300 mb-3.5 leading-relaxed">
               Si un aprendiz no cuenta con los recursos económicos para comprar el uniforme de uso diario institucional,
-              ¿qué consagra expresamente el reglamento?
+              no asociado como elemento de protección o exigencia de la empresa patrocinadora ¿Qué menciona el
+              reglamento?
             </p>
             <div class="space-y-2.5">
               <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
@@ -848,18 +857,19 @@
             </div>
             <p class="text-xs text-slate-300 mb-3.5 leading-relaxed">
               Respecto al ingreso de armas de fuego u objetos cortopunzantes al Centro de Formación, ¿cuál es la
-              disposición expresa para miembros activos de la fuerza pública en condición de aprendices?
+              disposición expresa del reglamento?
             </p>
             <div class="space-y-2.5">
               <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
                 <input type="radio" name="eva-q3" value="A" class="mt-0.5 accent-indigo-500" />
                 <span class="text-xs text-slate-300 font-normal">A) Están expresamente prohibidos de portar armas dentro
-                  del Centro de Formación durante su proceso formativo.</span>
+                  del Centro de Formación durante su proceso formativo para cualquier aprendiz incluyendo los miembros
+                  de la fuerza pública y organismos de seguridad del Estado.</span>
               </label>
               <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
                 <input type="radio" name="eva-q3" value="B" class="mt-0.5 accent-indigo-500" />
                 <span class="text-xs text-slate-300 font-normal">B) Tienen autorización irrestricta de portarlas siempre
-                  que vistan su uniforme oficial de servicio.</span>
+                  que vistan su uniforme del SENA.</span>
               </label>
               <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
                 <input type="radio" name="eva-q3" value="C" class="mt-0.5 accent-indigo-500" />
@@ -986,7 +996,7 @@
 
                   <tr class="hover:bg-slate-900/50 transition">
                     <td class="py-3.5 px-4">
-                      <div class="font-bold text-slate-100">Prohibición expresa y específica</div>
+                      <div class="font-bold text-slate-100">Prohibiciones específicas</div>
                       <div class="text-[11px] text-slate-400">Armas, proselitismo, lucro particular y acoso</div>
                     </td>
                     <td class="py-3.5 px-3 text-center font-medium">20 pts</td>
@@ -1146,7 +1156,7 @@
           </h3>
           <div id="dashboard-conclusion-box"
             class="text-xs text-slate-300 leading-relaxed bg-slate-900/90 p-4 rounded-lg border border-slate-800">
-            Pendiente de consolidación. Resuelve las secciones de Deberes, Prohibición expresa y específica y Matriz, y
+            Pendiente de consolidación. Resuelve las secciones de Deberes, Prohibiciones específicas y Matriz, y
             haz clic en "Generar y Revisar Acta de Evidencia" para emitir el dictamen.
           </div>
         </div>
@@ -1635,7 +1645,7 @@
       if (scores.total >= 90) {
         conclusionBox.innerHTML = `
           <p class="text-emerald-400 font-bold mb-1">
-            <i class="fas fa-check-double mr-1"></i> Dictamen Satisfactorio (Aprobado - ${scores.total} pts / ${scores.total}%):
+            <i class="fas fa-check-double mr-1"></i> Resultado Satisfactorio (Aprobado - ${scores.total} pts / ${scores.total}%):
           </p>
           <p>
             El aprendiz evidencia un dominio ético, disciplinario y procedimental sobresaliente, superando el umbral de excelencia del 90%. Reconoce con exactitud el conducto regular formativo, el deber de autoría y derechos de autor, la confidencialidad de credenciales en plataformas virtuales y la observancia taxativa de las prohibiciones expresas sobre armas, fraude y respeto en la comunidad educativa.
