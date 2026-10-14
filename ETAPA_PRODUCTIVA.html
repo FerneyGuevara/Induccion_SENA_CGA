@@ -821,7 +821,7 @@
                         <span id="intentos-indicator"
                             class="bg-slate-950 text-slate-300 border border-slate-700 font-bold text-xs px-3 py-1 rounded-full flex items-center gap-1.5">
                             <i class="fas fa-rotate-left text-[10px]"></i> Intentos disponibles: <span
-                                id="intentos-restantes">4</span>/4
+                                id="intentos-restantes">∞</span>/∞
                         </span>
                     </div>
                 </div>
@@ -1275,7 +1275,7 @@
             <div id="msg-sin-intentos"
                 class="hidden bg-rose-950/40 border border-rose-800 text-rose-300 text-xs sm:text-sm font-semibold p-4 rounded-xl flex items-center gap-2">
                 <i class="fas fa-circle-xmark"></i>
-                <span>Has agotado tus 4 intentos disponibles. No es posible reiniciar la evaluación
+                <span>Has agotado tus intentos disponibles. No es posible reiniciar la evaluación
                     nuevamente.</span>
             </div>
 
@@ -1448,7 +1448,7 @@
         const tabs = ['registro', 'introduccion', 'alternativas', 'proceso', 'restricciones', 'complementariedad', 'video', 'infografia', 'evaluacion', 'dashboard'];
         const TOTAL_QUESTIONS = 18;
         const PASS_THRESHOLD = 90;
-        const MAX_ATTEMPTS = 4;
+        const MAX_ATTEMPTS = Number.POSITIVE_INFINITY;
         const FINAL_TABS = ['evaluacion', 'dashboard']; // pestañas finales, ya no editables hacia atrás
 
         // ============================================
@@ -1516,9 +1516,8 @@
         }
 
         function updateIntentosUI() {
-            const restantes = Math.max(0, MAX_ATTEMPTS - attemptsUsed);
             const el = document.getElementById('intentos-restantes');
-            if (el) el.innerText = restantes;
+            if (el) el.innerText = Number.isFinite(MAX_ATTEMPTS) ? Math.max(0, MAX_ATTEMPTS - attemptsUsed) : '∞';
         }
 
         // ============================================
@@ -1548,7 +1547,7 @@
         // REINTENTAR EVALUACIÓN (tras resultado no aprobatorio)
         // ============================================
         function reintentarEvaluacion() {
-            if (attemptsUsed >= MAX_ATTEMPTS) return;
+            if (Number.isFinite(MAX_ATTEMPTS) && attemptsUsed >= MAX_ATTEMPTS) return;
 
             attemptsUsed++;
             updateIntentosUI();
@@ -1782,7 +1781,7 @@
                 badge.innerText = `Por Mejorar - ${score} pts`;
                 detalle.innerHTML = `<p class="text-rose-400 font-bold mb-1"><i class="fas fa-triangle-exclamation mr-1"></i> Resultado: ${score} / 100 pts</p><p>No alcanzaste la calificación mínima aprobatoria del 90%. Revisa la información y vuelve a intentarlo.</p>`;
 
-                if (attemptsUsed < MAX_ATTEMPTS) {
+                if (Number.isFinite(MAX_ATTEMPTS) ? attemptsUsed < MAX_ATTEMPTS : true) {
                     btnReintentarWrap.classList.remove('hidden');
                 } else {
                     msgSinIntentos.classList.remove('hidden');
