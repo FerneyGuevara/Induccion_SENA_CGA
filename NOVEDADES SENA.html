@@ -225,7 +225,7 @@
                     class="flex items-center gap-1.5 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs">
                     <i class="fas fa-rotate text-indigo-400 text-[11px]"></i>
                     <span>Intentos:</span>
-                    <span id="attempts-left" class="font-bold text-slate-100">4</span>
+                    <span id="attempts-left" class="font-bold text-slate-100">∞</span>
                 </div>
 
                 <button onclick="confirmReset()"
@@ -1128,8 +1128,8 @@
                     </div>
                     <div>
                         <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Oportunidad Actual</p>
-                        <p class="text-2xl font-black text-white"><span id="kpi-intentos">1</span> <span
-                                class="text-sm font-normal text-slate-500">de 4</span></p>
+                        <p class="text-2xl font-black text-white"><span id="kpi-intentos">1</span> <span id="kpi-intentos-max"
+                                class="text-sm font-normal text-slate-500">de ∞</span></p>
                     </div>
                 </div>
             </div>
@@ -1249,7 +1249,8 @@
 
         let scores = { traslado: 0, aplazamiento: 0, retiro: 0, reintegro: 0, evaluacion: 0, total: 0 };
         let draggedItems = {};
-        let attemptsLeft = 4;
+        let attemptsLeft = Number.POSITIVE_INFINITY;
+        let currentAttempt = 1;
         let learnerData = null;
 
         function showModal(title, msg) {
@@ -1450,9 +1451,9 @@
             // Sincronizar tiempo restante del timer global
             document.getElementById('kpi-tiempo').innerText = document.getElementById('global-timer').innerText;
 
-            // Oportunidad actual (Si quedan 4 intentos, es el intento 1)
-            const currentAttempt = 5 - attemptsLeft;
+            // Oportunidad actual (sin límite de intentos)
             document.getElementById('kpi-intentos').innerText = currentAttempt;
+            document.getElementById('kpi-intentos-max').innerText = 'de ∞';
 
             const dictamen = document.getElementById('dashboard-dictamen');
             if (scores.total >= 90) {
@@ -1506,9 +1507,12 @@
         }
 
         function confirmReset() {
-            if (attemptsLeft <= 0) return showModal('Intentos agotados', 'Has consumido tus 4 intentos.');
-            attemptsLeft--;
-            document.getElementById('attempts-left').innerText = attemptsLeft;
+            if (Number.isFinite(attemptsLeft) && attemptsLeft <= 0) return showModal('Intentos agotados', 'Has consumido el límite de intentos permitidos.');
+            attemptsLeft = Number.POSITIVE_INFINITY;
+            currentAttempt += 1;
+            document.getElementById('attempts-left').innerText = '∞';
+            document.getElementById('kpi-intentos').innerText = currentAttempt;
+            document.getElementById('kpi-intentos-max').innerText = 'de ∞';
             scores = { traslado: 0, aplazamiento: 0, retiro: 0, reintegro: 0, evaluacion: 0, total: 0 };
 
             // Limpiar UI
@@ -1529,7 +1533,7 @@
             });
 
             switchTab('traslado');
-            showModal('Intento Reiniciado', `Las respuestas se han borrado. Te quedan ${attemptsLeft} intentos.`);
+            showModal('Intento Reiniciado', 'Las respuestas se han borrado. Puedes volver a intentarlo sin límite.');
         }
 
         // Reloj Global

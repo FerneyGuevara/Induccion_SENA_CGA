@@ -338,7 +338,7 @@
                     class="flex items-center gap-1.5 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs">
                     <i class="fas fa-rotate text-indigo-400 text-[11px]"></i>
                     <span>Intentos:</span>
-                    <span id="attempts-left" class="font-bold text-slate-100">4</span>
+                    <span id="attempts-left" class="font-bold text-slate-100">∞</span>
                 </div>
 
                 <button onclick="confirmReset()"
@@ -1023,7 +1023,7 @@
         ];
 
         let registeredLearner = null;
-        let attemptsLeft = 4;
+        let attemptsLeft = Number.POSITIVE_INFINITY;
         let timerInterval = null;
         let timeLeft = 60 * 60;
         let barChartInstance = null;
@@ -1384,13 +1384,18 @@
             });
         }
 
+        function updateAttemptsUI() {
+            const el = document.getElementById('attempts-left');
+            if (el) el.innerText = Number.isFinite(attemptsLeft) ? attemptsLeft : '∞';
+        }
+
         /* ============== REINICIO DE INTENTO ============== */
         function confirmReset() {
-            if (attemptsLeft <= 0) {
-                showModal('Intentos Agotados', 'Has alcanzado el límite máximo de cuatro (4) intentos permitidos para esta actividad.');
+            if (Number.isFinite(attemptsLeft) && attemptsLeft <= 0) {
+                showModal('Intentos Agotados', 'Has alcanzado el límite máximo de intentos permitidos para esta actividad.');
                 return;
             }
-            showModal('Confirmar Reinicio de Intento', `Esto limpiará tus respuestas actuales. Te quedarán ${attemptsLeft - 1} intento(s) después de continuar.`);
+            showModal('Confirmar Reinicio de Intento', 'Esto limpiará tus respuestas actuales y podrás intentarlo nuevamente sin límite.');
             const actions = document.getElementById('modal-actions');
             actions.innerHTML = `
                 <button onclick="closeModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-4 py-2 rounded-lg transition border border-slate-700">Cancelar</button>
@@ -1399,8 +1404,7 @@
         }
 
         function performReset() {
-            attemptsLeft--;
-            document.getElementById('attempts-left').innerText = attemptsLeft;
+            updateAttemptsUI();
 
             document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
             initRelaciona();
@@ -1414,11 +1418,7 @@
             const actions = document.getElementById('modal-actions');
             actions.innerHTML = `<button onclick="closeModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition">Entendido</button>`;
 
-            if (attemptsLeft <= 0) {
-                showModal('Intentos Agotados', 'Has utilizado tu último intento disponible. El botón de reinicio se ha bloqueado.');
-            } else {
-                showModal('Intento Reiniciado', `Tus respuestas han sido reiniciadas. Te quedan ${attemptsLeft} intento(s).`);
-            }
+            showModal('Intento Reiniciado', 'Tus respuestas han sido reiniciadas y puedes volver a intentarlo sin límite.');
             switchTab('registro');
         }
 
