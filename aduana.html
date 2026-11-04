@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aduana de Evidencias — Inducción SENA</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 12px 10px 40px;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #F2F0E8;
+    }
+
+    .grid-datos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 600px) {
+      .grid-datos {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      #aduana-sena-container {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section data-section="aduana">
+
+    <div id="aduana-sena-container"
+      style="max-width:720px; margin:0 auto; background:#0f172a; border:2px solid #4f46e5; border-radius:16px; padding:2rem; color:#f1f5f9; box-shadow:0 10px 28px rgba(15,23,42,0.5);">
+
+      <span style="font-family:monospace; font-size:0.75rem; color:#818cf8; letter-spacing:0.06em; font-weight:bold;">
+        SISTEMA AUTOMÁTICO DE RECEPCIÓN Y VALIDACIÓN · SENA CGA
+      </span>
+      <h2 style="color:#FFFFFF; margin:6px 0 8px 0; font-size:1.4rem;">
+        📤 Envío y Análisis de Reporte de Evaluación
+      </h2>
+      <p style="font-size:0.88rem; color:#94a3b8; margin-bottom:1.4rem; line-height:1.5;">
+        1. Haz clic en el botón verde <strong>"Imprimir Resultados"</strong> y guarda tu reporte como archivo
+        <strong>PDF</strong>.<br>
+        2. Digita tu <strong>Número de Documento</strong> como clave de seguridad y adjunta tu archivo PDF. El sistema
+        validará que tu documento pertenezca al PDF y que tu calificación sea aprobatoria (90-100 pts).
+      </p>
+
+      <form id="formEntregaSena" onsubmit="enviarReportePDF(event)">
+
+        <label style="display:block; margin-bottom:0.4rem; font-weight:bold; color:#a5b4fc; font-size:0.9rem;">
+          1. Número de Reporte / Actividad a entregar (1 al 9):
+        </label>
+        <select id="selectNumeroReporte"
+          style="width:100%; padding:0.75rem; margin-bottom:1.2rem; border-radius:10px; background:#020617; color:#fff; border:1px solid #334155; font-size:0.9rem;"
+          required>
+          <option value="1">Reporte 1 Informaciòn Institucional ISS.</option>
+          <option value="2">Reporte 2 Derechos, Reconocimientos y Representatividad DDP.</option>
+          <option value="3">Reporte 3 Deberes y Prohibiciones DYP.</option>
+          <option value="4">Reporte 4 Faltas Medidas y Sanciones FMS.</option>
+          <option value="5">Reporte 5 Gestiòn de Novedades NAS.</option>
+          <option value="6">Reporte 6 Etapa Productiva AEP.</option>
+          <option value="7">Reporte 7 Plataformas Virtuales del SENA PVS.</option>
+          <option value="8">Reporte 8 Código de Integridad CDI.</option>
+          <option value="9">Reporte 9 Reconociendo al Autor DAS.</option>
+        </select>
+
+        <label style="display:block; margin-bottom:0.4rem; font-weight:bold; color:#a5b4fc; font-size:0.9rem;">
+          2. Clave de Seguridad (Tu Número de Documento):
+        </label>
+        <input type="text" id="inputClaveDocumento" placeholder="Ej: 0123456789"
+          oninput="validarCoincidenciaDocumento()"
+          style="width:100%; padding:0.75rem; margin-bottom:1.2rem; border-radius:10px; background:#020617; color:#fff; border:1px solid #334155; font-size:0.9rem;"
+          required />
+
+        <label style="display:block; margin-bottom:0.4rem; font-weight:bold; color:#a5b4fc; font-size:0.9rem;">
+          3. Adjunta el Reporte PDF descargado de este simulador:
+        </label>
+        <input type="file" id="inputArchivoGen" accept="application/pdf" onchange="analizarReportePDF(event)"
+          style="width:100%; padding:0.8rem; margin-bottom:1rem; border-radius:10px; background:#020617; color:#fff; border:1px dashed #6366f1; cursor:pointer;"
+          required />
+
+        <!-- Cuadro de lectura -->
+        <div id="cuadroLecturaPDF"
+          style="display:none; background:#1e293b; border:1px solid #475569; padding:1rem; border-radius:10px; margin-bottom:1.2rem; font-size:0.88rem; line-height:1.5;">
+        </div>
+
+        <button type="submit" id="btnEnviarGen" disabled
+          style="background:linear-gradient(135deg,#4f46e5,#4338ca); color:#fff; border:none; padding:0.95rem; border-radius:10px; width:100%; font-weight:bold; cursor:pointer; font-size:0.98rem; box-shadow:0 4px 12px rgba(79,70,229,0.35); opacity:0.5;">
+          Analizar y Enviar Reporte a mi Carpeta Drive
+        </button>
+      </form>
+
+      <div id="mensajeEnvioGen" style="margin-top:1.2rem;"></div>
+    </div>
+
+    <script>
+      const URL_APLICACION_WEB = "https://script.google.com/macros/s/AKfycbwcaTHuAumvrlzXl2cYZ2pzfFA5FK27MubA4tzz2aXs8qAJrZvbAZg6Q2BCn3x0AWpS/exec";
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+      let datosPDFActual = null;
+
+      function detectarReporteDesdeURL() {
+        const params = new URLSearchParams(window.location.search);
+        const rep = params.get("reporte");
+        const select = document.getElementById("selectNumeroReporte");
+        if (rep && select && rep >= 1 && rep <= 9) {
+          select.value = String(rep);
+        }
+      }
+
+      async function analizarReportePDF(event) {
+        const archivo = event.target.files[0];
+        const cuadro = document.getElementById("cuadroLecturaPDF");
+        const msg = document.getElementById("mensajeEnvioGen");
+        msg.innerHTML = "";
+        datosPDFActual = null;
+
+        if (!archivo) {
+          cuadro.style.display = "none";
+          validarCoincidenciaDocumento();
+          notificarAltura();
+          return;
+        }
+
+        try {
+          const buffer = await archivo.arrayBuffer();
+          const pdf = await pdfjsLib.getDocument({ data: buffer }).promise;
+          let textoExtraido = "";
+
+          for (let i = 1; i <= pdf.numPages; i++) {
+            const pagina = await pdf.getPage(i);
+            const content = await pagina.getTextContent();
+            textoExtraido += content.items.map(item => item.str).join(" ") + "\n";
+          }
+
+          const textoLimpio = textoExtraido.replace(/\s+/g, " ");
+
+          // Extracción robusta de Ficha y Programa
+          const matchFicha = textoLimpio.match(/Ficha[:\s]*([0-9]+)/i) || textoLimpio.match(/Ficha\s*([0-9]{6,10})/i);
+          const matchProg = textoLimpio.match(/Programa[:\s]*([A-Za-z0-9ÁÉÍÓÚáéíóúñÑ\s\-]+?)(?=\s*Centro|\s*Ficha|\s*Calificaci|\s*Resultado|$)/i);
+          const matchNombre = textoLimpio.match(/Nombre\s*(?:completo)?[:\s]+(.+?)(?=\s*N[úu]mero|\s*Ficha|\s*Programa|$)/i);
+
+          const nombre = matchNombre ? matchNombre[1].trim() : "Aprendiz SENA";
+          const ficha = matchFicha ? matchFicha[1].trim() : "";
+          const programa = matchProg ? matchProg[1].trim() : "";
+
+          // Concepto evaluativo
+          let concepto = "SIN CONCEPTO";
+          const textoUpper = textoLimpio.toUpperCase();
+          if (textoUpper.includes("APROBADO")) concepto = "APROBADO";
+          else if (textoUpper.includes("POR MEJORAR")) concepto = "POR MEJORAR";
+          else if (textoUpper.includes("NO APROBADO")) concepto = "NO APROBADO";
+          else if (textoUpper.includes("PENDIENTE")) concepto = "PENDIENTE";
+
+          // Calificación global
+          let puntaje = 0;
+          const matchPts = textoLimpio.match(/\((\d{1,3})\s*pts\s*\/\s*100\)/i) || textoLimpio.match(/\b(\d{1,3})\s*\/\s*100\b/);
+          if (matchPts) {
+            puntaje = parseInt(matchPts[1], 10);
+          }
+
+          datosPDFActual = {
+            nombre,
+            ficha,
+            programa,
+            conceptoDetectado: concepto,
+            puntajeDetectado: puntaje,
+            textoPDF: textoLimpio
+          };
+
+          validarCoincidenciaDocumento();
+          notificarAltura();
+
+        } catch (error) {
+          console.error("Error leyendo PDF:", error);
+          cuadro.style.display = "block";
+          cuadro.style.borderColor = "#f43f5e";
+          cuadro.innerHTML = "❌ No se pudo leer el archivo PDF. Asegúrate de subir un reporte original generado por el simulador.";
+          validarCoincidenciaDocumento();
+          notificarAltura();
+        }
+      }
+
+      function validarCoincidenciaDocumento() {
+        const inputClave = document.getElementById("inputClaveDocumento").value.trim();
+        const cuadro = document.getElementById("cuadroLecturaPDF");
+        const btn = document.getElementById("btnEnviarGen");
+
+        if (!datosPDFActual) {
+          if (document.getElementById("inputArchivoGen").files.length > 0) {
+            cuadro.style.display = "block";
+          } else {
+            cuadro.style.display = "none";
+          }
+          btn.disabled = true;
+          btn.style.opacity = "0.5";
+          return;
+        }
+
+        // Verificación robusta: revisa si el número digitado está presente dentro del texto extraído del PDF
+        const textoNorm = datosPDFActual.textoPDF.replace(/\s+/g, "").toLowerCase();
+        const claveNorm = inputClave.toLowerCase();
+        const claveCoincide = (inputClave !== "" && textoNorm.includes(claveNorm));
+
+        const cumpleAprobacion = (datosPDFActual.conceptoDetectado === "APROBADO") && (datosPDFActual.puntajeDetectado >= 90 && datosPDFActual.puntajeDetectado <= 100);
+
+        cuadro.style.display = "block";
+
+        if (!claveCoincide) {
+          cuadro.style.borderColor = "#f43f5e";
+          cuadro.innerHTML = `
+            <div style="font-weight:bold; color:#fb7185; margin-bottom:6px;">
+              ❌ La clave (Número de Documento) no coincide con este PDF
+            </div>
+            <div style="font-size:0.82rem; color:#cbd5e1;">
+              El número de documento ingresado ("${inputClave}") no se encuentra en el contenido de este archivo PDF. Verifica que sea tu número correcto y que corresponda a tu reporte.
+            </div>
+          `;
+          btn.disabled = true;
+          btn.style.opacity = "0.5";
+        } else if (!cumpleAprobacion) {
+          cuadro.style.borderColor = "#f59e0b";
+          cuadro.innerHTML = `
+            <div style="font-weight:bold; color:#fbbf24; margin-bottom:6px;">
+              ⚠️ Documento verificado OK, pero el reporte NO alcanza la aprobación (90-100 pts)
+            </div>
+            <div class="grid-datos">
+              <div><strong>Documento (Clave OK):</strong> ${inputClave}</div>
+              <div><strong>Concepto PDF:</strong> <span style="color:#fb7185; font-weight:bold;">${datosPDFActual.conceptoDetectado}</span></div>
+              <div><strong>Calificación:</strong> <strong>${datosPDFActual.puntajeDetectado} / 100 pts</strong></div>
+            </div>
+          `;
+          btn.disabled = false;
+          btn.style.opacity = "1";
+        } else {
+          cuadro.style.borderColor = "#10b981";
+          cuadro.innerHTML = `
+            <div style="font-weight:bold; color:#34d399; margin-bottom:6px;">
+              ✅ Documento verificado OK y Reporte Aprobado (90 a 100 pts)
+            </div>
+            <div class="grid-datos">
+              <div><strong>Documento (Clave OK):</strong> ${inputClave}</div>
+              <div><strong>Ficha:</strong> ${datosPDFActual.ficha}</div>
+              <div><strong>Calificación:</strong> <strong>${datosPDFActual.puntajeDetectado} / 100 pts</strong></div>
+            </div>
+          `;
+          btn.disabled = false;
+          btn.style.opacity = "1";
+        }
+        notificarAltura();
+      }
+
+      async function enviarReportePDF(e) {
+        e.preventDefault();
+        if (!datosPDFActual) return;
+
+        const inputClave = document.getElementById("inputClaveDocumento").value.trim();
+        const textoNorm = datosPDFActual.textoPDF.replace(/\s+/g, "").toLowerCase();
+        if (!inputClave || !textoNorm.includes(inputClave.toLowerCase())) {
+          alert("El número de documento clave no coincide o no se encuentra en el PDF.");
+          return;
+        }
+
+        if (!URL_APLICACION_WEB || URL_APLICACION_WEB.includes("PEGA_AQUI")) {
+          alert("Falta pegar tu enlace /exec en la línea const URL_APLICACION_WEB dentro de aduana.html");
+          return;
+        }
+
+        const archivo = document.getElementById("inputArchivoGen").files[0];
+        const numReporte = Number(document.getElementById("selectNumeroReporte").value) || 1;
+        const btn = document.getElementById("btnEnviarGen");
+        const msg = document.getElementById("mensajeEnvioGen");
+
+        btn.disabled = true;
+        btn.textContent = "⏳ Procesando en Google Sheets y carpeta Drive...";
+        msg.innerHTML = "";
+
+        const lector = new FileReader();
+        lector.onload = async function () {
+          const base64 = lector.result.split(",")[1];
+          const paquete = {
+            nombre: datosPDFActual.nombre,
+            documento: inputClave,
+            ficha: datosPDFActual.ficha,
+            programa: datosPDFActual.programa,
+            numeroReporte: numReporte,
+            conceptoDetectado: datosPDFActual.conceptoDetectado,
+            puntajeDetectado: datosPDFActual.puntajeDetectado,
+            textoPDF: datosPDFActual.textoPDF,
+            pdfBase64: base64,
+            nombreArchivo: `${inputClave}_Reporte_${numReporte}.pdf`
+          };
+
+          try {
+            const respuesta = await fetch(URL_APLICACION_WEB, {
+              method: "POST",
+              redirect: "follow",
+              headers: { "Content-Type": "text/plain;charset=utf-8" },
+              body: JSON.stringify(paquete)
+            });
+
+            const res = await respuesta.json();
+
+            if (res.ok && res.aprobado) {
+              msg.innerHTML = `
+                <div style="background:#064e3b; border:1px solid #10b981; padding:1.1rem; border-radius:12px; color:#ecfdf5; line-height:1.5;">
+                  <div style="font-size:1.05rem; font-weight:bold; color:#34d399; margin-bottom:0.4rem;">
+                    🎉 ¡REPORTE APROBADO Y GUARDADO EN TU CARPETA!
+                  </div>
+                  <div style="font-size:0.9rem; margin-bottom:0.6rem;">${res.mensaje}</div>
+                  <div style="background:#022c22; padding:0.75rem; border-radius:8px; font-size:0.85rem;">
+                    <div>📌 <strong>Registrado en la hoja Sheet:</strong> ${res.textoRegistrado}</div>
+                    <div>📁 <strong>Carpeta Drive:</strong> Creada y actualizada automáticamente</div>
+                  </div>
+                </div>
+              `;
+              document.getElementById("formEntregaSena").reset();
+              detectarReporteDesdeURL();
+              document.getElementById("cuadroLecturaPDF").style.display = "none";
+              datosPDFActual = null;
+            } else if (res.ok && !res.aprobado) {
+              msg.innerHTML = `
+                <div style="background:#4c0519; border:1px solid #f43f5e; padding:1.1rem; border-radius:12px; color:#ffe4e6; line-height:1.5;">
+                  <div style="font-size:1.05rem; font-weight:bold; color:#fb7185; margin-bottom:0.4rem;">
+                    ❌ REPORTE NO APROBADO (${res.concepto} — ${res.puntaje}/100 pts)
+                  </div>
+                  <div style="font-size:0.9rem; margin-bottom:0.6rem;">${res.mensaje}</div>
+                  <div style="background:#2e020f; padding:0.75rem; border-radius:8px; font-size:0.85rem; margin-bottom:0.9rem;">
+                    <div>📌 <strong>Registrado en la hoja Sheet:</strong> ${res.textoRegistrado}</div>
+                    <div>⚠️ <strong>Acción obligatoria:</strong> Debes obtener entre <strong>90 y 100 puntos</strong>. Repite la evaluación, genera el nuevo PDF aprobado y vuelve a enviarlo.</div>
+                  </div>
+                  <button type="button" onclick="solicitarRepetirEvaluacion()"
+                    style="background:#d97706; color:#fff; border:none; padding:0.75rem 1.2rem; border-radius:8px; font-weight:bold; cursor:pointer; font-size:0.9rem; width:100%;">
+                    🔄 Repetir la Evaluación Ahora
+                  </button>
+                </div>
+              `;
+            } else {
+              msg.innerHTML = `<div style="color:#fb7185; font-weight:bold;">❌ Error: ${res.mensaje}</div>`;
+            }
+          } catch (err) {
+            msg.innerHTML = `<div style="color:#fb7185; font-weight:bold;">❌ Error de conexión con Google Sheets. Verifica tu internet y el enlace /exec.</div>`;
+          } finally {
+            btn.disabled = false;
+            btn.textContent = "Analizar y Enviar Reporte a mi Carpeta Drive";
+            notificarAltura();
+          }
+        };
+        lector.readAsDataURL(archivo);
+      }
+
+      function solicitarRepetirEvaluacion() {
+        try {
+          if (window.parent && typeof window.parent.reintentarEvaluacion === "function") {
+            window.parent.reintentarEvaluacion();
+            return;
+          }
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage({ type: "aduana-repetir-evaluacion" }, "*");
+          }
+        } catch (e) {
+          alert("Ve a la pestaña Evaluación y presiona el botón 'Volver al Repaso y Reintentar'.");
+        }
+      }
+
+      function notificarAltura() {
+        try {
+          const contenedor = document.getElementById("aduana-sena-container");
+          const h = contenedor ? contenedor.offsetHeight + 60 : (document.documentElement.scrollHeight || document.body.scrollHeight);
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage({ type: "aduana-resize", height: h }, "*");
+          }
+        } catch (e) { }
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        detectarReporteDesdeURL();
+        notificarAltura();
+      });
+      window.addEventListener("load", notificarAltura);
+      window.addEventListener("resize", notificarAltura);
+      if (typeof ResizeObserver !== "undefined") {
+        new ResizeObserver(() => notificarAltura()).observe(document.body);
+      }
+    </script>
+  </section>
+</body>
+
+</html>
