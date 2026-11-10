@@ -197,7 +197,7 @@
                 <span id="intentos-pill"
                     class="bg-slate-900 border border-slate-700 text-slate-200 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-sm">
                     <i class="fas fa-rotate-right text-indigo-400"></i>
-                    <span id="intentos-display">Intento 1 / ∞</span>
+                    <span id="intentos-display">Intento 1 / 4</span>
                 </span>
                 <button onclick="reiniciarIntento()" id="btn-reiniciar"
                     class="bg-slate-800 hover:bg-rose-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 hover:border-rose-600 transition flex items-center gap-1.5 shadow-sm">
@@ -268,6 +268,10 @@
             <button onclick="switchTab('dashboard')" id="tab-dashboard"
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
                 <i class="fas fa-chart-pie text-xs"></i> Dashboard
+            </button>
+            <button onclick="window.location.href='aduana.html'" id="tab-enviar-reporte"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-paper-plane text-xs"></i> Enviar Reporte
             </button>
         </nav>
 
@@ -812,7 +816,7 @@
                 </tr>
                 <tr>
                     <td style="font-weight:600;">Intentos utilizados</td>
-                    <td id="print-intentos">1 / ∞</td>
+                    <td id="print-intentos">1 / 4</td>
                 </tr>
             </table>
         </div>
@@ -835,7 +839,7 @@
         // CONFIGURACION GENERAL
         // ============================================
         const MIN_APROBACION = 90;
-        const MAX_INTENTOS = Number.POSITIVE_INFINITY;
+        const MAX_INTENTOS = 4;
         const TIEMPO_TOTAL_SEG = 60 * 60; // 60:00
 
         let registeredLearner = null;
@@ -1425,7 +1429,7 @@
         // INTENTOS Y REINICIO
         // ============================================
         function reiniciarIntento() {
-            if (Number.isFinite(MAX_INTENTOS) && currentAttempt >= MAX_INTENTOS) return;
+            if (currentAttempt >= MAX_INTENTOS) return;
             currentAttempt++;
 
             // Reset de estado
@@ -1451,11 +1455,11 @@
             lockAllModulesExceptRegistro();
             if (registeredLearner) { unlockModule('presentacion'); unlockModule('normativo'); }
 
-            document.getElementById('intentos-display').innerText = Number.isFinite(MAX_INTENTOS) ? `Intento ${currentAttempt} / ${MAX_INTENTOS}` : `Intento ${currentAttempt} / ∞`;
-            const btn = document.getElementById('btn-reiniciar');
-            if (btn) {
-                btn.disabled = false;
-                btn.classList.remove('opacity-40', 'cursor-not-allowed');
+            document.getElementById('intentos-display').innerText = `Intento ${currentAttempt} / ${MAX_INTENTOS}`;
+            if (currentAttempt >= MAX_INTENTOS) {
+                const btn = document.getElementById('btn-reiniciar');
+                btn.disabled = true;
+                btn.classList.add('opacity-40', 'cursor-not-allowed');
             }
 
             updateDashboard();
@@ -1577,7 +1581,7 @@
             document.getElementById('print-puntos').innerText = `${total} / 100`;
             document.getElementById('print-porcentaje').innerText = `${porcentaje}%`;
             document.getElementById('print-dictamen').innerText = evaluacionGenerada ? (aprobado ? 'APROBADO' : 'POR MEJORAR') : 'PENDIENTE';
-            document.getElementById('print-intentos').innerText = Number.isFinite(MAX_INTENTOS) ? `${currentAttempt} / ${MAX_INTENTOS}` : `${currentAttempt} / ∞`;
+            document.getElementById('print-intentos').innerText = `${currentAttempt} / ${MAX_INTENTOS}`;
 
             const table = document.getElementById('print-desglose-table');
             table.innerHTML = `<tr><th>#</th><th>Modulo</th><th>Puntos Obtenidos</th><th>Puntos Posibles</th></tr>` +
@@ -1613,7 +1617,7 @@
 
             lockAllModulesExceptRegistro();
             document.getElementById('timer-display').innerText = formatTime(timerRemaining);
-            document.getElementById('intentos-display').innerText = Number.isFinite(MAX_INTENTOS) ? `Intento ${currentAttempt} / ${MAX_INTENTOS}` : `Intento ${currentAttempt} / ∞`;
+            document.getElementById('intentos-display').innerText = `Intento ${currentAttempt} / ${MAX_INTENTOS}`;
 
             initCharts();
             updateDashboard();

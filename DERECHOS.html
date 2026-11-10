@@ -286,7 +286,8 @@
                     class="flex items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800 text-xs text-slate-300">
                     <span>Intentos:</span>
                     <span id="attempts-badge"
-                        class="bg-indigo-600 text-white font-mono text-[11px] px-2 py-0.5 rounded font-bold">∞</span>
+                        class="bg-indigo-600 text-white font-mono text-[11px] px-2 py-0.5 rounded font-bold">1 /
+                        4</span>
                 </div>
 
                 <button onclick="confirmReset()"
@@ -376,6 +377,10 @@
             <button onclick="switchTab('dashboard')" id="tab-dashboard"
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
                 <i class="fas fa-chart-pie text-xs"></i> Dashboard
+            </button>
+            <button onclick="window.location.href='aduana.html'" id="tab-enviar-reporte"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
+                <i class="fas fa-paper-plane text-xs"></i> Enviar Reporte
             </button>
         </nav>
 
@@ -1682,7 +1687,7 @@
     <!-- ========================================== -->
     <script>
         let currentAttempt = 1;
-        const maxAttempts = Number.POSITIVE_INFINITY;
+        const maxAttempts = 4;
         let timeRemaining = 60 * 60;
         let timeElapsed = 0;
         let timerInterval = null;
@@ -2010,18 +2015,18 @@
         }
 
         function confirmReset() {
-            if (Number.isFinite(maxAttempts) && currentAttempt >= maxAttempts) {
-                showModal('Intentos Agotados', 'Has alcanzado el límite máximo de intentos permitidos para esta actividad.');
+            if (currentAttempt >= maxAttempts) {
+                showModal('Intentos Agotados', 'Has alcanzado el límite máximo de cuatro (4) intentos permitidos para esta actividad.');
                 return;
             }
 
             showModal(
                 'Confirmar Reinicio de Intento',
-                '¿Deseas reiniciar la actividad? Se restablecerán las selecciones de las preguntas y podrás intentarlo nuevamente sin límite.',
+                `¿Deseas reiniciar la actividad? Se restablecerán las selecciones de las preguntas y se consumirá el intento ${currentAttempt + 1} de ${maxAttempts}.`,
                 true,
                 () => {
                     currentAttempt++;
-                    document.getElementById('attempts-badge').innerText = Number.isFinite(maxAttempts) ? `${currentAttempt} / ${maxAttempts}` : '∞';
+                    document.getElementById('attempts-badge').innerText = `${currentAttempt} / ${maxAttempts}`;
                     document.getElementById('kpi-attempt').innerText = currentAttempt;
 
                     document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
