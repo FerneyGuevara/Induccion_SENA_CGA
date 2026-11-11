@@ -64,92 +64,136 @@
     }
 
     /* ========================================================= */
-    /* MODO DE IMPRESIÓN OFICIAL Y DEFINITIVO                   */
+    /* MODO DE IMPRESIÓN: INFORME A COLOR (REPORTE DE EVALUACIÓN) */
     /* ========================================================= */
+    @page { size: A4; margin: 8mm; }
+
+    #print-report { display: none; }
+
     @media print {
-      body {
-        background-color: #ffffff !important;
-        color: #0f172a !important;
-        padding: 0 !important;
-        margin: 0 !important;
-      }
-
-      /* Ocultar elementos de navegación y de control */
-      header,
-      nav,
-      footer,
-      .no-print,
-      #pane-registro,
-      #pane-deberes,
-      #pane-prohibiciones,
-      #pane-matriz,
-      #pane-dashboard,
-      #custom-modal {
-        display: none !important;
-      }
-
-      /* Forzar despliegue del contenedor de evaluación e impresión */
-      #pane-evaluacion {
-        display: block !important;
-        background: transparent !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        border: none !important;
-        box-shadow: none !important;
-      }
-
-      #pane-evaluacion>div.no-print {
-        display: none !important;
-      }
-
-      /* Desplegar área imprimible con contraste nítido */
-      #print-area {
-        display: block !important;
-        visibility: visible !important;
-        width: 100% !important;
-        padding: 10mm !important;
-        margin: 0 !important;
+      html, body {
         background: #ffffff !important;
-        color: #0f172a !important;
+        color: #14213d !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        min-height: 0 !important;
+        display: block !important;
       }
 
-      #print-area * {
-        visibility: visible !important;
-        color: #0f172a !important;
-        box-shadow: none !important;
-        text-shadow: none !important;
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
 
-      #print-area .bg-slate-900\/90,
-      #print-area .bg-slate-950,
-      #print-area .bg-slate-900 {
-        background-color: #ffffff !important;
-        border: 1px solid #cbd5e1 !important;
-      }
+      /* Se oculta toda la interfaz; solo sale el informe */
+      body > *:not(#print-report) { display: none !important; }
+      #print-report { display: block !important; width: 100%; }
 
-      #print-area table {
-        width: 100% !important;
-        border: 1px solid #cbd5e1 !important;
-        border-collapse: collapse !important;
-        background-color: #ffffff !important;
+      #print-report, #print-report * {
+        box-sizing: border-box;
+        font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
       }
+      #print-report h1, #print-report h2, #print-report h3, #print-report p { margin: 0; }
 
-      #print-area thead tr,
-      #print-area thead th {
-        background-color: #f1f5f9 !important;
-        color: #1e293b !important;
-        border-bottom: 2px solid #cbd5e1 !important;
-      }
+      .pr-page { width: 100%; }
+      .pr-page + .pr-page { break-before: page; page-break-before: always; }
+      .pr-avoid { break-inside: avoid; page-break-inside: avoid; }
 
-      #print-area tbody tr {
-        background-color: #ffffff !important;
-        border-bottom: 1px solid #e2e8f0 !important;
-      }
+      /* Encabezado institucional */
+      .pr-inst { font-size: 8pt; font-weight: 800; letter-spacing: .12em; color: #14213d; }
+      .pr-centro { font-size: 17pt; font-weight: 900; color: #14213d; line-height: 1.15; margin: 1mm 0 1.5mm; }
+      .pr-activ { font-size: 8pt; color: #475569; margin-bottom: 3mm; }
 
-      #print-area td {
-        border: 1px solid #e2e8f0 !important;
-        color: #0f172a !important;
-      }
+      /* Recuadro del reto */
+      .pr-title-box { background: #f8efdc; border: 1.2px solid #c58a2d; border-radius: 3mm; padding: 3.5mm 4.5mm; margin-bottom: 3.5mm; }
+      .pr-title-box h1 { font-size: 15pt; font-weight: 900; color: #14213d; }
+      .pr-title-box .pr-sub { font-size: 8.5pt; font-weight: 800; color: #a8731c; letter-spacing: .03em; margin: 1mm 0; }
+      .pr-title-box .pr-meta { font-size: 8pt; color: #334155; }
+      .pr-title-box .pr-meta b { font-weight: 800; }
+      .pr-title-box .pr-sep { border-top: 1px dashed #c58a2d; margin: 2mm 0 1.5mm; }
+
+      /* Títulos de sección */
+      .pr-h { font-size: 11.5pt; font-weight: 900; color: #14213d; letter-spacing: .04em; padding-bottom: 1mm; border-bottom: 2px solid #1f7f6b; margin: 4mm 0 2.5mm; }
+      .pr-h.pr-h-gold { border-bottom-color: #c58a2d; }
+      .pr-h-sm { font-size: 9.5pt; font-weight: 900; color: #14213d; letter-spacing: .05em; padding-bottom: 1mm; border-bottom: 1.5px solid #cbd5e1; margin: 0 0 2mm; }
+
+      /* Registro del aprendiz */
+      .pr-reg { background: #f7f8f4; border: 1px solid #cfd8e3; border-radius: 3mm; padding: 3mm 4.5mm; }
+      .pr-reg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2mm 6mm; }
+      .pr-reg-grid .pr-full { grid-column: 1 / -1; }
+      .pr-field { font-size: 8.5pt; display: flex; align-items: baseline; gap: 1.5mm; border-bottom: 1.3px solid #64748b; padding-bottom: .4mm; min-height: 5mm; }
+      .pr-field b { font-weight: 800; white-space: nowrap; color: #14213d; }
+      .pr-field span { font-weight: 700; color: #14213d; flex: 1; word-break: break-word; }
+
+      /* Resultado destacado */
+      .pr-hero { background: #14213d; border-radius: 3.5mm; padding: 4mm 5mm; color: #ffffff; }
+      .pr-hero-top { display: flex; align-items: center; justify-content: space-between; gap: 5mm; }
+      .pr-hero-label { font-size: 8pt; font-weight: 800; letter-spacing: .14em; color: #f2c14e; }
+      .pr-hero-score { font-size: 38pt; font-weight: 900; color: #f2c14e; line-height: 1; margin-top: 1mm; }
+      .pr-hero-score small { font-size: 13pt; font-weight: 700; color: #cbd5e1; margin-left: 1.5mm; }
+      .pr-hero-pct { font-size: 11pt; font-weight: 800; color: #ffffff; margin-top: 1.2mm; }
+      .pr-hero-right { text-align: right; }
+      .pr-status { display: inline-block; font-size: 15pt; font-weight: 900; letter-spacing: .06em; padding: 2mm 6mm; border-radius: 10mm; color: #ffffff; }
+      .pr-status.ok { background: #1f9d7f; }
+      .pr-status.mejorar { background: #d9822b; }
+      .pr-hero-note { font-size: 8pt; color: #dbe3ee; margin-top: 2mm; line-height: 1.35; }
+      .pr-chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2mm; margin-top: 3.2mm; }
+      .pr-chip { background: #2a3a5c; border: 1px solid #4a5b80; border-radius: 2mm; padding: 1.6mm 2.2mm; font-size: 7.5pt; color: #e8eef7; }
+      .pr-chip b { display: block; font-weight: 800; color: #ffffff; }
+      .pr-chip em { font-style: normal; font-weight: 900; font-size: 10pt; }
+      .pr-chip .ok { color: #7be0c2; }
+      .pr-chip .mejorar { color: #ffc27a; }
+
+      /* Tarjetas KPI */
+      .pr-kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2.5mm; margin-top: 3mm; }
+      .pr-kpi { background: #f4f6fa; border: 1px solid #cfd8e3; border-radius: 2.5mm; text-align: center; padding: 2.2mm 1mm; }
+      .pr-kpi strong { display: block; font-size: 15pt; font-weight: 900; color: #1f7f6b; line-height: 1.1; }
+      .pr-kpi span { display: block; font-size: 6.8pt; font-weight: 800; letter-spacing: .05em; color: #334155; margin-top: .6mm; text-transform: uppercase; }
+
+      /* Gráficos */
+      .pr-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+      .pr-chart { border: 1px solid #cfd8e3; border-radius: 2.5mm; padding: 2mm 2.5mm 1.5mm; background: #ffffff; break-inside: avoid; page-break-inside: avoid; }
+      .pr-chart h3 { font-size: 8.5pt; font-weight: 800; color: #14213d; margin-bottom: 1mm; }
+      .pr-chart svg { width: 100%; height: auto; display: block; }
+
+      /* Tabla de desglose */
+      .pr-table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+      .pr-table th { background: #14213d; color: #ffffff; text-align: center; font-weight: 800; padding: 2mm 2mm; font-size: 7.8pt; letter-spacing: .03em; text-transform: uppercase; }
+      .pr-table th:first-child { text-align: left; }
+      .pr-table td { border: 1px solid #d5dde8; padding: 2mm 2.2mm; text-align: center; color: #14213d; }
+      .pr-table td:first-child { text-align: left; }
+      .pr-table td small { display: block; font-size: 7pt; color: #64748b; margin-top: .3mm; }
+      .pr-table tr:nth-child(even) td { background: #f7f9fc; }
+      .pr-table tr.pr-total td { background: #e7f4ef; border-top: 2px solid #1f7f6b; font-weight: 900; font-size: 10pt; }
+      .pr-badge { display: inline-block; font-size: 7.5pt; font-weight: 800; padding: .8mm 3mm; border-radius: 10mm; color: #ffffff; }
+      .pr-badge.ok { background: #1f9d7f; }
+      .pr-badge.mejorar { background: #d9822b; }
+
+      /* Diagnóstico y recomendaciones */
+      .pr-dx { border: 1px solid #cfd8e3; border-left: 2.2mm solid #1f7f6b; border-radius: 2.5mm; padding: 3mm 4mm; background: #f7fbf9; }
+      .pr-dx.mejorar { border-left-color: #d9822b; background: #fdf7ef; }
+      .pr-dx-title { font-size: 10pt; font-weight: 900; margin-bottom: 1.2mm; }
+      .pr-dx.ok .pr-dx-title { color: #1a7a62; }
+      .pr-dx.mejorar .pr-dx-title { color: #b3661a; }
+      .pr-dx p { font-size: 8.8pt; line-height: 1.5; color: #1e293b; text-align: justify; }
+
+      .pr-recs { display: grid; gap: 2mm; }
+      .pr-rec { display: grid; grid-template-columns: 7mm 1fr auto; gap: 2.5mm; align-items: start; border: 1px solid #d5dde8; border-radius: 2.5mm; padding: 2.2mm 3mm; break-inside: avoid; page-break-inside: avoid; }
+      .pr-rec.ok { background: #f1faf6; border-color: #bfe3d5; }
+      .pr-rec.mejorar { background: #fff7ec; border-color: #f0d2a8; }
+      .pr-rec-ico { width: 6mm; height: 6mm; border-radius: 50%; color: #fff; font-weight: 900; font-size: 9pt; text-align: center; line-height: 6mm; }
+      .pr-rec.ok .pr-rec-ico { background: #1f9d7f; }
+      .pr-rec.mejorar .pr-rec-ico { background: #d9822b; }
+      .pr-rec b { font-size: 8.8pt; font-weight: 800; color: #14213d; }
+      .pr-rec p { font-size: 8.3pt; line-height: 1.4; color: #334155; margin-top: .4mm; }
+      .pr-rec-pct { font-size: 11pt; font-weight: 900; color: #14213d; }
+
+      /* Observaciones y firmas */
+      .pr-obs { border: 1px solid #cfd8e3; border-radius: 2.5mm; padding: 3mm 4mm 1mm; }
+      .pr-obs .pr-line { border-bottom: 1px solid #94a3b8; height: 7mm; }
+      .pr-sign { display: grid; grid-template-columns: 1fr 1fr; gap: 14mm; margin-top: 16mm; }
+      .pr-sign div { border-top: 1.3px solid #14213d; padding-top: 1.5mm; text-align: center; font-size: 8.5pt; font-weight: 800; color: #14213d; }
+      .pr-foot { margin-top: 6mm; font-size: 7pt; color: #64748b; text-align: center; }
     }
   </style>
 </head>
@@ -189,7 +233,7 @@
           class="flex items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800 text-xs text-slate-300">
           <span>Intentos:</span>
           <span id="attempts-badge"
-            class="bg-indigo-600 text-white font-mono text-[11px] px-2 py-0.5 rounded font-bold">1 / 4</span>
+            class="bg-indigo-600 text-white font-mono text-[11px] px-2 py-0.5 rounded font-bold">∞</span>
         </div>
 
         <button onclick="confirmReset()"
@@ -277,9 +321,9 @@
         class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
         <i class="fas fa-chart-pie text-xs"></i> Dashboard
       </button>
-      <button onclick="window.location.href='aduana.html'" id="tab-enviar-reporte"
+      <button onclick="switchTab('enviar')" id="tab-enviar"
         class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
-        <i class="fas fa-paper-plane text-xs"></i> Enviar Reporte
+        <i class="fas fa-paper-plane text-xs"></i> Enviar reporte
       </button>
 
     </nav>
@@ -805,17 +849,17 @@
             </p>
             <div class="space-y-2.5">
               <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
-                <input type="radio" name="eva-q1" value="A" class="mt-0.5 accent-indigo-500" />
+                <input type="radio" name="eva-q1" value="A" onchange="calculateScore()" class="mt-0.5 accent-indigo-500" />
                 <span class="text-xs text-slate-300 font-normal">A) No será causal para que instructores o directivos
                   impidan su acceso a la formación, ni se podrá exigir marca o proveedor específico.</span>
               </label>
               <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
-                <input type="radio" name="eva-q1" value="B" class="mt-0.5 accent-indigo-500" />
+                <input type="radio" name="eva-q1" value="B" onchange="calculateScore()" class="mt-0.5 accent-indigo-500" />
                 <span class="text-xs text-slate-300 font-normal">B) La coordinación académica debe imponer cancelación
                   inmediata de matrícula por incumplimiento del código de vestuario.</span>
               </label>
               <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
-                <input type="radio" name="eva-q1" value="C" class="mt-0.5 accent-indigo-500" />
+                <input type="radio" name="eva-q1" value="C" onchange="calculateScore()" class="mt-0.5 accent-indigo-500" />
                 <span class="text-xs text-slate-300 font-normal">C) Debe pagar una póliza económica adicional a la
                   entidad para ingresar con ropa particular.</span>
               </label>
@@ -835,17 +879,17 @@
             </p>
             <div class="space-y-2.5">
               <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
-                <input type="radio" name="eva-q2" value="A" class="mt-0.5 accent-indigo-500" />
+                <input type="radio" name="eva-q2" value="A" onchange="calculateScore()" class="mt-0.5 accent-indigo-500" />
                 <span class="text-xs text-slate-300 font-normal">A) Un error administrativo no sancionable que se
                   subsana con actualizar la contraseña del usuario.</span>
               </label>
               <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
-                <input type="radio" name="eva-q2" value="B" class="mt-0.5 accent-indigo-500" />
+                <input type="radio" name="eva-q2" value="B" onchange="calculateScore()" class="mt-0.5 accent-indigo-500" />
                 <span class="text-xs text-slate-300 font-normal">B) Una prohibición expresa gravísima sujeta a
                   investigación disciplinaria y posibles implicaciones legales por fraude.</span>
               </label>
               <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
-                <input type="radio" name="eva-q2" value="C" class="mt-0.5 accent-indigo-500" />
+                <input type="radio" name="eva-q2" value="C" onchange="calculateScore()" class="mt-0.5 accent-indigo-500" />
                 <span class="text-xs text-slate-300 font-normal">C) Una falta leve que únicamente requiere una disculpa
                   escrita ante el vocero de grupo.</span>
               </label>
@@ -865,18 +909,18 @@
             </p>
             <div class="space-y-2.5">
               <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
-                <input type="radio" name="eva-q3" value="A" class="mt-0.5 accent-indigo-500" />
+                <input type="radio" name="eva-q3" value="A" onchange="calculateScore()" class="mt-0.5 accent-indigo-500" />
                 <span class="text-xs text-slate-300 font-normal">A) Están expresamente prohibidos de portar armas dentro
                   del Centro de Formación durante su proceso formativo para cualquier aprendiz incluyendo los miembros
                   de la fuerza pública y organismos de seguridad del Estado.</span>
               </label>
               <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
-                <input type="radio" name="eva-q3" value="B" class="mt-0.5 accent-indigo-500" />
+                <input type="radio" name="eva-q3" value="B" onchange="calculateScore()" class="mt-0.5 accent-indigo-500" />
                 <span class="text-xs text-slate-300 font-normal">B) Tienen autorización irrestricta de portarlas siempre
                   que vistan su uniforme del SENA.</span>
               </label>
               <label class="option-card flex items-start gap-3 p-3.5 bg-slate-950 rounded-xl cursor-pointer">
-                <input type="radio" name="eva-q3" value="C" class="mt-0.5 accent-indigo-500" />
+                <input type="radio" name="eva-q3" value="C" onchange="calculateScore()" class="mt-0.5 accent-indigo-500" />
                 <span class="text-xs text-slate-300 font-normal">C) Pueden portarlas únicamente si el instructor técnico
                   les otorga permiso por escrito en la guía pedagógica.</span>
               </label>
@@ -909,8 +953,7 @@
               </div>
             </div>
             <div class="text-right text-xs text-slate-400 font-mono">
-              <div>FECHA DE REPORTE: <span id="print-fecha" class="font-bold text-slate-200">10 de septiembre de
-                  2026</span></div>
+              <div>FECHA DE REPORTE: <span id="print-fecha" class="font-bold text-slate-200">--</span></div>
               <div class="font-bold text-indigo-400">EVIDENCIA: DEBERES Y PROHIBICIONES</div>
             </div>
           </div>
@@ -1127,7 +1170,7 @@
             <div>
               <div class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Oportunidad Actual</div>
               <div class="text-2xl font-black text-slate-100 tracking-tight"><span id="kpi-attempt">1</span> <span
-                  class="text-xs font-normal text-slate-400">de 4</span></div>
+                  class="text-xs font-normal text-slate-400">sin límite</span></div>
             </div>
           </div>
         </div>
@@ -1168,6 +1211,14 @@
       </div>
     </section>
 
+    <!-- ========================================== -->
+    <!-- 7. PESTAÑA: ENVIAR REPORTE (aduana.html)   -->
+    <!-- ========================================== -->
+    <section id="pane-enviar" class="tab-pane hidden no-print">
+      <iframe id="iframe-aduana" src="aduana.html" title="Aduana de Evidencias"
+        style="width:100%; height:900px; border:0; background:transparent; display:block;"></iframe>
+    </section>
+
   </main>
 
   <!-- ========================================== -->
@@ -1204,11 +1255,78 @@
   </div>
 
   <!-- ========================================== -->
+  <!-- INFORME IMPRESO A COLOR (solo visible al imprimir) -->
+  <!-- ========================================== -->
+  <div id="print-report">
+    <!-- PÁGINA 1 -->
+    <section class="pr-page">
+      <div class="pr-inst">SERVICIO NACIONAL DE APRENDIZAJE SENA • REGIONAL DISTRITO CAPITAL</div>
+      <div class="pr-centro">CENTRO DE GESTIÓN ADMINISTRATIVA</div>
+
+      <div class="pr-title-box">
+        <h1>Reglamento del Aprendiz: Deberes y Prohibiciones</h1>
+        <div class="pr-sub">REPORTE DE EVALUACIÓN Y DESEMPEÑO</div>
+        <div class="pr-meta"><b>PROGRAMA:</b> <span id="pr-programa-t">--</span> • <b>ACTIVIDAD:</b> Simulador Práctico: Compromisos, Deberes y Régimen Disciplinario</div>
+        <div class="pr-sep"></div>
+        <div class="pr-meta"><b>DURACIÓN ESTIMADA:</b> 60 minutos • <b>CALIFICACIÓN MÍNIMA APROBATORIA:</b> 90%</div>
+      </div>
+
+      <h2 class="pr-h" style="margin-top:0">REGISTRO DEL APRENDIZ</h2>
+      <div class="pr-reg">
+        <div class="pr-reg-grid">
+          <div class="pr-field pr-full"><b>Nombre completo:</b> <span id="pr-nombre">--</span></div>
+          <div class="pr-field"><b>Número de documento:</b> <span id="pr-doc">--</span></div>
+          <div class="pr-field"><b>Ficha:</b> <span id="pr-ficha">--</span></div>
+          <div class="pr-field pr-full"><b>Programa:</b> <span id="pr-programa">--</span></div>
+          <div class="pr-field"><b>Centro de formación:</b> <span>Centro de Gestión Administrativa</span></div>
+          <div class="pr-field"><b>Regional:</b> <span>Regional Distrito Capital</span></div>
+          <div class="pr-field"><b>Fecha y hora de emisión:</b> <span id="pr-fecha">--</span></div>
+          <div class="pr-field"><b>Instructor / Evaluador:</b> <span></span></div>
+        </div>
+      </div>
+
+      <h2 class="pr-h">RESULTADOS CONSOLIDADOS</h2>
+      <div id="pr-hero"></div>
+      <div id="pr-kpis" class="pr-kpis"></div>
+
+      <h2 class="pr-h">GRÁFICOS DE DESEMPEÑO</h2>
+      <div id="pr-charts" class="pr-charts"></div>
+    </section>
+
+    <!-- PÁGINA 2 -->
+    <section class="pr-page">
+      <div class="pr-inst">SERVICIO NACIONAL DE APRENDIZAJE SENA • REGIONAL DISTRITO CAPITAL</div>
+      <div class="pr-centro" style="font-size:13pt">CENTRO DE GESTIÓN ADMINISTRATIVA</div>
+      <div class="pr-activ">Reglamento del Aprendiz: Deberes y Prohibiciones • Aprendiz: <b id="pr-nombre2">--</b></div>
+
+      <h2 class="pr-h" style="margin-top:1mm">DESGLOSE DETALLADO DE CALIFICACIÓN POR DIMENSIÓN</h2>
+      <div id="pr-table"></div>
+
+      <h2 class="pr-h pr-h-gold">DIAGNÓSTICO Y ANÁLISIS CUALITATIVO</h2>
+      <div id="pr-dx"></div>
+
+      <h2 class="pr-h pr-h-gold">RECOMENDACIONES</h2>
+      <div id="pr-recs" class="pr-recs"></div>
+
+      <h2 class="pr-h pr-h-gold">OBSERVACIONES Y RECOMENDACIONES DEL INSTRUCTOR / EVALUADOR</h2>
+      <div class="pr-obs pr-avoid">
+        <div class="pr-line"></div><div class="pr-line"></div><div class="pr-line"></div>
+      </div>
+
+      <div class="pr-sign pr-avoid">
+        <div>Firma del Aprendiz</div>
+        <div>Firma del Instructor / Evaluador</div>
+      </div>
+      <div class="pr-foot">Servicio Nacional de Aprendizaje SENA • Centro de Gestión Administrativa • Reglamento del Aprendiz</div>
+    </section>
+  </div>
+
+  <!-- ========================================== -->
   <!-- LÓGICA JAVASCRIPT                          -->
   <!-- ========================================== -->
   <script>
     let currentAttempt = 1;
-    const maxAttempts = 4;
+    const maxAttempts = Number.POSITIVE_INFINITY;
     let timeRemaining = 60 * 60;
     let timeElapsed = 0;
     let timerInterval = null;
@@ -1225,7 +1343,13 @@
     let barChartInstance = null;
     let donutChartInstance = null;
 
+    function setFechaActa() {
+      const el = document.getElementById('print-fecha');
+      if (el) el.innerText = new Date().toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
+      setFechaActa();
       startTimer();
       initCharts();
     });
@@ -1412,6 +1536,7 @@
       }
 
       calculateScore();
+      setFechaActa();
 
       const pDeb = Math.round((scores.deberes / 30) * 100);
       const pProh = Math.round((scores.prohibiciones / 20) * 100);
@@ -1495,10 +1620,11 @@
       }
 
       consolidateEvaluation();
+      buildPrintReport();
 
       const originalTitle = document.title;
       const docNum = (registeredLearner && registeredLearner.doc) ? registeredLearner.doc : (document.getElementById('reg-doc')?.value.trim() || 'DOCUMENTO');
-      document.title = `${docNum}-DRA`;
+      document.title = `${docNum}-DYP`;
 
       const restoreTitle = () => {
         document.title = originalTitle;
@@ -1512,19 +1638,201 @@
       }, 300);
     }
 
+    /* ===================== INFORME IMPRESO A COLOR ===================== */
+    const PR_DIMS = [
+      { key: 'deberes', short: 'Deberes', lines: ['Deberes'], name: 'Deberes del Aprendiz', desc: 'Secuenciación, credenciales y derechos de autor', max: 30,
+        rec: 'Repasa la secuenciación de las instancias de reporte (conducto regular), el manejo confidencial de credenciales y el respeto a los derechos de autor.' },
+      { key: 'prohibiciones', short: 'Prohibiciones', lines: ['Prohibiciones'], name: 'Prohibiciones específicas', desc: 'Armas, proselitismo, lucro particular y acoso', max: 20,
+        rec: 'Refuerza las prohibiciones sobre armas, proselitismo, lucro particular y acoso, y su diferencia frente a los deberes.' },
+      { key: 'matriz', short: 'Clasificación y Casos', lines: ['Clasificación', 'y Casos'], name: 'Clasificación y Casos', desc: 'Ámbitos (Académico, Disciplinario, Administrativo) y Contrato de Aprendizaje', max: 25,
+        rec: 'Practica la clasificación de las situaciones por ámbito (académico, disciplinario, administrativo) y lo relativo al contrato de aprendizaje.' },
+      { key: 'evaluacion', short: 'Evaluación Integradora', lines: ['Evaluación', 'Integradora'], name: 'Evaluación Integradora', desc: 'Síntesis diagnóstica de uniformes, fraude documental y seguridad física', max: 25,
+        rec: 'Revisa lo relacionado con uso del uniforme, fraude documental y seguridad física dentro del reglamento.' }
+    ];
+    const PR_COLORS = { teal: '#1f7f6b', gold: '#c58a2d', red: '#d95f4f', navy: '#14213d' };
+
+    function prTier(p) { return p >= 90 ? '#1f7f6b' : (p >= 60 ? '#c58a2d' : '#d95f4f'); }
+
+    function prBarSVG(vals) {
+      const W = 460, H = 200, L = 40, R = 450, T = 26, B = 150;
+      const y = v => B - (v / 100) * (B - T);
+      let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+      s += `<line x1="8" x2="26" y1="10" y2="10" stroke="${PR_COLORS.navy}" stroke-width="1.6" stroke-dasharray="4 3"/><text x="31" y="13.5" font-size="10" fill="#334155">Mínimo aprobatorio 90%</text>`;
+      [0, 25, 50, 75, 100].forEach(g => {
+        s += `<line x1="${L}" x2="${R}" y1="${y(g)}" y2="${y(g)}" stroke="#e5e7eb" stroke-width="1"/>`;
+        s += `<text x="${L - 5}" y="${y(g) + 3.5}" font-size="10" fill="#64748b" text-anchor="end">${g}%</text>`;
+      });
+      const slot = (R - L) / vals.length, bw = 50;
+      vals.forEach((v, i) => {
+        const x = L + slot * i + (slot - bw) / 2, h = Math.max(1.5, B - y(v));
+        s += `<rect x="${x}" y="${B - h}" width="${bw}" height="${h}" rx="5" fill="${prTier(v)}"/>`;
+        s += `<text x="${x + bw / 2}" y="${B - h - 5}" font-size="13" font-weight="800" fill="${PR_COLORS.navy}" text-anchor="middle">${v}%</text>`;
+        PR_DIMS[i].lines.forEach((ln, k) => {
+          s += `<text x="${x + bw / 2}" y="${167 + k * 13}" font-size="10.5" fill="#334155" text-anchor="middle">${ln}</text>`;
+        });
+      });
+      s += `<line x1="${L}" x2="${R}" y1="${y(90)}" y2="${y(90)}" stroke="${PR_COLORS.navy}" stroke-width="1.6" stroke-dasharray="5 4"/>`;
+      return s + '</svg>';
+    }
+
+    function prHBarSVG(pts) {
+      const W = 460, H = 200;
+      let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+      PR_DIMS.forEach((d, i) => {
+        const y0 = 8 + i * 47, v = pts[i], p = Math.round((v / d.max) * 100);
+        s += `<text x="2" y="${y0 + 11}" font-size="11.5" font-weight="700" fill="${PR_COLORS.navy}">${d.name}</text>`;
+        s += `<text x="${W - 4}" y="${y0 + 11}" font-size="11.5" font-weight="800" fill="${PR_COLORS.navy}" text-anchor="end">${v} / ${d.max} pts</text>`;
+        s += `<rect x="2" y="${y0 + 18}" width="${W - 6}" height="15" rx="7.5" fill="#e5e7eb"/>`;
+        if (v > 0) s += `<rect x="2" y="${y0 + 18}" width="${Math.max(15, (W - 6) * v / d.max)}" height="15" rx="7.5" fill="${prTier(p)}"/>`;
+      });
+      return s + '</svg>';
+    }
+
+    function prDonutSVG(slices, centerBig, centerSmall, legend) {
+      const W = 460, H = 200, cx = 88, cy = 100, r = 62, sw = 28, C = 2 * Math.PI * r;
+      const total = slices.reduce((a, b) => a + b.v, 0);
+      let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+      s += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#e5e7eb" stroke-width="${sw}"/>`;
+      let off = 0;
+      if (total > 0) slices.forEach(sl => {
+        if (sl.v <= 0) return;
+        const len = (sl.v / total) * C;
+        s += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${sl.color}" stroke-width="${sw}" stroke-dasharray="${len} ${C - len}" stroke-dashoffset="${-off}" transform="rotate(-90 ${cx} ${cy})"/>`;
+        off += len;
+      });
+      s += `<text x="${cx}" y="${cy + 3}" font-size="30" font-weight="900" fill="${PR_COLORS.navy}" text-anchor="middle">${centerBig}</text>`;
+      s += `<text x="${cx}" y="${cy + 21}" font-size="11" font-weight="700" fill="#64748b" text-anchor="middle">${centerSmall}</text>`;
+      const ly0 = 100 - (legend.length * 26) / 2 + 10;
+      legend.forEach((lg, i) => {
+        const y = ly0 + i * 26;
+        s += `<rect x="184" y="${y - 10}" width="13" height="13" rx="3" fill="${lg.color}"/>`;
+        s += `<text x="203" y="${y}" font-size="11" fill="${PR_COLORS.navy}"><tspan font-weight="800">${lg.label}:</tspan> ${lg.value}</text>`;
+      });
+      return s + '</svg>';
+    }
+
+    function buildPrintReport() {
+      const L = registeredLearner || {};
+      const prog = L.programa || document.getElementById('print-programa')?.innerText || 'Técnico en Talento Humano';
+      const set = (id, v) => { const el = document.getElementById(id); if (el) el.innerText = v; };
+
+      const now = new Date();
+      const fecha = now.toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' }) +
+        ' a las ' + now.toLocaleTimeString('es-CO', { hour: 'numeric', minute: '2-digit', hour12: true });
+      set('pr-nombre', L.nombre || '--');
+      set('pr-nombre2', L.nombre || '--');
+      set('pr-doc', L.doc || '--');
+      set('pr-ficha', L.ficha || '--');
+      set('pr-programa', prog);
+      set('pr-programa-t', prog.toUpperCase());
+      set('pr-fecha', fecha);
+
+      const pts = PR_DIMS.map(d => scores[d.key]);
+      const pcts = PR_DIMS.map((d, i) => Math.round((pts[i] / d.max) * 100));
+      const total = scores.total;
+      const ok = total >= 90;
+      const aprobadas = pcts.filter(p => p >= 90).length;
+      const mm = String(Math.floor(timeElapsed / 60)).padStart(2, '0');
+      const ss = String(timeElapsed % 60).padStart(2, '0');
+      const diff = total - 90;
+
+      // Resultado destacado
+      document.getElementById('pr-hero').innerHTML = `
+        <div class="pr-hero">
+          <div class="pr-hero-top">
+            <div>
+              <div class="pr-hero-label">★ RESULTADO FINAL DE LA EVIDENCIA</div>
+              <div class="pr-hero-score">${total}<small>/ 100 pts</small></div>
+              <div class="pr-hero-pct">Cumplimiento global: ${total}%</div>
+            </div>
+            <div class="pr-hero-right">
+              <span class="pr-status ${ok ? 'ok' : 'mejorar'}">${ok ? '✔ APROBADO' : '▲ POR MEJORAR'}</span>
+              <div class="pr-hero-note">Calificación mínima aprobatoria: 90 pts<br>${diff >= 0 ? `Supera el mínimo por ${diff} pts` : `Faltan ${-diff} pts para alcanzar el mínimo`}</div>
+            </div>
+          </div>
+          <div class="pr-chips">
+            ${PR_DIMS.map((d, i) => `<div class="pr-chip"><b>${d.short}</b><em class="${pcts[i] >= 90 ? 'ok' : 'mejorar'}">${pts[i]}/${d.max}</em> • ${pcts[i]}%</div>`).join('')}
+          </div>
+        </div>`;
+
+      // KPIs
+      document.getElementById('pr-kpis').innerHTML = `
+        <div class="pr-kpi"><strong>${total}/100</strong><span>Puntaje obtenido</span></div>
+        <div class="pr-kpi"><strong>${total}%</strong><span>Cumplimiento global</span></div>
+        <div class="pr-kpi"><strong>${aprobadas}/4</strong><span>Dimensiones aprobadas</span></div>
+        <div class="pr-kpi"><strong>${mm}:${ss}</strong><span>Tiempo empleado</span></div>
+        <div class="pr-kpi"><strong>${currentAttempt}</strong><span>Oportunidad</span></div>`;
+
+      // Gráficos (SVG vectorial)
+      const sumPts = pts.reduce((a, b) => a + b, 0);
+      const pctOf = v => sumPts > 0 ? Math.round((v / sumPts) * 100) : 0;
+      const dimColors = [PR_COLORS.teal, PR_COLORS.gold, PR_COLORS.red, PR_COLORS.navy];
+      document.getElementById('pr-charts').innerHTML = `
+        <div class="pr-chart"><h3>Cumplimiento por dimensión normativa (%)</h3>${prBarSVG(pcts)}</div>
+        <div class="pr-chart"><h3>Puntos obtenidos vs. posibles por dimensión</h3>${prHBarSVG(pts)}</div>
+        <div class="pr-chart"><h3>Efectividad global de la evidencia</h3>${prDonutSVG(
+          [{ v: total, color: PR_COLORS.teal }, { v: Math.max(0, 100 - total), color: PR_COLORS.red }],
+          total + '%', 'de 100 pts',
+          [{ label: 'Puntos obtenidos', value: `${total} (${total}%)`, color: PR_COLORS.teal },
+           { label: 'Por alcanzar', value: `${Math.max(0, 100 - total)} (${Math.max(0, 100 - total)}%)`, color: PR_COLORS.red }])}</div>
+        <div class="pr-chart"><h3>Distribución de puntos obtenidos por dimensión</h3>${prDonutSVG(
+          pts.map((v, i) => ({ v, color: dimColors[i] })),
+          sumPts, 'pts',
+          PR_DIMS.map((d, i) => ({ label: d.short, value: `${pts[i]} pts (${pctOf(pts[i])}%)`, color: dimColors[i] })))}</div>`;
+
+      // Tabla de desglose
+      const badge = p => `<span class="pr-badge ${p >= 90 ? 'ok' : 'mejorar'}">${p >= 90 ? 'Aprobado' : 'Por Mejorar'}</span>`;
+      document.getElementById('pr-table').innerHTML = `
+        <table class="pr-table">
+          <thead><tr><th>Dimensión normativa</th><th>Puntos posibles</th><th>Puntos obtenidos</th><th>Cumplimiento</th><th>Estado</th></tr></thead>
+          <tbody>
+            ${PR_DIMS.map((d, i) => `<tr><td><b>${d.name}</b><small>${d.desc}</small></td><td>${d.max} pts</td><td><b>${pts[i]} pts</b></td><td>${pcts[i]}%</td><td>${badge(pcts[i])}</td></tr>`).join('')}
+            <tr class="pr-total"><td style="text-align:right">CALIFICACIÓN GLOBAL CONSOLIDADA</td><td>100 pts</td><td>${total} pts</td><td>${total}%</td><td>${badge(total)}</td></tr>
+          </tbody>
+        </table>`;
+
+      // Diagnóstico (mismo dictamen del dashboard)
+      let dx;
+      if (ok) {
+        dx = `<div class="pr-dx ok pr-avoid"><div class="pr-dx-title">✔ Resultado Satisfactorio (Aprobado - ${total} pts / ${total}%)</div>
+          <p>El aprendiz evidencia un dominio ético, disciplinario y procedimental sobresaliente, superando el umbral de excelencia del 90%. Reconoce con exactitud el conducto regular formativo, el deber de autoría y derechos de autor, la confidencialidad de credenciales en plataformas virtuales y la observancia taxativa de las prohibiciones expresas sobre armas, fraude y respeto en la comunidad educativa.</p></div>`;
+      } else {
+        dx = `<div class="pr-dx mejorar pr-avoid"><div class="pr-dx-title">▲ Dictamen Diagnóstico (Por Mejorar - ${total} pts / ${total}%)</div>
+          <p>El puntaje alcanzado no supera la calificación mínima aprobatoria del 90%. Se identifican oportunidades de mejora en la secuenciación de instancias de reporte, diferenciación de prohibiciones expresas o responsabilidades en etapa productiva. Se recomienda revisar el marco reglamentario y realizar un nuevo intento.</p></div>`;
+      }
+      document.getElementById('pr-dx').innerHTML = dx;
+
+      // Recomendaciones por dimensión (las que requieren refuerzo primero)
+      const order = PR_DIMS.map((d, i) => i).sort((a, b) => (pcts[a] >= 90) - (pcts[b] >= 90) || pcts[a] - pcts[b]);
+      document.getElementById('pr-recs').innerHTML = order.map(i => {
+        const d = PR_DIMS[i], good = pcts[i] >= 90;
+        return `<div class="pr-rec ${good ? 'ok' : 'mejorar'}">
+          <div class="pr-rec-ico">${good ? '✔' : '!'}</div>
+          <div><b>${d.name}</b><p>${good ? 'Dominio logrado en esta dimensión. Conserva la práctica y mantén el cumplimiento del reglamento.' : d.rec}</p></div>
+          <div class="pr-rec-pct">${pcts[i]}%</div></div>`;
+      }).join('');
+    }
+
+    window.addEventListener('beforeprint', () => {
+      // Recalcula siempre antes de imprimir, para que el reporte refleje lo respondido
+      // aunque el aprendiz use Ctrl+P en lugar del botón "Imprimir Resultados".
+      if (registeredLearner) consolidateEvaluation(); else calculateScore();
+      buildPrintReport();
+    });
+
     function confirmReset() {
-      if (currentAttempt >= maxAttempts) {
-        showModal('Intentos Agotados', 'Has alcanzado el límite máximo de cuatro (4) intentos permitidos para esta actividad.');
+      if (Number.isFinite(maxAttempts) && currentAttempt >= maxAttempts) {
+        showModal('Intentos Agotados', 'Has alcanzado el límite máximo de intentos permitidos para esta actividad.');
         return;
       }
 
       showModal(
         'Confirmar Reinicio de Intento',
-        `¿Deseas reiniciar la actividad? Se restablecerán las selecciones de las preguntas y se consumirá el intento ${currentAttempt + 1} de ${maxAttempts}.`,
+        '¿Deseas reiniciar la actividad? Se restablecerán las selecciones de las preguntas y podrás intentarlo nuevamente sin límite.',
         true,
         () => {
           currentAttempt++;
-          document.getElementById('attempts-badge').innerText = `${currentAttempt} / ${maxAttempts}`;
+          document.getElementById('attempts-badge').innerText = Number.isFinite(maxAttempts) ? `${currentAttempt} / ${maxAttempts}` : '∞';
           document.getElementById('kpi-attempt').innerText = currentAttempt;
 
           document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
@@ -1672,6 +1980,20 @@
         `;
       }
     }
+  </script>
+
+  <!-- Puente con aduana.html (pestaña Enviar reporte) -->
+  <script>
+    window.addEventListener('message', function (e) {
+      var f = document.getElementById('iframe-aduana');
+      if (!f || e.source !== f.contentWindow || !e.data) return;
+      if (e.data.type === 'aduana-resize' && e.data.height) {
+        f.style.height = Math.max(e.data.height, 500) + 'px';
+      } else if (e.data.type === 'aduana-repetir-evaluacion') {
+        window.reintentarEvaluacion();
+      }
+    });
+    window.reintentarEvaluacion = function () { confirmReset(); };
   </script>
 </body>
 

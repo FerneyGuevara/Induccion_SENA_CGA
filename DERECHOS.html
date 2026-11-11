@@ -64,16 +64,20 @@
             color-scheme: dark;
         }
 
-        /* Modo de Impresion Limpio y Profesional */
+        /* ========================================================= */
+        /* MODO DE IMPRESIÓN (reporte a color)                        */
+        /* ========================================================= */
+        #print-report {
+            display: none;
+        }
+
         @media print {
             @page {
-                margin: 10mm 15mm;
                 size: letter portrait;
+                margin: 9mm;
             }
 
-            *,
-            *::before,
-            *::after {
+            * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
                 box-shadow: none !important;
@@ -84,169 +88,427 @@
             body {
                 display: block !important;
                 background: #ffffff !important;
-                color: #0f172a !important;
+                color: #14213d !important;
                 margin: 0 !important;
                 padding: 0 !important;
                 width: 100% !important;
-                min-height: auto !important;
+                min-height: 0 !important;
             }
 
-            /* Ocultar elementos de navegacion y secciones que no son del acta */
             header,
             nav,
             footer,
+            main,
             #custom-modal,
-            .no-print,
-            #pane-registro,
-            #pane-derechos,
-            #pane-reconocimientos,
-            #pane-representatividad,
-            #pane-dashboard {
+            .no-print {
                 display: none !important;
             }
 
-            /* Asegurar que el contenedor principal y el panel de evaluacion se muestren */
-            main {
+            #print-report {
                 display: block !important;
-                max-width: 100% !important;
-                width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
+                width: 100%;
+                background: #fff;
+                color: #14213d;
+                font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+                font-size: 10.5px;
+                line-height: 1.4;
             }
 
-            #pane-evaluacion {
-                display: block !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                width: 100% !important;
+            #print-report .pr-inst {
+                font-size: 9.5px;
+                font-weight: 800;
+                letter-spacing: .12em;
+                text-transform: uppercase;
+                color: #14213d;
             }
 
-            #pane-evaluacion>div.no-print {
-                display: none !important;
+            #print-report .pr-centro {
+                font-size: 19px;
+                font-weight: 800;
+                color: #14213d;
+                margin: 1px 0 2px;
+                text-transform: uppercase;
             }
 
-            /* Estilo del area de impresion (Acta / Certificado) */
-            #print-area {
-                display: block !important;
-                visibility: visible !important;
-                position: static !important;
-                width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
+            #print-report .pr-comp {
+                font-size: 9.5px;
+                color: #475569;
+                margin-bottom: 8px;
+                text-transform: uppercase;
             }
 
-            #print-area>div {
-                background: #ffffff !important;
-                border: 2px solid #cbd5e1 !important;
-                border-radius: 12px !important;
-                padding: 16px !important;
-                color: #0f172a !important;
-                margin: 0 !important;
+            #print-report .pr-title-box {
+                background: #fbf3e2;
+                border: 1.5px solid #c68b2f;
+                border-radius: 9px;
+                padding: 10px 14px;
+                margin-bottom: 9px;
             }
 
-            #print-area h1 {
-                color: #312e81 !important;
+            #print-report .pr-title {
+                font-size: 16px;
+                font-weight: 800;
+                color: #14213d;
             }
 
-            #print-area h2 {
-                color: #4338ca !important;
+            #print-report .pr-sub {
+                font-size: 10px;
+                font-weight: 800;
+                color: #b9771d;
+                letter-spacing: .04em;
+                text-transform: uppercase;
+                margin: 2px 0 4px;
             }
 
-            #print-area p,
-            #print-area span,
-            #print-area div {
-                color: #1e293b !important;
+            #print-report .pr-line {
+                font-size: 9.5px;
+                color: #334155;
+                padding-bottom: 5px;
+                border-bottom: 1px dashed #c68b2f;
+                margin-bottom: 5px;
             }
 
-            #print-area .text-indigo-400 {
-                color: #4338ca !important;
+            #print-report .pr-temas {
+                font-size: 9.5px;
+                color: #334155;
             }
 
-            #print-area .text-slate-100,
-            #print-area .text-slate-200,
-            #print-area .text-slate-300 {
-                color: #0f172a !important;
+            #print-report .pr-box {
+                background: #f8f8f4;
+                border: 1px solid #d3dbe6;
+                border-radius: 9px;
+                padding: 10px 14px;
+                margin-bottom: 10px;
             }
 
-            #print-area .text-slate-400,
-            #print-area .text-slate-500 {
-                color: #475569 !important;
+            #print-report .pr-h {
+                font-size: 11px;
+                font-weight: 800;
+                letter-spacing: .08em;
+                text-transform: uppercase;
+                color: #14213d;
+                padding-bottom: 3px;
+                border-bottom: 2px solid #d3dbe6;
+                margin-bottom: 7px;
             }
 
-            #print-area .bg-slate-950,
-            #print-area .bg-slate-900\/90,
-            #print-area .bg-slate-900 {
-                background-color: #f8fafc !important;
-                border: 1px solid #e2e8f0 !important;
-                color: #0f172a !important;
+            #print-report .pr-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                column-gap: 24px;
+                row-gap: 7px;
             }
 
-            #print-area table {
-                width: 100% !important;
-                border-collapse: collapse !important;
-                border: 1px solid #cbd5e1 !important;
+            #print-report .pr-field {
+                font-size: 10.5px;
+                color: #14213d;
+                border-bottom: 1px solid #94a3b8;
+                padding-bottom: 1px;
+                min-height: 15px;
             }
 
-            #print-area table thead tr {
-                background-color: #e2e8f0 !important;
-                border-bottom: 2px solid #94a3b8 !important;
+            #print-report .pr-field b.l {
+                font-weight: 600;
+                color: #334155;
             }
 
-            #print-area table thead th {
-                color: #1e293b !important;
-                font-weight: 700 !important;
-                padding: 8px 10px !important;
-                border: 1px solid #cbd5e1 !important;
+            #print-report .pr-field b.v {
+                font-weight: 800;
             }
 
-            #print-area table tbody tr {
-                background-color: #ffffff !important;
-                border-bottom: 1px solid #e2e8f0 !important;
+            #print-report .pr-full {
+                grid-column: 1 / -1;
             }
 
-            #print-area table tbody tr:nth-child(even) {
-                background-color: #f8fafc !important;
+            #print-report .pr-sec {
+                font-size: 14px;
+                font-weight: 800;
+                letter-spacing: .05em;
+                text-transform: uppercase;
+                color: #14213d;
+                padding-top: 9px;
+                border-top: 3px solid #14213d;
+                border-bottom: 2px solid #1f7a6d;
+                padding-bottom: 4px;
+                margin: 6px 0 9px;
             }
 
-            #print-area table tbody td {
-                padding: 8px 10px !important;
-                color: #1e293b !important;
-                border: 1px solid #e2e8f0 !important;
+            #print-report .pr-kpis {
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 8px;
+                margin-bottom: 10px;
             }
 
-            #print-area table tr.bg-slate-950 {
-                background-color: #f1f5f9 !important;
-                border-top: 2px solid #94a3b8 !important;
+            #print-report .pr-kpi {
+                background: #f4f6f9;
+                border: 1px solid #d3dbe6;
+                border-radius: 9px;
+                text-align: center;
+                padding: 9px 4px;
             }
 
-            #print-area .bg-emerald-950\/70,
-            #print-area .text-emerald-400 {
-                background-color: #dcfce7 !important;
-                color: #166534 !important;
-                border: 1px solid #86efac !important;
-                font-weight: 700 !important;
+            #print-report .pr-kpi .n {
+                font-size: 20px;
+                font-weight: 800;
+                color: #1f7a6d;
+                line-height: 1.1;
             }
 
-            #print-area .bg-rose-950\/70,
-            #print-area .text-rose-400 {
-                background-color: #ffe4e6 !important;
-                color: #9f1239 !important;
-                border: 1px solid #fca5a5 !important;
-                font-weight: 700 !important;
+            #print-report .pr-kpi .t {
+                font-size: 8px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: .05em;
+                color: #334155;
+                margin-top: 3px;
             }
 
-            #print-area .bg-amber-950\/70,
-            #print-area .text-amber-400 {
-                background-color: #fef3c7 !important;
-                color: #92400e !important;
-                border: 1px solid #fcd34d !important;
-                font-weight: 700 !important;
+            #print-report .pr-result {
+                border-radius: 10px;
+                padding: 13px 18px;
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 14px;
+                background: #14213d;
+                border-left: 10px solid #c68b2f;
+                page-break-inside: avoid;
+                break-inside: avoid;
             }
 
-            #print-area .bg-slate-900 {
-                background-color: #f1f5f9 !important;
-                color: #475569 !important;
-                border: 1px solid #cbd5e1 !important;
+            #print-report .pr-result.ok {
+                border-left-color: #2fa88f;
+            }
+
+            #print-report .pr-result.bad {
+                border-left-color: #d9604f;
+            }
+
+            #print-report .r-lbl {
+                font-size: 9px;
+                font-weight: 800;
+                letter-spacing: .14em;
+                text-transform: uppercase;
+                color: #cbd5e1;
+            }
+
+            #print-report .r-ver {
+                font-size: 26px;
+                font-weight: 900;
+                letter-spacing: .02em;
+                line-height: 1.1;
+                margin: 2px 0;
+                color: #f2c14e;
+            }
+
+            #print-report .pr-result.ok .r-ver {
+                color: #5fe0c0;
+            }
+
+            #print-report .pr-result.bad .r-ver {
+                color: #ff8f80;
+            }
+
+            #print-report .r-det {
+                font-size: 9.5px;
+                color: #e2e8f0;
+            }
+
+            #print-report .r-score {
+                text-align: right;
+                white-space: nowrap;
+            }
+
+            #print-report .r-num {
+                font-size: 40px;
+                font-weight: 900;
+                line-height: 1;
+                color: #ffffff;
+            }
+
+            #print-report .r-num small {
+                font-size: 16px;
+                font-weight: 700;
+                color: #cbd5e1;
+            }
+
+            #print-report .r-min {
+                font-size: 9px;
+                color: #cbd5e1;
+                margin-top: 2px;
+            }
+
+            #print-report .pr-charts {
+                border: 1px solid #d3dbe6;
+                border-radius: 9px;
+                padding: 10px 12px;
+                margin-bottom: 10px;
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            #print-report .pr-charts-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            #print-report .pr-chart {
+                border: 1px solid #d3dbe6;
+                border-radius: 8px;
+                padding: 7px 9px;
+            }
+
+            #print-report .pr-chart h4 {
+                font-size: 10.5px;
+                font-weight: 800;
+                color: #14213d;
+                margin: 0 0 4px;
+            }
+
+            #print-report .pr-chart img {
+                width: 100%;
+                height: 165px;
+                object-fit: contain;
+                display: block;
+            }
+
+            #print-report .pr-diag {
+                border: 1px solid #d3dbe6;
+                border-left: 6px solid #1f7a6d;
+                border-radius: 9px;
+                padding: 9px 14px;
+                margin-bottom: 10px;
+                background: #f6fbf9;
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            #print-report .pr-diag.bad {
+                border-left-color: #d9604f;
+                background: #fdf6f4;
+            }
+
+            #print-report .pr-diag.pend {
+                border-left-color: #c68b2f;
+                background: #fbf3e2;
+            }
+
+            #print-report .pr-diag p {
+                font-size: 10.5px;
+                color: #1e293b;
+                margin: 0 0 4px;
+                text-align: justify;
+            }
+
+            #print-report .pr-diag p.tt {
+                font-weight: 800;
+                font-size: 11.5px;
+                color: #14213d;
+            }
+
+            #print-report .pr-diag p:last-child {
+                margin-bottom: 0;
+            }
+
+            #print-report table.pr-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 10px;
+            }
+
+            #print-report table.pr-table th {
+                background: #14213d;
+                color: #ffffff;
+                font-size: 9.5px;
+                text-transform: uppercase;
+                letter-spacing: .04em;
+                padding: 6px 8px;
+                border: 1px solid #14213d;
+                text-align: left;
+            }
+
+            #print-report table.pr-table td {
+                font-size: 10.5px;
+                padding: 6px 8px;
+                border: 1px solid #d3dbe6;
+                color: #14213d;
+                vertical-align: middle;
+            }
+
+            #print-report table.pr-table tr:nth-child(even) td {
+                background: #f4f6f9;
+            }
+
+            #print-report table.pr-table tr.tot td {
+                background: #e8edf4 !important;
+                font-weight: 800;
+                border-top: 2px solid #14213d;
+            }
+
+            #print-report td small {
+                display: block;
+                font-size: 8.5px;
+                color: #64748b;
+                font-weight: 400;
+            }
+
+            #print-report .pr-eff {
+                font-weight: 800;
+            }
+
+            #print-report .pr-eff.hi {
+                color: #1f7a6d;
+            }
+
+            #print-report .pr-eff.mid {
+                color: #b9771d;
+            }
+
+            #print-report .pr-eff.lo {
+                color: #d9604f;
+            }
+
+            #print-report .pr-avoid {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            #print-report .pr-obs {
+                border: 1px solid #94a3b8;
+                border-radius: 9px;
+                padding: 8px 12px;
+                height: 70px;
+                margin-bottom: 36px;
+            }
+
+            #print-report .pr-obs b {
+                font-size: 10.5px;
+                color: #14213d;
+            }
+
+            #print-report .pr-sign {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 50px;
+            }
+
+            #print-report .pr-sign div {
+                border-top: 1.5px solid #14213d;
+                text-align: center;
+                padding-top: 4px;
+                font-size: 10px;
+                font-weight: 700;
+                color: #14213d;
+            }
+
+            #print-report .pr-foot {
+                margin-top: 12px;
+                text-align: center;
+                font-size: 8.5px;
+                color: #64748b;
             }
         }
     </style>
@@ -286,8 +548,7 @@
                     class="flex items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800 text-xs text-slate-300">
                     <span>Intentos:</span>
                     <span id="attempts-badge"
-                        class="bg-indigo-600 text-white font-mono text-[11px] px-2 py-0.5 rounded font-bold">1 /
-                        4</span>
+                        class="bg-indigo-600 text-white font-mono text-[11px] px-2 py-0.5 rounded font-bold">∞</span>
                 </div>
 
                 <button onclick="confirmReset()"
@@ -317,15 +578,17 @@
             <div class="flex items-center gap-4">
                 <img src="sena.png" alt="SENA" class="w-12 h-12 object-contain shrink-0" />
                 <div>
-                    <span class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase flex items-center gap-1.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Ruta Pedagógica Integral
-                </span>
-                <h2 class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">Guía Interactiva: Deberes,
-                    Derechos
-                    y Participación</h2>
-                <p class="text-xs text-slate-400 mt-0.5">Duración estimada: 60 minutos | Calificación mínima
-                    aprobatoria: 90%
-                </p>
+                    <span
+                        class="text-[11px] font-bold tracking-widest text-indigo-400 uppercase flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Ruta Pedagógica Integral
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">Guía Interactiva:
+                        Deberes,
+                        Derechos
+                        y Participación</h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Duración estimada: 60 minutos | Calificación mínima
+                        aprobatoria: 90%
+                    </p>
                 </div>
             </div>
 
@@ -378,7 +641,7 @@
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
                 <i class="fas fa-chart-pie text-xs"></i> Dashboard
             </button>
-            <button onclick="window.location.href='aduana.html'" id="tab-enviar-reporte"
+            <button onclick="switchTab('enviar')" id="tab-enviar"
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
                 <i class="fas fa-paper-plane text-xs"></i> Enviar Reporte
             </button>
@@ -609,7 +872,8 @@
                             <div>
                                 <h3 class="text-sm font-bold text-slate-200">Caso 3: Inclusión y Ajustes Razonables</h3>
                                 <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-                                    Un aprendiz con baja visión requiere software lector de pantalla y formatos de alto contraste para realizar las actividades de formación asignadas por el instructor.
+                                    Un aprendiz con baja visión requiere software lector de pantalla y formatos de alto
+                                    contraste para realizar las actividades de formación asignadas por el instructor.
                                 </p>
                                 <p class="text-xs font-bold text-indigo-400 mt-2">¿QUÉ GARANTIZA EL NUMERAL 8 DEL
                                     ARTÍCULO 5?</p>
@@ -653,7 +917,7 @@
                                     Inasistencia Injustificada</h3>
                                 <p class="text-xs text-slate-400 mt-1 leading-relaxed">
                                     A una aprendiz se le notifica mediante acto administrativo la cancelación
-                                    inmediata de matrícula por no asistir a tres sesiones consecutivas de formaciòn, sin
+                                    inmediata de matrícula por no asistir a tres sesiones consecutivas de formación, sin
                                     habérsele citado
                                     previamente a
                                     descargos ni brindado plazo para justificar fuerza mayor médica.
@@ -747,7 +1011,7 @@
                             <div>
                                 <h3 class="text-sm font-bold text-slate-200">Caso 6: Rutas de Atención ante Acoso o
                                     Trato
-                                    Discriminatorio en los ambientes de formaciòn</h3>
+                                    Discriminatorio en los ambientes de formación</h3>
                                 <p class="text-xs text-slate-400 mt-1 leading-relaxed">
                                     Durante una práctica de campo sobre evaluación del desempeño laboral, una aprendiz
                                     experimenta
@@ -1185,7 +1449,7 @@
                             <span class="text-[11px] text-slate-400 font-semibold">Valor: 8 pts</span>
                         </div>
                         <p class="text-xs text-slate-300 mb-3.5 leading-relaxed">
-                            En el marco del programa de formaciòn, si un aprendiz requiere justificar debidamente una
+                            En el marco del programa de formación, si un aprendiz requiere justificar debidamente una
                             inasistencia a la entrega o sustentación de una actividad por causa médica
                             comprobada, ¿qué derecho consagra el Numeral 22 del Artículo 5?
                         </p>
@@ -1327,9 +1591,7 @@
                             </div>
                         </div>
                         <div class="text-right text-xs text-slate-400 font-mono">
-                            <div>FECHA DE REPORTE: <span id="print-fecha" class="font-bold text-slate-200">10 de
-                                    septiembre de
-                                    2026</span></div>
+                            <div>FECHA DE REPORTE: <span id="print-fecha" class="font-bold text-slate-200">--</span></div>
                             <div class="font-bold text-indigo-400">EVIDENCIA DE APRENDIZAJE</div>
                         </div>
                     </div>
@@ -1634,18 +1896,143 @@
                         dictamen.
                     </div>
                 </div>
-                <div class="flex justify-end mb-4 no-print">
+                <div class="flex justify-end gap-3 mb-4 no-print">
                     <button onclick="printEvidence()"
                         class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
                         <i class="fas fa-print"></i>
                         <span>Imprimir Acta de Resultados</span>
+                    </button>
+                    <button onclick="switchTab('enviar')"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                        <span>Siguiente: Enviar Reporte</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
                     </button>
                 </div>
 
             </div>
         </section>
 
+        <!-- ========================================== -->
+        <!-- 7. PESTAÑA: ENVIAR REPORTE (aduana.html)   -->
+        <!-- ========================================== -->
+        <section id="pane-enviar" class="tab-pane hidden no-print">
+            <iframe id="iframe-aduana" src="aduana.html?reporte=2" title="Aduana de Evidencias"
+                style="width:100%; height:900px; border:0; background:transparent; display:block;"></iframe>
+        </section>
+
     </main>
+
+    <!-- ========================================== -->
+    <!-- REPORTE DE IMPRESIÓN A COLOR               -->
+    <!-- ========================================== -->
+    <div id="print-report">
+        <div class="pr-inst">Servicio Nacional de Aprendizaje SENA &bull; Regional Distrito Capital</div>
+        <div class="pr-centro">Centro de Gestión Administrativa</div>
+        <div class="pr-comp">Programa: Gestión del Talento Humano &bull; Reglamento del Aprendiz</div>
+
+        <div class="pr-title-box">
+            <div class="pr-title">Reglamento del Aprendiz SENA</div>
+            <div class="pr-sub">Evidencia de Aprendizaje &mdash; Reporte de Evaluación y Desempeño</div>
+            <div class="pr-line"><b>PROGRAMA:</b> <span id="pr-programa-h">-</span> &bull; <b>CALIFICACIÓN MÍNIMA
+                    APROBATORIA:</b> 90%</div>
+            <div class="pr-temas"><b>TEMAS EVALUADOS:</b> Artículo 5o (Derechos del Aprendiz), Artículo 6o
+                (Reconocimientos Formativos), Artículo 7o (Representatividad Institucional) y Evaluación Integradora.
+            </div>
+        </div>
+
+        <div class="pr-box">
+            <div class="pr-h">Registro del Aprendiz</div>
+            <div class="pr-grid">
+                <div class="pr-field pr-full"><b class="l">Nombre completo:</b> <b class="v" id="pr-nombre">-</b></div>
+                <div class="pr-field"><b class="l">Número de documento:</b> <b class="v" id="pr-doc">-</b></div>
+                <div class="pr-field"><b class="l">Ficha:</b> <b class="v" id="pr-ficha">-</b></div>
+                <div class="pr-field pr-full"><b class="l">Programa:</b> <b class="v" id="pr-programa">-</b></div>
+                <div class="pr-field"><b class="l">Centro de formación:</b> <b class="v">Centro de Gestión
+                        Administrativa</b></div>
+                <div class="pr-field"><b class="l">Regional:</b> <b class="v">Regional Distrito Capital</b></div>
+                <div class="pr-field"><b class="l">Fecha y hora de emisión:</b> <b class="v" id="pr-fecha">-</b></div>
+                <div class="pr-field"><b class="l">Instructor / Evaluador:</b></div>
+            </div>
+        </div>
+
+        <div class="pr-sec">Resultados Consolidados de la Evaluación</div>
+
+        <div class="pr-result" id="pr-banner">
+            <div>
+                <div class="r-lbl">Resultado de la evaluación</div>
+                <div class="r-ver" id="pr-dictamen">-</div>
+                <div class="r-det" id="pr-result-det">-</div>
+            </div>
+            <div class="r-score">
+                <div class="r-num"><span id="pr-score-num">0</span><small> / 100</small></div>
+                <div class="r-min">Mínimo aprobatorio: 90 pts</div>
+            </div>
+        </div>
+
+        <div class="pr-kpis">
+            <div class="pr-kpi">
+                <div class="n" id="pr-k-score">-</div>
+                <div class="t">Puntaje Obtenido</div>
+            </div>
+            <div class="pr-kpi">
+                <div class="n" id="pr-k-time">-</div>
+                <div class="t">Tiempo Transcurrido</div>
+            </div>
+            <div class="pr-kpi">
+                <div class="n" id="pr-k-attempt">-</div>
+                <div class="t">Oportunidad Actual</div>
+            </div>
+            <div class="pr-kpi">
+                <div class="n" id="pr-k-dims">-</div>
+                <div class="t">Dimensiones Aprobadas</div>
+            </div>
+            <div class="pr-kpi">
+                <div class="n" id="pr-k-pct">-</div>
+                <div class="t">Cumplimiento Global</div>
+            </div>
+        </div>
+
+        <div class="pr-charts">
+            <div class="pr-h" style="border-bottom:none; margin-bottom:5px;">Gráficos del Dashboard</div>
+            <div class="pr-charts-grid">
+                <div class="pr-chart">
+                    <h4>Rendimiento por Dimensión (% Cumplimiento)</h4><img id="pr-img-bar" alt="" />
+                </div>
+                <div class="pr-chart">
+                    <h4>Distribución de Efectividad Global</h4><img id="pr-img-donut" alt="" />
+                </div>
+            </div>
+        </div>
+
+        <div class="pr-sec">Diagnóstico y Análisis Cualitativo</div>
+        <div class="pr-diag" id="pr-diag"></div>
+
+        <div class="pr-avoid">
+            <div class="pr-sec" style="margin-top:2px;">Desglose de Calificación por Competencia</div>
+            <table class="pr-table">
+                <thead>
+                    <tr>
+                        <th>Dimensión Normativa</th>
+                        <th>Puntos Posibles</th>
+                        <th>Puntos Obtenidos</th>
+                        <th>Cumplimiento</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="pr-table-body"></tbody>
+            </table>
+        </div>
+
+        <div class="pr-avoid">
+            <div class="pr-obs"><b>Observaciones y Recomendaciones del Instructor / Evaluador:</b></div>
+            <div class="pr-sign">
+                <div>Firma del Aprendiz</div>
+                <div>Firma del Instructor / Evaluador</div>
+            </div>
+            <div class="pr-foot">Servicio Nacional de Aprendizaje SENA &bull; Centro de Gestión Administrativa (CGA)
+                &bull; Herramienta de Formación Profesional Integral</div>
+        </div>
+    </div>
 
     <!-- ========================================== -->
     <!-- PIE DE PÁGINA                              -->
@@ -1687,7 +2074,7 @@
     <!-- ========================================== -->
     <script>
         let currentAttempt = 1;
-        const maxAttempts = 4;
+        const maxAttempts = Number.POSITIVE_INFINITY;
         let timeRemaining = 60 * 60;
         let timeElapsed = 0;
         let timerInterval = null;
@@ -1704,7 +2091,13 @@
         let barChartInstance = null;
         let donutChartInstance = null;
 
+        function setFechaActa() {
+            const el = document.getElementById('print-fecha');
+            if (el) el.innerText = new Date().toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
+            setFechaActa();
             startTimer();
             initCharts();
         });
@@ -1789,7 +2182,7 @@
             const prog = document.getElementById('reg-programa')?.value || 'Tecnico en Talento Humano';
 
             if (!nombre || !doc || !ficha) {
-                showModal('Campos Incompletos', 'Por favor diligencia tu Nombre, Documento y Ficha de caracterizaciÃ³n.');
+                showModal('Campos Incompletos', 'Por favor diligencia tu Nombre, Documento y Ficha de caracterización.');
                 return;
             }
 
@@ -1904,6 +2297,7 @@
             }
 
             computeScores();
+            setFechaActa();
 
             const pDer = Math.round((scores.derechos / 30) * 100);
             const pRec = Math.round((scores.reconocimientos / 20) * 100);
@@ -1959,6 +2353,120 @@
             }
         }
 
+        function fillPrintReport() {
+            const setTxt = (id, v) => { const el = document.getElementById(id); if (el) el.innerText = v; };
+            const L = registeredLearner || {};
+            const now = new Date();
+            setTxt('pr-fecha', now.toLocaleString('es-CO', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: '2-digit' }));
+            setTxt('pr-nombre', L.nombre || '-');
+            setTxt('pr-doc', L.doc || '-');
+            setTxt('pr-ficha', L.ficha || '-');
+            setTxt('pr-programa', L.prog || 'Técnico en Talento Humano');
+            setTxt('pr-programa-h', L.prog || 'Técnico en Talento Humano');
+
+            const dims = [
+                { n: 'Derechos del Aprendiz', d: 'Artículo 5o: 6 casos situacionales en Gestión del Talento Humano', max: 30, pts: scores.derechos, lbl: 'Derechos' },
+                { n: 'Reconocimientos Formativos', d: 'Artículo 6o: autoridad concedente, objetivos, requisitos y Parágrafo 2', max: 20, pts: scores.reconocimientos, lbl: 'Reconocimientos' },
+                { n: 'Representatividad Institucional', d: 'Artículo 7o: mes de elección, 7 representantes por jornada y voceros', max: 25, pts: scores.representatividad, lbl: 'Representatividad' },
+                { n: 'Evaluación Integradora', d: 'Síntesis y aplicación normativa de los Artículos 5, 6 y 7', max: 25, pts: scores.evaluacion, lbl: 'Evaluación' }
+            ];
+            dims.forEach(x => x.p = Math.round((x.pts / x.max) * 100));
+            const total = scores.total;
+            const hasData = total > 0;
+            const passed = total >= 90;
+            const aprobadas = dims.filter(x => x.p >= 90).length;
+            const peor = dims.slice().sort((a, b) => a.p - b.p)[0];
+            const cls = v => v >= 90 ? 'hi' : (v >= 60 ? 'mid' : 'lo');
+
+            const mm = String(Math.floor(timeElapsed / 60)).padStart(2, '0');
+            const ss = String(timeElapsed % 60).padStart(2, '0');
+            setTxt('pr-k-score', `${total} / 100`);
+            setTxt('pr-k-time', `${mm}:${ss}`);
+            setTxt('pr-k-attempt', Number.isFinite(maxAttempts) ? `${currentAttempt} de ${maxAttempts}` : String(currentAttempt));
+            setTxt('pr-k-dims', `${aprobadas} / 4`);
+            setTxt('pr-k-pct', `${total}%`);
+            setTxt('pr-score-num', total);
+
+            const banner = document.getElementById('pr-banner');
+            const diag = document.getElementById('pr-diag');
+            banner.className = 'pr-result ' + (!hasData ? '' : (passed ? 'ok' : 'bad'));
+            diag.className = 'pr-diag ' + (!hasData ? 'pend' : (passed ? '' : 'bad'));
+
+            if (!hasData) {
+                setTxt('pr-dictamen', 'PENDIENTE');
+                setTxt('pr-result-det', 'La evaluación aún no ha sido consolidada.');
+                diag.innerHTML = '<p class="tt">Sin datos suficientes</p><p>Diligencia las fases de Derechos, Reconocimientos y Representatividad y consolida la evaluación para emitir el dictamen formativo.</p>';
+            } else if (passed) {
+                setTxt('pr-dictamen', 'APROBADO');
+                setTxt('pr-result-det', `${aprobadas} de 4 dimensiones aprobadas • Supera el 90% requerido`);
+                diag.innerHTML = `<p class="tt">Resultado Satisfactorio (Aprobado - ${total} pts / ${total}%)</p>
+                    <p>El aprendiz evidencia un dominio integral y riguroso de la normatividad institucional. Se comprueba apropiación taxativa del debido proceso, tiempos perentorios de retroalimentación (8 días hábiles), dotación obligatoria de EPP para ambientes de gestión y la estructura democrática tripartita (jornadas, voceros de grupo y enfoque diferencial). Competencia lista para certificación en Talento Humano.</p>
+                    <p><b>Recomendación:</b> Mantén el nivel alcanzado. La dimensión con menor cumplimiento fue "${peor.n}" (${peor.p}%); puedes repasarla para consolidar tu conocimiento.</p>`;
+            } else {
+                setTxt('pr-dictamen', 'POR MEJORAR');
+                setTxt('pr-result-det', `${aprobadas} de 4 dimensiones aprobadas • No alcanza el 90% requerido`);
+                diag.innerHTML = `<p class="tt">Dictamen Diagnóstico (Por Mejorar - ${total} pts / ${total}%)</p>
+                    <p>El puntaje alcanzado no supera el 90% mínimo reglamentario. Se identifican brechas prioritarias que requieren refuerzo pedagógico en los Artículos 5o (Derechos y Debido Proceso), 6o (no exclusión de reconocimientos) o 7o (elecciones en septiembre y conformación de vocerías). Se sugiere concertar retroalimentación con el instructor ejecutor y reiniciar el intento.</p>
+                    <p><b>Recomendación:</b> Prioriza el refuerzo de "${peor.n}" (${peor.p}% de cumplimiento) antes de realizar un nuevo intento.</p>`;
+            }
+
+            document.getElementById('pr-table-body').innerHTML = dims.map(x =>
+                `<tr><td><b>${x.n}</b><small>${x.d}</small></td><td>${x.max} pts</td><td><b>${x.pts} pts</b></td><td class="pr-eff ${cls(x.p)}">${x.p}%</td><td class="pr-eff ${x.p >= 90 ? 'hi' : 'mid'}">${hasData ? (x.p >= 90 ? 'Aprobado' : 'Por Mejorar') : 'Pendiente'}</td></tr>`
+            ).join('') + `<tr class="tot"><td style="text-align:right;">CALIFICACIÓN GLOBAL CONSOLIDADA:</td><td>100 pts</td><td>${total} pts</td><td class="pr-eff ${cls(total)}">${total}%</td><td class="pr-eff ${!hasData ? '' : (passed ? 'hi' : 'lo')}">${!hasData ? 'Pendiente' : (passed ? 'Aprobado' : 'Por Mejorar')}</td></tr>`;
+
+            // Gráficas a color para impresión (fuera de pantalla -> imagen)
+            try {
+                const barLabels = {
+                    id: 'barLabels',
+                    afterDatasetsDraw(chart) {
+                        const c = chart.ctx; c.save(); c.font = 'bold 13px Inter, sans-serif'; c.fillStyle = '#14213d'; c.textAlign = 'center';
+                        chart.getDatasetMeta(0).data.forEach((bar, i) => c.fillText(chart.data.datasets[0].data[i] + '%', bar.x, bar.y - 6));
+                        c.restore();
+                    }
+                };
+                const cvB = document.createElement('canvas'); cvB.width = 640; cvB.height = 330;
+                const chB = new Chart(cvB.getContext('2d'), {
+                    type: 'bar',
+                    data: { labels: dims.map(x => x.lbl), datasets: [{ data: dims.map(x => x.p), backgroundColor: dims.map(x => x.p >= 90 ? '#1f7a6d' : (x.p >= 60 ? '#c68b2f' : '#d9604f')), borderRadius: 6, barThickness: 48 }] },
+                    options: {
+                        responsive: false, animation: false, devicePixelRatio: 2,
+                        layout: { padding: { top: 20 } },
+                        scales: {
+                            y: { beginAtZero: true, max: 100, grid: { color: '#e5e7eb' }, ticks: { color: '#334155', font: { size: 12 }, callback: v => v + '%' } },
+                            x: { grid: { display: false }, ticks: { color: '#334155', font: { size: 11 } } }
+                        },
+                        plugins: { legend: { display: false } }
+                    },
+                    plugins: [barLabels]
+                });
+                document.getElementById('pr-img-bar').src = chB.toBase64Image();
+                chB.destroy();
+
+                const centerText = {
+                    id: 'centerText',
+                    afterDraw(chart) {
+                        const { ctx, chartArea: a } = chart; ctx.save();
+                        ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#14213d';
+                        ctx.font = '800 34px Inter, sans-serif';
+                        ctx.fillText(String(total), (a.left + a.right) / 2, (a.top + a.bottom) / 2 - 6);
+                        ctx.font = '600 13px Inter, sans-serif'; ctx.fillStyle = '#64748b';
+                        ctx.fillText('de 100 pts', (a.left + a.right) / 2, (a.top + a.bottom) / 2 + 18);
+                        ctx.restore();
+                    }
+                };
+                const mainColor = !hasData ? '#c68b2f' : (passed ? '#1f7a6d' : '#d9604f');
+                const cvD = document.createElement('canvas'); cvD.width = 640; cvD.height = 330;
+                const chD = new Chart(cvD.getContext('2d'), {
+                    type: 'doughnut',
+                    data: { labels: ['Puntos Obtenidos', 'Puntos Restantes'], datasets: [{ data: [total, Math.max(0, 100 - total)], backgroundColor: [mainColor, '#e2e8f0'], borderColor: '#ffffff', borderWidth: 3 }] },
+                    options: { responsive: false, animation: false, devicePixelRatio: 2, cutout: '68%', plugins: { legend: { position: 'right', labels: { color: '#334155', boxWidth: 14, padding: 14, font: { size: 13 } } } } },
+                    plugins: [centerText]
+                });
+                document.getElementById('pr-img-donut').src = chD.toBase64Image();
+                chD.destroy();
+            } catch (err) { console.error('No se pudieron generar las gráficas de impresión', err); }
+        }
+
         function printEvidence() {
             if (!registeredLearner) {
                 const nombre = document.getElementById('reg-nombre')?.value.trim();
@@ -1974,7 +2482,7 @@
                     const progElem = document.getElementById('print-programa');
                     if (progElem) progElem.innerText = prog;
                 } else {
-                    showModal('Registro Incompleto', 'Por favor diligencia tus datos institucionales (Nombre, Documento y Ficha) en la pestaÃ±a de Registro antes de imprimir.');
+                    showModal('Registro Incompleto', 'Por favor diligencia tus datos institucionales (Nombre, Documento y Ficha) en la pestaña de Registro antes de imprimir.');
                     switchTab('registro');
                     return;
                 }
@@ -1994,8 +2502,9 @@
             }
 
             consolidateEvaluation();
+            fillPrintReport();
 
-            // Forzar la vista de la pestaÃ±a y dar tiempo de renderizado
+            // Forzar la vista de la pestaña y dar tiempo de renderizado
             switchTab('evaluacion');
 
             const originalTitle = document.title;
@@ -2014,19 +2523,25 @@
             }, 300);
         }
 
+        // Al imprimir con Ctrl+P (sin usar el botón), recalcula y arma el reporte con lo respondido
+        window.addEventListener('beforeprint', () => {
+            if (registeredLearner) consolidateEvaluation(); else computeScores();
+            fillPrintReport();
+        });
+
         function confirmReset() {
-            if (currentAttempt >= maxAttempts) {
-                showModal('Intentos Agotados', 'Has alcanzado el límite máximo de cuatro (4) intentos permitidos para esta actividad.');
+            if (Number.isFinite(maxAttempts) && currentAttempt >= maxAttempts) {
+                showModal('Intentos Agotados', 'Has alcanzado el límite máximo de intentos permitidos para esta actividad.');
                 return;
             }
 
             showModal(
                 'Confirmar Reinicio de Intento',
-                `¿Deseas reiniciar la actividad? Se restablecerán las selecciones de las preguntas y se consumirá el intento ${currentAttempt + 1} de ${maxAttempts}.`,
+                '¿Deseas reiniciar la actividad? Se restablecerán las selecciones de las preguntas y podrás intentarlo nuevamente sin límite.',
                 true,
                 () => {
                     currentAttempt++;
-                    document.getElementById('attempts-badge').innerText = `${currentAttempt} / ${maxAttempts}`;
+                    document.getElementById('attempts-badge').innerText = Number.isFinite(maxAttempts) ? `${currentAttempt} / ${maxAttempts}` : '∞';
                     document.getElementById('kpi-attempt').innerText = currentAttempt;
 
                     document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
@@ -2178,6 +2693,20 @@
         `;
             }
         }
+    </script>
+
+    <!-- Puente con aduana.html (pestaña Enviar reporte) -->
+    <script>
+        window.addEventListener('message', function (e) {
+            var f = document.getElementById('iframe-aduana');
+            if (!f || e.source !== f.contentWindow || !e.data) return;
+            if (e.data.type === 'aduana-resize' && e.data.height) {
+                f.style.height = Math.max(e.data.height, 500) + 'px';
+            } else if (e.data.type === 'aduana-repetir-evaluacion') {
+                window.reintentarEvaluacion();
+            }
+        });
+        window.reintentarEvaluacion = function () { confirmReset(); };
     </script>
 </body>
 

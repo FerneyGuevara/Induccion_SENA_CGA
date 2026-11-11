@@ -105,19 +105,32 @@
         }
 
         /* ========================================================= */
-        /* MODO DE IMPRESIÓN                                          */
+        /* MODO DE IMPRESIÓN (reporte a color)                        */
         /* ========================================================= */
+        @page {
+            size: letter portrait;
+            margin: 9mm;
+        }
+
         @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            html,
             body {
-                background-color: #ffffff !important;
-                color: #0f172a !important;
+                background: #ffffff !important;
+                color: #14213d !important;
                 padding: 0 !important;
                 margin: 0 !important;
+                min-height: 0 !important;
             }
 
             header,
             nav,
             footer,
+            main,
             .no-print,
             .tab-pane {
                 display: none !important;
@@ -125,35 +138,402 @@
 
             #print-area {
                 display: block !important;
-                visibility: visible !important;
                 width: 100% !important;
-                padding: 10mm !important;
                 margin: 0 !important;
+                padding: 0 !important;
                 background: #ffffff !important;
-                color: #0f172a !important;
+                color: #14213d !important;
+                font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+                font-size: 10.5px;
+                line-height: 1.4;
             }
 
-            #print-area * {
-                visibility: visible !important;
-                color: #0f172a !important;
-                box-shadow: none !important;
-                text-shadow: none !important;
+            #print-area .pr-inst {
+                font-size: 9.5px;
+                font-weight: 800;
+                letter-spacing: .12em;
+                text-transform: uppercase;
+                color: #14213d;
             }
 
-            #print-area .print-box {
-                border: 1px solid #cbd5e1 !important;
-                background: #ffffff !important;
+            #print-area .pr-centro {
+                font-size: 19px;
+                font-weight: 800;
+                color: #14213d;
+                margin: 1px 0 2px;
+                text-transform: uppercase;
             }
 
-            #print-area table {
+            #print-area .pr-comp {
+                font-size: 9.5px;
+                color: #475569;
+                margin-bottom: 8px;
+            }
+
+            #print-area .pr-title-box {
+                background: #fbf3e2;
+                border: 1.5px solid #c68b2f;
+                border-radius: 9px;
+                padding: 10px 14px;
+                margin-bottom: 9px;
+            }
+
+            #print-area .pr-title {
+                font-size: 16px;
+                font-weight: 800;
+                color: #14213d;
+            }
+
+            #print-area .pr-sub {
+                font-size: 10px;
+                font-weight: 800;
+                color: #b9771d;
+                letter-spacing: .04em;
+                text-transform: uppercase;
+                margin: 2px 0 4px;
+            }
+
+            #print-area .pr-line {
+                font-size: 9.5px;
+                color: #334155;
+                padding-bottom: 5px;
+                border-bottom: 1px dashed #c68b2f;
+                margin-bottom: 5px;
+            }
+
+            #print-area .pr-temas {
+                font-size: 9.5px;
+                color: #334155;
+            }
+
+            #print-area .pr-box {
+                background: #f8f8f4;
+                border: 1px solid #d3dbe6;
+                border-radius: 9px;
+                padding: 10px 14px;
+                margin-bottom: 10px;
+            }
+
+            #print-area .pr-h {
+                font-size: 11px;
+                font-weight: 800;
+                letter-spacing: .08em;
+                text-transform: uppercase;
+                color: #14213d;
+                padding-bottom: 3px;
+                border-bottom: 2px solid #d3dbe6;
+                margin-bottom: 7px;
+            }
+
+            #print-area .pr-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                column-gap: 24px;
+                row-gap: 7px;
+            }
+
+            #print-area .pr-field {
+                font-size: 10.5px;
+                color: #14213d;
+                border-bottom: 1px solid #94a3b8;
+                padding-bottom: 1px;
+                min-height: 15px;
+            }
+
+            #print-area .pr-field b.l {
+                font-weight: 600;
+                color: #334155;
+            }
+
+            #print-area .pr-field b.v {
+                font-weight: 800;
+            }
+
+            #print-area .pr-full {
+                grid-column: 1 / -1;
+            }
+
+            #print-area .pr-sec {
+                font-size: 14px;
+                font-weight: 800;
+                letter-spacing: .05em;
+                text-transform: uppercase;
+                color: #14213d;
+                padding-top: 9px;
+                border-top: 3px solid #14213d;
+                border-bottom: 2px solid #1f7a6d;
+                padding-bottom: 4px;
+                margin: 6px 0 9px;
+            }
+
+            #print-area .pr-kpis {
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 8px;
+                margin-bottom: 10px;
+            }
+
+            #print-area .pr-kpi {
+                background: #f4f6f9;
+                border: 1px solid #d3dbe6;
+                border-radius: 9px;
+                text-align: center;
+                padding: 9px 4px;
+            }
+
+            #print-area .pr-kpi .n {
+                font-size: 20px;
+                font-weight: 800;
+                color: #1f7a6d;
+                line-height: 1.1;
+            }
+
+            #print-area .pr-kpi .t {
+                font-size: 8px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: .05em;
+                color: #334155;
+                margin-top: 3px;
+            }
+
+            /* Resultado destacado */
+            #print-area .pr-result {
+                border-radius: 10px;
+                padding: 13px 18px;
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 14px;
+                background: #14213d;
+                border-left: 10px solid #c68b2f;
+            }
+
+            #print-area .pr-result.ok {
+                border-left-color: #2fa88f;
+            }
+
+            #print-area .pr-result.bad {
+                border-left-color: #d9604f;
+            }
+
+            #print-area .pr-result.pend {
+                border-left-color: #c68b2f;
+            }
+
+            #print-area .pr-result .r-lbl {
+                font-size: 9px;
+                font-weight: 800;
+                letter-spacing: .14em;
+                text-transform: uppercase;
+                color: #cbd5e1 !important;
+            }
+
+            #print-area .pr-result .r-ver {
+                font-size: 26px;
+                font-weight: 900;
+                letter-spacing: .02em;
+                line-height: 1.1;
+                margin: 2px 0;
+                color: #f2c14e !important;
+            }
+
+            #print-area .pr-result.ok .r-ver {
+                color: #5fe0c0 !important;
+            }
+
+            #print-area .pr-result.bad .r-ver {
+                color: #ff8f80 !important;
+            }
+
+            #print-area .pr-result .r-det {
+                font-size: 9.5px;
+                color: #e2e8f0 !important;
+            }
+
+            #print-area .pr-result .r-score {
+                text-align: right;
+                white-space: nowrap;
+            }
+
+            #print-area .pr-result .r-num {
+                font-size: 40px;
+                font-weight: 900;
+                line-height: 1;
+                color: #ffffff !important;
+            }
+
+            #print-area .pr-result .r-num small {
+                font-size: 16px;
+                font-weight: 700;
+                color: #cbd5e1 !important;
+            }
+
+            #print-area .pr-result .r-min {
+                font-size: 9px;
+                color: #cbd5e1 !important;
+                margin-top: 2px;
+            }
+
+            /* Gráficos */
+            #print-area .pr-charts {
+                border: 1px solid #d3dbe6;
+                border-radius: 9px;
+                padding: 10px 12px;
+                margin-bottom: 10px;
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            #print-area .pr-charts-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            #print-area .pr-chart {
+                border: 1px solid #d3dbe6;
+                border-radius: 8px;
+                padding: 7px 9px;
+            }
+
+            #print-area .pr-chart h4 {
+                font-size: 10.5px;
+                font-weight: 800;
+                color: #14213d;
+                margin-bottom: 4px;
+            }
+
+            #print-area .pr-chart img {
+                width: 100%;
+                height: 165px;
+                object-fit: contain;
+                display: block;
+            }
+
+            /* Diagnóstico */
+            #print-area .pr-diag {
+                border: 1px solid #d3dbe6;
+                border-left: 6px solid #1f7a6d;
+                border-radius: 9px;
+                padding: 9px 14px;
+                margin-bottom: 10px;
+                background: #f6fbf9;
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            #print-area .pr-diag.bad {
+                border-left-color: #d9604f;
+                background: #fdf6f4;
+            }
+
+            #print-area .pr-diag.pend {
+                border-left-color: #c68b2f;
+                background: #fbf3e2;
+            }
+
+            #print-area .pr-diag p {
+                font-size: 10.5px;
+                color: #1e293b;
+                margin-bottom: 4px;
+                text-align: justify;
+            }
+
+            #print-area .pr-diag p.tt {
+                font-weight: 800;
+                font-size: 11.5px;
+                color: #14213d;
+            }
+
+            #print-area .pr-diag p:last-child {
+                margin-bottom: 0;
+            }
+
+            /* Tabla */
+            #print-area table.pr-table {
                 width: 100% !important;
                 border-collapse: collapse !important;
+                margin-bottom: 10px;
             }
 
-            #print-area td,
-            #print-area th {
-                border: 1px solid #cbd5e1 !important;
-                padding: 6px 10px !important;
+            #print-area table.pr-table th {
+                background: #14213d !important;
+                color: #ffffff !important;
+                font-size: 9.5px;
+                text-transform: uppercase;
+                letter-spacing: .04em;
+                padding: 6px 8px !important;
+                border: 1px solid #14213d !important;
+                text-align: left;
+            }
+
+            #print-area table.pr-table td {
+                font-size: 10.5px;
+                padding: 6px 8px !important;
+                border: 1px solid #d3dbe6 !important;
+                color: #14213d !important;
+            }
+
+            #print-area table.pr-table tr:nth-child(even) td {
+                background: #f4f6f9 !important;
+            }
+
+            #print-area .pr-eff {
+                font-weight: 800;
+            }
+
+            #print-area .pr-eff.hi {
+                color: #1f7a6d !important;
+            }
+
+            #print-area .pr-eff.mid {
+                color: #b9771d !important;
+            }
+
+            #print-area .pr-eff.lo {
+                color: #d9604f !important;
+            }
+
+            #print-area .pr-avoid {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            #print-area .pr-obs {
+                border: 1px solid #94a3b8;
+                border-radius: 9px;
+                padding: 8px 12px;
+                height: 70px;
+                margin-bottom: 36px;
+            }
+
+            #print-area .pr-obs b {
+                font-size: 10.5px;
+                color: #14213d;
+            }
+
+            #print-area .pr-sign {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 50px;
+            }
+
+            #print-area .pr-sign div {
+                border-top: 1.5px solid #14213d;
+                text-align: center;
+                padding-top: 4px;
+                font-size: 10px;
+                font-weight: 700;
+                color: #14213d;
+            }
+
+            #print-area .pr-foot {
+                margin-top: 12px;
+                text-align: center;
+                font-size: 8.5px;
+                color: #64748b;
             }
         }
     </style>
@@ -275,7 +655,7 @@
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
                 <i class="fas fa-chart-pie text-xs"></i> Dashboard
             </button>
-            <button onclick="window.location.href='aduana.html'" id="tab-enviar-reporte"
+            <button onclick="switchTab('envio')" id="tab-envio"
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
                 <i class="fas fa-paper-plane text-xs"></i> Enviar Reporte
             </button>
@@ -630,56 +1010,56 @@
                             class="inline-block mt-1 mb-2 bg-indigo-950/80 text-indigo-300 border border-indigo-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wide">Directora
                             Regional Distrito Capital</span>
                         <p class="text-xs text-slate-400 leading-relaxed text-justify mb-2">
-                            La Dra. Claudia Janet Gómez ha asumido el gran reto de dirigir la Regional Distrito Capital del SENA, cuenta con 29 años al servicio de la entidad, donde ha desempeñado diferentes cargos y asumido responsabilidades en la Regional Distrito Capital, su recorrido incluye funciones como profesional, coordinadora y subdirectora, experiencia que hoy la lleva a asumir esta nueva responsabilidad.
+                            La Dra. Claudia Janet Gómez ha asumido el gran reto de dirigir la Regional Distrito Capital
+                            del SENA, cuenta con 29 años al servicio de la entidad, donde ha desempeñado diferentes
+                            cargos y asumido responsabilidades en la Regional Distrito Capital, su recorrido incluye
+                            funciones como profesional, coordinadora y subdirectora, experiencia que hoy la lleva a
+                            asumir esta nueva responsabilidad.
                         </p>
                         <p class="text-xs text-slate-400 leading-relaxed text-justify">
-                            Es economista de profesión y especialista en Administración Pública Contemporánea. Posee amplia experiencia laboral en el sector público y privado, su entereza frente a grandes desafíos, la ha posicionado como una profesional Integral en la entidad más querida por los colombianos, el SENA.
+                            Es economista de profesión y especialista en Administración Pública Contemporánea. Posee
+                            amplia experiencia laboral en el sector público y privado, su entereza frente a grandes
+                            desafíos, la ha posicionado como una profesional Integral en la entidad más querida por los
+                            colombianos, el SENA.
                         </p>
                     </div>
 
-                    <!-- Columna 3: Subdirector (E) Centro de Gestión Administrativa -->
+                    <!-- Columna 3: Subdirectora (E) Centro de Gestión Administrativa -->
                     <div class="info-card bg-slate-950 p-5 rounded-xl text-center flex flex-col items-center">
-                        <img src="Miguel Angel Ruiz Bohorquez.png" alt="Miguel Ángel Ruiz Bohórquez"
+                        <img src="Nury Patricia Maldonado Zarate.png" alt="Nury Patricia Maldonado Zárate"
                             class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-2 border-indigo-800/80 mx-auto object-cover object-top mb-3.5 shadow-lg" />
-                        <h3 class="text-sm font-bold text-slate-100">Miguel Ángel Ruiz Bohórquez</h3>
+                        <h3 class="text-sm font-bold text-slate-100">Nury Patricia Maldonado Zarate</h3>
                         <span
-                            class="inline-block mt-1 mb-2 bg-indigo-950/80 text-indigo-300 border border-indigo-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wide">SUBDIRECTOR
+                            class="inline-block mt-1 mb-2 bg-indigo-950/80 text-indigo-300 border border-indigo-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wide">SUBDIRECTORA
                             (E) CENTRO DE GESTIÓN ADMINISTRATIVA</span>
                         <p class="text-xs text-slate-400 leading-relaxed text-justify mb-2">
-                            Profesional en Administración Pública, Especialista en Planeación Educativa y Planes de
-                            Desarrollo, y Técnico en Gestión del Talento Humano del SENA.
+                            Trabajadora social de profesión, con una amplia trayectoria en el SENA. Se ha desempeñado en
+                            diferentes áreas del Centro de Gestión Administrativa, entre ellas la Coordinación de
+                            Talento Humano y la Coordinación Misional, y ha ejercido el cargo de Subdirectora (E) del
+                            mismo Centro.
                         </p>
-                        <p class="text-xs text-slate-400 leading-relaxed text-justify ">
-                            Su liderazgo social y vocación de servicio fortalecen el trabajo institucional, impulsando
-                            acciones con impacto y sentido humano.
+                        <p class="text-xs text-slate-400 leading-relaxed text-justify">
+                            Se destaca por su amplia experiencia, profesionalismo, compromiso y profundo conocimiento de
+                            los procesos institucionales.
                         </p>
                     </div>
 
                     <!-- Columna 4: Coordinador Talento Humano -->
                     <div class="info-card bg-slate-950 p-5 rounded-xl text-center flex flex-col items-center">
-                        <img src="Harold Ivan Mera Martinez.png" alt="Harold Iván Mera Martínez"
+                        <img src="Miguel Angel Ruiz Bohorquez.png" alt="Miguel Ángel Ruiz Bohórquez"
                             class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-2 border-indigo-800/80 mx-auto object-cover object-top mb-3.5 shadow-lg" />
-                        <h3 class="text-sm font-bold text-slate-100">Harold Iván Mera Martínez</h3>
+                        <h3 class="text-sm font-bold text-slate-100">Miguel Ángel Ruiz Bohórquez</h3>
                         <span
                             class="inline-block mt-1 mb-2 bg-indigo-950/80 text-indigo-300 border border-indigo-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wide">COORDINADOR
                             TALENTO HUMANO</span>
                         <p class="text-xs text-slate-400 leading-relaxed text-justify mb-2">
-                            Economista con énfasis en Administración de Empresas, 25 años experiencia docente y en el
-                            sector real, en: la formulación y evaluación de Planes de negocios y proyectos de inversión;
-                            el área financiera en elaboración, análisis y control de presupuestos y costos; el área
-                            administrativa en control de tiempos y movimientos, manejo de personal, producción, almacén
-                            e inventarios, logística, asesor y consultor en áreas administrativas, económicas y
-                            financieras, formulación y evaluación de proyectos de inversión, formación como instructor
-                            para la formación integral por competencias del SENA.
-                        </p>
-                        <p class="text-xs text-slate-400 leading-relaxed text-justify mb-2">
-                            Caracterizado por ser una persona líder con altos valores éticos, morales y sociales, con
-                            disposición para el trabajo en equipo, proactivo y dispuesto a aceptar retos personales,
-                            profesionales y laborales.
+                            Profesional en Administración Pública, Especialista en Planeación Educativa y Planes de
+                            Desarrollo, y Técnico en Gestión del Talento Humano del SENA.
                         </p>
                         <p class="text-xs text-slate-400 leading-relaxed text-justify">
-                            Lideran la ejecución directa de la formación profesional Integral, programas académicos,
-                            ambientes de aprendizaje, instructores y aprendices de la coordinación.
+                            Instructor de la Coordinación de Talento Humano, en su trayectoria como Subdirector del Centro
+                            de Gestión Administrativa, se destacó por su liderazgo social y vocación de servicio, lo que
+                            evidenció en el trabajo institucional, impulsando acciones con impacto y sentido humano.
                         </p>
                     </div>
                 </div>
@@ -1071,7 +1451,7 @@
                         <span id="intentos-indicator"
                             class="bg-slate-950 text-slate-300 border border-slate-700 font-bold text-xs px-3 py-1 rounded-full flex items-center gap-1.5">
                             <i class="fas fa-rotate-left text-[10px]"></i> Intentos disponibles: <span
-                                id="intentos-restantes">4</span>/4
+                                id="intentos-restantes">∞</span>/∞
                         </span>
                     </div>
                 </div>
@@ -1522,7 +1902,7 @@
                     <div id="msg-sin-intentos"
                         class="hidden bg-rose-950/40 border border-rose-800 text-rose-300 text-xs sm:text-sm font-semibold p-4 rounded-xl flex items-center gap-2">
                         <i class="fas fa-circle-xmark"></i>
-                        <span>Has agotado tus 4 intentos disponibles. No es posible reiniciar la evaluación
+                        <span>Has agotado tus intentos disponibles. No es posible reiniciar la evaluación
                             nuevamente.</span>
                     </div>
 
@@ -1604,6 +1984,25 @@
                         en "Calcular Resultado" para ver aquí tu dashboard.</p>
                 </div>
             </div>
+
+            <div class="flex justify-end mb-6">
+                <button onclick="switchTab('envio')"
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md">
+                    <span>Siguiente: Enviar Reporte</span>
+                    <i class="fas fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 9. PESTAÑA: ENVIAR REPORTE                 -->
+        <!-- ========================================== -->
+        <section id="pane-envio" class="tab-pane hidden">
+            <div
+                class="bg-slate-900/90 backdrop-blur-sm rounded-2xl border border-slate-700/80 p-4 sm:p-6 mb-6 shadow-2xl">
+                <iframe id="iframe-aduana" src="aduana.html?reporte=1"
+                    style="width:100%; min-height:680px; border:none;" title="Aduana de Evidencias SENA"></iframe>
+            </div>
         </section>
 
     </main>
@@ -1612,73 +2011,112 @@
     <!-- áREA DE IMPRESIÓN (Registro + Evaluación)   -->
     <!-- ========================================== -->
     <div id="print-area">
-        <h1 style="font-size:20px; font-weight:bold; margin-bottom:4px;">Registro y Resultado de Evaluación - SENA</h1>
-        <p style="font-size:11px; color:#475569; margin-bottom:16px;">Simulador Interactivo SENA &bull; Generado el
-            <span id="print-fecha"></span>
-        </p>
+        <div class="pr-inst">Servicio Nacional de Aprendizaje SENA &bull; Regional <span id="print-regional-h">Distrito
+                Capital</span></div>
+        <div class="pr-centro" id="print-centro-h">Centro de Gestión Administrativa</div>
+        <div class="pr-comp">Información Institucional &bull; Inducción al aprendiz SENA</div>
 
-        <div class="print-box" style="border-radius:8px; padding:14px; margin-bottom:16px;">
-            <h2 style="font-size:13px; font-weight:bold; margin-bottom:8px;">Datos del Registro</h2>
-            <table>
-                <tr>
-                    <td style="font-weight:bold; width:35%;">Nombre Completo</td>
-                    <td id="print-nombre">-</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:bold;">Documento de Identidad</td>
-                    <td id="print-doc">-</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:bold;">Número de Ficha</td>
-                    <td id="print-ficha">-</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:bold;">Programa de Formación</td>
-                    <td id="print-programa">-</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:bold;">Centro de Formación</td>
-                    <td id="print-centro">-</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:bold;">Regional</td>
-                    <td id="print-regional">-</td>
-                </tr>
+        <div class="pr-title-box">
+            <div class="pr-title">Información Institucional SENA</div>
+            <div class="pr-sub">Simulador Interactivo &mdash; Reporte de Evaluación y Desempeño</div>
+            <div class="pr-line"><b>PROGRAMA:</b> <span id="print-programa-h">-</span> &bull; <b>CALIFICACIÓN MÍNIMA
+                    APROBATORIA:</b> 90%</div>
+            <div class="pr-temas"><b>TEMAS EVALUADOS:</b> Símbolos, historia, fundadores y directivos, misión, visión,
+                políticas, valores e himno del SENA.</div>
+        </div>
+
+        <div class="pr-box">
+            <div class="pr-h">Registro del Aprendiz</div>
+            <div class="pr-grid">
+                <div class="pr-field pr-full"><b class="l">Nombre completo:</b> <b class="v" id="print-nombre">-</b>
+                </div>
+                <div class="pr-field"><b class="l">Número de documento:</b> <b class="v" id="print-doc">-</b></div>
+                <div class="pr-field"><b class="l">Ficha:</b> <b class="v" id="print-ficha">-</b></div>
+                <div class="pr-field pr-full"><b class="l">Programa:</b> <b class="v" id="print-programa">-</b></div>
+                <div class="pr-field"><b class="l">Centro de formación:</b> <b class="v" id="print-centro">-</b></div>
+                <div class="pr-field"><b class="l">Regional:</b> <b class="v" id="print-regional">-</b></div>
+                <div class="pr-field"><b class="l">Fecha y hora de emisión:</b> <b class="v" id="print-fecha">-</b>
+                </div>
+                <div class="pr-field"><b class="l">Instructor / Evaluador:</b></div>
+            </div>
+        </div>
+
+        <div class="pr-sec">Resultados Consolidados de la Evaluación</div>
+
+        <div class="pr-result pend" id="print-result-banner">
+            <div>
+                <div class="r-lbl">Resultado de la evaluación</div>
+                <div class="r-ver" id="print-dictamen">-</div>
+                <div class="r-det" id="print-result-det">-</div>
+            </div>
+            <div class="r-score">
+                <div class="r-num"><span id="print-score-num">0</span><small> / 100</small></div>
+                <div class="r-min">Mínimo aprobatorio: 90 pts</div>
+            </div>
+        </div>
+
+        <div class="pr-kpis">
+            <div class="pr-kpi">
+                <div class="n" id="print-score">-</div>
+                <div class="t">Puntaje Global</div>
+            </div>
+            <div class="pr-kpi">
+                <div class="n" id="print-scoreA">-</div>
+                <div class="t">Selección Múltiple (40 pts)</div>
+            </div>
+            <div class="pr-kpi">
+                <div class="n" id="print-scoreB">-</div>
+                <div class="t">Listas Desplegables (40 pts)</div>
+            </div>
+            <div class="pr-kpi">
+                <div class="n" id="print-scoreC">-</div>
+                <div class="t">Tarjetas (20 pts)</div>
+            </div>
+            <div class="pr-kpi">
+                <div class="n" id="print-answered">-</div>
+                <div class="t">Preguntas Respondidas</div>
+            </div>
+        </div>
+
+        <div class="pr-charts">
+            <div class="pr-h" style="border-bottom:none; margin-bottom:5px;">Gráficos del Dashboard</div>
+            <div class="pr-charts-grid">
+                <div class="pr-chart">
+                    <h4>% de Cumplimiento por Bloque</h4><img id="print-img-bar" alt="" />
+                </div>
+                <div class="pr-chart">
+                    <h4>Puntaje Global</h4><img id="print-img-donut" alt="" />
+                </div>
+            </div>
+        </div>
+
+        <div class="pr-sec">Diagnóstico y Análisis Cualitativo</div>
+        <div class="pr-diag" id="print-diag"></div>
+
+        <div class="pr-avoid">
+            <div class="pr-sec" style="margin-top:2px;">Desempeño por Bloque de Evaluación</div>
+            <table class="pr-table">
+                <thead>
+                    <tr>
+                        <th>Bloque</th>
+                        <th>Aciertos</th>
+                        <th>Puntos Obtenidos</th>
+                        <th>Puntaje Máximo</th>
+                        <th>Efectividad</th>
+                    </tr>
+                </thead>
+                <tbody id="print-table-body"></tbody>
             </table>
         </div>
 
-        <div class="print-box" style="border-radius:8px; padding:14px;">
-            <h2 style="font-size:13px; font-weight:bold; margin-bottom:8px;">Resultado de la Evaluación</h2>
-            <table>
-                <tr>
-                    <td style="font-weight:bold; width:35%;">Puntaje Global</td>
-                    <td id="print-score">-</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:bold;">Selección Múltiple (40 pts)</td>
-                    <td id="print-scoreA">-</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:bold;">Listas Desplegables (40 pts)</td>
-                    <td id="print-scoreB">-</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:bold;">Tarjetas (20 pts)</td>
-                    <td id="print-scoreC">-</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:bold;">Preguntas Respondidas</td>
-                    <td id="print-answered">-</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:bold;">Calificación Mínima Aprobatoria</td>
-                    <td>90%</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:bold;">Resultado</td>
-                    <td id="print-dictamen">-</td>
-                </tr>
-            </table>
+        <div class="pr-avoid">
+            <div class="pr-obs"><b>Observaciones y Recomendaciones del Instructor / Evaluador:</b></div>
+            <div class="pr-sign">
+                <div>Firma del Aprendiz</div>
+                <div>Firma del Instructor / Evaluador</div>
+            </div>
+            <div class="pr-foot">Simulador Interactivo SENA &bull; Para uso educativo en procesos de inducción &bull;
+                &copy; Servicio Nacional de Aprendizaje SENA</div>
         </div>
     </div>
 
@@ -1694,11 +2132,11 @@
     </footer>
 
     <script>
-        const tabs = ['registro', 'simbolos', 'historia', 'fundadores', 'mision', 'politicas', 'valores', 'himno', 'evaluacion', 'dashboard'];
+        const tabs = ['registro', 'simbolos', 'historia', 'fundadores', 'mision', 'politicas', 'valores', 'himno', 'evaluacion', 'dashboard', 'envio'];
         const TOTAL_QUESTIONS = 18;
         const PASS_THRESHOLD = 90;
-        const MAX_ATTEMPTS = 4;
-        const FINAL_TABS = ['evaluacion', 'dashboard']; // pestañas finales, ya no editables hacia atrás
+        const MAX_ATTEMPTS = Number.POSITIVE_INFINITY;
+        const FINAL_TABS = ['evaluacion', 'dashboard', 'envio']; // pestañas finales, ya no editables hacia atrás
 
         // ============================================
         // ESTADO DE FLUJO / CONTROL DE AVANCE
@@ -1765,9 +2203,8 @@
         }
 
         function updateIntentosUI() {
-            const restantes = Math.max(0, MAX_ATTEMPTS - attemptsUsed);
             const el = document.getElementById('intentos-restantes');
-            if (el) el.innerText = restantes;
+            if (el) el.innerText = Number.isFinite(MAX_ATTEMPTS) ? Math.max(0, MAX_ATTEMPTS - attemptsUsed) : '∞';
         }
 
         // ============================================
@@ -1797,7 +2234,7 @@
         // REINTENTAR EVALUACIÓN (tras resultado no aprobatorio)
         // ============================================
         function reintentarEvaluacion() {
-            if (attemptsUsed >= MAX_ATTEMPTS) return;
+            if (Number.isFinite(MAX_ATTEMPTS) && attemptsUsed >= MAX_ATTEMPTS) return;
 
             attemptsUsed++;
             updateIntentosUI();
@@ -1957,13 +2394,13 @@
             if (passed) {
                 badge.className = 'px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-emerald-950/70 text-emerald-400 border border-emerald-800';
                 badge.innerText = `Aprobado - ${score} pts`;
-                detalle.innerHTML = `<p class="text-emerald-400 font-bold mb-1"><i class="fas fa-check-double mr-1"></i> Resultado: ${score} / 100 pts</p><p>Superaste la calificación mínima aprobatoria del 90%. Buen dominio de la información institucional del SENA.</p>`;
+                detalle.innerHTML = `<p class="text-emerald-400 font-bold mb-1"><i class="fas fa-check-double mr-1"></i> Resultado: ${score} / 100 pts</p><p>Alcanzaste la calificación mínima aprobatoria del 90%. Buen dominio de la información institucional del SENA.</p>`;
             } else {
                 badge.className = 'px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-rose-950/70 text-rose-400 border border-rose-800';
                 badge.innerText = `Por Mejorar - ${score} pts`;
                 detalle.innerHTML = `<p class="text-rose-400 font-bold mb-1"><i class="fas fa-triangle-exclamation mr-1"></i> Resultado: ${score} / 100 pts</p><p>No alcanzaste la calificación mínima aprobatoria del 90%. Revisa la información y vuelve a intentarlo.</p>`;
 
-                if (attemptsUsed < MAX_ATTEMPTS) {
+                if (Number.isFinite(MAX_ATTEMPTS) ? attemptsUsed < MAX_ATTEMPTS : true) {
                     btnReintentarWrap.classList.remove('hidden');
                 } else {
                     msgSinIntentos.classList.remove('hidden');
@@ -2073,7 +2510,7 @@
             if (passed) {
                 pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-emerald-950/70 text-emerald-400 flex items-center gap-1.5 border border-emerald-800';
                 pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400"></span> Aprobado (&ge;90%)';
-                conclusionBox.innerHTML = `<p class="text-emerald-400 font-bold mb-1"><i class="fas fa-check-double mr-1"></i> Resultado Satisfactorio (${totalScore} pts / 100)</p><p>El resultado supera la calificación mínima aprobatoria del 90% y evidencia un buen dominio de la historia, fundadores, misión, visión, políticas y valores del SENA.</p>`;
+                conclusionBox.innerHTML = `<p class="text-emerald-400 font-bold mb-1"><i class="fas fa-check-double mr-1"></i> Resultado Satisfactorio (${totalScore} pts / 100)</p><p>El resultado alcanza la calificación mínima aprobatoria del 90% y evidencia un buen dominio de la historia, fundadores, misión, visión, políticas y valores del SENA.</p>`;
             } else {
                 pill.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-rose-950/70 text-rose-400 flex items-center gap-1.5 border border-rose-800';
                 pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-500"></span> Por Mejorar (&lt;90%)';
@@ -2102,29 +2539,130 @@
                 }
             }
 
-            document.getElementById('print-fecha').innerText = new Date().toLocaleString('es-CO');
-            document.getElementById('print-nombre').innerText = registeredLearner.nombre || '-';
-            document.getElementById('print-doc').innerText = registeredLearner.doc || '-';
-            document.getElementById('print-ficha').innerText = registeredLearner.ficha || '-';
-            document.getElementById('print-programa').innerText = registeredLearner.programa || '-';
-            document.getElementById('print-centro').innerText = registeredLearner.centro || '-';
-            document.getElementById('print-regional').innerText = registeredLearner.regional || '-';
+            // Recalcula con las respuestas actuales para que el reporte siempre coincida
+            // con lo que está marcado en pantalla (evita imprimir un resultado desactualizado).
+            evaluar();
 
-            if (lastEval.done) {
-                document.getElementById('print-score').innerText = `${lastEval.score} / 100 pts`;
-                document.getElementById('print-scoreA').innerText = `${lastEval.scoreA} / 40 pts`;
-                document.getElementById('print-scoreB').innerText = `${lastEval.scoreB} / 40 pts`;
-                document.getElementById('print-scoreC').innerText = `${lastEval.scoreC} / 20 pts`;
-                document.getElementById('print-answered').innerText = `${lastEval.answered} / ${TOTAL_QUESTIONS}`;
-                document.getElementById('print-dictamen').innerText = lastEval.passed ? 'APROBADO' : 'POR MEJORAR';
+            const L = registeredLearner;
+            const setTxt = (id, v) => { const el = document.getElementById(id); if (el) el.innerText = v; };
+            const fechaEmision = new Date().toLocaleString('es-CO', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: '2-digit' });
+            setTxt('print-fecha', fechaEmision);
+            setTxt('print-nombre', L.nombre || '-');
+            setTxt('print-doc', L.doc || '-');
+            setTxt('print-ficha', L.ficha || '-');
+            setTxt('print-programa', L.programa || '-');
+            setTxt('print-programa-h', L.programa || '-');
+            setTxt('print-centro', L.centro || '-');
+            setTxt('print-centro-h', L.centro || 'Centro de Gestión Administrativa');
+            setTxt('print-regional', L.regional || '-');
+            setTxt('print-regional-h', L.regional || 'Distrito Capital');
+
+            const done = lastEval.done;
+            // Se usan siempre los puntajes reales (también si la evaluación está incompleta),
+            // para que coincidan con el Dashboard.
+            const sA = lastEval.scoreA, sB = lastEval.scoreB, sC = lastEval.scoreC;
+            const total = lastEval.score;
+            const pA = Math.round((sA / 40) * 100), pB = Math.round((sB / 40) * 100), pC = Math.round((sC / 20) * 100);
+
+            setTxt('print-score', `${total} / 100`);
+            setTxt('print-scoreA', `${sA} / 40`);
+            setTxt('print-scoreB', `${sB} / 40`);
+            setTxt('print-scoreC', `${sC} / 20`);
+            setTxt('print-answered', `${lastEval.answered} / ${TOTAL_QUESTIONS}`);
+            setTxt('print-score-num', total);
+
+            const banner = document.getElementById('print-result-banner');
+            const diag = document.getElementById('print-diag');
+            const bloques = [
+                { n: 'Selección Múltiple', ac: sA / 5, tot: 8, pts: sA, max: 40, p: pA },
+                { n: 'Listas Desplegables', ac: sB / 8, tot: 5, pts: sB, max: 40, p: pB },
+                { n: 'Tarjetas', ac: sC / 4, tot: 5, pts: sC, max: 20, p: pC }
+            ];
+            const peor = bloques.slice().sort((a, b) => a.p - b.p)[0];
+
+            banner.className = 'pr-result ' + (!done ? 'pend' : (lastEval.passed ? 'ok' : 'bad'));
+            diag.className = 'pr-diag ' + (!done ? 'pend' : (lastEval.passed ? '' : 'bad'));
+
+            if (!done) {
+                setTxt('print-dictamen', lastEval.answered === 0 ? 'PENDIENTE' : 'INCOMPLETO');
+                setTxt('print-result-det', `${lastEval.answered} de ${TOTAL_QUESTIONS} preguntas respondidas • Evaluación sin finalizar`);
+                diag.innerHTML = `<p class="tt">Evaluación incompleta (${total} pts parciales / 100)</p><p>Aún faltan ${TOTAL_QUESTIONS - lastEval.answered} pregunta(s) por responder. Responde todas las preguntas en la pestaña "Evaluación" y calcula el resultado para obtener el diagnóstico completo.</p>`;
+            } else if (lastEval.passed) {
+                setTxt('print-dictamen', 'APROBADO');
+                setTxt('print-result-det', `${lastEval.answered} de ${TOTAL_QUESTIONS} preguntas respondidas • Cumple el 90% requerido`);
+                diag.innerHTML = `<p class="tt">Resultado Satisfactorio (${total} pts / 100)</p>
+                    <p>El resultado alcanza la calificación mínima aprobatoria del 90% y evidencia un buen dominio de la historia, fundadores, misión, visión, políticas y valores del SENA.</p>
+                    <p><b>Recomendación:</b> Mantén el nivel alcanzado. El bloque con menor porcentaje fue "${peor.n}" (${peor.p}%); puedes repasarlo para consolidar tu conocimiento.</p>`;
             } else {
-                document.getElementById('print-score').innerText = 'EvaluaciÃ³n no realizada aÃºn';
-                document.getElementById('print-scoreA').innerText = '-';
-                document.getElementById('print-scoreB').innerText = '-';
-                document.getElementById('print-scoreC').innerText = '-';
-                document.getElementById('print-answered').innerText = `0 / ${TOTAL_QUESTIONS}`;
-                document.getElementById('print-dictamen').innerText = 'Pendiente';
+                setTxt('print-dictamen', 'POR MEJORAR');
+                setTxt('print-result-det', `${lastEval.answered} de ${TOTAL_QUESTIONS} preguntas respondidas • No alcanza el 90% requerido`);
+                diag.innerHTML = `<p class="tt">Resultado Diagnóstico (${total} pts / 100)</p>
+                    <p>El puntaje no alcanza el mínimo aprobatorio del 90%. Revisa el bloque con menor porcentaje en el gráfico de barras y vuelve a intentar la evaluación.</p>
+                    <p><b>Recomendación:</b> Refuerza principalmente el bloque "${peor.n}" (${peor.p}% de cumplimiento) repasando las pestañas de contenido antes de un nuevo intento.</p>`;
             }
+
+            document.getElementById('print-table-body').innerHTML = bloques.map(b => {
+                const cls = b.p >= 90 ? 'hi' : (b.p >= 60 ? 'mid' : 'lo');
+                return `<tr><td><b>${b.n}</b></td><td>${b.ac} / ${b.tot}</td><td>${b.pts}</td><td>${b.max}</td><td class="pr-eff ${cls}">${b.p}%</td></tr>`;
+            }).join('') + `<tr><td><b>TOTAL</b></td><td>${bloques.reduce((a, b) => a + b.ac, 0)} / ${TOTAL_QUESTIONS}</td><td><b>${total}</b></td><td><b>100</b></td><td class="pr-eff ${total >= 90 ? 'hi' : (total >= 60 ? 'mid' : 'lo')}">${total}%</td></tr>`;
+
+            // Gráficas a color para impresión (se dibujan fuera de pantalla y se convierten en imagen)
+            const makeImg = (type, data, options) => {
+                const cv = document.createElement('canvas');
+                cv.width = 640; cv.height = 330;
+                const ch = new Chart(cv.getContext('2d'), { type, data, options: Object.assign({ responsive: false, animation: false, devicePixelRatio: 2 }, options) });
+                const img = ch.toBase64Image();
+                ch.destroy();
+                return img;
+            };
+            const colorBlq = [pA, pB, pC].map(v => v >= 90 ? '#1f7a6d' : (v >= 60 ? '#c68b2f' : '#d9604f'));
+            const valueLabels = {
+                id: 'valueLabels',
+                afterDatasetsDraw(chart) {
+                    const c = chart.ctx; c.save(); c.font = 'bold 13px Inter, sans-serif'; c.fillStyle = '#14213d'; c.textAlign = 'center';
+                    chart.getDatasetMeta(0).data.forEach((bar, i) => c.fillText(chart.data.datasets[0].data[i] + '%', bar.x, bar.y - 6));
+                    c.restore();
+                }
+            };
+            try {
+                // plugin local de etiquetas: se registra solo para esta gráfica
+                Chart.register(valueLabels);
+                document.getElementById('print-img-bar').src = makeImg('bar', {
+                    labels: ['Selección Múltiple', 'Listas Desplegables', 'Tarjetas'],
+                    datasets: [{ data: [pA, pB, pC], backgroundColor: colorBlq, borderRadius: 6, barThickness: 55 }]
+                }, {
+                    layout: { padding: { top: 20 } },
+                    scales: {
+                        y: { beginAtZero: true, max: 100, grid: { color: '#e5e7eb' }, ticks: { color: '#334155', font: { size: 12 }, callback: v => v + '%' } },
+                        x: { grid: { display: false }, ticks: { color: '#334155', font: { size: 12 } } }
+                    },
+                    plugins: { legend: { display: false } }
+                });
+                Chart.unregister(valueLabels);
+
+                const mainColor = !done ? '#c68b2f' : (lastEval.passed ? '#1f7a6d' : '#d9604f');
+                const centerText = {
+                    id: 'centerText',
+                    afterDraw(chart) {
+                        const { ctx, chartArea: a } = chart; ctx.save();
+                        ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#14213d';
+                        ctx.font = '800 34px Inter, sans-serif';
+                        ctx.fillText(String(total), (a.left + a.right) / 2, (a.top + a.bottom) / 2 - 6);
+                        ctx.font = '600 13px Inter, sans-serif'; ctx.fillStyle = '#64748b';
+                        ctx.fillText('de 100 pts', (a.left + a.right) / 2, (a.top + a.bottom) / 2 + 18);
+                        ctx.restore();
+                    }
+                };
+                const cvD = document.createElement('canvas'); cvD.width = 640; cvD.height = 330;
+                const chD = new Chart(cvD.getContext('2d'), {
+                    type: 'doughnut',
+                    data: { labels: ['Puntos Obtenidos', 'Puntos Restantes'], datasets: [{ data: [total, Math.max(0, 100 - total)], backgroundColor: [mainColor, '#e2e8f0'], borderColor: '#ffffff', borderWidth: 3 }] },
+                    options: { responsive: false, animation: false, devicePixelRatio: 2, cutout: '68%', plugins: { legend: { position: 'right', labels: { color: '#334155', boxWidth: 14, padding: 14, font: { size: 13 } } } } },
+                    plugins: [centerText]
+                });
+                document.getElementById('print-img-donut').src = chD.toBase64Image();
+                chD.destroy();
+            } catch (err) { console.error('No se pudieron generar las gráficas de impresión', err); }
 
             const originalTitle = document.title;
             const docNum = (registeredLearner && registeredLearner.doc) ? registeredLearner.doc : (document.getElementById('reg-doc')?.value.trim() || 'DOCUMENTO');
@@ -2146,6 +2684,32 @@
             initCharts();
             updateNavLock();
             updateIntentosUI();
+        });
+
+        // Escucha de eventos desde el iframe aduana.html
+        window.addEventListener('message', (event) => {
+            let data = event.data;
+            if (!data) return;
+
+            if (typeof data === 'string') {
+                try {
+                    data = JSON.parse(data);
+                } catch (e) { }
+            }
+
+            const type = (typeof data === 'object' && data !== null) ? data.type : data;
+
+            if (type === 'aduana-resize') {
+                const height = (typeof data === 'object' && data !== null) ? data.height : null;
+                const iframe = document.getElementById('iframe-aduana') || document.querySelector('#pane-envio iframe');
+                if (iframe && height) {
+                    iframe.style.height = `${height}px`;
+                }
+            } else if (type === 'aduana-repetir-evaluacion') {
+                if (typeof reintentarEvaluacion === 'function') {
+                    reintentarEvaluacion();
+                }
+            }
         });
     </script>
 </body>

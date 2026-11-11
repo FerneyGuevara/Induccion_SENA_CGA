@@ -117,6 +117,22 @@
             display: none;
         }
 
+        #print-report {
+            display: none;
+        }
+
+        @page {
+            size: letter;
+            margin: 12mm 12mm 15mm 12mm;
+
+            @bottom-center {
+                content: "Página " counter(page) " de " counter(pages);
+                font-family: 'Inter', Arial, sans-serif;
+                font-size: 8pt;
+                color: #6b7280;
+            }
+        }
+
         @media print {
             body {
                 background-color: #ffffff !important;
@@ -165,6 +181,148 @@
                 border: 1px solid #cbd5e1 !important;
                 padding: 6px 10px !important;
             }
+
+            /* ====== REPORTE DE IMPRESIÓN (estilo Reto Byteon: reporte de evaluación y desempeño) ====== */
+            html, body {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            #print-area {
+                display: none !important;
+            }
+
+            #print-report {
+                display: block !important;
+                width: 100%;
+                font-family: 'Inter', Arial, sans-serif;
+                font-size: 9.5pt;
+                line-height: 1.45;
+                color: #1f2937;
+                background: #ffffff;
+            }
+
+            #print-report * {
+                box-sizing: border-box;
+                visibility: visible !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            #print-report .pr-inst { color: #14213d !important; font-size: 8.5pt; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin: 0; }
+            #print-report .pr-centro { color: #14213d !important; font-size: 17pt; font-weight: 800; text-transform: uppercase; line-height: 1.15; margin: 1px 0 2px 0; }
+            #print-report .pr-ref { color: #374151 !important; font-size: 8.5pt; margin: 0 0 10px 0; }
+
+            #print-report .pr-card {
+                border: 1px solid #d7dce6; border-radius: 8px;
+                background: #fafaf7 !important; padding: 10px 14px; margin-bottom: 12px;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            #print-report .pr-card.cream { background: #f6f1e7 !important; border-color: #c68a2e; }
+            #print-report .pr-card.white { background: #ffffff !important; }
+            #print-report .pr-card h1 { color: #14213d !important; font-size: 14pt; font-weight: 800; margin: 0 0 3px 0; }
+            #print-report .pr-gold { color: #9a6a1c !important; font-size: 8.5pt; font-weight: 800; text-transform: uppercase; margin: 0 0 5px 0; }
+            #print-report .pr-line { font-size: 9pt; margin: 0 0 6px 0; }
+            #print-report .pr-dash { border-top: 1.5px dashed #c68a2e; padding-top: 6px; margin-top: 4px; }
+            #print-report .pr-dash b.t { color: #14213d !important; font-size: 8.5pt; text-transform: uppercase; }
+            #print-report .pr-dash ul { margin: 3px 0 0 0; padding-left: 18px; font-size: 9pt; }
+
+            #print-report h2.pr-h2 {
+                color: #14213d !important; font-size: 10.5pt; font-weight: 800;
+                text-transform: uppercase; letter-spacing: .04em;
+                margin: 0 0 8px 0; padding-bottom: 4px; border-bottom: 1.5px solid #d7dce6;
+                break-after: avoid; page-break-after: avoid;
+            }
+            #print-report h2.pr-h2.big {
+                font-size: 13pt; border-top: 3px solid #14213d; border-bottom: 2px solid #1f7a6c;
+                padding: 8px 0 5px 0; margin: 16px 0 10px 0;
+            }
+
+            #print-report .pr-fields { display: grid; grid-template-columns: 1fr 1fr; column-gap: 26px; row-gap: 7px; }
+            #print-report .pr-fields .full { grid-column: 1 / -1; }
+            #print-report .pr-f { border-bottom: 1.5px solid #4b5563; font-size: 9pt; padding-bottom: 1px; min-height: 17px; }
+            #print-report .pr-f span.l { font-weight: 700; color: #111827 !important; margin-right: 6px; }
+            #print-report .pr-f span.v { font-weight: 800; color: #111827 !important; }
+
+            #print-report .pr-kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 10px; }
+            #print-report .pr-kpi {
+                background: #f6f8fa !important; border: 1px solid #d7dce6; border-radius: 8px;
+                text-align: center; padding: 9px 4px;
+            }
+            #print-report .pr-kpi .n { color: #1f7a6c !important; font-size: 16pt; font-weight: 800; line-height: 1.1; margin: 0; }
+            #print-report .pr-kpi .t { color: #14213d !important; font-size: 7pt; font-weight: 800; text-transform: uppercase; margin: 3px 0 0 0; }
+
+            /* Resultado destacado */
+            #print-report .pr-banner {
+                background: #14213d !important; border-radius: 10px; padding: 14px 18px; margin-bottom: 12px;
+                border-left: 8px solid #c68a2e;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            #print-report .pr-banner.ok { border-left-color: #1f7a6c; }
+            #print-report .pr-banner.bad { border-left-color: #d95f4b; }
+            #print-report .pr-b-top { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+            #print-report .pr-b-kick { color: #e8b04e !important; font-size: 8pt; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; margin: 0 0 2px 0; }
+            #print-report .pr-b-title { color: #e8b04e !important; font-size: 17pt; font-weight: 800; margin: 0; line-height: 1.15; }
+            #print-report .pr-b-sub { color: #e5e7eb !important; font-size: 9pt; margin: 3px 0 0 0; }
+            #print-report .pr-b-sub b { color: #ffffff !important; }
+            #print-report .pr-b-score { text-align: right; flex: 0 0 auto; }
+            #print-report .pr-b-score .big { color: #ffffff !important; font-size: 30pt; font-weight: 800; line-height: 1; margin: 0; }
+            #print-report .pr-b-score .big small { font-size: 13pt; color: #cbd5e1 !important; }
+            #print-report .pr-dictamen {
+                display: inline-block; margin-top: 5px; font-size: 12pt; font-weight: 800;
+                padding: 3px 16px; border-radius: 99px; color: #ffffff !important; background: #c68a2e !important;
+            }
+            #print-report .pr-banner.ok .pr-dictamen { background: #1f7a6c !important; }
+            #print-report .pr-banner.bad .pr-dictamen { background: #d95f4b !important; }
+            #print-report .pr-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+            #print-report .pr-chip {
+                background: #303b54 !important; border: 1px solid #475569; border-radius: 5px;
+                color: #e5e7eb !important; font-size: 8pt; padding: 3px 9px;
+            }
+            #print-report .pr-chip b { color: #ffffff !important; }
+
+            /* Gráficos */
+            #print-report .pr-grid2 { display: grid; grid-template-columns: 1.35fr 1fr; gap: 10px; }
+            #print-report .pr-sub-card { border: 1px solid #d7dce6; border-radius: 6px; background: #ffffff !important; padding: 8px 10px; }
+            #print-report .pr-sub-card h3 { color: #14213d !important; font-size: 9pt; font-weight: 800; margin: 0 0 4px 0; }
+            #print-report .pr-donut-wrap { display: flex; align-items: center; gap: 12px; }
+            #print-report .pr-legend p { margin: 0 0 5px 0; font-size: 8.5pt; }
+            #print-report .pr-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+
+            /* Diagnóstico */
+            #print-report .pr-diag h4 { color: #1f7a6c !important; font-size: 9pt; font-weight: 800; margin: 0 0 2px 0; }
+            #print-report .pr-diag p { margin: 0 0 8px 0; font-size: 9pt; }
+            #print-report .pr-recos { list-style: none; margin: 0; padding: 0; }
+            #print-report .pr-recos li {
+                font-size: 9pt; padding: 5px 10px; margin-bottom: 4px;
+                border: 1px solid #d7dce6; border-left: 4px solid #1f7a6c; border-radius: 4px; background: #ffffff !important;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+
+            /* Tablas */
+            #print-report table { width: 100%; border-collapse: collapse; }
+            #print-report th {
+                background: #14213d !important; color: #ffffff !important; font-size: 8.5pt; font-weight: 800;
+                text-align: left; padding: 6px 9px; border: 1px solid #14213d;
+            }
+            #print-report td { font-size: 8.5pt; padding: 6px 9px; border: 1px solid #d7dce6; color: #1f2937 !important; vertical-align: middle; }
+            #print-report tr { break-inside: avoid; page-break-inside: avoid; }
+            #print-report tbody tr:nth-child(even) td { background: #f9fafb !important; }
+            #print-report td.ok { color: #166534 !important; font-weight: 800; }
+            #print-report td.er { color: #b91c1c !important; font-weight: 800; }
+            #print-report td.b { font-weight: 800; }
+            #print-report tr.tot td { background: #eef1f6 !important; font-weight: 800; border-top: 2px solid #14213d; }
+            #print-report .pr-pill { display: inline-block; font-size: 7.5pt; font-weight: 800; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
+            #print-report .pr-pill.ok { background: #dcf1ec !important; color: #135e53 !important; }
+            #print-report .pr-pill.mid { background: #fdf1d8 !important; color: #92400e !important; }
+            #print-report .pr-pill.no { background: #fee2e2 !important; color: #991b1b !important; }
+
+            /* Observaciones y firmas */
+            #print-report .pr-obs { margin-top: 14px; break-inside: avoid; page-break-inside: avoid; }
+            #print-report .pr-obs p { color: #14213d !important; font-size: 9pt; font-weight: 800; margin: 0 0 22px 0; }
+            #print-report .pr-obs .ln { border-top: 1.5px dashed #9ca3af; height: 0; margin-bottom: 22px; }
+            #print-report .pr-sign { display: flex; gap: 30px; margin-top: 30px; }
+            #print-report .pr-sign div { flex: 1; border-top: 1.5px solid #14213d; text-align: center; font-size: 9pt; font-weight: 800; color: #14213d !important; padding-top: 4px; }
         }
     </style>
 </head>
@@ -197,7 +355,7 @@
                 <span id="intentos-pill"
                     class="bg-slate-900 border border-slate-700 text-slate-200 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-sm">
                     <i class="fas fa-rotate-right text-indigo-400"></i>
-                    <span id="intentos-display">Intento 1 / 4</span>
+                    <span id="intentos-display">Intento 1 / ∞</span>
                 </span>
                 <button onclick="reiniciarIntento()" id="btn-reiniciar"
                     class="bg-slate-800 hover:bg-rose-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 hover:border-rose-600 transition flex items-center gap-1.5 shadow-sm">
@@ -269,9 +427,9 @@
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
                 <i class="fas fa-chart-pie text-xs"></i> Dashboard
             </button>
-            <button onclick="window.location.href='aduana.html'" id="tab-enviar-reporte"
+            <button onclick="switchTab('enviar')" id="tab-enviar"
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
-                <i class="fas fa-paper-plane text-xs"></i> Enviar Reporte
+                <i class="fas fa-paper-plane text-xs"></i> Enviar reporte
             </button>
         </nav>
 
@@ -747,6 +905,14 @@
             </div>
         </section>
 
+        <!-- ========================================== -->
+        <!-- PESTAÑA: ENVIAR REPORTE (aduana.html)      -->
+        <!-- ========================================== -->
+        <section id="pane-enviar" class="tab-pane hidden no-print">
+            <iframe id="iframe-aduana" src="aduana.html" title="Aduana de Evidencias"
+                style="width:100%; height:900px; border:0; background:transparent; display:block;"></iframe>
+        </section>
+
     </main>
 
     <!-- FOOTER -->
@@ -816,7 +982,7 @@
                 </tr>
                 <tr>
                     <td style="font-weight:600;">Intentos utilizados</td>
-                    <td id="print-intentos">1 / 4</td>
+                    <td id="print-intentos">1 / ∞</td>
                 </tr>
             </table>
         </div>
@@ -834,12 +1000,105 @@
         </div>
     </div>
 
+
+    <!-- ========================================== -->
+    <!-- REPORTE DE IMPRESION (estilo Byteon)       -->
+    <!-- ========================================== -->
+    <div id="print-report">
+        <p class="pr-inst">Servicio Nacional de Aprendizaje SENA &bull; Regional <span id="pr-regional-h">Distrito Capital</span></p>
+        <p class="pr-centro" id="pr-centro-h">Centro de Gesti&oacute;n Administrativa</p>
+        <p class="pr-ref"><b>REFERENTE:</b> Reglamento del Aprendiz SENA &mdash; Art. 10&deg; Num. 1 &bull; <b>Aprobaci&oacute;n m&iacute;nima:</b> 90% del puntaje total</p>
+
+        <div class="pr-card cream">
+            <h1>Reconociendo al Autor</h1>
+            <p class="pr-gold">Simulador del Reglamento del Aprendiz SENA &mdash; Acta de evaluaci&oacute;n y desempe&ntilde;o</p>
+            <p class="pr-line"><b>M&Oacute;DULOS:</b> Marco Normativo &bull; El Plagio &bull; Prevenci&oacute;n &bull; Citaci&oacute;n APA &bull; Evaluaci&oacute;n &bull; <b>PROGRAMA:</b> <span id="pr-prog-h">-</span></p>
+        </div>
+
+        <div class="pr-card">
+            <h2 class="pr-h2">Registro del aprendiz</h2>
+            <div class="pr-fields">
+                <div class="pr-f full"><span class="l">Nombre completo:</span><span class="v" id="pr-nombre">-</span></div>
+                <div class="pr-f"><span class="l">N&uacute;mero de documento:</span><span class="v" id="pr-doc">-</span></div>
+                <div class="pr-f"><span class="l">Ficha:</span><span class="v" id="pr-ficha">-</span></div>
+                <div class="pr-f full"><span class="l">Programa:</span><span class="v" id="pr-programa">-</span></div>
+                <div class="pr-f"><span class="l">Centro de formaci&oacute;n:</span><span class="v" id="pr-centro">-</span></div>
+                <div class="pr-f"><span class="l">Regional:</span><span class="v" id="pr-regional">-</span></div>
+                <div class="pr-f"><span class="l">Fecha y hora de emisi&oacute;n:</span><span class="v" id="pr-fecha">-</span></div>
+                <div class="pr-f"><span class="l">Instructor / Evaluador:</span></div>
+            </div>
+        </div>
+
+        <h2 class="pr-h2 big">Resultados consolidados del dashboard</h2>
+        <div class="pr-kpis">
+            <div class="pr-kpi"><p class="n" id="pr-k-puntos">0</p><p class="t">Puntaje obtenido</p></div>
+            <div class="pr-kpi"><p class="n" id="pr-k-pct">0%</p><p class="t">% de efectividad</p></div>
+            <div class="pr-kpi"><p class="n" id="pr-k-pend">100</p><p class="t">Puntos por obtener</p></div>
+            <div class="pr-kpi"><p class="n">90%</p><p class="t">M&iacute;nimo aprobatorio</p></div>
+            <div class="pr-kpi"><p class="n" id="pr-k-int">1</p><p class="t">Intentos utilizados</p></div>
+        </div>
+
+        <div id="pr-banner" class="pr-banner">
+            <div class="pr-b-top">
+                <div>
+                    <p class="pr-b-kick">Resultado final de la evaluaci&oacute;n</p>
+                    <p class="pr-b-title" id="pr-b-title">Evaluaci&oacute;n pendiente</p>
+                    <p class="pr-b-sub" id="pr-b-sub"></p>
+                    <span class="pr-dictamen" id="pr-dictamen">PENDIENTE</span>
+                </div>
+                <div class="pr-b-score">
+                    <p class="big"><span id="pr-b-puntos">0</span><small> / 100</small></p>
+                </div>
+            </div>
+            <div class="pr-chips" id="pr-chips"></div>
+        </div>
+
+        <div class="pr-card white">
+            <h2 class="pr-h2">Gr&aacute;ficos del dashboard</h2>
+            <div class="pr-grid2">
+                <div class="pr-sub-card">
+                    <h3>Desempe&ntilde;o por dimensi&oacute;n (puntos)</h3>
+                    <div id="pr-bar"></div>
+                </div>
+                <div class="pr-sub-card">
+                    <h3>Efectividad global</h3>
+                    <div class="pr-donut-wrap">
+                        <div id="pr-donut"></div>
+                        <div class="pr-legend" id="pr-legend"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pr-card pr-diag">
+            <h2 class="pr-h2">Diagn&oacute;stico y an&aacute;lisis cualitativo</h2>
+            <div id="pr-diag"></div>
+        </div>
+
+        <div class="pr-card">
+            <h2 class="pr-h2">Desempe&ntilde;o por m&oacute;dulo / competencia</h2>
+            <table id="pr-tabla"></table>
+        </div>
+
+        <div class="pr-card">
+            <h2 class="pr-h2">Recomendaciones</h2>
+            <ul class="pr-recos" id="pr-recos"></ul>
+        </div>
+
+        <div class="pr-obs">
+            <p>Observaciones y Recomendaciones del Instructor / Evaluador:</p>
+            <div class="ln"></div>
+            <div class="ln"></div>
+            <div class="pr-sign"><div>Firma del Aprendiz</div><div>Firma del Instructor / Evaluador</div></div>
+        </div>
+    </div>
+
     <script>
         // ============================================
         // CONFIGURACION GENERAL
         // ============================================
         const MIN_APROBACION = 90;
-        const MAX_INTENTOS = 4;
+        const MAX_INTENTOS = Number.POSITIVE_INFINITY;
         const TIEMPO_TOTAL_SEG = 60 * 60; // 60:00
 
         let registeredLearner = null;
@@ -1126,7 +1385,7 @@
             event.preventDefault();
             const prog = document.getElementById('reg-programa').value;
             if (!prog) {
-                alert('Por favor selecciona un Programa de FormaciÃ³n.');
+                alert('Por favor selecciona un Programa de Formación.');
                 return;
             }
 
@@ -1141,7 +1400,7 @@
 
             const msg = document.getElementById('registro-guardado-msg');
             if (msg) {
-                msg.innerHTML = '<i class="fas fa-check-circle mr-1"></i> Registro guardado. Redirigiendo a PresentaciÃ³n...';
+                msg.innerHTML = '<i class="fas fa-check-circle mr-1"></i> Registro guardado. Redirigiendo a Presentación...';
                 msg.classList.remove('hidden');
             }
 
@@ -1276,8 +1535,8 @@
 
         function calcularTotales() {
             const total = MODULE_ORDER.reduce((acc, m) => acc + (moduleScores[m] || 0), 0);
-            const porcentaje = Math.round((total / 100) * 100);
-            const aprobado = porcentaje >= MIN_APROBACION;
+            const porcentaje = Math.round(total * 10) / 10; // el máximo es 100 pts, así que puntos = %
+            const aprobado = total >= MIN_APROBACION;
             return { total, porcentaje, aprobado };
         }
 
@@ -1429,7 +1688,7 @@
         // INTENTOS Y REINICIO
         // ============================================
         function reiniciarIntento() {
-            if (currentAttempt >= MAX_INTENTOS) return;
+            if (Number.isFinite(MAX_INTENTOS) && currentAttempt >= MAX_INTENTOS) return;
             currentAttempt++;
 
             // Reset de estado
@@ -1438,6 +1697,15 @@
             selections = {};
             checks = {};
             evaluacionGenerada = false;
+
+            // Reinicia cronómetro y rehabilita botones (si el intento anterior terminó por tiempo)
+            clearInterval(timerInterval);
+            timerRemaining = TIEMPO_TOTAL_SEG;
+            document.getElementById('timer-display').innerText = formatTime(timerRemaining);
+            const tPill = document.getElementById('timer-pill');
+            if (tPill) tPill.classList.remove('border-rose-600');
+            document.querySelectorAll('.tab-pane button').forEach(b => b.disabled = false);
+            startTimer();
 
             // Re-render de todos los quizzes (desbloqueados)
             renderQuiz('quiz-normativo', QUIZ_NORMATIVO, false);
@@ -1455,11 +1723,11 @@
             lockAllModulesExceptRegistro();
             if (registeredLearner) { unlockModule('presentacion'); unlockModule('normativo'); }
 
-            document.getElementById('intentos-display').innerText = `Intento ${currentAttempt} / ${MAX_INTENTOS}`;
-            if (currentAttempt >= MAX_INTENTOS) {
-                const btn = document.getElementById('btn-reiniciar');
-                btn.disabled = true;
-                btn.classList.add('opacity-40', 'cursor-not-allowed');
+            document.getElementById('intentos-display').innerText = Number.isFinite(MAX_INTENTOS) ? `Intento ${currentAttempt} / ${MAX_INTENTOS}` : `Intento ${currentAttempt} / ∞`;
+            const btn = document.getElementById('btn-reiniciar');
+            if (btn) {
+                btn.disabled = false;
+                btn.classList.remove('opacity-40', 'cursor-not-allowed');
             }
 
             updateDashboard();
@@ -1550,6 +1818,144 @@
         // ============================================
         // IMPRESION: Registro + Resultado
         // ============================================
+        // ============================================
+        // IMPRESION: reporte de evaluación y desempeño (estilo Byteon)
+        // ============================================
+        function renderPrintReport() {
+            const g = id => document.getElementById(id);
+            const L = registeredLearner || {};
+            const dash = v => (v && String(v).trim()) ? v : '-';
+            g('pr-nombre').innerText = dash(L.nombre);
+            g('pr-doc').innerText = dash(L.doc);
+            g('pr-ficha').innerText = dash(L.ficha);
+            g('pr-programa').innerText = dash(L.programa);
+            g('pr-prog-h').innerText = dash(L.programa);
+            g('pr-centro').innerText = dash(L.centro);
+            g('pr-centro-h').innerText = L.centro || 'Centro de Gestión Administrativa';
+            g('pr-regional').innerText = dash(L.regional);
+            g('pr-regional-h').innerText = L.regional || 'Distrito Capital';
+            g('pr-fecha').innerText = new Date().toLocaleString('es-CO', { dateStyle: 'long', timeStyle: 'short' });
+
+            const { total, porcentaje, aprobado } = calcularTotales();
+            const pendientes = Math.max(0, 100 - total);
+            const faltan = Math.max(0, Math.ceil((MIN_APROBACION * 100) / 100) - total);
+            const estado = !evaluacionGenerada ? 'pend' : (aprobado ? 'ok' : 'bad');
+            const dictamen = !evaluacionGenerada ? 'PENDIENTE' : (aprobado ? 'APROBADO' : 'POR MEJORAR');
+
+            g('pr-k-puntos').innerText = total;
+            g('pr-k-pct').innerText = porcentaje + '%';
+            g('pr-k-pend').innerText = pendientes;
+            g('pr-k-int').innerText = Number.isFinite(MAX_INTENTOS) ? `${currentAttempt} / ${MAX_INTENTOS}` : `${currentAttempt}`;
+
+            // Banner de resultado destacado
+            g('pr-banner').className = 'pr-banner ' + estado;
+            g('pr-b-title').innerText = !evaluacionGenerada ? 'Evaluación pendiente'
+                : (aprobado ? 'Resultado satisfactorio' : 'Resultado diagnóstico: por mejorar');
+            g('pr-b-sub').innerHTML = `<b>${porcentaje}%</b> de efectividad • Mínimo aprobatorio: <b>${MIN_APROBACION}%</b>` +
+                (!evaluacionGenerada ? ' • <b>Acta aún sin generar</b>' : aprobado ? ' • <b>Umbral superado</b>' : ` • Faltan <b>${faltan}</b> punto${faltan === 1 ? '' : 's'} para aprobar`);
+            g('pr-dictamen').innerText = dictamen;
+            g('pr-b-puntos').innerText = total;
+
+            const modulos = MODULE_ORDER.map(m => {
+                const pts = moduleScores[m] || 0, max = MODULE_MAX[m];
+                return { key: m, label: MODULE_LABEL[m], pts, max, pct: Math.round((pts / max) * 1000) / 10 };
+            });
+            const corto = { normativo: 'Normativo', plagio: 'Plagio', prevencion: 'Prevención', citacion: 'Citación APA', evaluacion: 'Evaluación' };
+            g('pr-chips').innerHTML = modulos.map(m => `<span class="pr-chip">${corto[m.key]}: <b>${m.pts} / ${m.max}</b></span>`).join('');
+
+            // Colores del PDF de referencia
+            const TEAL = '#1f7a6c', GOLD = '#c68a2e', CORAL = '#d95f4b', NAVY = '#14213d';
+            const colorPct = pct => pct >= 90 ? TEAL : (pct > 0 ? GOLD : CORAL);
+
+            // Gráfica de barras (SVG): puntos por módulo vs. máximo posible
+            const W = 400, H = 190, x0 = 30, yBase = 148, yTop = 14, ph = yBase - yTop, YMAX = 30;
+            const yOf = v => yBase - (v / YMAX) * ph;
+            const slot = (W - x0 - 6) / modulos.length;
+            let bar = `<svg viewBox="0 0 ${W} ${H}" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">`;
+            [0, 10, 20, 30].forEach(v => {
+                bar += `<line x1="${x0}" x2="${W - 6}" y1="${yOf(v)}" y2="${yOf(v)}" stroke="#ede7d8" stroke-width="1"/>
+                        <text x="${x0 - 5}" y="${yOf(v) + 3}" text-anchor="end" font-size="8" fill="#777777">${v}</text>`;
+            });
+            modulos.forEach((m, i) => {
+                const bw = 34, cx = x0 + slot * i + slot / 2;
+                const hMax = (m.max / YMAX) * ph, h = (m.pts / YMAX) * ph;
+                bar += `<rect x="${cx - bw / 2}" y="${yBase - hMax}" width="${bw}" height="${hMax}" rx="3" fill="#f6f1e7" stroke="#d7dce6"/>
+                        <rect x="${cx - bw / 2}" y="${yBase - h}" width="${bw}" height="${h}" rx="3" fill="${colorPct(m.pct)}"/>
+                        <text x="${cx}" y="${yBase - Math.max(h, hMax) - 4}" text-anchor="middle" font-size="9" font-weight="700" fill="${NAVY}">${m.pts}/${m.max}</text>
+                        <text x="${cx}" y="${yBase + 13}" text-anchor="middle" font-size="8" font-weight="700" fill="${NAVY}">${corto[m.key]}</text>
+                        <text x="${cx}" y="${yBase + 24}" text-anchor="middle" font-size="8" fill="#777777">${m.pct}%</text>`;
+            });
+            bar += `</svg>
+                <div style="font-size:7.5pt; color:#555; text-align:center;">Barra de color = puntos obtenidos &middot; barra crema = puntos posibles</div>`;
+            g('pr-bar').innerHTML = bar;
+
+            // Dona (SVG) + leyenda
+            const R = 40, C = 2 * Math.PI * R, arc = (Math.min(total, 100) / 100) * C;
+            g('pr-donut').innerHTML = `
+                <svg viewBox="0 0 110 110" width="112" height="112" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="55" cy="55" r="${R}" fill="none" stroke="${CORAL}" stroke-width="17"/>
+                    <circle cx="55" cy="55" r="${R}" fill="none" stroke="${TEAL}" stroke-width="17"
+                        stroke-dasharray="${arc} ${C}" transform="rotate(-90 55 55)"/>
+                    <text x="55" y="60" text-anchor="middle" font-size="17" font-weight="800" fill="${NAVY}" font-family="Arial, sans-serif">${porcentaje}%</text>
+                </svg>`;
+            g('pr-legend').innerHTML =
+                `<p><i style="background:${TEAL}"></i>Logrado: <b>${total}</b> (${porcentaje}%)</p>` +
+                `<p><i style="background:${CORAL}"></i>Por obtener: <b>${pendientes}</b> (${100 - porcentaje}%)</p>`;
+
+            // Diagnóstico y comentario de resultados
+            const optimos = modulos.filter(m => m.pct >= 90);
+            const refuerzo = modulos.filter(m => m.pct < 90);
+            const ordenados = [...modulos].sort((a, b) => b.pct - a.pct);
+            const mejor = ordenados[0], peor = ordenados[ordenados.length - 1];
+            let general;
+            if (!evaluacionGenerada) {
+                general = `El acta de evaluación aún no ha sido generada. Puntaje acumulado hasta el momento: ${total}/100 (${porcentaje}%). Completa los módulos y genera el acta para obtener el dictamen; la actividad se aprueba con el ${MIN_APROBACION}% del puntaje total.`;
+            } else if (aprobado) {
+                general = `Obtuviste ${total}/100 puntos (${porcentaje}%) y superaste el mínimo aprobatorio del ${MIN_APROBACION}%. Demuestras un manejo sólido del reconocimiento de la autoría y de la prevención del plagio.`;
+            } else {
+                general = `Obtuviste ${total}/100 puntos (${porcentaje}%) y aún no alcanzas el mínimo aprobatorio del ${MIN_APROBACION}%; faltan ${faltan} punto${faltan === 1 ? '' : 's'}. El módulo con mejor desempeño es "${corto[mejor.key]}" (${mejor.pct}%) y el de mayor oportunidad de mejora es "${corto[peor.key]}" (${peor.pct}%).`;
+            }
+            const porModulo = `De los ${modulos.length} módulos, ${optimos.length} alcanzaron el nivel óptimo (90% o más de su puntaje)` +
+                (refuerzo.length ? ` y ${refuerzo.length} requieren refuerzo: ${refuerzo.map(m => corto[m.key]).join(', ')}.` : '. No hay módulos pendientes de refuerzo.');
+            g('pr-diag').innerHTML =
+                `<h4>Resultado general de la evaluación:</h4><p>${general}</p>` +
+                `<h4>Desempeño por módulo:</h4><p>${porModulo}</p>`;
+
+            // Tabla por módulo
+            g('pr-tabla').innerHTML =
+                `<thead><tr><th>Módulo / Competencia</th><th>Obtenidos</th><th>Posibles</th><th>Efectividad</th><th>Estado</th></tr></thead><tbody>` +
+                modulos.map(m => {
+                    const [k, t] = m.pct >= 90 ? ['ok', 'Óptimo'] : (m.pts > 0 ? ['mid', 'A reforzar'] : ['no', 'Sin puntaje']);
+                    return `<tr><td class="b">${m.label}</td><td class="${m.pts > 0 ? 'ok' : 'er'}">${m.pts}</td><td>${m.max}</td><td class="b">${m.pct}%</td><td><span class="pr-pill ${k}">${t}</span></td></tr>`;
+                }).join('') +
+                `<tr class="tot"><td>TOTAL</td><td>${total}</td><td>100</td><td>${porcentaje}%</td><td><span class="pr-pill ${!evaluacionGenerada ? 'mid' : (aprobado ? 'ok' : 'no')}">${dictamen}</span></td></tr></tbody>`;
+
+            // Recomendaciones
+            const tips = {
+                normativo: 'repasa el Art. 10° Num. 1 del Reglamento del Aprendiz SENA y el deber de reconocer la autoría.',
+                plagio: 'vuelve a analizar los casos de plagio e identifica en qué consiste cada uno.',
+                prevencion: 'repasa las buenas prácticas para prevenir el plagio antes de entregar un trabajo.',
+                citacion: 'practica la citación y las referencias en estilo APA.',
+                evaluacion: 'repasa los conceptos clave de los módulos anteriores antes de volver a la síntesis.'
+            };
+            const recos = [];
+            if (!evaluacionGenerada) {
+                recos.push('<b>Siguiente paso:</b> completa todos los módulos y genera el acta de resultados para conocer tu dictamen.');
+            }
+            if (evaluacionGenerada && !aprobado) {
+                recos.push(`<b>Meta inmediata:</b> necesitas ${faltan} punto${faltan === 1 ? '' : 's'} más para alcanzar el ${MIN_APROBACION}% de aprobación.`);
+            }
+            refuerzo.forEach(m => recos.push(`<b>${corto[m.key]}:</b> ${tips[m.key]}`));
+            if (evaluacionGenerada && aprobado) {
+                recos.push('<b>Continuidad:</b> mantén en tus trabajos la práctica de citar siempre las fuentes y reconocer al autor.');
+                recos.push('<b>Portafolio:</b> conserva esta acta impresa o en PDF como soporte de tu proceso formativo.');
+            }
+            if (evaluacionGenerada && !aprobado) {
+                recos.push('<b>Antes del próximo intento:</b> revisa el cuadro de resultados y refuerza los módulos marcados como "A reforzar".');
+            }
+            g('pr-recos').innerHTML = recos.map(r => `<li>${r}</li>`).join('');
+        }
+
         function printEvidence() {
             if (!registeredLearner) {
                 const nombre = document.getElementById('reg-nombre')?.value.trim();
@@ -1581,7 +1987,8 @@
             document.getElementById('print-puntos').innerText = `${total} / 100`;
             document.getElementById('print-porcentaje').innerText = `${porcentaje}%`;
             document.getElementById('print-dictamen').innerText = evaluacionGenerada ? (aprobado ? 'APROBADO' : 'POR MEJORAR') : 'PENDIENTE';
-            document.getElementById('print-intentos').innerText = `${currentAttempt} / ${MAX_INTENTOS}`;
+            document.getElementById('print-intentos').innerText = Number.isFinite(MAX_INTENTOS) ? `${currentAttempt} / ${MAX_INTENTOS}` : `${currentAttempt} / ∞`;
+            renderPrintReport();
 
             const table = document.getElementById('print-desglose-table');
             table.innerHTML = `<tr><th>#</th><th>Modulo</th><th>Puntos Obtenidos</th><th>Puntos Posibles</th></tr>` +
@@ -1617,13 +2024,28 @@
 
             lockAllModulesExceptRegistro();
             document.getElementById('timer-display').innerText = formatTime(timerRemaining);
-            document.getElementById('intentos-display').innerText = `Intento ${currentAttempt} / ${MAX_INTENTOS}`;
+            document.getElementById('intentos-display').innerText = Number.isFinite(MAX_INTENTOS) ? `Intento ${currentAttempt} / ${MAX_INTENTOS}` : `Intento ${currentAttempt} / ∞`;
 
             initCharts();
             updateDashboard();
             startTimer();
         });
 
+    </script>
+
+    <!-- Puente con aduana.html (pestaña Enviar reporte). No modifica el código anterior. -->
+    <script>
+        window.addEventListener('message', function (e) {
+            var f = document.getElementById('iframe-aduana');
+            if (!f || e.source !== f.contentWindow || !e.data) return;
+            if (e.data.type === 'aduana-resize' && e.data.height) {
+                f.style.height = Math.max(e.data.height, 500) + 'px';
+            } else if (e.data.type === 'aduana-repetir-evaluacion') {
+                if (confirm('¿Deseas reiniciar la evaluación? Se borrarán tus respuestas actuales y podrás intentarlo nuevamente.')) {
+                    reiniciarIntento();
+                }
+            }
+        });
     </script>
 </body>
 

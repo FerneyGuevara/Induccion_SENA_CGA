@@ -133,10 +133,41 @@
             background-color: rgba(99, 102, 241, 0.12) !important;
         }
 
+        #print-report {
+            display: none;
+        }
+
         @media print {
             @page {
-                margin: 10mm 15mm;
+                margin: 16mm 12mm 16mm 12mm;
                 size: letter portrait;
+
+                @top-left {
+                    content: "ACTA DE RESULTADOS  ·  Código de Integridad SENA";
+                    font-family: 'Inter', Arial, sans-serif;
+                    font-size: 8pt;
+                    font-weight: 700;
+                    color: #0a1024;
+                    border-bottom: 1.5px solid #0891b2;
+                    padding-bottom: 3mm;
+                    width: 100%;
+                }
+
+                @top-right {
+                    content: "Portafolio del aprendiz";
+                    font-family: 'Inter', Arial, sans-serif;
+                    font-size: 8pt;
+                    color: #475569;
+                    border-bottom: 1.5px solid #0891b2;
+                    padding-bottom: 3mm;
+                }
+
+                @bottom-center {
+                    content: "Página " counter(page) " de " counter(pages);
+                    font-family: 'Inter', Arial, sans-serif;
+                    font-size: 8pt;
+                    color: #6b7280;
+                }
             }
 
             *,
@@ -304,6 +335,138 @@
                 border: 1px solid #fcd34d !important;
                 font-weight: 700 !important;
             }
+
+            /* ====== REPORTE DE IMPRESIÓN (estilo actividad Byteon) ====== */
+            #pane-evaluacion #print-area {
+                display: none !important;
+            }
+
+            #pane-evaluacion #print-report {
+                display: block !important;
+                width: 100%;
+                font-family: 'Inter', Arial, sans-serif;
+                font-size: 10pt;
+                line-height: 1.45;
+                color: #0f172a;
+                background: #ffffff;
+            }
+
+            #print-report * {
+                box-sizing: border-box;
+                visibility: visible !important;
+            }
+
+            #print-report .pr-hero {
+                background: #0a1024 !important;
+                border-bottom: 3px solid #0891b2;
+                border-radius: 8px;
+                padding: 16px 20px 15px 20px;
+                margin-bottom: 12px;
+            }
+            #print-report .pr-kicker {
+                color: #22d3ee !important;
+                font-size: 8pt; font-weight: 700; letter-spacing: .06em;
+                text-transform: uppercase; margin: 0 0 6px 0;
+            }
+            #print-report .pr-hero h1 {
+                color: #ffffff !important;
+                font-size: 19pt; font-weight: 800; line-height: 1.15; margin: 0 0 6px 0;
+            }
+            #print-report .pr-sub { color: #c7d2fe !important; font-size: 9pt; margin: 0; }
+
+            #print-report h2.pr-h2 {
+                color: #0891b2 !important;
+                font-size: 13.5pt; font-weight: 800;
+                margin: 16px 0 7px 0; padding: 0;
+                break-after: avoid; page-break-after: avoid;
+            }
+
+            #print-report table { width: 100%; border-collapse: collapse; }
+            #print-report td, #print-report th {
+                border: 1px solid #c7d2fe;
+                padding: 5px 9px; font-size: 9pt; text-align: left; vertical-align: top;
+                color: #0f172a !important;
+            }
+            #print-report td.pr-lbl { background: #eef2ff !important; font-weight: 700; width: 17%; }
+            #print-report td.pr-val { width: 33%; }
+            #print-report table.pr-comp th {
+                background: #6d28d9 !important; color: #ffffff !important; font-weight: 700;
+            }
+            #print-report table.pr-comp td.c { text-align: center; }
+            #print-report table.pr-comp th.c { text-align: center; }
+            #print-report table.pr-comp tr { break-inside: avoid; page-break-inside: avoid; }
+            #print-report table.pr-comp tr.tot td { background: #eef2ff !important; font-weight: 800; }
+            #print-report .pr-pill {
+                display: inline-block; font-size: 8pt; font-weight: 800;
+                padding: 1px 10px; border-radius: 99px; text-transform: uppercase;
+            }
+            #print-report .pr-pill.ok { background: #d1fae5 !important; color: #065f46 !important; }
+            #print-report .pr-pill.mid { background: #fef3c7 !important; color: #92400e !important; }
+            #print-report .pr-pill.no { background: #fee2e2 !important; color: #991b1b !important; }
+
+            #print-report .pr-banner {
+                display: flex; align-items: stretch;
+                border-radius: 10px; overflow: hidden;
+                background: #0a1024 !important; border: 2.5px solid #6d28d9;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            #print-report .pr-banner > div {
+                padding: 14px 16px; text-align: center;
+                display: flex; flex-direction: column; justify-content: center;
+            }
+            #print-report .pr-b-pts { flex: 0 0 32%; border-right: 1px solid #312e81; }
+            #print-report .pr-b-dict { flex: 1 1 auto; border-right: 1px solid #312e81; }
+            #print-report .pr-b-kpi { flex: 0 0 24%; }
+            #print-report .pr-b-label {
+                color: #22d3ee !important; font-size: 7.5pt; font-weight: 700;
+                letter-spacing: .06em; text-transform: uppercase; margin: 0 0 3px 0;
+            }
+            #print-report .pr-b-big {
+                color: #ffffff !important; font-size: 34pt; font-weight: 800; line-height: 1; margin: 0;
+            }
+            #print-report .pr-b-big small { font-size: 14pt; color: #c7d2fe !important; font-weight: 700; }
+            #print-report .pr-b-dictamen {
+                display: inline-block; align-self: center;
+                font-size: 17pt; font-weight: 800; padding: 5px 20px; border-radius: 8px; margin-top: 4px;
+                color: #ffffff !important; background: #dc2626 !important;
+            }
+            #print-report .pr-banner.ok .pr-b-dictamen { background: #059669 !important; }
+            #print-report .pr-b-note { color: #c7d2fe !important; font-size: 8pt; margin: 6px 0 0 0; }
+            #print-report .pr-b-kpi p { margin: 0; color: #ffffff !important; }
+            #print-report .pr-b-kpi .n { font-size: 17pt; font-weight: 800; line-height: 1.1; }
+            #print-report .pr-b-kpi .t { color: #c7d2fe !important; font-size: 7.5pt; margin-bottom: 5px; }
+
+            #print-report .pr-charts {
+                display: flex; gap: 10px; margin-top: 10px;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            #print-report .pr-box {
+                border: 1px solid #c7d2fe; border-radius: 8px;
+                background: #eef2ff !important; padding: 10px 12px;
+            }
+            #print-report .pr-box h3 { color: #0a1024 !important; font-size: 9.5pt; font-weight: 800; margin: 0 0 6px 0; }
+            #print-report .pr-box-bar { flex: 1 1 auto; }
+            #print-report .pr-box-donut { flex: 0 0 38%; text-align: center; }
+            #print-report .pr-legend { font-size: 8pt; display: flex; justify-content: center; gap: 12px; margin-top: 4px; }
+            #print-report .pr-legend i {
+                display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: -1px;
+            }
+
+            #print-report .pr-comment {
+                border-left: 5px solid #dc2626; background: #eef2ff !important;
+                border-radius: 0 8px 8px 0; padding: 10px 14px;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            #print-report .pr-comment.ok { border-left-color: #059669; }
+            #print-report .pr-comment p { margin: 0 0 4px 0; font-size: 9.5pt; }
+            #print-report .pr-comment p.t { font-weight: 800; font-size: 10.5pt; }
+
+            #print-report .pr-recos { margin: 0; padding: 0; list-style: none; }
+            #print-report .pr-recos li {
+                font-size: 9.5pt; padding: 5px 10px 5px 12px; margin-bottom: 4px;
+                border: 1px solid #c7d2fe; border-left: 4px solid #0891b2; border-radius: 4px;
+                break-inside: avoid; page-break-inside: avoid;
+            }
         }
     </style>
 </head>
@@ -338,7 +501,7 @@
                     class="flex items-center gap-1.5 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs">
                     <i class="fas fa-rotate text-indigo-400 text-[11px]"></i>
                     <span>Intentos:</span>
-                    <span id="attempts-left" class="font-bold text-slate-100">4</span>
+                    <span id="attempts-left" class="font-bold text-slate-100">∞</span>
                 </div>
 
                 <button onclick="confirmReset()"
@@ -417,9 +580,9 @@
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
                 <i class="fas fa-chart-pie text-xs"></i> Dashboard
             </button>
-            <button onclick="window.location.href='aduana.html'" id="tab-enviar-reporte"
+            <button onclick="switchTab('enviar')" id="tab-enviar"
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
-                <i class="fas fa-paper-plane text-xs"></i> Enviar Reporte
+                <i class="fas fa-paper-plane text-xs"></i> Enviar reporte
             </button>
         </nav>
 
@@ -572,10 +735,6 @@
                 </div>
 
                 <div class="flex justify-between items-center mt-7">
-                    <button onclick="checkRelaciona()"
-                        class="bg-slate-800 hover:bg-slate-700 text-slate-100 text-xs font-bold px-4 py-2.5 rounded-xl transition flex items-center gap-2 border border-slate-700">
-                        <i class="fas fa-check text-[11px]"></i> Verificar Clasificación
-                    </button>
                     <button onclick="proceedToCasos()"
                         class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-6 py-3 rounded-xl transition flex items-center gap-2 shadow-lg">
                         Avanzar a Casos Vivenciales <i class="fas fa-arrow-right text-xs"></i>
@@ -929,6 +1088,70 @@
                     </div>
                 </div>
             </div>
+
+            <!-- ============== REPORTE DE IMPRESIÓN ============== -->
+            <div id="print-report">
+                <div class="pr-hero">
+                    <p class="pr-kicker">SENA · Política de Integridad · Portafolio del aprendiz</p>
+                    <h1>Acta de Resultados - Código de Integridad</h1>
+                    <p class="pr-sub">Fecha: <span id="pr-fecha">--</span></p>
+                </div>
+
+                <h2 class="pr-h2" style="margin-top:4px;">Información de registro del aprendiz</h2>
+                <table>
+                    <tr>
+                        <td class="pr-lbl">Nombre</td><td class="pr-val" id="pr-nombre">--</td>
+                        <td class="pr-lbl">Documento</td><td class="pr-val" id="pr-doc">--</td>
+                    </tr>
+                    <tr>
+                        <td class="pr-lbl">Ficha</td><td class="pr-val" id="pr-ficha">--</td>
+                        <td class="pr-lbl">Programa</td><td class="pr-val" id="pr-programa">--</td>
+                    </tr>
+                    <tr>
+                        <td class="pr-lbl">Centro</td><td class="pr-val" id="pr-centro">--</td>
+                        <td class="pr-lbl">Regional</td><td class="pr-val" id="pr-regional">--</td>
+                    </tr>
+                </table>
+
+                <h2 class="pr-h2">1. Resultado consolidado</h2>
+                <div id="pr-banner" class="pr-banner">
+                    <div class="pr-b-pts">
+                        <p class="pr-b-label">Puntaje total</p>
+                        <p class="pr-b-big"><span id="pr-total">0</span><small> / 100</small></p>
+                    </div>
+                    <div class="pr-b-dict">
+                        <p class="pr-b-label">Resultado (mínimo 90%)</p>
+                        <span class="pr-b-dictamen" id="pr-dictamen">No aprobado</span>
+                        <p class="pr-b-note" id="pr-nota"></p>
+                    </div>
+                    <div class="pr-b-kpi">
+                        <p class="t">Componentes aprobados</p>
+                        <p class="n" id="pr-aprob">0 / 3</p>
+                        <p class="t" style="margin-top:7px;">Puntos para el mínimo</p>
+                        <p class="n" id="pr-faltan">90</p>
+                    </div>
+                </div>
+
+                <div class="pr-charts">
+                    <div class="pr-box pr-box-bar">
+                        <h3>Rendimiento por componente</h3>
+                        <div id="pr-bar"></div>
+                    </div>
+                    <div class="pr-box pr-box-donut">
+                        <h3>Efectividad global</h3>
+                        <div id="pr-donut"></div>
+                    </div>
+                </div>
+
+                <h2 class="pr-h2">2. Resultado por componente</h2>
+                <table class="pr-comp" id="pr-tabla"></table>
+
+                <h2 class="pr-h2">3. Comentario de resultados</h2>
+                <div id="pr-comentario" class="pr-comment"></div>
+
+                <h2 class="pr-h2">4. Recomendaciones</h2>
+                <ul id="pr-recos" class="pr-recos"></ul>
+            </div>
         </section>
 
         <!-- ========================================== -->
@@ -956,6 +1179,14 @@
                     Aún no se ha consolidado la evaluación. Completa la fase de Evaluación para ver tu dictamen.
                 </p>
             </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA: ENVIAR REPORTE (aduana.html)      -->
+        <!-- ========================================== -->
+        <section id="pane-enviar" class="tab-pane hidden no-print">
+            <iframe id="iframe-aduana" src="aduana.html" title="Aduana de Evidencias"
+                style="width:100%; height:900px; border:0; background:transparent; display:block;"></iframe>
         </section>
 
     </main>
@@ -1027,7 +1258,7 @@
         ];
 
         let registeredLearner = null;
-        let attemptsLeft = 4;
+        let attemptsLeft = Number.POSITIVE_INFINITY;
         let timerInterval = null;
         let timeLeft = 60 * 60;
         let barChartInstance = null;
@@ -1195,6 +1426,19 @@
             });
         }
 
+        /* Calcula el puntaje de Relaciona el Valor leyendo el estado actual del tablero.
+           Las acciones sin clasificar cuentan como incorrectas. */
+        function scoreRelaciona() {
+            let correct = 0;
+            document.querySelectorAll('#relaciona-zones .drop-zone').forEach(zone => {
+                zone.querySelectorAll('.drag-item').forEach(item => {
+                    if (item.dataset.valor === zone.dataset.valor) correct++;
+                });
+            });
+            scores.relaciona = Math.round((correct / relacionaItems.length) * scores.relacionaMax);
+            return correct;
+        }
+
         function checkRelaciona() {
             const zones = document.querySelectorAll('#relaciona-zones .drop-zone');
             let correct = 0;
@@ -1259,6 +1503,7 @@
                 return;
             }
 
+            const relCorrect = scoreRelaciona();
             const casosCorrect = scoreCasos();
             const evaCorrect = scoreEvaluacion();
 
@@ -1312,6 +1557,115 @@
             showModal('Evaluación Consolidada', `Tu puntaje total es de ${scores.total} / 100 puntos. Consulta el detalle en el Acta de Resultados y en el Dashboard.`);
         }
 
+        /* ============== REPORTE DE IMPRESIÓN: gráficas, comentario y recomendaciones ============== */
+        function renderPrintReport() {
+            const g = id => document.getElementById(id);
+            ['nombre', 'doc', 'ficha', 'programa', 'centro', 'regional'].forEach(k => {
+                g('pr-' + k).innerText = g('print-' + k).innerText;
+            });
+            g('pr-fecha').innerText = g('print-fecha').innerText;
+
+            const MIN = 90;
+            const comps = [
+                { nombre: 'Relaciona el Valor', corto: 'Relaciona', pts: scores.relaciona, max: scores.relacionaMax,
+                  reco: 'repasa la definición de cada valor y las conductas «Lo que hago» / «Lo que no hago» para clasificar correctamente las acciones.' },
+                { nombre: 'Casos Vivenciales', corto: 'Casos', pts: scores.casos, max: scores.casosMax,
+                  reco: 'analiza cada situación e identifica qué valor del Código de Integridad se pone en juego antes de elegir la respuesta.' },
+                { nombre: 'Evaluación de Síntesis', corto: 'Evaluación', pts: scores.evaluacion, max: scores.evaluacionMax,
+                  reco: 'repasa los conceptos de los siete valores y su relación con la práctica del servidor público.' }
+            ].map(c => ({ ...c, pct: Math.round((c.pts / c.max) * 100) || 0 }));
+
+            const total = scores.total;
+            const aprobado = total >= MIN;
+            const aprobados = comps.filter(c => c.pct >= MIN).length;
+            const estado = aprobado ? 'ok' : 'bad';
+            const cState = pct => pct >= MIN ? ['ok', 'Aprobado'] : (pct > 0 ? ['mid', 'Por mejorar'] : ['no', 'No aprobado']);
+            const colorPct = pct => pct >= MIN ? '#059669' : (pct > 0 ? '#d97706' : '#dc2626');
+
+            // Banner destacado
+            g('pr-banner').className = 'pr-banner ' + estado;
+            g('pr-total').innerText = total;
+            g('pr-dictamen').innerText = aprobado ? 'Aprobado' : 'No aprobado';
+            g('pr-nota').innerText = aprobado ? 'Superó el umbral de aprobación del 90%' : 'No alcanza el umbral de aprobación del 90%';
+            g('pr-aprob').innerText = `${aprobados} / 3`;
+            g('pr-faltan').innerText = Math.max(0, MIN - total);
+
+            // Gráfica de barras (SVG)
+            const W = 360, H = 190, x0 = 34, yTop = 14, yBase = 150, ph = yBase - yTop;
+            const yOf = v => yBase - (v / 100) * ph;
+            const slot = (W - x0 - 8) / 3;
+            let bar = `<svg viewBox="0 0 ${W} ${H}" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">`;
+            [0, 50, 100].forEach(v => {
+                bar += `<line x1="${x0}" x2="${W - 8}" y1="${yOf(v)}" y2="${yOf(v)}" stroke="#c7d2fe" stroke-width="1"/>
+                        <text x="${x0 - 5}" y="${yOf(v) + 3}" text-anchor="end" font-size="8" fill="#475569">${v}%</text>`;
+            });
+            comps.forEach((c, i) => {
+                const bw = 56, cx = x0 + slot * i + slot / 2;
+                const h = Math.max(0, (c.pct / 100) * ph);
+                bar += `<rect x="${cx - bw / 2}" y="${yBase - h}" width="${bw}" height="${h}" rx="5" fill="${colorPct(c.pct)}"/>
+                        <text x="${cx}" y="${yBase - h - 4}" text-anchor="middle" font-size="10" font-weight="700" fill="#0a1024">${c.pct}%</text>
+                        <text x="${cx}" y="${yBase + 14}" text-anchor="middle" font-size="9" font-weight="700" fill="#0a1024">${c.corto}</text>
+                        <text x="${cx}" y="${yBase + 26}" text-anchor="middle" font-size="8" fill="#475569">${c.pts}/${c.max} pts</text>`;
+            });
+            bar += `<line x1="${x0}" x2="${W - 8}" y1="${yOf(MIN)}" y2="${yOf(MIN)}" stroke="#0a1024" stroke-width="1.5" stroke-dasharray="5 3"/>
+                    <text x="${W - 8}" y="${yOf(MIN) - 3}" text-anchor="end" font-size="8" font-weight="700" fill="#0a1024">Mínimo 90%</text></svg>`;
+            g('pr-bar').innerHTML = bar;
+
+            // Gráfica de dona (SVG)
+            const R = 52, C = 2 * Math.PI * R, dash = (Math.min(total, 100) / 100) * C;
+            const col = aprobado ? '#059669' : '#6d28d9';
+            g('pr-donut').innerHTML = `
+                <svg viewBox="0 0 140 140" width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="70" cy="70" r="${R}" fill="none" stroke="#c7d2fe" stroke-width="18"/>
+                    <circle cx="70" cy="70" r="${R}" fill="none" stroke="${col}" stroke-width="18"
+                        stroke-dasharray="${dash} ${C}" transform="rotate(-90 70 70)"/>
+                    <text x="70" y="72" text-anchor="middle" font-size="28" font-weight="800" fill="#0a1024" font-family="Arial, sans-serif">${total}%</text>
+                    <text x="70" y="90" text-anchor="middle" font-size="9" fill="#475569" font-family="Arial, sans-serif">${total} de 100 pts</text>
+                </svg>
+                <div class="pr-legend">
+                    <span><i style="background:${col}"></i>Logrado (${total})</span>
+                    <span><i style="background:#c7d2fe"></i>Restante (${Math.max(0, 100 - total)})</span>
+                </div>`;
+
+            // Tabla por componente
+            const fila = c => { const [k, t] = cState(c.pct);
+                return `<tr><td>${c.nombre}</td><td class="c">${c.pts} / ${c.max}</td><td class="c">${c.pct}%</td><td class="c"><span class="pr-pill ${k}">${t}</span></td></tr>`; };
+            g('pr-tabla').innerHTML =
+                `<tr><th>Componente</th><th class="c">Puntaje</th><th class="c">% Cumplimiento</th><th class="c">Estado</th></tr>` +
+                comps.map(fila).join('') +
+                `<tr class="tot"><td>TOTAL</td><td class="c">${total} pts</td><td class="c">${total}%</td><td class="c"><span class="pr-pill ${aprobado ? 'ok' : 'no'}">${aprobado ? 'Aprobado' : 'No aprobado'}</span></td></tr>`;
+
+            // Comentario de resultados
+            const mejor = [...comps].sort((a, b) => b.pct - a.pct)[0];
+            const peor = [...comps].sort((a, b) => a.pct - b.pct)[0];
+            let titulo, texto;
+            if (aprobado) {
+                titulo = `Resultado satisfactorio (${total} / 100 pts)`;
+                texto = `Con ${total}/100 puntos, el aprendiz demuestra una apropiación sólida de los siete valores del Código de Integridad SENA, alcanzando el umbral de aprobación del 90%.`;
+            } else if (total === 0) {
+                titulo = 'Sin puntaje registrado (0 / 100 pts)';
+                texto = 'Aún no se registran respuestas en los componentes de la evaluación. El umbral de aprobación es del 90%.';
+            } else {
+                titulo = `Resultado diagnóstico (${total} / 100 pts)`;
+                texto = `Con ${total}/100 puntos, el aprendiz no alcanza el umbral de aprobación del 90%. Componente con mejor desempeño: ${mejor.nombre} (${mejor.pct}%); componente con mayor oportunidad de mejora: ${peor.nombre} (${peor.pct}%).`;
+            }
+            const cm = g('pr-comentario');
+            cm.className = 'pr-comment ' + estado;
+            cm.innerHTML = `<p class="t">${titulo}</p><p>${texto}</p>`;
+
+            // Recomendaciones
+            const recos = [];
+            if (!aprobado) {
+                recos.push(`<b>Meta inmediata:</b> necesitas ${Math.max(0, MIN - total)} punto${MIN - total === 1 ? '' : 's'} más para alcanzar el 90% de aprobación.`);
+                comps.filter(c => c.pct < MIN).forEach(c => recos.push(`<b>${c.nombre}:</b> ${c.reco}`));
+                recos.push('<b>Antes de un nuevo intento:</b> repasa la definición de los valores y las conductas asociadas («Lo que hago» / «Lo que no hago»).');
+            } else {
+                recos.push('<b>Continuidad:</b> mantén la práctica constante de estos valores en tu etapa formativa y productiva.');
+                recos.push('<b>Portafolio:</b> conserva esta acta impresa o en PDF como soporte de tu portafolio de evidencias.');
+            }
+            g('pr-recos').innerHTML = recos.map(r => `<li>${r}</li>`).join('');
+        }
+
         /* ============== IMPRESIÓN ============== */
         function printEvidence() {
             if (!registeredLearner) {
@@ -1343,6 +1697,7 @@
             }
 
             consolidateEvaluation();
+            renderPrintReport();
 
             switchTab('evaluacion');
 
@@ -1388,13 +1743,18 @@
             });
         }
 
+        function updateAttemptsUI() {
+            const el = document.getElementById('attempts-left');
+            if (el) el.innerText = Number.isFinite(attemptsLeft) ? attemptsLeft : '∞';
+        }
+
         /* ============== REINICIO DE INTENTO ============== */
         function confirmReset() {
-            if (attemptsLeft <= 0) {
-                showModal('Intentos Agotados', 'Has alcanzado el límite máximo de cuatro (4) intentos permitidos para esta actividad.');
+            if (Number.isFinite(attemptsLeft) && attemptsLeft <= 0) {
+                showModal('Intentos Agotados', 'Has alcanzado el límite máximo de intentos permitidos para esta actividad.');
                 return;
             }
-            showModal('Confirmar Reinicio de Intento', `Esto limpiará tus respuestas actuales. Te quedarán ${attemptsLeft - 1} intento(s) después de continuar.`);
+            showModal('Confirmar Reinicio de Intento', 'Esto limpiará tus respuestas actuales y podrás intentarlo nuevamente sin límite.');
             const actions = document.getElementById('modal-actions');
             actions.innerHTML = `
                 <button onclick="closeModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-4 py-2 rounded-lg transition border border-slate-700">Cancelar</button>
@@ -1403,8 +1763,7 @@
         }
 
         function performReset() {
-            attemptsLeft--;
-            document.getElementById('attempts-left').innerText = attemptsLeft;
+            updateAttemptsUI();
 
             document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
             initRelaciona();
@@ -1415,14 +1774,25 @@
             scores.total = 0;
             document.getElementById('global-score').innerText = 0;
 
+            // Limpiar acta en pantalla
+            [['rel', 40], ['cas', 30], ['eva', 30]].forEach(([k, max]) => {
+                document.getElementById(`tb-${k}-pts`).innerText = `0 / ${max}`;
+                document.getElementById(`tb-${k}-pct`).innerText = '0%';
+            });
+            document.getElementById('tb-tot-pts').innerText = '0 pts';
+            document.getElementById('tb-tot-pct').innerText = '0%';
+
+            // Reiniciar temporizador y desbloquear controles (si el tiempo se había agotado)
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = null;
+            timeLeft = 60 * 60;
+            document.getElementById('timer-display').innerText = '60:00';
+            document.querySelectorAll('input, select, button').forEach(el => { el.disabled = false; });
+
             const actions = document.getElementById('modal-actions');
             actions.innerHTML = `<button onclick="closeModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition">Entendido</button>`;
 
-            if (attemptsLeft <= 0) {
-                showModal('Intentos Agotados', 'Has utilizado tu último intento disponible. El botón de reinicio se ha bloqueado.');
-            } else {
-                showModal('Intento Reiniciado', `Tus respuestas han sido reiniciadas. Te quedan ${attemptsLeft} intento(s).`);
-            }
+            showModal('Intento Reiniciado', 'Tus respuestas han sido reiniciadas y puedes volver a intentarlo sin límite.');
             switchTab('registro');
         }
 
@@ -1499,6 +1869,19 @@
             initFlipCards();
             initRelaciona();
             initCharts();
+        });
+    </script>
+
+    <!-- Puente con aduana.html (pestaña Enviar reporte). No modifica el código anterior. -->
+    <script>
+        window.addEventListener('message', function (e) {
+            var f = document.getElementById('iframe-aduana');
+            if (!f || e.source !== f.contentWindow || !e.data) return;
+            if (e.data.type === 'aduana-resize' && e.data.height) {
+                f.style.height = Math.max(e.data.height, 500) + 'px';
+            } else if (e.data.type === 'aduana-repetir-evaluacion') {
+                confirmReset();
+            }
         });
     </script>
 

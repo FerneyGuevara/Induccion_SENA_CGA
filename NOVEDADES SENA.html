@@ -195,6 +195,98 @@
                 padding: 8px;
             }
         }
+        /* ===== REPORTE IMPRESO (estilo Reto 13 - Byteon) ===== */
+        #print-report { display: none; }
+
+        @media print {
+            #pane-evaluacion { display: none !important; }
+
+            #print-report {
+                display: block !important;
+                font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+                color: #1b2a41;
+                font-size: 10.5px;
+                line-height: 1.35;
+            }
+            #print-report * { box-sizing: border-box; }
+
+            .pr-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+            .pr-org { font-size: 9.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #1b2a41; }
+            .pr-centro { font-size: 20px; font-weight: 800; color: #14213d; text-transform: uppercase; line-height: 1.15; }
+            .pr-logo { height: 46px; width: auto; object-fit: contain; }
+
+            .pr-reto { background: #fbf3e1; border: 1.5px solid #d9a441; border-radius: 8px; padding: 10px 14px; margin: 8px 0 10px; }
+            .pr-reto h1 { font-size: 17px; font-weight: 800; color: #14213d; margin: 0 0 2px; }
+            .pr-reto .sub { color: #b07a1a; font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .02em; }
+            .pr-reto .meta { margin-top: 3px; font-size: 10px; color: #3b4658; }
+            .pr-reto .meta b { color: #1b2a41; }
+
+            .pr-reg { background: #f9f8f3; border: 1px solid #d7dde8; border-radius: 8px; padding: 10px 14px; }
+            .pr-reg h2 { font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #14213d; border-bottom: 2px solid #d7dde8; padding-bottom: 3px; margin: 0 0 7px; }
+            .pr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 22px; }
+            .pr-field { display: flex; align-items: baseline; gap: 6px; font-size: 10.5px; }
+            .pr-field > b { font-weight: 700; white-space: nowrap; color: #1b2a41; }
+            .pr-field > span { flex: 1; min-height: 14px; border-bottom: 1.5px solid #3b4658; font-weight: 700; padding: 0 2px 1px; color: #14213d; }
+            .pr-full { grid-column: 1 / -1; }
+
+            .pr-sep { border-top: 3px solid #14213d; margin: 12px 0 8px; }
+            .pr-sec { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; color: #14213d; border-bottom: 2px solid #1f7a6b; padding-bottom: 3px; margin: 0 0 8px; }
+
+            .pr-hero { background: #14213d; border-radius: 10px; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 8px; break-inside: avoid; }
+            .pr-hero .lbl { font-size: 9.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #cbd5e1; }
+            .pr-hero .big { font-size: 40px; font-weight: 900; color: #f4c542; line-height: 1.05; }
+            .pr-hero .big small { font-size: 16px; font-weight: 700; color: #cbd5e1; }
+            .pr-hero .txt { font-size: 10px; color: #e2e8f0; margin-top: 2px; }
+            .pr-hero .verd { padding: 9px 20px; border-radius: 8px; font-size: 17px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: #ffffff; text-align: center; white-space: nowrap; }
+            .pr-hero .verd small { display: block; font-size: 9px; font-weight: 700; letter-spacing: .04em; text-transform: none; opacity: .95; margin-top: 1px; }
+
+            .pr-kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 10px; }
+            .pr-kpi { border: 1px solid #d7dde8; background: #f5f7fb; border-radius: 8px; padding: 8px 4px; text-align: center; break-inside: avoid; }
+            .pr-kpi .v { font-size: 19px; font-weight: 800; color: #1f7a6b; line-height: 1.1; }
+            .pr-kpi .l { font-size: 8.5px; font-weight: 700; text-transform: uppercase; color: #3b4658; margin-top: 2px; letter-spacing: .02em; }
+
+            .pr-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+            .pr-card { border: 1px solid #d7dde8; border-radius: 8px; padding: 8px 10px; background: #ffffff; break-inside: avoid; }
+            .pr-card h3 { font-size: 10.5px; font-weight: 800; color: #14213d; margin: 0 0 4px; }
+            .pr-card svg { display: block; width: 100%; height: auto; }
+            .pr-donut { display: flex; align-items: center; gap: 10px; }
+            .pr-donut svg { width: 120px; flex: none; }
+            .pr-legend { font-size: 10px; line-height: 1.9; }
+            .pr-legend i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+
+            .pr-p2 { break-before: page; page-break-before: always; }
+            .pr-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+            .pr-table th { background: #14213d; color: #ffffff; font-size: 9.5px; text-transform: uppercase; letter-spacing: .04em; padding: 6px 8px; text-align: left; }
+            .pr-table th.c, .pr-table td.c { text-align: center; }
+            .pr-table td { padding: 6px 8px; border-bottom: 1px solid #e2e8f0; font-size: 10.5px; }
+            .pr-table tbody tr:nth-child(even) td { background: #f8fafc; }
+            .pr-table tr.tot td { background: #eaf0f7 !important; font-weight: 800; border-top: 2px solid #14213d; color: #14213d; }
+            .pr-bar { height: 8px; background: #e5e9f0; border-radius: 4px; overflow: hidden; min-width: 70px; }
+            .pr-bar i { display: block; height: 100%; border-radius: 4px; }
+            .pr-badge { display: inline-block; padding: 2px 9px; border-radius: 10px; font-size: 9.5px; font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: .03em; }
+
+            .pr-diag { border-left: 5px solid #1f7a6b; background: #f5f8fb; border-radius: 0 8px 8px 0; padding: 10px 14px; margin-bottom: 8px; break-inside: avoid; }
+            .pr-diag .t { font-size: 11.5px; font-weight: 800; margin-bottom: 3px; }
+            .pr-diag p { margin: 0; font-size: 10.5px; line-height: 1.5; color: #1b2a41; }
+
+            .pr-rec { display: flex; gap: 8px; border: 1px solid #e2e8f0; border-left: 4px solid #c98b2b; border-radius: 6px; padding: 6px 10px; margin-bottom: 5px; break-inside: avoid; background: #ffffff; }
+            .pr-rec b { display: block; font-size: 10.5px; color: #14213d; }
+            .pr-rec span { font-size: 10px; color: #3b4658; }
+
+            .pr-obs { border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; margin-top: 10px; break-inside: avoid; }
+            .pr-obs h3 { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: #14213d; margin: 0 0 4px; }
+            .pr-obs .lines { height: 92px; background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 22px, #94a3b8 22px, #94a3b8 23px); }
+            .pr-firmas { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-top: 46px; break-inside: avoid; }
+            .pr-firma { border-top: 1.5px solid #14213d; padding-top: 4px; text-align: center; font-weight: 700; font-size: 10px; color: #14213d; }
+        }
+
+        /* Ajustes de impresión para mostrar solo el reporte */
+        @media print {
+            #print-area, main { display: none !important; }
+            html, body { display: block !important; min-height: 0 !important; background: #ffffff !important; }
+            @page { margin: 10mm 15mm; size: letter portrait; }
+            #print-report, #print-report * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        }
     </style>
 </head>
 
@@ -225,7 +317,7 @@
                     class="flex items-center gap-1.5 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs">
                     <i class="fas fa-rotate text-indigo-400 text-[11px]"></i>
                     <span>Intentos:</span>
-                    <span id="attempts-left" class="font-bold text-slate-100">4</span>
+                    <span id="attempts-left" class="font-bold text-slate-100">∞</span>
                 </div>
 
                 <button onclick="confirmReset()"
@@ -313,16 +405,12 @@
                 disabled>
                 <i class="fas fa-chart-pie"></i> Dashboard
             </button>
-            <button onclick="switchTab('enviar-reporte')" id="tab-enviar-reporte"
-                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 shadow-md">
-                <i class="fas fa-paper-plane"></i> Enviar Reporte
+            <button onclick="switchTab('enviar')" id="tab-enviar"
+                class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 shadow-md module-locked"
+                disabled>
+                <i class="fas fa-paper-plane"></i> Enviar reporte
             </button>
         </nav>
-
-        <section id="pane-enviar-reporte" class="tab-pane hidden">
-            <iframe src="aduana.html" title="Enviar Reporte" class="w-full rounded-xl border-0"
-                style="min-height: 850px;"></iframe>
-        </section>
 
         <!-- PESTAÑA: REGISTRO -->
         <section id="pane-registro" class="tab-pane block">
@@ -1137,8 +1225,8 @@
                     </div>
                     <div>
                         <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Oportunidad Actual</p>
-                        <p class="text-2xl font-black text-white"><span id="kpi-intentos">1</span> <span
-                                class="text-sm font-normal text-slate-500">de 4</span></p>
+                        <p class="text-2xl font-black text-white"><span id="kpi-intentos">1</span> <span id="kpi-intentos-max"
+                                class="text-sm font-normal text-slate-500">de ∞</span></p>
                     </div>
                 </div>
             </div>
@@ -1183,6 +1271,12 @@
                     </button>
                 </div>
             </div>
+        </section>
+
+        <!-- PESTAÑA: ENVIAR REPORTE (aduana.html) -->
+        <section id="pane-enviar" class="tab-pane hidden no-print">
+            <iframe id="iframe-aduana" src="aduana.html" title="Aduana de Evidencias"
+                style="width:100%; height:900px; border:0; background:transparent; display:block;"></iframe>
         </section>
 
     </main>
@@ -1233,6 +1327,9 @@
         </div>
     </div>
 
+    <!-- Reporte impreso (solo visible al imprimir) -->
+    <div id="print-report"></div>
+
     <!-- MODAL -->
     <div id="custom-modal"
         class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4 no-print">
@@ -1258,8 +1355,19 @@
 
         let scores = { traslado: 0, aplazamiento: 0, retiro: 0, reintegro: 0, evaluacion: 0, total: 0 };
         let draggedItems = {};
-        let attemptsLeft = 4;
+        let attemptsLeft = Number.POSITIVE_INFINITY;
+        let currentAttempt = 1;
         let learnerData = null;
+        let evalFinished = false;      // true cuando se consolidó el Acta (evaluación de síntesis enviada)
+        let elapsedAtFinish = null;    // segundos usados al momento de consolidar el Acta
+
+        // Fuente única del puntaje total: siempre la suma de los 5 módulos.
+        function recalcTotal() {
+            scores.total = MODULES.reduce((a, m) => a + (scores[m.id] || 0), 0);
+            const g = document.getElementById('global-score');
+            if (g) g.innerText = scores.total;
+            return scores.total;
+        }
 
         function showModal(title, msg) {
             document.getElementById('modal-title').innerText = title;
@@ -1402,8 +1510,11 @@
             let pts = 0;
             uAns.forEach((ans, i) => { if (ans === mod.answers[i]) pts += 4; });
             scores[modId] = pts;
+            recalcTotal();
 
             if (modId === 'evaluacion') {
+                evalFinished = true;
+                elapsedAtFinish = Math.max(0, 3600 - t);
                 renderActa();
                 document.getElementById('evaluacion-form').classList.add('hidden');
                 document.getElementById('acta-container').classList.remove('hidden');
@@ -1411,6 +1522,8 @@
                 document.getElementById('tab-dashboard').disabled = false;
                 renderDashboard();
             } else {
+                // Si el Acta ya fue generada y se corrige un módulo, se actualizan Acta y Dashboard
+                if (evalFinished) { renderActa(); renderDashboard(); }
                 showModal('Éxito', `Respuestas guardadas. Obtuviste ${pts} de 20 puntos en esta sección.`);
                 const idx = MODULES.findIndex(m => m.id === modId);
                 const nxt = MODULES[idx + 1].id;
@@ -1421,7 +1534,7 @@
         }
 
         function renderActa() {
-            scores.total = Object.values(scores).reduce((a, b) => a + b, 0) - (scores.total || 0); // Sumar solo modulos
+            recalcTotal(); // Suma solo los módulos
 
             document.getElementById('lbl-nombre').innerText = learnerData.nombre;
             document.getElementById('lbl-doc').innerText = learnerData.doc;
@@ -1459,9 +1572,9 @@
             // Sincronizar tiempo restante del timer global
             document.getElementById('kpi-tiempo').innerText = document.getElementById('global-timer').innerText;
 
-            // Oportunidad actual (Si quedan 4 intentos, es el intento 1)
-            const currentAttempt = 5 - attemptsLeft;
+            // Oportunidad actual (sin límite de intentos)
             document.getElementById('kpi-intentos').innerText = currentAttempt;
+            document.getElementById('kpi-intentos-max').innerText = 'de ∞';
 
             const dictamen = document.getElementById('dashboard-dictamen');
             if (scores.total >= 90) {
@@ -1484,8 +1597,229 @@
             });
         }
 
+
+        // ===== Reporte impreso (estilo Reto 13 - Byteon) =====
+        function buildPrintReport() {
+            const host = document.getElementById('print-report');
+            if (!host) return;
+
+            const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+            const C = { navy: '#14213d', teal: '#1f7a6b', amber: '#c98b2b', red: '#d9594c', purple: '#6b4fa3', grid: '#e5e9f0', muted: '#64748b' };
+
+            const L = learnerData || {};
+            const centro = document.getElementById('reg-centro')?.value || 'Gestión Administrativa';
+            const regional = document.getElementById('reg-regional')?.value || 'Distrito Capital';
+            const prog = L.prog || 'Técnico en Talento Humano';
+
+            const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+            const now = new Date();
+            let h = now.getHours();
+            const ampm = h >= 12 ? 'p. m.' : 'a. m.';
+            h = h % 12 || 12;
+            const fecha = `${now.getDate()} de ${meses[now.getMonth()]} de ${now.getFullYear()} a las ${h}:${String(now.getMinutes()).padStart(2, '0')} ${ampm}`;
+
+            const used = Math.max(0, elapsedAtFinish !== null ? elapsedAtFinish : 3600 - t);
+            const tiempo = `${String(Math.floor(used / 60)).padStart(2, '0')}:${String(used % 60).padStart(2, '0')}`;
+
+            const shorts = { traslado: 'Traslado', aplazamiento: 'Aplaz.', retiro: 'Retiro', reintegro: 'Reint.', evaluacion: 'Eval.' };
+            const recs = {
+                traslado: 'Repasar las condiciones y el trámite para solicitar un traslado según el Reglamento del Aprendiz (Art. 17 y 18).',
+                aplazamiento: 'Repasar las condiciones y los plazos del aplazamiento según el Reglamento del Aprendiz (Art. 17 y 18).',
+                retiro: 'Repasar cuidadosamente las causales justificadas de retiro voluntario (Acuerdo 0009 de 2024).',
+                reintegro: 'Repasar los tiempos límites de reintegro estipulados en el Acuerdo 0009 de 2024.',
+                evaluacion: 'Repasar de forma integrada traslado, aplazamiento, retiro voluntario y reintegro antes de volver a intentar la síntesis.'
+            };
+            const colSeg = [C.teal, C.amber, C.red, C.navy, C.purple];
+
+            const comps = MODULES.map(m => {
+                const pts = scores[m.id], max = 20, pct = Math.round(pts / max * 100);
+                const ok = pts >= 18;
+                return { n: m.title, short: shorts[m.id], pts, max, pct, est: ok ? 'Aprobado' : 'Reforzar', col: ok ? C.teal : (pts > 0 ? C.amber : C.red), rec: recs[m.id] };
+            });
+
+            const total = scores.total;
+            const aprobado = total >= 90;
+            const okCount = comps.filter(c => c.pts >= 18).length;
+            const verdCol = aprobado ? C.teal : C.red;
+            const verdTxt = aprobado ? 'Aprobado' : 'No aprobado';
+
+            // ---- Gráfico de barras (SVG)
+            const bx0 = 34, bx1 = 312, by0 = 14, by1 = 140, slot = (bx1 - bx0) / comps.length, bw = 36;
+            const yv = v => by1 - (by1 - by0) * v / 100;
+            let bar = `<svg viewBox="0 0 320 166" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">`;
+            [0, 25, 50, 75, 100].forEach(v => {
+                bar += `<line x1="${bx0}" x2="${bx1}" y1="${yv(v)}" y2="${yv(v)}" stroke="${C.grid}" stroke-width="1"/>`;
+                bar += `<text x="${bx0 - 5}" y="${yv(v) + 3}" font-size="8" fill="${C.muted}" text-anchor="end">${v}%</text>`;
+            });
+            comps.forEach((c, i) => {
+                const x = bx0 + slot * i + (slot - bw) / 2;
+                const hh = Math.max((by1 - by0) * c.pct / 100, c.pct > 0 ? 2 : 0);
+                bar += `<rect x="${x}" y="${by1 - hh}" width="${bw}" height="${hh}" rx="3" fill="${c.col}"/>`;
+                bar += `<text x="${x + bw / 2}" y="${by1 - hh - 4}" font-size="9" font-weight="700" fill="${C.navy}" text-anchor="middle">${c.pct}%</text>`;
+                bar += `<text x="${x + bw / 2}" y="154" font-size="8.5" fill="${C.muted}" text-anchor="middle">${esc(c.short)}</text>`;
+            });
+            bar += `<line x1="${bx0}" x2="${bx1}" y1="${yv(90)}" y2="${yv(90)}" stroke="${C.navy}" stroke-width="1" stroke-dasharray="4 3"/>`;
+            bar += `<text x="${bx1}" y="${yv(90) - 3}" font-size="7.5" font-weight="700" fill="${C.navy}" text-anchor="end">Mínimo 90%</text>`;
+            bar += `</svg>`;
+
+            // ---- Dona (SVG)
+            const donut = (segs, center) => {
+                const r = 44, cx = 60, cy = 60, circ = 2 * Math.PI * r;
+                const sum = segs.reduce((a, s) => a + s.v, 0);
+                let svg = `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">`;
+                svg += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${C.grid}" stroke-width="20"/>`;
+                let off = 0;
+                if (sum > 0) {
+                    segs.forEach(s => {
+                        if (s.v <= 0) return;
+                        const len = circ * s.v / sum;
+                        svg += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${s.c}" stroke-width="20" stroke-dasharray="${len} ${circ - len}" stroke-dashoffset="${-off}" transform="rotate(-90 ${cx} ${cy})"/>`;
+                        off += len;
+                    });
+                }
+                svg += `<text x="${cx}" y="${cy + 6}" font-size="18" font-weight="800" fill="${C.navy}" text-anchor="middle">${esc(center)}</text></svg>`;
+                return svg;
+            };
+            const legend = (items, tot) => items.map(s => {
+                const p = tot > 0 ? Math.round(s.v / tot * 100) : 0;
+                return `<div><i style="background:${s.c}"></i>${esc(s.l)}: <b>${s.v}</b> (${p}%)</div>`;
+            }).join('');
+
+            const segA = [{ l: 'Puntos obtenidos', v: total, c: C.teal }, { l: 'Puntos restantes', v: Math.max(0, 100 - total), c: C.red }];
+            const segB = comps.map((c, i) => ({ l: c.n, v: c.pts, c: colSeg[i] }));
+
+            // ---- Diagnóstico (mismo texto del dashboard)
+            let diagCol, diagTitle, diagTxt;
+            if (aprobado) {
+                diagCol = C.teal;
+                diagTitle = '¡Excelente resultado!';
+                diagTxt = `Con ${total}/100 puntos, demuestras una sólida apropiación del Reglamento del Aprendiz (Art. 17 y 18). Conoces perfectamente las condiciones para realizar traslados, aplazamientos, retiros y reintegros, cumpliendo con el umbral aprobatorio del 90%.`;
+            } else {
+                diagCol = C.red;
+                diagTitle = 'Requiere refuerzo.';
+                diagTxt = `Obtuviste ${total}/100 puntos, lo cual está por debajo del 90% requerido. Te sugerimos repasar cuidadosamente las causales justificadas de retiro y los tiempos límites de reintegro estipulados en el Acuerdo 0009 de 2024.`;
+            }
+
+            const pend = comps.filter(c => c.pts < 18);
+            const recsHtml = pend.length
+                ? pend.map(c => `<div class="pr-rec" style="border-left-color:${c.col}"><div><b>${esc(c.n)} — ${c.pts}/${c.max} pts (${c.pct}%)</b><span>${esc(c.rec)}</span></div></div>`).join('')
+                : `<div class="pr-rec" style="border-left-color:${C.teal}"><div><b>Sin aspectos por reforzar</b><span>Todos los módulos alcanzaron el mínimo esperado. Se recomienda mantener la consulta del Reglamento del Aprendiz y del Acuerdo 0009 de 2024.</span></div></div>`;
+
+            const rows = comps.map(c => `
+                <tr>
+                    <td><b>${esc(c.n)}</b></td>
+                    <td class="c">${c.pts} / ${c.max} pts</td>
+                    <td class="c"><b>${c.pct}%</b></td>
+                    <td><div class="pr-bar"><i style="width:${c.pct}%;background:${c.col}"></i></div></td>
+                    <td class="c"><span class="pr-badge" style="background:${c.col}">${c.est}</span></td>
+                </tr>`).join('');
+
+            host.innerHTML = `
+            <div class="pr-head">
+                <div>
+                    <div class="pr-org">Servicio Nacional de Aprendizaje SENA • Regional ${esc(regional)}</div>
+                    <div class="pr-centro">Centro de ${esc(centro)}</div>
+                </div>
+                <img class="pr-logo" src="sena.png" alt="SENA" onerror="this.style.display='none'">
+            </div>
+
+            <div class="pr-reto">
+                <h1>Novedades del Aprendiz</h1>
+                <div class="sub">Reglamento del Aprendiz — Reporte de evaluación y desempeño</div>
+                <div class="meta"><b>REFERENTE:</b> REGLAMENTO DEL APRENDIZ (ART. 17 Y 18) • ACUERDO 0009 DE 2024 • <b>PROGRAMA:</b> ${esc(prog).toUpperCase()}</div>
+                <div class="meta"><b>MÓDULOS:</b> TRASLADO • APLAZAMIENTO • RETIRO VOLUNTARIO • REINTEGRO • EVALUACIÓN DE SÍNTESIS</div>
+            </div>
+
+            <div class="pr-reg">
+                <h2>Registro del aprendiz</h2>
+                <div class="pr-grid">
+                    <div class="pr-field pr-full"><b>Nombre completo:</b><span>${esc(L.nombre)}</span></div>
+                    <div class="pr-field"><b>Número de documento:</b><span>${esc(L.doc)}</span></div>
+                    <div class="pr-field"><b>Ficha:</b><span>${esc(L.ficha)}</span></div>
+                    <div class="pr-field pr-full"><b>Programa:</b><span>${esc(prog)}</span></div>
+                    <div class="pr-field"><b>Centro de formación:</b><span>Centro de ${esc(centro)}</span></div>
+                    <div class="pr-field"><b>Regional:</b><span>Regional ${esc(regional)}</span></div>
+                    <div class="pr-field"><b>Fecha y hora de emisión:</b><span>${esc(fecha)}</span></div>
+                    <div class="pr-field"><b>Instructor / Evaluador:</b><span></span></div>
+                </div>
+            </div>
+
+            <div class="pr-sep"></div>
+            <div class="pr-sec">Resultados consolidados de la evaluación</div>
+
+            <div class="pr-hero">
+                <div>
+                    <div class="lbl">Puntaje total obtenido</div>
+                    <div class="big">${total} <small>/ 100 pts</small></div>
+                    <div class="txt">Mínimo reglamentario para aprobar: 90 puntos (90%)</div>
+                </div>
+                <div class="verd" style="background:${verdCol}">${verdTxt}<small>${okCount} de 5 módulos aprobados</small></div>
+            </div>
+
+            <div class="pr-kpis">
+                <div class="pr-kpi"><div class="v">${total}/100</div><div class="l">Puntaje total</div></div>
+                <div class="pr-kpi"><div class="v">${total}%</div><div class="l">Cumplimiento global</div></div>
+                <div class="pr-kpi"><div class="v">${okCount}/5</div><div class="l">Módulos aprobados</div></div>
+                <div class="pr-kpi"><div class="v">${tiempo}</div><div class="l">Tiempo empleado</div></div>
+                <div class="pr-kpi"><div class="v">${esc(currentAttempt)}</div><div class="l">Oportunidad actual</div></div>
+            </div>
+
+            <div class="pr-charts">
+                <div class="pr-card"><h3>Rendimiento por dimensión (% cumplimiento)</h3>${bar}</div>
+                <div class="pr-card"><h3>Distribución de efectividad global</h3>
+                    <div class="pr-donut">${donut(segA, String(total))}<div class="pr-legend">${legend(segA, 100)}</div></div>
+                </div>
+                <div class="pr-card" style="grid-column: 1 / -1"><h3>Aporte de cada módulo al puntaje total</h3>
+                    <div class="pr-donut">${donut(segB, String(total))}<div class="pr-legend">${legend(segB, total)}</div></div>
+                </div>
+            </div>
+
+            <div class="pr-p2">
+                <div class="pr-sec">Desempeño por módulo</div>
+                <table class="pr-table">
+                    <thead><tr><th>Módulo de novedad</th><th class="c">Puntaje</th><th class="c">% Cumplimiento</th><th>Avance</th><th class="c">Estado</th></tr></thead>
+                    <tbody>${rows}
+                        <tr class="tot">
+                            <td>TOTAL</td>
+                            <td class="c">${total} / 100 pts</td>
+                            <td class="c">${total}%</td>
+                            <td><div class="pr-bar"><i style="width:${total}%;background:${verdCol}"></i></div></td>
+                            <td class="c"><span class="pr-badge" style="background:${verdCol}">${verdTxt}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="pr-sec">Diagnóstico y análisis cualitativo</div>
+                <div class="pr-diag" style="border-left-color:${diagCol}">
+                    <div class="t" style="color:${diagCol}">${esc(diagTitle)}</div>
+                    <p>${esc(diagTxt)}</p>
+                </div>
+
+                <div class="pr-sec" style="margin-top:12px">Aspectos a reforzar y recomendaciones</div>
+                ${recsHtml}
+
+                <div class="pr-obs">
+                    <h3>Observaciones y recomendaciones del instructor / evaluador</h3>
+                    <div class="lines"></div>
+                </div>
+
+                <div class="pr-firmas">
+                    <div class="pr-firma">Firma del Aprendiz</div>
+                    <div class="pr-firma">Firma del Instructor / Evaluador</div>
+                </div>
+            </div>
+            `;
+        }
+
         function printEvidence() {
-            if (!learnerData || scores.total === 0) return showModal('Acciòn no permitida', 'Debes finalizar la Evaluaciòn de Sintesis y Generar el Acta primero');
+            if (!learnerData || !evalFinished) return showModal('Acción no permitida', 'Debes finalizar la Evaluación de Síntesis y Generar el Acta primero');
+
+            // Sincroniza el total con los puntajes por módulo y refresca Acta y Dashboard
+            // para que el reporte impreso siempre coincida con lo que se ve en pantalla.
+            recalcTotal();
+            renderActa();
+            renderDashboard();
+
             document.getElementById('print-fecha').innerText = new Date().toLocaleString('es-CO');
             document.getElementById('print-nombre').innerText = learnerData.nombre;
             document.getElementById('print-doc').innerText = learnerData.doc;
@@ -1496,7 +1830,9 @@
             MODULES.forEach(m => html += `<tr><td style="padding:10px;">${m.title}</td><td style="text-align:center; font-weight:bold;">${scores[m.id]} / 20</td></tr>`);
             document.getElementById('print-tbody').innerHTML = html;
             document.getElementById('print-total').innerText = `${scores.total} / 100`;
-            document.getElementById('print-dictamen').innerText = scores.total >= 90 ? 'APROBADO (Cumple con el 90% mÃ­nimo)' : 'NO APROBADO (Requiere plan de mejora)';
+            document.getElementById('print-dictamen').innerText = scores.total >= 90 ? 'APROBADO (Cumple con el 90% mínimo)' : 'NO APROBADO (Requiere plan de mejora)';
+
+            buildPrintReport();
 
             const originalTitle = document.title;
             const docNum = (learnerData && learnerData.doc) ? String(learnerData.doc).trim().replace(/\s+/g, '') : (document.getElementById('reg-doc')?.value.trim() || 'DOCUMENTO');
@@ -1515,10 +1851,15 @@
         }
 
         function confirmReset() {
-            if (attemptsLeft <= 0) return showModal('Intentos agotados', 'Has consumido tus 4 intentos.');
-            attemptsLeft--;
-            document.getElementById('attempts-left').innerText = attemptsLeft;
+            if (Number.isFinite(attemptsLeft) && attemptsLeft <= 0) return showModal('Intentos agotados', 'Has consumido el límite de intentos permitidos.');
+            attemptsLeft = Number.POSITIVE_INFINITY;
+            currentAttempt += 1;
+            document.getElementById('attempts-left').innerText = '∞';
+            document.getElementById('kpi-intentos').innerText = currentAttempt;
+            document.getElementById('kpi-intentos-max').innerText = 'de ∞';
             scores = { traslado: 0, aplazamiento: 0, retiro: 0, reintegro: 0, evaluacion: 0, total: 0 };
+            evalFinished = false;
+            elapsedAtFinish = null;
 
             // Limpiar UI
             document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
@@ -1538,7 +1879,7 @@
             });
 
             switchTab('traslado');
-            showModal('Intento Reiniciado', `Las respuestas se han borrado. Te quedan ${attemptsLeft} intentos.`);
+            showModal('Intento Reiniciado', 'Las respuestas se han borrado. Puedes volver a intentarlo sin límite.');
         }
 
         // Reloj Global
@@ -1549,6 +1890,32 @@
                 document.getElementById('global-timer').innerText = `${String(Math.floor(t / 60)).padStart(2, '0')}:${String(t % 60).padStart(2, '0')}`;
             }
         }, 1000);
+    </script>
+
+    <!-- Puente con aduana.html (pestaña Enviar reporte) -->
+    <script>
+        window.addEventListener('message', function (e) {
+            var f = document.getElementById('iframe-aduana');
+            if (!f || e.source !== f.contentWindow || !e.data) return;
+            if (e.data.type === 'aduana-resize' && e.data.height) {
+                f.style.height = Math.max(e.data.height, 500) + 'px';
+            } else if (e.data.type === 'aduana-repetir-evaluacion') {
+                window.reintentarEvaluacion();
+            }
+        });
+        window.reintentarEvaluacion = function () { confirmReset(); };
+
+        // Habilita "Enviar reporte" cuando se habilita la pestaña Dashboard
+        (function () {
+            var dash = document.getElementById('tab-dashboard');
+            var env = document.getElementById('tab-enviar');
+            if (!dash || !env) return;
+            function sync() {
+                if (!dash.disabled) { env.disabled = false; env.classList.remove('module-locked'); }
+            }
+            sync();
+            new MutationObserver(sync).observe(dash, { attributes: true, attributeFilter: ['disabled', 'class'] });
+        })();
     </script>
 </body>
 

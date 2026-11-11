@@ -79,12 +79,49 @@
             display: none;
         }
 
+        @page {
+            size: letter;
+            margin: 16mm 12mm 16mm 12mm;
+            @top-left {
+                content: "REGISTRO DE EVIDENCIAS  ·  Plataformas Virtuales del SENA";
+                font-family: 'Inter', Arial, sans-serif;
+                font-size: 8pt;
+                font-weight: 700;
+                color: #0a1024;
+                border-bottom: 1.5px solid #0891b2;
+                padding-bottom: 3mm;
+                width: 100%;
+            }
+            @top-right {
+                content: "Portafolio del aprendiz";
+                font-family: 'Inter', Arial, sans-serif;
+                font-size: 8pt;
+                color: #475569;
+                border-bottom: 1.5px solid #0891b2;
+                padding-bottom: 3mm;
+            }
+            @bottom-center {
+                content: "Página " counter(page) " de " counter(pages);
+                font-family: 'Inter', Arial, sans-serif;
+                font-size: 8pt;
+                color: #6b7280;
+            }
+        }
+
         @media print {
+            html,
+            body {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
             body {
                 background-color: #ffffff !important;
                 color: #0f172a !important;
                 padding: 0 !important;
                 margin: 0 !important;
+                display: block !important;
+                min-height: 0 !important;
             }
 
             header,
@@ -99,50 +136,239 @@
                 display: block !important;
                 visibility: visible !important;
                 width: 100% !important;
-                padding: 10mm !important;
+                padding: 0 !important;
                 margin: 0 !important;
                 background: #ffffff !important;
                 color: #0f172a !important;
+                font-family: 'Inter', Arial, sans-serif !important;
+                font-size: 10pt;
+                line-height: 1.45;
             }
 
             #print-area * {
                 visibility: visible !important;
-                color: #0f172a !important;
                 box-shadow: none !important;
                 text-shadow: none !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                box-sizing: border-box;
             }
 
-            #print-area .print-box {
-                border: 1px solid #cbd5e1 !important;
-                background: #ffffff !important;
+            /* ---------- Portada / título ---------- */
+            #print-area .pa-hero {
+                background: #0a1024 !important;
+                border-radius: 8px;
+                padding: 16px 20px 15px 20px;
+                margin-bottom: 12px;
+                border-bottom: 3px solid #0891b2;
+            }
+            #print-area .pa-hero .pa-kicker {
+                color: #22d3ee !important;
+                font-size: 8pt;
+                font-weight: 700;
+                letter-spacing: .06em;
+                text-transform: uppercase;
+                margin: 0 0 6px 0;
+            }
+            #print-area .pa-hero h1 {
+                color: #ffffff !important;
+                font-size: 19pt;
+                font-weight: 800;
+                line-height: 1.15;
+                margin: 0 0 6px 0;
+            }
+            #print-area .pa-hero .pa-sub {
+                color: #c7d2fe !important;
+                font-size: 9pt;
+                margin: 0;
             }
 
+            /* ---------- Títulos de sección ---------- */
+            #print-area h2.pa-h2 {
+                color: #0891b2 !important;
+                font-size: 13.5pt;
+                font-weight: 800;
+                margin: 16px 0 7px 0;
+                padding: 0;
+                break-after: avoid;
+                page-break-after: avoid;
+            }
+
+            /* ---------- Tablas ---------- */
             #print-area table {
                 width: 100% !important;
                 border-collapse: collapse !important;
             }
-
             #print-area td,
             #print-area th {
-                border: 1px solid #cbd5e1 !important;
-                padding: 6px 10px !important;
+                border: 1px solid #c7d2fe !important;
+                padding: 5px 9px !important;
+                font-size: 9pt;
+                text-align: left;
+                vertical-align: top;
+                color: #0f172a !important;
+            }
+            #print-area td.pa-lbl {
+                background: #eef2ff !important;
+                font-weight: 700;
+                width: 17%;
+            }
+            #print-area td.pa-val { width: 33%; }
+            #print-area table.pa-detalle th {
+                background: #6d28d9 !important;
+                color: #ffffff !important;
+                font-weight: 700;
+            }
+            #print-area table.pa-detalle tr { break-inside: avoid; page-break-inside: avoid; }
+            #print-area table.pa-detalle tr:nth-child(even) td { background: #f5f7ff !important; }
+            #print-area .pa-pill {
+                display: inline-block;
+                font-size: 8pt;
+                font-weight: 800;
+                padding: 1px 9px;
+                border-radius: 99px;
+                text-transform: uppercase;
+            }
+            #print-area .pa-pill.ok { background: #d1fae5 !important; color: #065f46 !important; }
+            #print-area .pa-pill.no { background: #fee2e2 !important; color: #991b1b !important; }
+
+            /* ---------- Resultado destacado ---------- */
+            #print-area .pa-banner {
+                display: flex !important;
+                align-items: stretch;
+                gap: 0;
+                border-radius: 10px;
+                overflow: hidden;
+                background: #0a1024 !important;
+                border: 2.5px solid #6d28d9;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            #print-area .pa-banner > div {
+                padding: 14px 16px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            #print-area .pa-b-pct { flex: 0 0 30%; border-right: 1px solid #312e81; }
+            #print-area .pa-b-dict { flex: 1 1 auto; border-right: 1px solid #312e81; }
+            #print-area .pa-b-kpi { flex: 0 0 24%; }
+            #print-area .pa-banner .pa-b-label {
+                color: #22d3ee !important;
+                font-size: 7.5pt;
+                font-weight: 700;
+                letter-spacing: .06em;
+                text-transform: uppercase;
+                margin: 0 0 3px 0;
+            }
+            #print-area .pa-banner .pa-b-big {
+                color: #ffffff !important;
+                font-size: 34pt;
+                font-weight: 800;
+                line-height: 1;
+                margin: 0;
+            }
+            #print-area .pa-banner .pa-b-dictamen {
+                display: inline-block;
+                align-self: center;
+                font-size: 17pt;
+                font-weight: 800;
+                padding: 5px 20px;
+                border-radius: 8px;
+                margin-top: 4px;
+                color: #ffffff !important;
+                background: #6d28d9 !important;
+            }
+            #print-area .pa-banner.ok .pa-b-dictamen { background: #059669 !important; }
+            #print-area .pa-banner.bad .pa-b-dictamen { background: #dc2626 !important; }
+            #print-area .pa-banner.warn .pa-b-dictamen { background: #d97706 !important; }
+            #print-area .pa-banner .pa-b-note {
+                color: #c7d2fe !important;
+                font-size: 8pt;
+                margin: 6px 0 0 0;
+            }
+            #print-area .pa-banner .pa-b-kpi p { margin: 0; color: #ffffff !important; }
+            #print-area .pa-banner .pa-b-kpi .n { font-size: 17pt; font-weight: 800; line-height: 1.1; }
+            #print-area .pa-banner .pa-b-kpi .t { color: #c7d2fe !important; font-size: 7.5pt; margin-bottom: 5px; }
+
+            /* ---------- Gráficas ---------- */
+            #print-area .pa-charts {
+                display: flex !important;
+                gap: 10px;
+                margin-top: 10px;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            #print-area .pa-chart-box {
+                border: 1px solid #c7d2fe;
+                border-radius: 8px;
+                background: #eef2ff !important;
+                padding: 10px 12px;
+            }
+            #print-area .pa-chart-box h3 {
+                color: #0a1024 !important;
+                font-size: 9.5pt;
+                font-weight: 800;
+                margin: 0 0 6px 0;
+            }
+            #print-area .pa-chart-donut { flex: 0 0 38%; text-align: center; }
+            #print-area .pa-chart-bars { flex: 1 1 auto; }
+            #print-area .pa-donut-legend { font-size: 8pt; display: flex; justify-content: center; gap: 12px; margin-top: 4px; }
+            #print-area .pa-donut-legend i {
+                display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: -1px;
+            }
+            #print-area .pa-bar-row { margin-bottom: 8px; }
+            #print-area .pa-bar-head { display: flex; justify-content: space-between; font-size: 8.5pt; font-weight: 700; margin-bottom: 2px; }
+            #print-area .pa-bar-track { position: relative; height: 11px; background: #ffffff !important; border: 1px solid #c7d2fe; border-radius: 99px; overflow: visible; }
+            #print-area .pa-bar-fill { height: 100%; border-radius: 99px; }
+            #print-area .pa-bar-min { position: absolute; top: -4px; bottom: -4px; width: 0; border-left: 2px dashed #0a1024; left: 90%; }
+            #print-area .pa-bar-minlbl { font-size: 7pt; color: #475569 !important; text-align: right; margin-top: 1px; }
+
+            /* ---------- Comentario y recomendaciones ---------- */
+            #print-area .pa-comment {
+                border-left: 5px solid #6d28d9;
+                background: #eef2ff !important;
+                border-radius: 0 8px 8px 0;
+                padding: 10px 14px;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            #print-area .pa-comment.ok { border-left-color: #059669; }
+            #print-area .pa-comment.bad { border-left-color: #dc2626; }
+            #print-area .pa-comment.warn { border-left-color: #d97706; }
+            #print-area .pa-comment p { margin: 0 0 4px 0; font-size: 9.5pt; }
+            #print-area .pa-comment p.pa-c-title { font-weight: 800; font-size: 10.5pt; }
+            #print-area .pa-recos {
+                margin: 0; padding: 0 0 0 0; list-style: none;
+            }
+            #print-area .pa-recos li {
+                font-size: 9.5pt;
+                padding: 5px 10px 5px 12px;
+                margin-bottom: 4px;
+                border: 1px solid #c7d2fe;
+                border-left: 4px solid #0891b2;
+                border-radius: 4px;
+                break-inside: avoid;
+                page-break-inside: avoid;
             }
 
+            /* ---------- Evidencias fotográficas ---------- */
             #print-area .print-img-grid {
                 display: grid !important;
                 grid-template-columns: repeat(4, 1fr) !important;
                 gap: 8px !important;
             }
-
             #print-area .print-img-card {
-                border: 1px solid #cbd5e1 !important;
+                border: 1px solid #c7d2fe !important;
+                border-top: 3px solid #6d28d9 !important;
                 border-radius: 6px !important;
+                background: #f5f7ff !important;
                 padding: 4px !important;
                 text-align: center !important;
                 break-inside: avoid !important;
                 page-break-inside: avoid !important;
             }
-
             #print-area .print-img-card img {
                 width: 100% !important;
                 height: 70px !important;
@@ -150,11 +376,11 @@
                 display: block !important;
                 margin: 0 auto 4px auto !important;
             }
-
             #print-area .print-img-card span {
                 font-size: 8px !important;
                 line-height: 1.2 !important;
                 display: block !important;
+                color: #0f172a !important;
             }
         }
     </style>
@@ -203,7 +429,7 @@
             <h2 class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight mt-1">Plataformas Virtuales
                 Institucionales - SENA</h2>
             <p class="text-xs text-slate-400 mt-0.5">sofiaPlus &bull; BlogSENA &bull; SoySENA &bull; 9 evidencias
-                requeridas &bull; Aprobaciòn minima: 90% de archivos cargados</p>
+                requeridas &bull; Aprobación mínima: 90% de archivos cargados</p>
         </div>
 
         <!-- MenÃº de PestaÃ±as -->
@@ -240,9 +466,9 @@
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
                 <i class="fas fa-chart-pie text-xs"></i> Dashboard
             </button>
-            <button onclick="window.location.href='aduana.html'" id="tab-enviar-reporte"
+            <button onclick="switchTab('enviar')" id="tab-enviar"
                 class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap shadow-md">
-                <i class="fas fa-paper-plane text-xs"></i> Enviar Reporte
+                <i class="fas fa-paper-plane text-xs"></i> Enviar reporte
             </button>
         </nav>
 
@@ -1131,6 +1357,14 @@
             </div>
         </section>
 
+        <!-- ========================================== -->
+        <!-- PESTAÑA: ENVIAR REPORTE (aduana.html)      -->
+        <!-- ========================================== -->
+        <section id="pane-enviar" class="tab-pane hidden no-print">
+            <iframe id="iframe-aduana" src="aduana.html" title="Aduana de Evidencias"
+                style="width:100%; height:900px; border:0; background:transparent; display:block;"></iframe>
+        </section>
+
     </main>
 
     <!-- FOOTER -->
@@ -1143,81 +1377,94 @@
     <!-- ÃREA DE IMPRESIÃ“N                          -->
     <!-- ========================================== -->
     <div id="print-area">
-        <div style="text-align:center; margin-bottom:18px;">
-            <h1 style="font-size:20px; font-weight:800; margin:0;">Registro de Evidencias - Plataformas Virtuales del
-                SENA</h1>
-            <p style="font-size:11px; color:#475569; margin-top:4px;">sofiaPlus &bull; BlogSENA &bull; SoySENA</p>
+        <div class="pa-hero">
+            <p class="pa-kicker">Registro de evidencias · Portafolio del aprendiz</p>
+            <h1>Registro de Evidencias - Plataformas Virtuales del SENA</h1>
+            <p class="pa-sub">sofiaPlus &bull; BlogSENA &bull; SoySENA</p>
         </div>
 
-        <div class="print-box" style="border-radius:10px; padding:14px; margin-bottom:16px;">
-            <h2 style="font-size:13px; font-weight:700; margin:0 0 8px 0;">Datos del Aprendiz</h2>
-            <table>
-                <tr>
-                    <td style="font-weight:600; width:35%;">Nombre completo</td>
-                    <td id="print-nombre">-</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:600;">Documento de identidad</td>
-                    <td id="print-doc">-</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:600;">Numero de ficha</td>
-                    <td id="print-ficha">-</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:600;">Programa de formación</td>
-                    <td id="print-programa">-</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:600;">Centro de formación</td>
-                    <td id="print-centro">-</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:600;">Regional</td>
-                    <td id="print-regional">-</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:600;">Fecha</td>
-                    <td id="print-fecha">-</td>
-                </tr>
-            </table>
+        <h2 class="pa-h2" style="margin-top:4px;">Datos del aprendiz</h2>
+        <table>
+            <tr>
+                <td class="pa-lbl">Nombre completo</td>
+                <td class="pa-val" id="print-nombre">-</td>
+                <td class="pa-lbl">Documento de identidad</td>
+                <td class="pa-val" id="print-doc">-</td>
+            </tr>
+            <tr>
+                <td class="pa-lbl">Número de ficha</td>
+                <td class="pa-val" id="print-ficha">-</td>
+                <td class="pa-lbl">Programa de formación</td>
+                <td class="pa-val" id="print-programa">-</td>
+            </tr>
+            <tr>
+                <td class="pa-lbl">Centro de formación</td>
+                <td class="pa-val" id="print-centro">-</td>
+                <td class="pa-lbl">Regional</td>
+                <td class="pa-val" id="print-regional">-</td>
+            </tr>
+            <tr>
+                <td class="pa-lbl">Fecha</td>
+                <td class="pa-val" id="print-fecha" colspan="3">-</td>
+            </tr>
+        </table>
+
+        <h2 class="pa-h2">1. Resultado consolidado</h2>
+        <div id="print-banner" class="pa-banner warn">
+            <div class="pa-b-pct">
+                <p class="pa-b-label">Porcentaje de avance</p>
+                <p class="pa-b-big" id="print-porcentaje">0%</p>
+            </div>
+            <div class="pa-b-dict">
+                <p class="pa-b-label">Resultado (mínimo 90%)</p>
+                <span class="pa-b-dictamen" id="print-dictamen">Pendiente</span>
+                <p class="pa-b-note" id="print-banner-note"></p>
+            </div>
+            <div class="pa-b-kpi">
+                <p class="t">Archivos subidos</p>
+                <p class="n" id="print-subidos">0 / 9</p>
+                <p class="t" style="margin-top:7px;">Pendientes</p>
+                <p class="n" id="print-pendientes">9</p>
+            </div>
         </div>
 
-        <div class="print-box" style="border-radius:10px; padding:14px; margin-bottom:16px;">
-            <h2 style="font-size:13px; font-weight:700; margin:0 0 8px 0;">Resultado Consolidado</h2>
-            <table>
-                <tr>
-                    <td style="font-weight:600; width:35%;">Archivos subidos</td>
-                    <td id="print-subidos">0 / 9</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:600;">Porcentaje de avance</td>
-                    <td id="print-porcentaje">0%</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:600;">Resultado (mínimo 90%)</td>
-                    <td id="print-dictamen">Pendiente</td>
-                </tr>
-            </table>
+        <div class="pa-charts">
+            <div class="pa-chart-box pa-chart-donut">
+                <h3>Avance general de carga</h3>
+                <div id="print-donut"></div>
+            </div>
+            <div class="pa-chart-box pa-chart-bars">
+                <h3>Avance por plataforma</h3>
+                <div id="print-barras"></div>
+            </div>
         </div>
 
-        <div class="print-box" style="border-radius:10px; padding:14px; margin-bottom:16px;">
-            <h2 style="font-size:13px; font-weight:700; margin:0 0 8px 0;">Detalle de Evidencias</h2>
-            <table id="print-checklist-table">
-                <tr>
-                    <th>#</th>
-                    <th>Plataforma</th>
-                    <th>Evidencia</th>
-                    <th>Estado</th>
-                </tr>
-            </table>
+        <h2 class="pa-h2">2. Comentario de resultados</h2>
+        <div id="print-comentario" class="pa-comment"></div>
+
+        <h2 class="pa-h2">3. Recomendaciones</h2>
+        <ul id="print-recomendaciones" class="pa-recos"></ul>
+
+        <h2 class="pa-h2">4. Detalle de evidencias</h2>
+        <table id="print-checklist-table" class="pa-detalle">
+            <tr>
+                <th>#</th>
+                <th>Plataforma</th>
+                <th>Evidencia</th>
+                <th>Estado</th>
+            </tr>
+        </table>
+
+        <div id="print-ponderacion" style="margin-top:8px; padding:8px 14px; background:#0a1024 !important; border-radius:6px; display:flex; align-items:center; justify-content:space-between; break-inside:avoid; page-break-inside:avoid;">
+            <div>
+                <p style="margin:0; font-size:7.5pt; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#c7d2fe !important;">Ponderaci&oacute;n de puntos</p>
+                <p id="print-ponderacion-detalle" style="margin:2px 0 0 0; font-size:8.5pt; color:#ffffff !important;">0 de 9 evidencias &bull; cada evidencia equivale a 11,11 pts</p>
+            </div>
+            <p id="print-ponderacion-pts" style="margin:0; font-size:20pt; font-weight:800; line-height:1.1; color:#fbbf24 !important;">0/100 <span style="font-size:11pt; font-weight:700; color:#ffffff !important;">pts</span></p>
         </div>
 
-        <div class="print-box" style="border-radius:10px; padding:14px;">
-            <h2 style="font-size:13px; font-weight:700; margin:0 0 8px 0;">Evidencias Fotogr&aacute;ficas - sofiaPlus,
-                BlogSENA y SoySENA</h2>
-            <div id="print-imagenes" class="print-img-grid"></div>
-        </div>
+        <h2 class="pa-h2">5. Evidencias fotogr&aacute;ficas - sofiaPlus, BlogSENA y SoySENA</h2>
+        <div id="print-imagenes" class="print-img-grid"></div>
     </div>
 
     <script>
@@ -1282,19 +1529,36 @@
             const file = inputEl.files && inputEl.files[0];
             if (!file) return;
 
+            // Solo se cuentan imágenes reales: así el avance (%) siempre coincide con
+            // las evidencias fotográficas que aparecen en el reporte impreso.
+            if (!file.type || !file.type.startsWith('image/')) {
+                alert('El archivo seleccionado no es una imagen. Sube tu pantallazo en formato PNG o JPG.');
+                inputEl.value = '';
+                return;
+            }
+
             const reader = new FileReader();
             reader.onload = e => {
-                uploadState[id] = { name: file.name, dataUrl: e.target.result };
+                const dataUrl = e.target.result;
+                const probe = new Image();
+                probe.onerror = () => {
+                    alert('No fue posible leer la imagen seleccionada. Intenta con otro archivo PNG o JPG.');
+                    inputEl.value = '';
+                };
+                probe.onload = () => {
+                    uploadState[id] = { name: file.name, dataUrl };
 
-                const img = document.getElementById('preview-img-' + id);
-                img.src = e.target.result;
-                document.getElementById('preview-' + id).classList.remove('hidden');
-                document.getElementById('drop-' + id).classList.add('hidden');
+                    const img = document.getElementById('preview-img-' + id);
+                    img.src = dataUrl;
+                    document.getElementById('preview-' + id).classList.remove('hidden');
+                    document.getElementById('drop-' + id).classList.add('hidden');
 
-                const dropBox = document.getElementById('drop-' + id);
-                dropBox.classList.add('has-file');
+                    const dropBox = document.getElementById('drop-' + id);
+                    dropBox.classList.add('has-file');
 
-                updateDashboard();
+                    updateDashboard();
+                };
+                probe.src = dataUrl;
             };
             reader.readAsDataURL(file);
         }
@@ -1486,6 +1750,99 @@
         }
 
         // ============================================
+        // IMPRESION: gráficas, comentario y recomendaciones
+        // ============================================
+        function renderPrintExtras(subidos, porcentaje, aprobado) {
+            const pendientes = TOTAL_ITEMS - subidos;
+            const estado = subidos === 0 ? 'warn' : (aprobado ? 'ok' : 'bad');
+
+            const banner = document.getElementById('print-banner');
+            banner.className = 'pa-banner ' + estado;
+            document.getElementById('print-pendientes').innerText = pendientes;
+            document.getElementById('print-banner-note').innerText = subidos === 0
+                ? 'Sin evidencias cargadas'
+                : (aprobado ? 'Superó el mínimo aprobatorio del 90%' : 'Aún no alcanza el mínimo aprobatorio del 90%');
+
+            // Gráfica de dona (SVG)
+            const R = 52, C = 2 * Math.PI * R;
+            const dash = (porcentaje / 100) * C;
+            const colorMain = estado === 'ok' ? '#059669' : '#6d28d9';
+            document.getElementById('print-donut').innerHTML = `
+                <svg viewBox="0 0 140 140" width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="70" cy="70" r="${R}" fill="none" stroke="#c7d2fe" stroke-width="18"/>
+                    <circle cx="70" cy="70" r="${R}" fill="none" stroke="${colorMain}" stroke-width="18"
+                        stroke-dasharray="${dash} ${C}" transform="rotate(-90 70 70)"/>
+                    <text x="70" y="72" text-anchor="middle" font-size="28" font-weight="800" fill="#0a1024" font-family="Arial, sans-serif">${porcentaje}%</text>
+                    <text x="70" y="90" text-anchor="middle" font-size="9" fill="#475569" font-family="Arial, sans-serif">${subidos} de ${TOTAL_ITEMS}</text>
+                </svg>
+                <div class="pa-donut-legend">
+                    <span><i style="background:${colorMain}"></i>Subidos (${subidos})</span>
+                    <span><i style="background:#c7d2fe"></i>Pendientes (${pendientes})</span>
+                </div>`;
+
+            // Barras por plataforma
+            const plataformas = [...new Set(ITEMS.map(it => it.plataforma))];
+            const stats = plataformas.map(p => {
+                const items = ITEMS.filter(it => it.plataforma === p);
+                const ok = items.filter(it => uploadState[it.id]);
+                return { nombre: p, total: items.length, ok: ok.length, faltan: items.filter(it => !uploadState[it.id]) };
+            });
+            const barColor = (ok, total) => ok === total ? '#059669' : (ok > 0 ? '#d97706' : '#dc2626');
+            const barRow = (nombre, ok, total, pct, color, conMin) => `
+                <div class="pa-bar-row">
+                    <div class="pa-bar-head"><span>${nombre}</span><span>${ok}/${total} · ${pct}%</span></div>
+                    <div class="pa-bar-track">
+                        <div class="pa-bar-fill" style="width:${pct}%; background:${color};"></div>
+                        ${conMin ? '<div class="pa-bar-min"></div>' : ''}
+                    </div>
+                    ${conMin ? '<div class="pa-bar-minlbl">Mínimo aprobatorio: 90%</div>' : ''}
+                </div>`;
+            document.getElementById('print-barras').innerHTML =
+                barRow('Avance total', subidos, TOTAL_ITEMS, porcentaje, aprobado ? '#059669' : '#6d28d9', true) +
+                stats.map(s => barRow(s.nombre, s.ok, s.total, Math.round((s.ok / s.total) * 100), barColor(s.ok, s.total), false)).join('');
+
+            // Comentario de resultados
+            const completas = stats.filter(s => s.ok === s.total).map(s => s.nombre);
+            const incompletas = stats.filter(s => s.ok > 0 && s.ok < s.total).map(s => `${s.nombre} (${s.ok}/${s.total})`);
+            const sinCarga = stats.filter(s => s.ok === 0).map(s => s.nombre);
+            const resumenPlat = [
+                completas.length ? `Plataformas completas: ${completas.join(', ')}.` : '',
+                incompletas.length ? `Plataformas incompletas: ${incompletas.join(', ')}.` : '',
+                sinCarga.length ? `Plataformas sin evidencias: ${sinCarga.join(', ')}.` : ''
+            ].filter(Boolean).join(' ');
+
+            let titulo, texto;
+            if (subidos === 0) {
+                titulo = 'Sin evidencias cargadas';
+                texto = `No se registra ninguna evidencia cargada (0 / ${TOTAL_ITEMS}). La actividad se aprueba con un mínimo del ${MIN_APROBACION}% de archivos cargados.`;
+            } else if (aprobado) {
+                titulo = `Resultado satisfactorio (${subidos} / ${TOTAL_ITEMS} - ${porcentaje}%)`;
+                texto = `Superaste el mínimo aprobatorio del ${MIN_APROBACION}% de evidencias cargadas. ${resumenPlat}`;
+            } else {
+                titulo = `Resultado diagnóstico (${subidos} / ${TOTAL_ITEMS} - ${porcentaje}%)`;
+                texto = `Aún no alcanzas el mínimo aprobatorio del ${MIN_APROBACION}% de evidencias cargadas. ${resumenPlat}`;
+            }
+            const cm = document.getElementById('print-comentario');
+            cm.className = 'pa-comment ' + estado;
+            cm.innerHTML = `<p class="pa-c-title">${titulo}</p><p>${texto}</p>`;
+
+            // Recomendaciones
+            const recos = [];
+            const necesarias = Math.max(0, Math.ceil((MIN_APROBACION * TOTAL_ITEMS) / 100) - subidos);
+            if (!aprobado) {
+                recos.push(`<b>Meta inmediata:</b> carga al menos ${necesarias} evidencia${necesarias === 1 ? '' : 's'} más para alcanzar el mínimo del ${MIN_APROBACION}%.`);
+            }
+            stats.filter(s => s.faltan.length).forEach(s => {
+                recos.push(`<b>${s.nombre}:</b> completa ${s.faltan.length === 1 ? 'la evidencia pendiente' : 'las evidencias pendientes'} → ${s.faltan.map(f => f.label).join('; ')}.`);
+            });
+            if (aprobado) {
+                recos.push('<b>Portafolio:</b> conserva este registro impreso o en PDF como soporte de tu portafolio de evidencias.');
+            }
+            recos.push('<b>Calidad:</b> verifica que cada pantallazo sea legible y corresponda exactamente a la evidencia solicitada.');
+            document.getElementById('print-recomendaciones').innerHTML = recos.map(r => `<li>${r}</li>`).join('');
+        }
+
+        // ============================================
         // IMPRESION: Registro + Resultado
         // ============================================
         function printEvidence() {
@@ -1520,14 +1877,20 @@
 
             document.getElementById('print-subidos').innerText = `${subidos} / ${TOTAL_ITEMS}`;
             document.getElementById('print-porcentaje').innerText = `${porcentaje}%`;
-            document.getElementById('print-dictamen').innerText = aprobado ? 'APROBADO' : 'POR MEJORAR';
+            document.getElementById('print-dictamen').innerText = subidos === 0 ? 'PENDIENTE' : (aprobado ? 'APROBADO' : 'POR MEJORAR');
+            renderPrintExtras(subidos, porcentaje, aprobado);
 
             const table = document.getElementById('print-checklist-table');
             table.innerHTML = `<tr><th>#</th><th>Plataforma</th><th>Evidencia</th><th>Estado</th></tr>` +
                 ITEMS.map((it, idx) => {
                     const done = !!uploadState[it.id];
-                    return `<tr><td>${idx + 1}</td><td>${it.plataforma}</td><td>${it.label}</td><td>${done ? 'Subido' : 'Pendiente'}</td></tr>`;
+                    return `<tr><td>${idx + 1}</td><td>${it.plataforma}</td><td>${it.label}</td><td><span class="pa-pill ${done ? 'ok' : 'no'}">${done ? 'Subido' : 'Pendiente'}</span></td></tr>`;
                 }).join('');
+
+            // Ponderación de puntos según imágenes subidas (9 = 100 pts, 7 = 78 pts, 1 = 11 pts)
+            const puntosPond = Math.round((subidos / TOTAL_ITEMS) * 100);
+            document.getElementById('print-ponderacion-pts').innerHTML = `${puntosPond}/100 <span style="font-size:11pt; font-weight:700; color:#ffffff !important;">pts</span>`;
+            document.getElementById('print-ponderacion-detalle').innerText = `${subidos} de ${TOTAL_ITEMS} evidencias • cada evidencia equivale a ${(100 / TOTAL_ITEMS).toFixed(2).replace('.', ',')} pts`;
 
             // Imágenes cargadas en sofiaPlus, BlogSENA y SoySENA (tamaño pequeño)
             const imgContainer = document.getElementById('print-imagenes');
@@ -1566,6 +1929,20 @@
         window.addEventListener('DOMContentLoaded', () => {
             initChart();
             updateDashboard();
+        });
+    </script>
+
+    <!-- Puente con aduana.html (pestaña Enviar reporte). No modifica el código anterior. -->
+    <script>
+        window.addEventListener('message', function (e) {
+            var f = document.getElementById('iframe-aduana');
+            if (!f || e.source !== f.contentWindow || !e.data) return;
+            if (e.data.type === 'aduana-resize' && e.data.height) {
+                f.style.height = Math.max(e.data.height, 500) + 'px';
+            } else if (e.data.type === 'aduana-repetir-evaluacion') {
+                // Esta aplicación no tiene evaluación: lleva al Dashboard para revisar qué evidencias faltan
+                switchTab('dashboard');
+            }
         });
     </script>
 </body>
