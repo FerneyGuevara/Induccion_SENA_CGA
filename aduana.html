@@ -163,16 +163,20 @@
           // Concepto evaluativo
           let concepto = "SIN CONCEPTO";
           const textoUpper = textoLimpio.toUpperCase();
-          if (textoUpper.includes("APROBADO")) concepto = "APROBADO";
+          if (textoUpper.includes("NO APROBADO")) concepto = "NO APROBADO";
           else if (textoUpper.includes("POR MEJORAR")) concepto = "POR MEJORAR";
-          else if (textoUpper.includes("NO APROBADO")) concepto = "NO APROBADO";
+          else if (textoUpper.includes("APROBADO")) concepto = "APROBADO";
           else if (textoUpper.includes("PENDIENTE")) concepto = "PENDIENTE";
 
           // Calificación global
           let puntaje = 0;
-          const matchPts = textoLimpio.match(/\((\d{1,3})\s*pts\s*\/\s*100\)/i) || textoLimpio.match(/\b(\d{1,3})\s*\/\s*100\b/);
+          // Acepta enteros y decimales con punto o coma (97, 97.5, 97,5), incluso si el PDF separa los dígitos con espacios ("97 . 5")
+          const NUM = "(\\d{1,3}(?:\\s*[.,]\\s*\\d{1,2})?)";
+          const matchPts = textoLimpio.match(new RegExp("\\(\\s*" + NUM + "\\s*pts\\s*\\/\\s*100\\s*\\)", "i"))
+            || textoLimpio.match(new RegExp("(?<![\\d.,])" + NUM + "\\s*\\/\\s*100\\b"));
           if (matchPts) {
-            puntaje = parseInt(matchPts[1], 10);
+            puntaje = parseFloat(matchPts[1].replace(/\s+/g, "").replace(",", "."));
+            if (isNaN(puntaje)) puntaje = 0;
           }
 
           datosPDFActual = {
